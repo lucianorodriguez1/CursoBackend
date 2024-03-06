@@ -1,0 +1,45 @@
+[
+	{
+		"title": "producto prueba 1",
+		"description": "prueba 1",
+		"code": 26,
+		"price": 323,
+		"status": true,
+		"stock": 3535,
+		"category": "prueba",
+		"thumbnail": [],
+		"id": 1
+	},
+	{
+		"title": "producto prueba 2",
+		"description": "prueba 2",
+		"code": 2612,
+		"status": true,
+		"stock": 3535,
+		"category": "prueba",
+		"thumbnail": [],
+		"id": 3
+	},
+	{
+		"title": "producto prueba 1",
+		"description": "prueba 4",
+		"code": 120,
+		"price": 323,
+		"status": true,
+		"stock": 3535,
+		"category": "prueba",
+		"thumbnail": [],
+		"id": 4
+	},
+	{
+		"title": "producto prueba 1",
+		"description": "prueba 40",
+		"code": 620,
+		"price": 323,
+		"status": true,
+		"stock": 3535,
+		"category": "prueba",
+		"thumbnail": [],
+		"id": 5
+	}
+]
