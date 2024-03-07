@@ -1,10 +1,8 @@
 import { Router } from "express";
 import CartManager from "../CartManager.js";
-import ProductManager from "../ProductManager.js";
 
 const cartRouter = Router();
 const cartManager = new CartManager("./carts.json");
-const productManager = new ProductManager("./products.json");
 
 cartRouter.get("/", async (req, res) => {
   try {
@@ -12,48 +10,30 @@ cartRouter.get("/", async (req, res) => {
 
     res.send({ carts });
   } catch (error) {
-    console.log(EvalError);
+    console.log(error);
   }
 });
 
 cartRouter.post("/", async (req, res) => {
   try {
-    const { products } = req.body;
+    const response = await cartManager.CreateCart();
 
-    if (Array.isArray(products)) {
-      const cart = await cartManager.addCart({ products });
-    } else {
-      console.log("Productos no es array");
-      res
-        .status(400)
-        .send({ status: 400, message: "Productos no es un array" });
-    }
-    res.send({ status: 200, message: "Carrito agregado desde routes" });
+    res.status(201).json({ message: "Created cart" });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .send({ status: 500, message: "Error interno del servidor" });
+    res.status(500).json({ message: "error en el servidor" });
   }
 });
 
 cartRouter.get("/:cid", async (req, res) => {
   try {
-    const idCart = req.params.cid;
-
-    const carts = await cartManager.getCarts();
-
-    const cart = carts.find((cart) => cart.id == idCart);
-
-    if (!cart) {
-      console.log("Cart no encontrado");
-      res.send({ status: 404, message: "Cart no encontrado" });
-    } else {
-      const products = cart.products;
-      res.send({ status: 200, message: products });
-    }
+    const id = req.params.cid;
+    const response = await cartManager.getCartById(id);
+    if (!response) return res.status(404).json({ message: "Cart not found" });
+    res.json(response);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
   }
 });
 
@@ -62,15 +42,12 @@ cartRouter.post("/:cid/product/:pid", async (req, res) => {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
 
-    const { quantity } = req.body;
-
-    const product = await productManager.getProductById(idProduct);
-
-    if(!product)res.send({status:404, message:"Product not found"});
-    console.log(quantity);
-
-    res.send({status:200,message:"Producto agregado servidor"})
-    await cartManager.addProductsToCart(idCart,{idProduct,quantity});
+    const response = await cartManager.addProductsToCart(idCart, idProduct);
+    if (!response) {
+      res.status(404).json({ message: "Product Not Found" });
+    } else {
+      res.json({ message: "Producto agregado correctamente" });
+    }
   } catch (error) {
     console.log(error);
   }

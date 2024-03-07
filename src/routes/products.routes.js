@@ -121,9 +121,7 @@ productRouter.put("/:pid", async (req, res) => {
     if (response == -1) {
       res.status(404).json({ message: "Product not found" });
     } else {
-      res
-        .status(200)
-        .json({ message: "Successfully updated product"});
+      res.status(200).json({ message: "Successfully updated product" });
     }
   } catch (error) {
     console.log(error);
@@ -137,12 +135,10 @@ productRouter.delete("/:pid", async (req, res) => {
     if (response == -1) {
       res.status(404).json({ message: "Product not found" });
     } else {
-      res
-        .status(200)
-        .json({ message: "Successfully deleted product"});
+      res.status(200).json({ message: "Successfully deleted product" });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 });
 

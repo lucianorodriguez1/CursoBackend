@@ -1,4 +1,7 @@
 import { promises as fs } from "fs";
+import ProductManager from "./ProductManager.js";
+
+const productManager = new ProductManager("./products.json");
 
 export default class CartManager {
   constructor(path) {
@@ -20,22 +23,24 @@ export default class CartManager {
         return Array.isArray(carts) ? carts : [];
       } else {
         console.log(`El archivo ${this.path} no existe.`);
+        return [];
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  async addCart(cart) {
+  async CreateCart() {
+    const cart = {};
     try {
       const carts = await this.getCarts();
       console.log("carts: ", carts);
-      if (!carts) {
+      if (carts.length == 0) {
         cart.id = 1;
       } else {
         cart.id = carts[carts.length - 1].id + 1;
       }
-
+      cart.products = [];
       carts.push(cart);
 
       console.log("Cart agregado desde manager");
@@ -46,24 +51,37 @@ export default class CartManager {
     }
   }
 
-  async addProductsToCart(idCart, { idProduct, quantity }) {
+  async getCartById(id) {
+    const carts = await this.getCarts();
+    const cart = carts.find((cart) => cart.id == id);
+    if (!cart) {
+      return undefined;
+    } else {
+      return cart;
+    }
+  }
+  async addProductsToCart(idCart, idProduct) {
     try {
       const carts = await this.getCarts();
       const cart = carts.find((cart) => cart.id == idCart);
+      if(!cart) return false;
       const productIndex = cart.products.findIndex(
-        (p) => p.idProduct == idProduct
+        (product) => product.id == idProduct
       );
-
+      const product = await productManager.getProductById(idProduct);
+      if(!product) return false;
       if (productIndex !== -1) {
         // Si el producto ya existe, actualizar la cantidad
-        cart.products[productIndex].quantity += quantity;
+        cart.products[productIndex].quantity += 1;
       } else {
         // Si el producto no existe, agregarlo al carrito
-        cart.products.push({ idProduct, quantity });
+        cart.products.push({
+          id: idProduct,
+          quantity: 1,
+        });
       }
-
-      console.log("Producto agregado al carrito");
       await fs.writeFile(this.path, JSON.stringify(carts, null, "\t"));
+      return true;
     } catch (error) {
       console.log(error);
     }
