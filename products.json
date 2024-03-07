@@ -11,14 +11,15 @@
 		"id": 1
 	},
 	{
-		"title": "producto prueba 2",
-		"description": "prueba 2",
-		"code": 2612,
+		"title": "prueba 1200304934",
+		"description": "pruebaaaaa",
+		"code": 3,
 		"status": true,
-		"stock": 3535,
-		"category": "prueba",
+		"stock": 2323,
+		"category": "sdassa",
 		"thumbnail": [],
-		"id": 3
+		"id": 3,
+		"price": 3232
 	},
 	{
 		"title": "producto prueba 1",
@@ -41,5 +42,49 @@
 		"category": "prueba",
 		"thumbnail": [],
 		"id": 5
+	},
+	{
+		"title": "prueba 10",
+		"description": "pruebaaaaa",
+		"code": 3231,
+		"price": 3232,
+		"status": true,
+		"stock": 2323,
+		"category": "",
+		"thumbnail": [],
+		"id": 6
+	},
+	{
+		"title": "prueba 11",
+		"description": "pruebaaaaa",
+		"code": 323,
+		"price": 3232,
+		"status": true,
+		"stock": 2323,
+		"category": "",
+		"thumbnail": [],
+		"id": 7
+	},
+	{
+		"title": "prueba 12",
+		"description": "pruebaaaaa",
+		"code": 32324,
+		"price": 3232,
+		"status": true,
+		"stock": 2323,
+		"category": "sdassa",
+		"thumbnail": [],
+		"id": 8
+	},
+	{
+		"title": "prueba 12",
+		"description": "pruebaaaaa",
+		"code": 323242,
+		"price": 3232,
+		"status": true,
+		"stock": 2323,
+		"category": "sdassa",
+		"thumbnail": [],
+		"id": 9
 	}
 ]

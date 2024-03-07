@@ -6,29 +6,46 @@ export default class ProductManager {
     this.path = path;
   }
 
-  verifyFields({ title, description, price, thumbnail, code, stock }) {
-    if (!title || !description || !price || !thumbnail || !code || !stock) {
+  verifyFields({
+    title,
+    description,
+    price,
+    category,
+    thumbnail,
+    code,
+    stock,
+  }) {
+    if (
+      !title ||
+      !description ||
+      !price ||
+      !category ||
+      !thumbnail ||
+      !code ||
+      !stock
+    ) {
       return false;
     } else {
       return true;
     }
   }
 
+  // async GetId() {
+  //   const users = await this.getProducts();
+  //   let id;
+
+  //   if (users.length > 0) {
+  //     return users[users.length - 1].id + 1;
+  //   } else {
+  //     return 1;
+  //   }
+  // }
+
   async getProducts() {
     try {
-      const fileExists = await fs
-        .access(this.path)
-        .then(() => true)
-        .catch(() => false);
-
-      if (fileExists) {
-        const productsFile = await fs.readFile(this.path, "utf-8");
-        const products = JSON.parse(productsFile);
-        return products;
-      } else {
-        console.log("File does not exist.");
-        return [];
-      }
+      const productsFile = await fs.readFile(this.path, "utf-8");
+      const products = JSON.parse(productsFile);
+      return products;
     } catch (error) {
       console.log(error);
       return [];
@@ -36,27 +53,15 @@ export default class ProductManager {
   }
 
   async addProduct(product) {
-    const existingCode = (await this.getProducts()).some(
-      (p) => p.code == product.code
-    );
-    const completedFields = this.verifyFields(product);
+    try {
+      const products = await this.getProducts();
+      product.id = products[products.length - 1].id + 1;
 
-    if (existingCode) {
-      console.log(`Product with code ${product.code} already exists.`);
-    } else if (!completedFields) {
-      console.log("Product information is incomplete.");
-    } else {
-      try {
-        const products = await this.getProducts();
-        product.id = products[products.length - 1].id + 1;
+      products.push(product);
 
-        products.push(product);
-        console.log(`Product with code ${product.code} successfully added.`);
-
-        await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
-      } catch (error) {
-        console.log(error);
-      }
+      await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -64,7 +69,7 @@ export default class ProductManager {
     const products = await this.getProducts();
     const product = products.find((product) => product.id == id);
     if (!product) {
-      console.log(`Product with id ${id} does not exist`);
+      return undefined;
     } else {
       return product;
     }
@@ -73,11 +78,14 @@ export default class ProductManager {
   async updateProduct(id, updateProduct) {
     try {
       const products = await this.getProducts();
-      const product = products.find((product) => product.id == id);
       const index = products.findIndex((product) => product.id == id);
-      products[index] = { ...product, ...updateProduct };
+      if (index == -1) return -1;
+      for (const key in updateProduct) {
+        if (updateProduct[key] !== undefined) {
+          products[index][key] = updateProduct[key];
+        }
+      }
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
-      console.log("Product updated successfully.");
     } catch (error) {
       console.log(error);
     }
@@ -87,12 +95,11 @@ export default class ProductManager {
     try {
       const products = await this.getProducts();
       const index = products.findIndex((product) => product.id == id);
+      if (index == -1) return -1;
       products.splice(index, 1);
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
-      console.log("Producto eliminado exitosamente.");
     } catch (error) {
       console.log(error);
     }
   }
 }
-
