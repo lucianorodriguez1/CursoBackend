@@ -1,4 +1,5 @@
 import ProductManager from "../models/ProductManager.js";
+
 const productManager = new ProductManager("./products.json");
 
 export const getProducts = async (req, res) => {
@@ -115,7 +116,7 @@ export const updateProductById = async (req, res) => {
         code,
         price,
         status,
-        stock,
+        stock, 
         category,
         thumbnail,
       });
