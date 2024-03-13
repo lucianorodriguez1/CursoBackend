@@ -33,5 +33,18 @@
 				"quantity": 4
 			}
 		]
+	},
+	{
+		"id": 4,
+		"products": [
+			{
+				"id": "8",
+				"quantity": 4
+			}
+		]
+	},
+	{
+		"id": 5,
+		"products": []
 	}
 ]

@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import ProductManager from "./models/ProductManager.js";
+import ProductManager from "./ProductManager.js";
 
 const productManager = new ProductManager("./products.json");
 
@@ -30,7 +30,7 @@ export default class CartManager {
     }
   }
 
-  async CreateCart() {
+  async createCart() {
     const cart = {};
     try {
       const carts = await this.getCarts();
@@ -60,7 +60,7 @@ export default class CartManager {
       console.log("error getting cart: ", error);
     }
   }
-  async addProductsToCart(idCart, idProduct) {
+  async addProductToCart(idCart, idProduct) {
     try {
       const carts = await this.getCarts();
       const cart = carts.find((cart) => cart.id == idCart);
