@@ -44,47 +44,25 @@
 		"id": 5
 	},
 	{
-		"title": "prueba 10",
+		"title": "prueba 9",
 		"description": "pruebaaaaa",
-		"code": 3231,
+		"code": 30,
 		"price": 3232,
 		"status": true,
 		"stock": 2323,
-		"category": "",
+		"category": "sdassa",
 		"thumbnail": [],
 		"id": 6
 	},
 	{
-		"title": "prueba 11",
+		"title": "prueba 1012121",
 		"description": "pruebaaaaa",
-		"code": 323,
+		"code": 30565,
 		"price": 3232,
 		"status": true,
 		"stock": 2323,
-		"category": "",
+		"category": "sdassa",
 		"thumbnail": [],
 		"id": 7
-	},
-	{
-		"title": "prueba 12",
-		"description": "pruebaaaaa",
-		"code": 32324,
-		"price": 3232,
-		"status": true,
-		"stock": 2323,
-		"category": "sdassa",
-		"thumbnail": [],
-		"id": 8
-	},
-	{
-		"title": "prueba 9",
-		"description": "pruebaaaaa",
-		"code": 3,
-		"price": 3232,
-		"status": true,
-		"stock": 2323,
-		"category": "sdassa",
-		"thumbnail": [],
-		"id": 9
 	}
 ]

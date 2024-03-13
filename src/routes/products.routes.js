@@ -50,26 +50,25 @@ productRouter.post("/", async (req, res) => {
       category &&
       thumbnail
     ) {
-      const product = {
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnail,
-      };
       const existingCode = (await productManager.getProducts()).some(
-        (p) => p.code == product.code
+        (p) => p.code === code
       );
       if (existingCode) {
-        res.status(400).json({ message: "Campos incompletos o invalidos" });
+        res.status(400).json({ message: "El codigo de producto ya existe" });
       } else {
-        const response = await productManager.addProduct(product);
+        const response = await productManager.addProduct({
+          title,
+          description,
+          code,
+          price,
+          status,
+          stock,
+          category,
+          thumbnail,
+        });
         res
           .status(201)
-          .json({ message: "Producto agregado correctamente", response });
+          .json({ message: "Producto agregado correctamente: ", response });
       }
     } else {
       res.status(400).json({ message: "Campos incompletos o invalidos" });
@@ -106,22 +105,29 @@ productRouter.put("/:pid", async (req, res) => {
       category,
       thumbnail,
     } = req.body;
+    const existingCode = (await productManager.getProducts()).some(
+      (product) => product.code === code && product.id != id
+    );
 
-    const response = await productManager.updateProduct(id, {
-      title,
-      description,
-      code,
-      price,
-      status,
-      stock,
-      category,
-      thumbnail,
-    });
-
-    if (response == -1) {
-      res.status(404).json({ message: "Product not found" });
+    if (existingCode) {
+      res.status(400).json({ message: "El codigo de producto ya existe" });
     } else {
-      res.status(200).json({ message: "Successfully updated product" });
+      const response = await productManager.updateProduct(id, {
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        thumbnail,
+      });
+
+      if (response == -1) {
+        res.status(404).json({ message: "Product not found" });
+      } else {
+        res.status(200).json({ message: "Successfully updated product" });
+      }
     }
   } catch (error) {
     console.log(error);

@@ -47,7 +47,7 @@ export default class ProductManager {
       const products = JSON.parse(productsFile);
       return products;
     } catch (error) {
-      console.log(error);
+      console.log("error getting all products: ", error);
       return [];
     }
   }
@@ -56,22 +56,24 @@ export default class ProductManager {
     try {
       const products = await this.getProducts();
       product.id = products[products.length - 1].id + 1;
-
       products.push(product);
-
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
     } catch (error) {
-      console.log(error);
+      console.log("error adding product: ", error);
     }
   }
 
   async getProductById(id) {
-    const products = await this.getProducts();
-    const product = products.find((product) => product.id == id);
-    if (!product) {
-      return undefined;
-    } else {
-      return product;
+    try {
+      const products = await this.getProducts();
+      const product = products.find((product) => product.id == id);
+      if (!product) {
+        return undefined;
+      } else {
+        return product;
+      }
+    } catch (error) {
+      console.log("error getting product: ", error);
     }
   }
 
@@ -87,7 +89,7 @@ export default class ProductManager {
       }
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
     } catch (error) {
-      console.log(error);
+      console.log("error updating product: ", error);
     }
   }
 
@@ -99,7 +101,7 @@ export default class ProductManager {
       products.splice(index, 1);
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
     } catch (error) {
-      console.log(error);
+      console.log("error deleting product", error);
     }
   }
 }

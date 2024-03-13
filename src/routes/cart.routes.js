@@ -7,10 +7,10 @@ const cartManager = new CartManager("./carts.json");
 cartRouter.get("/", async (req, res) => {
   try {
     const carts = await cartManager.getCarts();
-
-    res.send({ carts });
+    res.send(carts);
   } catch (error) {
     console.log(error);
+    res.status(500).json({"message":"error en el servidor"});
   }
 });
 
@@ -32,7 +32,7 @@ cartRouter.get("/:cid", async (req, res) => {
     if (!response) return res.status(404).json({ message: "Cart not found" });
     res.json(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error during cart creation: ",error);
     res.status(500).json({ message: "error en el servidor" });
   }
 });
@@ -46,10 +46,11 @@ cartRouter.post("/:cid/product/:pid", async (req, res) => {
     if (!response) {
       res.status(404).json({ message: "Product Not Found" });
     } else {
-      res.json({ message: "Producto agregado correctamente" });
+      res.status(201).json({message:"Producto agregado al carrito"})
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({"message":"error en el servidor"});
   }
 });
 

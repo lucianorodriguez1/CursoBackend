@@ -26,7 +26,7 @@ export default class CartManager {
         return [];
       }
     } catch (error) {
-      console.log(error);
+      console.log("error getting carts: ", error);
     }
   }
 
@@ -34,7 +34,6 @@ export default class CartManager {
     const cart = {};
     try {
       const carts = await this.getCarts();
-      console.log("carts: ", carts);
       if (carts.length == 0) {
         cart.id = 1;
       } else {
@@ -42,34 +41,35 @@ export default class CartManager {
       }
       cart.products = [];
       carts.push(cart);
-
-      console.log("Cart agregado desde manager");
-      console.log(cart);
       await fs.writeFile(this.path, JSON.stringify(carts, null, "\t"));
     } catch (error) {
-      console.log(error);
+      console.log("error creating cart:", error);
     }
   }
 
   async getCartById(id) {
-    const carts = await this.getCarts();
-    const cart = carts.find((cart) => cart.id == id);
-    if (!cart) {
-      return undefined;
-    } else {
-      return cart;
+    try {
+      const carts = await this.getCarts();
+      const cart = carts.find((cart) => cart.id == id);
+      if (!cart) {
+        return undefined;
+      } else {
+        return cart;
+      }
+    } catch (error) {
+      console.log("error getting cart: ", error);
     }
   }
   async addProductsToCart(idCart, idProduct) {
     try {
       const carts = await this.getCarts();
       const cart = carts.find((cart) => cart.id == idCart);
-      if(!cart) return false;
+      if (!cart) return false;
       const productIndex = cart.products.findIndex(
         (product) => product.id == idProduct
       );
       const product = await productManager.getProductById(idProduct);
-      if(!product) return false;
+      if (!product) return false;
       if (productIndex !== -1) {
         // Si el producto ya existe, actualizar la cantidad
         cart.products[productIndex].quantity += 1;
@@ -83,7 +83,7 @@ export default class CartManager {
       await fs.writeFile(this.path, JSON.stringify(carts, null, "\t"));
       return true;
     } catch (error) {
-      console.log(error);
+      console.log("error when adding product to cart", error);
     }
   }
 }
