@@ -64,5 +64,16 @@
 		"category": "sdassa",
 		"thumbnail": [],
 		"id": 7
+	},
+	{
+		"title": "prueba 1 de nuevo",
+		"description": "pruebaaaaa",
+		"code": 31221,
+		"price": 3232,
+		"status": true,
+		"stock": 2323,
+		"category": "sdassa",
+		"thumbnail": [],
+		"id": 8
 	}
 ]
