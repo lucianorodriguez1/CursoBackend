@@ -30,16 +30,6 @@ export default class ProductManager {
     }
   }
 
-  // async GetId() {
-  //   const users = await this.getProducts();
-  //   let id;
-
-  //   if (users.length > 0) {
-  //     return users[users.length - 1].id + 1;
-  //   } else {
-  //     return 1;
-  //   }
-  // }
 
   async getProducts() {
     try {

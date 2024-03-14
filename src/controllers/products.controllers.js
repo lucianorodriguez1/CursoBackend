@@ -27,40 +27,29 @@ export const createProduct = async (req, res) => {
       status,
       stock,
       category,
-      thumbnails,
+      thumbnail,
     } = req.body;
-    //viste realTimeProducts
-    
-
-    console.log("Soy los nuevos datos",{
-      title,
-      description,
-      cod,
-      pr,
-      stat,
-      sto,
-      category,
-      thu,
-    })
     if (
       typeof title === "string" &&
       typeof description === "string" &&
-      (typeof code === "number" || cod) &&
-      (typeof price === "number" || pr) &&
-      (typeof status === "boolean" || stat) &&
-      (typeof stock === "number" || sto) &&
+      typeof code === "number" &&
+      typeof price === "number" &&
+      typeof status === "boolean" &&
+      typeof stock === "number" &&
       typeof category === "string" &&
-      (Array.isArray(thumbnails) &&
-      thumbnails.length === 0 || thu) &&
+      Array.isArray(thumbnail) &&
+      thumbnail.length === 0 &&
       title &&
       description &&
-      category &&
       code &&
+      price &&
       status &&
-      stock
+      stock &&
+      category &&
+      thumbnail
     ) {
       const existingCode = (await productManager.getProducts()).some(
-        (p) => p.code === cod
+        (p) => p.code === code
       );
       if (existingCode) {
         res.status(400).json({ message: "El codigo de producto ya existe" });
@@ -68,30 +57,19 @@ export const createProduct = async (req, res) => {
         const response = await productManager.addProduct({
           title,
           description,
-          code:cod,
-          price:pr,
-          status:stat,
-          stock:sto,
+          code,
+          price,
+          status,
+          stock,
           category,
-          thumbnails:thu,
+          thumbnail,
         });
-        console.log("Soy response : ", response);
         res
           .status(201)
           .json({ message: "Producto agregado correctamente: ", response });
       }
     } else {
       res.status(400).json({ message: "Campos incompletos o invalidos" });
-      console.log({
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnails,
-      });
     }
   } catch (error) {
     console.log(error);

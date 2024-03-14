@@ -11,14 +11,23 @@ const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${PORT}`);
 });
+
+//DESAFIO WEBSOCKETS-----------------------
+import ProductManager from "./models/ProductManager.js";
+
 const socketServer = new Server(serverHTTP);
+const productManager = new ProductManager("./products.json");
 
 socketServer.on("connection", (socket) => {
-  console.log("Conecte con cliente");
-
-  socket.on('message',data=>{
-    console.log(data);
-  })
+  
+  socket.on('newProduct', async(data)=>{
+    try {
+      const response = await productManager.addProduct(data);
+      console.log("Se agrego el producto");
+    } catch (error) {
+      console.log(error)
+    }
+  });
   /*
   //evento para socket individual
   socket.emit();
@@ -28,6 +37,8 @@ socketServer.on("connection", (socket) => {
   socket.emit();
   */
 });
+//DESAFIO WEBSOCKETS TERMINADO-----------------------
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
