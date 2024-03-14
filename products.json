@@ -75,5 +75,16 @@
 		"category": "sdassa",
 		"thumbnail": [],
 		"id": 8
+	},
+	{
+		"title": "1231",
+		"description": "312312",
+		"code": 1331,
+		"price": 313213,
+		"status": true,
+		"stock": 123123,
+		"category": "12312313",
+		"thumbnails": [],
+		"id": 9
 	}
 ]
