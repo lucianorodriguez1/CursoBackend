@@ -25,21 +25,13 @@
   <input type="hidden" id="thumbnails" name="thumbnails" value="[]" />
   <input type="hidden" id="status" name="status" value="true" />
 
-  {{!-- <button type="submit" name="submit">Enviar</button> --}}
-  <input type="submit" value="LOL">
+  {{! <button type="submit" name="submit">Enviar</button> }}
+  <input type="submit" value="LOL" />
 </form>
-{{#each products}}
-    <div>
-        <h2>{{this.title}}</h2>
-        <p>Description: {{this.description}}</p>
-        <p>Code: {{this.code}}</p>
-        <p>Price: {{this.price}}</p>
-        <p>Status: {{#if this.status}}Available{{else}}Not Available{{/if}}</p>
-        <p>Stock: {{this.stock}}</p>
-        <p>Category: {{this.category}}</p>
-        <p>ID: {{this.id}}</p>
-        <button>ELIMINAR</button>
-    </div>
-{{/each}}
+
+<div id="liveProducts">
+
+</div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

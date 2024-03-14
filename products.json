@@ -196,5 +196,38 @@
 		"thumbnails": [],
 		"status": true,
 		"id": 19
+	},
+	{
+		"title": "primera prueba",
+		"description": "ewrwerwrfew",
+		"price": 32434,
+		"category": "grreg",
+		"code": 344,
+		"stock": 23424,
+		"thumbnails": [],
+		"status": true,
+		"id": 20
+	},
+	{
+		"title": "primera prueba",
+		"description": "ewrwerwrfew",
+		"price": 32434,
+		"category": "grreg",
+		"code": 344,
+		"stock": 23424,
+		"thumbnails": [],
+		"status": true,
+		"id": 21
+	},
+	{
+		"title": "segunda prueba",
+		"description": "23423424s",
+		"price": 33423,
+		"category": "fwefwfe",
+		"code": 23432,
+		"stock": 22323,
+		"thumbnails": [],
+		"status": true,
+		"id": 22
 	}
 ]

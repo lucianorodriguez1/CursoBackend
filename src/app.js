@@ -18,16 +18,19 @@ import ProductManager from "./models/ProductManager.js";
 const socketServer = new Server(serverHTTP);
 const productManager = new ProductManager("./products.json");
 
-socketServer.on("connection", (socket) => {
+socketServer.on("connection", async(socket) => {
   
   socket.on('newProduct', async(data)=>{
     try {
       const response = await productManager.addProduct(data);
-      console.log("Se agrego el producto");
     } catch (error) {
       console.log(error)
     }
   });
+
+  socket.emit("products",(await productManager.getProducts()));
+
+ 
   /*
   //evento para socket individual
   socket.emit();
