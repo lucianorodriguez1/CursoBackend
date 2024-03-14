@@ -30,36 +30,7 @@ export const createProduct = async (req, res) => {
       thumbnails,
     } = req.body;
     //viste realTimeProducts
-    let thu,cod,pr,sto,stat;
-
-    if (typeof thumbnails === "string") {
-      thu = JSON.parse(thumbnails);
-    } else {
-      thu = thumbnails;
-    }
-      
-    if (typeof code === "string") {
-      cod = parseInt(code);
-    } else {
-      cod = code;
-    }
-
-    if (typeof price === "string") {
-      pr = parseFloat(price);
-    } else {
-      pr = price;
-    }
-
-    if (typeof status === "string") {
-      stat = status === "true";
-    } else {
-      stat = status;
-    }
-    if (typeof stock === "string") {
-      sto = parseInt(stock);
-    } else {
-      sto = stock;
-    }
+    
 
     console.log("Soy los nuevos datos",{
       title,
