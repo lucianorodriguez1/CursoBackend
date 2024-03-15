@@ -23,20 +23,19 @@ socketServer.on("connection", async(socket) => {
   socket.on('newProduct', async(product)=>{
     try {
       const response = await productManager.addProduct(product);
+      socket.emit("products",(await productManager.getProducts()));
     } catch (error) {
       console.log(error)
     }
   });
 
-  socket.emit("products",(await productManager.getProducts()));
+  
 
   socket.on('idProductDelete',async(id)=>{
     try {
-      console.log("Recibo por parametro: ", id);
-      const response = (await productManager.deleteProduct(id))
-
-      console.log("Producto eliminado")
-      console.log(response);
+      const response = (await productManager.deleteProduct(id));
+      console.log(id);
+      socket.emit("products",(await productManager.getProducts()));
     } catch (error) {
      console.log(error); 
     }

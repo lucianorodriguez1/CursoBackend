@@ -45,8 +45,15 @@ export default class ProductManager {
   async addProduct(product) {
     try {
       const products = await this.getProducts();
-      product.id = products[products.length - 1].id + 1;
-      products.push(product);
+      const existingCode = products.some(
+        (p) => p.code === product.code
+      );
+      if (existingCode) {
+        console.log("product with code ${product code} exists");
+      } else {
+        product.id = products[products.length - 1].id + 1;
+        products.push(product);
+      }
       await fs.writeFile(this.path, JSON.stringify(products, null, "\t"));
     } catch (error) {
       console.log("error adding product: ", error);

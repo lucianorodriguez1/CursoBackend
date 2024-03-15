@@ -462,25 +462,69 @@
 		"id": 43
 	},
 	{
-		"title": "producto 44fwe",
-		"description": "fwfeefw",
-		"price": 434543,
-		"category": "ewfew",
-		"code": 32423423,
-		"stock": 424,
+		"title": "producto 44",
+		"description": "fwefw",
+		"price": 12312,
+		"category": "123213",
+		"code": 12323,
+		"stock": 13123,
 		"thumbnails": [],
 		"status": true,
 		"id": 44
 	},
 	{
 		"title": "producto 45",
-		"description": "fewfef",
-		"price": 23324,
-		"category": "wfwfew",
-		"code": 234234,
-		"stock": 23424,
+		"description": "efwfw",
+		"price": 3234,
+		"category": "242434",
+		"code": 2342342,
+		"stock": 423424,
 		"thumbnails": [],
 		"status": true,
 		"id": 45
+	},
+	{
+		"title": "producto 46",
+		"description": "3rwere",
+		"price": 34234,
+		"category": "4234",
+		"code": 34243,
+		"stock": 4234234,
+		"thumbnails": [],
+		"status": true,
+		"id": 46
+	},
+	{
+		"title": "producto 47",
+		"description": "fwefwef",
+		"price": 4243,
+		"category": "34324",
+		"code": 4234,
+		"stock": 42442,
+		"thumbnails": [],
+		"status": true,
+		"id": 47
+	},
+	{
+		"title": "producto 48",
+		"description": "efwfef",
+		"price": 23432,
+		"category": "4324",
+		"code": 26,
+		"stock": 34545,
+		"thumbnails": [],
+		"status": true,
+		"id": 48
+	},
+	{
+		"title": "producto 49",
+		"description": "qwrwq",
+		"price": 12323123,
+		"category": "313123",
+		"code": 2313,
+		"stock": 32133,
+		"thumbnails": [],
+		"status": true,
+		"id": 49
 	}
 ]

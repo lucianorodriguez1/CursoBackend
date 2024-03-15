@@ -2,8 +2,6 @@ const socket = io();
 const form = document.getElementById("myForm");
 const listEstaticProducts = document.getElementById("listEstaticProducts");
 const listProductsLive = document.getElementById("liveProducts");
-const buttonsDeleteProduct = document.querySelectorAll(".buttonDeleteProduct");
-let botonEliminar;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -40,81 +38,69 @@ form.addEventListener("submit", (e) => {
   };
 
   socket.emit("newProduct", product);
+  document.getElementById("title").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("code").value = "";
+  document.getElementById("stock").value = "";
+  listProductsLive.innerHTML = "";
+});
 
-  socket.on("products", async (data) => {
-    listEstaticProducts.style.display = "none";
+socket.on("products", async (data) => {
+  listEstaticProducts.style.display = "none";
 
-    data.forEach((product) => {
-      const productDiv = document.createElement("div");
+  data.forEach((product) => {
+    const productDiv = document.createElement("div");
 
-      const titleElement = document.createElement("h2");
-      titleElement.textContent = `${product.title}`;
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = `${product.title}`;
 
-      const descriptionElement = document.createElement("p");
-      descriptionElement.textContent = `Description: ${product.description}`;
+    const descriptionElement = document.createElement("p");
+    descriptionElement.textContent = `Description: ${product.description}`;
 
-      const priceElement = document.createElement("p");
-      priceElement.textContent = `Price: ${product.price}`;
+    const priceElement = document.createElement("p");
+    priceElement.textContent = `Price: ${product.price}`;
 
-      const categoryElement = document.createElement("p");
-      categoryElement.textContent = `Category: ${product.category}`;
+    const categoryElement = document.createElement("p");
+    categoryElement.textContent = `Category: ${product.category}`;
 
-      const codeElement = document.createElement("p");
-      codeElement.textContent = `Code: ${product.code}`;
+    const codeElement = document.createElement("p");
+    codeElement.textContent = `Code: ${product.code}`;
 
-      const stockElement = document.createElement("p");
-      stockElement.textContent = `Stock: ${product.stock}`;
+    const stockElement = document.createElement("p");
+    stockElement.textContent = `Stock: ${product.stock}`;
 
-      const statusElement = document.createElement("p");
-      statusElement.textContent = `status: ${product.status}`;
+    const statusElement = document.createElement("p");
+    statusElement.textContent = `status: ${product.status}`;
 
-      const thumbnailsElement = document.createElement("p");
-      thumbnailsElement.textContent = `Thumbnails: ${product.thumbnails}`;
+    const thumbnailsElement = document.createElement("p");
+    thumbnailsElement.textContent = `Thumbnails: ${product.thumbnails}`;
 
-      const idElement = document.createElement("p");
-      idElement.textContent = `ID: ${product.id}`;
+    const idElement = document.createElement("p");
+    idElement.textContent = `ID: ${product.id}`;
 
-      const buttonDelete = document.createElement("button");
-      buttonDelete.textContent = "Eliminar";
-      buttonDelete.id = "buttonDeleteProductEvent";
+    const id = product.id;
+    const buttonDelete = document.createElement("button");
+    buttonDelete.textContent = "Eliminar";
+    buttonDelete.onclick = () => funcionEliminar(id);
 
-      productDiv.appendChild(titleElement);
-      productDiv.appendChild(descriptionElement);
-      productDiv.appendChild(priceElement);
-      productDiv.appendChild(categoryElement);
-      productDiv.appendChild(codeElement);
-      productDiv.appendChild(stockElement);
-      productDiv.appendChild(statusElement);
-      productDiv.appendChild(thumbnailsElement);
-      productDiv.appendChild(idElement);
-      productDiv.appendChild(buttonDelete);
-      listProductsLive.appendChild(productDiv);
-
-      botonEliminar.addEventListener("click",(event) => {
-        const id = `${product.id}`;
-        socket.emit("idProductDelete", id);
-        console.log(id);
-      });
-    });
+    productDiv.appendChild(titleElement);
+    productDiv.appendChild(descriptionElement);
+    productDiv.appendChild(priceElement);
+    productDiv.appendChild(categoryElement);
+    productDiv.appendChild(codeElement);
+    productDiv.appendChild(stockElement);
+    productDiv.appendChild(statusElement);
+    productDiv.appendChild(thumbnailsElement);
+    productDiv.appendChild(idElement);
+    productDiv.appendChild(buttonDelete);
+    listProductsLive.appendChild(productDiv);
   });
 });
 
-const funcionEliminar = () => {
-  buttonsDeleteProduct.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const buttonContentBefore = event.target.previousElementSibling;
-      const idText = buttonContentBefore.textContent;
-      const id = idText.split(":")[1].trim();
-      socket.emit("idProductDelete", id);
-    });
-  });
+const funcionEliminar = (id) => {
+  socket.emit("idProductDelete", id);
+  console.log("Producto eliminado");
+  listProductsLive.innerHTML = "";
 };
-funcionEliminar();
-
-botonEliminar = document.getElementById("buttonDeleteProductEvent");
-// botonEliminar.addEventListener("click", (event) => {
-//   const buttonContentBefore = event.target.previousElementSibling;
-//   const idText = buttonContentBefore.textContent;
-//   const id = idText.split(":")[1].trim();
-//   socket.emit("idProductDelete", id);
-// });
