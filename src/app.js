@@ -20,9 +20,9 @@ const productManager = new ProductManager("./products.json");
 
 socketServer.on("connection", async(socket) => {
   
-  socket.on('newProduct', async(data)=>{
+  socket.on('newProduct', async(product)=>{
     try {
-      const response = await productManager.addProduct(data);
+      const response = await productManager.addProduct(product);
     } catch (error) {
       console.log(error)
     }
@@ -30,7 +30,17 @@ socketServer.on("connection", async(socket) => {
 
   socket.emit("products",(await productManager.getProducts()));
 
- 
+  socket.on('idProductDelete',async(id)=>{
+    try {
+      console.log("Recibo por parametro: ", id);
+      const response = (await productManager.deleteProduct(id))
+
+      console.log("Producto eliminado")
+      console.log(response);
+    } catch (error) {
+     console.log(error); 
+    }
+  })
   /*
   //evento para socket individual
   socket.emit();

@@ -26,11 +26,23 @@
   <input type="hidden" id="status" name="status" value="true" />
 
   {{! <button type="submit" name="submit">Enviar</button> }}
-  <input type="submit" value="LOL" />
+  <input type="submit" value="Crear producto" />
 </form>
 
 <div id="listEstaticProducts">
+  {{#each products}}
+    <h2>{{this.title}}</h2>
+    <p>Description: {{this.description}}</p>
+    <p>Price: {{this.price}}</p>
+    <p>Category: {{this.category}}</p>
+    <p>Code: {{this.code}}</p>
+    <p>Stock: {{this.stock}}</p>
+    <p>Status: {{this.status}}</p>
+    <p>Thumbnails:{{this.thumbnails}}</p>
+    <p>ID: {{this.id}}</p>
+    <button class="buttonDeleteProduct">Eliminar</button>
 
+  {{/each}}
 </div>
 
 <div id="liveProducts">

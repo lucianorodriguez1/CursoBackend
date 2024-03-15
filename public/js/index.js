@@ -1,10 +1,12 @@
 const socket = io();
-
 const form = document.getElementById("myForm");
+const listEstaticProducts = document.getElementById("listEstaticProducts");
+const listProductsLive = document.getElementById("liveProducts");
+const buttonsDeleteProduct = document.querySelectorAll(".buttonDeleteProduct");
+let botonEliminar;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
   let title = document.getElementById("title").value;
   let description = document.getElementById("description").value;
   let price = document.getElementById("price").value;
@@ -39,13 +41,14 @@ form.addEventListener("submit", (e) => {
 
   socket.emit("newProduct", product);
 
-  socket.on("products", (data) => {
-    const listProducts = document.getElementById("liveProducts");
+  socket.on("products", async (data) => {
+    listEstaticProducts.style.display = "none";
+
     data.forEach((product) => {
       const productDiv = document.createElement("div");
 
       const titleElement = document.createElement("h2");
-      titleElement.textContent = `Title: ${product.title}`;
+      titleElement.textContent = `${product.title}`;
 
       const descriptionElement = document.createElement("p");
       descriptionElement.textContent = `Description: ${product.description}`;
@@ -73,6 +76,7 @@ form.addEventListener("submit", (e) => {
 
       const buttonDelete = document.createElement("button");
       buttonDelete.textContent = "Eliminar";
+      buttonDelete.id = "buttonDeleteProductEvent";
 
       productDiv.appendChild(titleElement);
       productDiv.appendChild(descriptionElement);
@@ -84,7 +88,33 @@ form.addEventListener("submit", (e) => {
       productDiv.appendChild(thumbnailsElement);
       productDiv.appendChild(idElement);
       productDiv.appendChild(buttonDelete);
-      listProducts.appendChild(productDiv);
+      listProductsLive.appendChild(productDiv);
+
+      botonEliminar.addEventListener("click",(event) => {
+        const id = `${product.id}`;
+        socket.emit("idProductDelete", id);
+        console.log(id);
+      });
     });
   });
 });
+
+const funcionEliminar = () => {
+  buttonsDeleteProduct.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const buttonContentBefore = event.target.previousElementSibling;
+      const idText = buttonContentBefore.textContent;
+      const id = idText.split(":")[1].trim();
+      socket.emit("idProductDelete", id);
+    });
+  });
+};
+funcionEliminar();
+
+botonEliminar = document.getElementById("buttonDeleteProductEvent");
+// botonEliminar.addEventListener("click", (event) => {
+//   const buttonContentBefore = event.target.previousElementSibling;
+//   const idText = buttonContentBefore.textContent;
+//   const id = idText.split(":")[1].trim();
+//   socket.emit("idProductDelete", id);
+// });
