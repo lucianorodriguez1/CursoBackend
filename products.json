@@ -229,5 +229,38 @@
 		"thumbnails": [],
 		"status": true,
 		"id": 22
+	},
+	{
+		"title": "Hola",
+		"description": "2rr2r2",
+		"price": 43242424,
+		"category": "234234",
+		"code": 234324,
+		"stock": 42442,
+		"thumbnails": [],
+		"status": true,
+		"id": 23
+	},
+	{
+		"title": "hola product 24",
+		"description": "eeqw",
+		"price": 1323132,
+		"category": "weqweqe",
+		"code": 1321323,
+		"stock": 12313123,
+		"thumbnails": [],
+		"status": true,
+		"id": 24
+	},
+	{
+		"title": "product 25",
+		"description": "ffefeefw",
+		"price": 321132,
+		"category": "ffeewff",
+		"code": 12313,
+		"stock": 13213,
+		"thumbnails": [],
+		"status": true,
+		"id": 25
 	}
 ]
