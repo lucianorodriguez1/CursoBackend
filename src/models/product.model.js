@@ -1,19 +1,49 @@
 import mongoose from "mongoose";
+import { ManagerMongoDB } from "../db/ManagerMongoDB.js";
 
 const ProductCollection = "products";
 
 const productSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  code: {
-    type: Number,
-    unique: true,
+  title: {
+    type: String,
+    required: true,
   },
-  price: Number,
-  status: Boolean,
-  stock: Number,
-  category: String,
-  thumbnail: Array,
+  description: {
+    type: String,
+    required: true,
+  },
+  code: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+    index: true,
+  },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  stock: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  thumbnails: [],
 });
 
-export const productModel = mongoose.model(ProductCollection,productSchema);
+export class ProductManagerMongoDB extends ManagerMongoDB {
+  constructor() {
+    super(process.env.URL_MONGODB, ProductCollection, productSchema);
+    //aqui irian los atributos propios de la clase
+  }
+
+  //Aqui irian los metodos propios de la clase
+}
+//export const productModel = mongoose.model(ProductCollection, productSchema);

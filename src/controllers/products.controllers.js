@@ -1,11 +1,11 @@
 import ProductManager from "../models/ProductManager.js";
-import { productModel } from "../models/product.model.js";
+import { ProductManagerMongoDB } from "../models/product.model.js";
 
-const productManager = new ProductManager("./products.json");
+const productManager = new ProductManagerMongoDB();
 
 export const getProducts = async (req, res) => {
   try {
-    let products = await productModel.find();
+    let products = await productManager.getElements();
     let limit = req.query.limit;
 
     if (!limit) return res.json(products);
@@ -49,13 +49,14 @@ export const createProduct = async (req, res) => {
       category &&
       thumbnail
     ) {
-      const existingCode = (await productModel.find()).some(
+      const existingCode = (await productManager.getElements()).some(
         (p) => p.code === code
       );
+
       if (existingCode) {
         res.status(400).json({ message: "El codigo de producto ya existe" });
       } else {
-        const response = await productModel.create({
+        const response = await productManager.addElements({
           title,
           description,
           code,
@@ -81,9 +82,10 @@ export const createProduct = async (req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const id = req.params.pid;
-    const response = await productManager.getProductById(id);
-    if (!response)
+    const response = await productManager.getElementById({ _id: id });
+    if (!response) {
       return res.status(404).json({ message: "Product not found" });
+    }
     res.json(response);
   } catch (error) {
     console.log(error);
@@ -104,28 +106,37 @@ export const updateProductById = async (req, res) => {
       category,
       thumbnail,
     } = req.body;
-    const existingCode = (await productModel.find()).some(
+    const existingCode = (await productManager.getElements()).some(
       (product) => product.code === code && product.id != id
     );
 
     if (existingCode) {
       res.status(400).json({ message: "El codigo de producto ya existe" });
     } else {
-      const response = await productModel.updateOne({_id:id}, {
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnail,
-      });
+      const response = await productManager.updateElement(
+        { _id: id },
+        {
+          title,
+          description,
+          code,
+          price,
+          status,
+          stock,
+          category,
+          thumbnail,
+        }
+      );
 
       if (response == -1) {
         res.status(404).json({ message: "Product not found" });
       } else {
-        res.status(200).json({ status:"succes",payload:response});
+        res
+          .status(201)
+          .json({
+            status: "succes",
+            message: "Producto actualizado con éxito",
+            data: response,
+          });
       }
     }
   } catch (error) {
@@ -136,11 +147,13 @@ export const updateProductById = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   try {
     let id = req.params.pid;
-    const response = await productModel.deleteOne({_id:id});
+    const response = await productManager.deleteElement({ _id: id });
     if (response == -1) {
       res.status(404).json({ message: "Product not found" });
     } else {
-      res.status(200).json({status:"success", payload: response});
+      res
+        .status(200)
+        .json({ status: "success", message: "Producto eliminado con éxito" });
     }
   } catch (error) {
     console.log(error);

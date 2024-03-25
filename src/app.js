@@ -2,13 +2,11 @@ import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
-
+import "dotenv/config";
 import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
-
 const app = express();
 const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
@@ -68,13 +66,13 @@ app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 
 //MONGO DB CONEXION y DO
-dotenv.config();
 
-mongoose.connect(process.env.URL_MDBATLAS)
-.then(() => {
-  console.log('Conexión exitosa a la base de datos');
-})
-.catch(error => {
-  console.log("No se puede conectar a la base de datos: " + error);
-  process.exit(1); // Salir del proceso con un código de error
-});
+
+// mongoose.connect(process.env.URL_MONGODB)
+// .then(() => {
+//   console.log('Conexión exitosa a la base de datos');
+// })
+// .catch(error => {
+//   console.log("No se puede conectar a la base de datos: " + error);
+//   process.exit(1); // Salir del proceso con un código de error
+// });
