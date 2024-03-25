@@ -1,10 +1,11 @@
 import ProductManager from "../models/ProductManager.js";
+import { productModel } from "../models/product.model.js";
 
 const productManager = new ProductManager("./products.json");
 
 export const getProducts = async (req, res) => {
   try {
-    let products = await productManager.getProducts();
+    let products = await productModel.find();
     let limit = req.query.limit;
 
     if (!limit) return res.json(products);
@@ -48,13 +49,13 @@ export const createProduct = async (req, res) => {
       category &&
       thumbnail
     ) {
-      const existingCode = (await productManager.getProducts()).some(
+      const existingCode = (await productModel.find()).some(
         (p) => p.code === code
       );
       if (existingCode) {
         res.status(400).json({ message: "El codigo de producto ya existe" });
       } else {
-        const response = await productManager.addProduct({
+        const response = await productModel.create({
           title,
           description,
           code,
@@ -103,14 +104,14 @@ export const updateProductById = async (req, res) => {
       category,
       thumbnail,
     } = req.body;
-    const existingCode = (await productManager.getProducts()).some(
+    const existingCode = (await productModel.find()).some(
       (product) => product.code === code && product.id != id
     );
 
     if (existingCode) {
       res.status(400).json({ message: "El codigo de producto ya existe" });
     } else {
-      const response = await productManager.updateProduct(id, {
+      const response = await productModel.updateOne({_id:id}, {
         title,
         description,
         code,
@@ -124,7 +125,7 @@ export const updateProductById = async (req, res) => {
       if (response == -1) {
         res.status(404).json({ message: "Product not found" });
       } else {
-        res.status(200).json({ message: "Successfully updated product" });
+        res.status(200).json({ status:"succes",payload:response});
       }
     }
   } catch (error) {
@@ -135,11 +136,11 @@ export const updateProductById = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   try {
     let id = req.params.pid;
-    const response = await productManager.deleteProduct(id);
+    const response = await productModel.deleteOne({_id:id});
     if (response == -1) {
       res.status(404).json({ message: "Product not found" });
     } else {
-      res.status(200).json({ message: "Successfully deleted product" });
+      res.status(200).json({status:"success", payload: response});
     }
   } catch (error) {
     console.log(error);
