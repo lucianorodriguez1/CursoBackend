@@ -9,7 +9,6 @@ import { productManager } from "../models/product.model.js";
 export const viewHome = async (req, res) => {
   try {
     const products = await productManager.getElements();
-    console.log(products);
 
     res.render("index", {
         products,

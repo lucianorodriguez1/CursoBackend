@@ -1,7 +1,6 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
-import mongoose from 'mongoose';
 import "dotenv/config";
 import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
@@ -65,14 +64,3 @@ app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 
-//MONGO DB CONEXION y DO
-
-
-// mongoose.connect(process.env.URL_MONGODB)
-// .then(() => {
-//   console.log('Conexión exitosa a la base de datos');
-// })
-// .catch(error => {
-//   console.log("No se puede conectar a la base de datos: " + error);
-//   process.exit(1); // Salir del proceso con un código de error
-// });
