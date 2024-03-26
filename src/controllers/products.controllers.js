@@ -1,7 +1,7 @@
-import ProductManager from "../models/ProductManager.js";
-import { ProductManagerMongoDB } from "../models/product.model.js";
+// import { ProductManagerMongoDB } from "../models/product.model.js";
 
-const productManager = new ProductManagerMongoDB();
+// const productManager = new ProductManagerMongoDB();
+import { productManager } from "../models/product.model.js";
 
 export const getProducts = async (req, res) => {
   try {

@@ -506,25 +506,14 @@
 		"id": 47
 	},
 	{
-		"title": "producto 48",
-		"description": "efwfef",
-		"price": 23432,
-		"category": "4324",
-		"code": 26,
-		"stock": 34545,
+		"title": "ultimo producto",
+		"description": "ewdemwkfwf",
+		"price": 321313,
+		"category": "qfqfwf",
+		"code": 1323,
+		"stock": 123123,
 		"thumbnails": [],
 		"status": true,
-		"id": 48
-	},
-	{
-		"title": "producto 49",
-		"description": "qwrwq",
-		"price": 12323123,
-		"category": "313123",
-		"code": 2313,
-		"stock": 32133,
-		"thumbnails": [],
-		"status": true,
-		"id": 49
+		"id": 50
 	}
 ]

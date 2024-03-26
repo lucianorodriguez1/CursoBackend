@@ -46,4 +46,6 @@ export class ProductManagerMongoDB extends ManagerMongoDB {
 
   //Aqui irian los metodos propios de la clase
 }
+
+export const productManager = new ProductManagerMongoDB();
 //export const productModel = mongoose.model(ProductCollection, productSchema);
