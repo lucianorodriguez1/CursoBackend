@@ -8,7 +8,7 @@ export const getProducts = async (req, res) => {
     let products = await productManager.getElements();
     let limit = req.query.limit;
 
-    if (!limit) return res.json(products);
+    if (!limit) return res.status(200).json({status:"succes",data:products});
 
     let productsLimits = products.slice(0, limit);
     res.json(productsLimits);

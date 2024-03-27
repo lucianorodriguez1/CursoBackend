@@ -13,7 +13,7 @@ const serverHTTP = app.listen(PORT, () => {
 });
 
 //DESAFIO WEBSOCKETS-----------------------
-import ProductManager from "./models/ProductManager.js";
+import ProductManager from "./filesystem/ProductManager.js";
 
 const socketServer = new Server(serverHTTP);
 const productManager = new ProductManager("./products.json");

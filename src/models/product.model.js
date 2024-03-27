@@ -35,7 +35,10 @@ const productSchema = new mongoose.Schema({
     required: true,
     index: true,
   },
-  thumbnails: [],
+  thumbnails: {
+    type: Array,
+    default: [],
+  },
 });
 
 export class ProductManagerMongoDB extends ManagerMongoDB {
