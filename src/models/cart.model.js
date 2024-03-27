@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 import { ManagerMongoDB } from "../db/ManagerMongoDB.js";
-import { productManager } from "./product.model.js";
+//import { productManager } from "./product.model.js";
 
 const cartCollection = "carts";
 
@@ -36,7 +36,7 @@ export class CartManagerMongoDB extends ManagerMongoDB {
       console.log(error);
     }
   }
-  async addProductToCart(cartId, productId) {
+  async addProductFromCart(cartId, productId) {
     try {
       const quantity = 1;
       const cart = await this.getElementById(cartId);
@@ -47,17 +47,30 @@ export class CartManagerMongoDB extends ManagerMongoDB {
       );
 
       if (productIndex == -1) {
-        
         cart.products.push({ prodId: productId, quantity: quantity });
       } else {
         let res = (cart.products[productIndex].quantity += 1);
-       
       }
       const res = await cart.save();
       return true;
     } catch (error) {
       console.log(error);
     }
+  }
+  async deleteAllProductsFromCartById(cartId) {
+    const cart = await this.getElementById(cartId);
+    cart.products = [];
+    const updateCart = await this.updateElement(cartId, cart);
+    await updateCart.save();
+  }
+  async deleteProductCart(cid, pid) {
+    const cart = await this.getElementById(cid);
+    const deletectedProduct = cart.products.filter(
+      (prod) => prod.prodId.toString() !== pid
+    );
+    cart.products = deletectedProduct;
+    await cart.save();
+    return true;
   }
 }
 

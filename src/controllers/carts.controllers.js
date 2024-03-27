@@ -1,7 +1,3 @@
-/*
-import CartManager from "../filesystem/CartManager.js";
-const cartManager = new CartManager("./carts.json");
-*/
 import { cartManager } from "../models/cart.model.js";
 
 export const getCarts = async (req, res) => {
@@ -13,7 +9,6 @@ export const getCarts = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
 export const createCart = async (req, res) => {
   try {
     const response = await cartManager.addElements();
@@ -23,7 +18,6 @@ export const createCart = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
 export const getCartById = async (req, res) => {
   try {
     const id = req.params.cid;
@@ -35,12 +29,11 @@ export const getCartById = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
-export const addProductToCart = async (req, res) => {
+export const addProductFromCart = async (req, res) => {
   try {
     const idCart = req.params.cid;
     const idProduct = req.params.pid;
-    const response = await cartManager.addProductToCart(idCart, idProduct);
+    const response = await cartManager.addProductFromCart(idCart, idProduct);
     if (!response) {
       res.status(404).json({ message: "Product Not Found" });
     } else {
@@ -51,3 +44,30 @@ export const addProductToCart = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
+export const deleteAllProductsFromCartById = async (req, res) => {
+  try {
+    const { cid } = req.params;
+    const response = await cartManager.deleteAllProductsFromCartById(cid);
+    res.status(200).json({ message: "Productos eliminados del cart" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
+  }
+};
+export const deleteProductFromCart = async (req, res) => {
+//PRUEBAS*******************
+  try {
+    const { cid, pid } = req.params;
+    const response = cartManager.deleteProductCart(cid,pid);
+    res.status(200).json({status:"succes",message:`Producto con id:${pid} eliminado correctamente`});
+  } catch (error) {
+    console.log(error);
+    res.status().json({ message: "error en el servidor" });
+  }
+};
+//  PRUEBAS
+export const updateCartById = async (req, res) => {};
+/*
+export const updateProductFromCart = async (req, res) => {};
+export const getProductFromCart = async (req, res) => {};
+*/
