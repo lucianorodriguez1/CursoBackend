@@ -55,19 +55,47 @@ export const deleteAllProductsFromCartById = async (req, res) => {
   }
 };
 export const deleteProductFromCart = async (req, res) => {
-//PRUEBAS*******************
   try {
     const { cid, pid } = req.params;
-    const response = cartManager.deleteProductCart(cid,pid);
-    res.status(200).json({status:"succes",message:`Producto con id:${pid} eliminado correctamente`});
+    const response = cartManager.deleteProductCart(cid, pid);
+    res.status(200).json({
+      status: "succes",
+      message: `Producto con id:${pid} eliminado correctamente`,
+    });
   } catch (error) {
     console.log(error);
-    res.status().json({ message: "error en el servidor" });
+    res.status(500).json({ message: "error en el servidor" });
   }
 };
-//  PRUEBAS
-export const updateCartById = async (req, res) => {};
+export const updateCartById = async (req, res) => {
+  try {
+    const { products } = req.body;
+    const { cid } = req.params;
+    const response = await cartManager.updateCartById(cid, products);
+    res.status(200).json({
+      status: "succes",
+      message: `cart con id:${cid} actualizado correctamente`,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
+  }
+};
+export const updateProductCart = async (req, res) => {
+  try {
+    const { cid, pid } = req.params;
+    const { quantity } = req.body;
+    const response = await cartManager.updateProductCart(cid, pid, quantity);
+    res.status(200).json({
+      status: "succes",
+      message: `cart con id:${cid} y product con id:${pid} actualizado correctamente`,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
+  }
+};
+//PRUEBAS*****************
 /*
-export const updateProductFromCart = async (req, res) => {};
 export const getProductFromCart = async (req, res) => {};
 */
