@@ -6,6 +6,7 @@ import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 const app = express();
 const PORT = 8080;
@@ -59,6 +60,7 @@ app.use(express.static(__dirname + "/../public"));
 
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
+app.use("/api/messages/", messageRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);

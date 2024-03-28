@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { MongoDBManager } from "../dao/MongoDB/MongoDBManager";
+import { MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
 
 const messageCollection = 'messages';
 
@@ -17,6 +17,7 @@ const messageSchema = new Schema({
 export class MessageMongoDBManager extends MongoDBManager{
     constructor(){
         super(process.env.URL_MONGODB, messageCollection,messageSchema);
-        
     }
 }
+
+export const messageManager = new MessageMongoDBManager();
