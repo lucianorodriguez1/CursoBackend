@@ -97,5 +97,5 @@ export const updateProductCart = async (req, res) => {
 };
 //PRUEBAS*****************
 /*
-export const getProductFromCart = async (req, res) => {};
+export const getProductCart = async (req, res) => {};
 */

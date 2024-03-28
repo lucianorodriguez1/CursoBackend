@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import ProductManager from "./ProductManager.js";
 
-const productManager = new ProductManager("./products.json");
+const productManager = new ProductManager("../../data/products.json");
 
 export default class CartManager {
   constructor(path) {

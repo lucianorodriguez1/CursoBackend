@@ -6,6 +6,7 @@ import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
+
 const app = express();
 const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
@@ -13,10 +14,10 @@ const serverHTTP = app.listen(PORT, () => {
 });
 
 //DESAFIO WEBSOCKETS-----------------------
-import ProductManager from "./filesystem/ProductManager.js";
+import ProductManager from "./dao/filesystem/ProductManager.js";
 
 const socketServer = new Server(serverHTTP);
-const productManager = new ProductManager("./products.json");
+const productManager = new ProductManager("./data/products.json");
 
 socketServer.on("connection", async(socket) => {
   

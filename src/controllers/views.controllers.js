@@ -1,11 +1,5 @@
-//import ProductManager from "../models/ProductManager.js";
-//const productManager = new ProductManager("./products.json");
-//import {getProducts} from "./products.controllers.js"
-
-// import { ProductManagerMongoDB } from "../models/product.model.js"
-// const productManager = new ProductManagerMongoDB();
-
 import { productManager } from "../models/product.model.js";
+
 export const viewHome = async (req, res) => {
   try {
     const products = await productManager.getElements();

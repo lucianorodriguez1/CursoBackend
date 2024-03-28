@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export class ManagerMongoDB{
+export class MongoDBManager{
     constructor(url,collection,schema){
         this.url = url;
         this.collection = collection;

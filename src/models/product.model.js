@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ManagerMongoDB } from "../db/ManagerMongoDB.js";
+import {MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
 
 const ProductCollection = "products";
 
@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
   status: {
     type: Boolean,
     default: true,
-  },
+  }, 
   stock: {
     type: Number,
     required: true,
@@ -41,14 +41,11 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-export class ProductManagerMongoDB extends ManagerMongoDB {
+export class ProductMongoDBManager extends MongoDBManager {
   constructor() {
     super(process.env.URL_MONGODB, ProductCollection, productSchema);
-    //aqui irian los atributos propios de la clase
   }
-
-  //Aqui irian los metodos propios de la clase
 }
 
-export const productManager = new ProductManagerMongoDB();
-//export const productModel = mongoose.model(ProductCollection, productSchema);
+export const productManager = new ProductMongoDBManager();
+

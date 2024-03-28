@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { ManagerMongoDB } from "../db/ManagerMongoDB.js";
+import { MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
 
 const cartCollection = "carts";
 
@@ -21,7 +21,7 @@ cartSchema.pre("find", function () {
   this.populate("products.prodId");
 });
 
-export class CartManagerMongoDB extends ManagerMongoDB {
+export class CartMongoDBManager extends MongoDBManager {
   constructor() {
     super(process.env.URL_MONGODB, cartCollection, cartSchema);
   }
@@ -106,7 +106,6 @@ export class CartManagerMongoDB extends ManagerMongoDB {
       console.log(error);
     }
   }
-  //PRUEBAS********************
 }
 
-export const cartManager = new CartManagerMongoDB();
+export const cartManager = new CartMongoDBManager();
