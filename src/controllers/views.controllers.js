@@ -19,7 +19,6 @@ export const viewHome = async (req, res) => {
 export const viewChat = async (req,res)=>{
   try {
     const messages = await messageManager.getElements();
-    console.log("Soy los mensajes: " + messages);//PRUEBA
     res.render("../views/chat",{
       messages
     });

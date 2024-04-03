@@ -1,6 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
+import morgan from "morgan";
 import "dotenv/config";
 import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
@@ -57,6 +58,7 @@ socketServer.on("connection", async(socket) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../public"));
+app.use(morgan('dev'));
 
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);

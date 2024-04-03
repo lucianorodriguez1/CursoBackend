@@ -1,1 +1,38 @@
 <h1>Soy la vista del chat</h1>
+
+<form
+  action="http://localhost:8080/api/messages/"
+  method="POST"
+  id="formularioChat"
+  style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; text-align: center;"
+>
+  <label for="user" style="display: block; margin-bottom: 5px;">Nombre:</label>
+  <input
+    type="text"
+    name="user"
+    placeholder="E-mail"
+    style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;"
+  />
+  <label
+    for="message"
+    style="display: block; margin-bottom: 5px;"
+  >Mensaje</label>
+  <textarea
+    name="message"
+    id=""
+    cols="30"
+    rows="10"
+    style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;"
+  ></textarea>
+  <button
+    type="submit"
+    style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"
+  >Enviar</button>
+</form>
+
+{{#each messages}}
+<h2>{{this.user}}</h2>
+<p>{{this.message}}</p>
+{{/each}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

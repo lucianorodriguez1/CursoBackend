@@ -14,7 +14,8 @@ export const CreateMessage = async (req, res) => {
   try {
     const { user, message } = req.body;
     const newMessage = await messageManager.addElements({ user, message });
-    res.status(201).json({ status: "succes", data: newMessage });
+    res.redirect("http://localhost:8080/chat");
+    //res.status(201).json({ status: "succes", data: newMessage });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
