@@ -1,15 +1,14 @@
 <h1>Soy la vista del chat</h1>
 
 <form
-  action="http://localhost:8080/api/messages/"
-  method="POST"
   id="formularioChat"
   style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; text-align: center;"
 >
-  <label for="user" style="display: block; margin-bottom: 5px;">Nombre:</label>
+  <label for="user" style="display: block; margin-bottom: 5px;"></label>
   <input
-    type="text"
-    name="user"
+    type="email"
+    name="email"
+    id="email"
     placeholder="E-mail"
     style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;"
   />
@@ -18,8 +17,8 @@
     style="display: block; margin-bottom: 5px;"
   >Mensaje</label>
   <textarea
-    name="message"
-    id=""
+    name="messageUser"
+    id="messageUser"
     cols="30"
     rows="10"
     style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;"
@@ -30,9 +29,24 @@
   >Enviar</button>
 </form>
 
-{{#each messages}}
-<h2>{{this.user}}</h2>
-<p>{{this.message}}</p>
-{{/each}}
+<div
+  id="chat-container"
+  style="max-width: 500px; margin: 20px auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 5px;"
+>
+  <div id="chat-messages" style="overflow-y: auto; max-height: 400px;">
+    {{#each messages}}
+      <div class="message" style="text-align: right; margin-bottom: 10px;">
+        <p
+          style="color: black; font-weight: bold; margin-bottom: 5px;"
+        >{{this.user}}</p>
+        <p
+          style="background-color: #dcf8c6; padding: 10px; border-radius: 10px; display: inline-block; max-width: 70%; margin-bottom: 0;"
+        >{{this.message}}</p>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/chat.js"></script>

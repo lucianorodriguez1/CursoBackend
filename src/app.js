@@ -14,43 +14,22 @@ const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${PORT}`);
 });
-
+ 
 //DESAFIO WEBSOCKETS-----------------------
-import ProductManager from "./dao/filesystem/ProductManager.js";
+import { messageManager } from "./models/message.model.js";
 
-const socketServer = new Server(serverHTTP);
-const productManager = new ProductManager("./data/products.json");
+const io = new Server(serverHTTP);
 
-socketServer.on("connection", async(socket) => {
-  
-  socket.on('newProduct', async(product)=>{
+io.on("connection", async(socket) => {
+  socket.on('newMessage', async(message)=>{
     try {
-      const response = await productManager.addProduct(product);
-      socket.emit("products",(await productManager.getProducts()));
+      const response = await messageManager.addElements(message);
+      //socket.emit("messages",(await messageManager.getElements()));
+      console.log(`Response de socket on: ${response}`);
     } catch (error) {
       console.log(error)
     }
   });
-
-  
-
-  socket.on('idProductDelete',async(id)=>{
-    try {
-      const response = (await productManager.deleteProduct(id));
-      console.log(id);
-      socket.emit("products",(await productManager.getProducts()));
-    } catch (error) {
-     console.log(error); 
-    }
-  })
-  /*
-  //evento para socket individual
-  socket.emit();
-  //evento para todos los sockets menos el actual
-  socket.broadcast.emit();
-  //evento para todos 
-  socket.emit();
-  */
 });
 //DESAFIO WEBSOCKETS TERMINADO-----------------------
 

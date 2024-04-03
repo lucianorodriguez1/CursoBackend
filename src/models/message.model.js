@@ -11,7 +11,7 @@ const messageSchema = new Schema({
     message:{
         type:String,
         required:true
-    }
+    } 
 })
 
 export class MessageMongoDBManager extends MongoDBManager{
