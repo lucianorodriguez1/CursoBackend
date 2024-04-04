@@ -14,7 +14,6 @@ export const viewHome = async (req, res) => {
   }
 };
 
-
 //PRUEBAS***
 export const viewChat = async (req,res)=>{
   try {
@@ -27,9 +26,3 @@ export const viewChat = async (req,res)=>{
     res.status(500).json({ message: "error en el servidor" });
   }
 }
-
-export const viewRealTimeProducts = async (req, res) => {
-  res.render("../views/realTimeProducts", {
-    //products:(await productManager.getElements()),
-  });
-};

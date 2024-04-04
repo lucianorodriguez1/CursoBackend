@@ -24,8 +24,6 @@ io.on("connection", async(socket) => {
   socket.on('newMessage', async(message)=>{
     try {
       const response = await messageManager.addElements(message);
-      //socket.emit("messages",(await messageManager.getElements()));
-      console.log(`Response de socket on: ${response}`);
     } catch (error) {
       console.log(error)
     }

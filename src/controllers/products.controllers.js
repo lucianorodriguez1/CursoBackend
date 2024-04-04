@@ -3,12 +3,10 @@ import { productManager } from "../models/product.model.js";
 export const getProducts = async (req, res) => {
   try {
     let products = await productManager.getElements();
-    let limit = req.query.limit;
+    let { limit, page, sort, query } = req.query;
 
-    if (!limit) return res.status(200).json({status:"succes",data:products});
+    return res.status(200).json({ status: "succes", data: products });
 
-    let productsLimits = products.slice(0, limit);
-    res.json(productsLimits);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
