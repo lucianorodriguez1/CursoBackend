@@ -2,11 +2,9 @@ import { productManager } from "../models/product.model.js";
 
 export const getProducts = async (req, res) => {
   try {
-    let products = await productManager.getElements();
-    let { limit, page, sort, query } = req.query;
-
-    return res.status(200).json({ status: "succes", data: products });
-
+    let { limit, page, sort, category,stock } = req.query;
+    let response = await productManager.getProducts(limit, page, sort, category,stock);
+    return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
