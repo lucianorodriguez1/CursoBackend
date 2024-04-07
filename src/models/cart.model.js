@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import { MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
+import {productManager} from "./product.model.js"
 
 const cartCollection = "carts";
 
@@ -7,7 +8,7 @@ const cartSchema = new Schema({
   products: [
     {
       prodId: {
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, 
         ref: "products",
       },
       quantity: {
@@ -16,7 +17,7 @@ const cartSchema = new Schema({
     },
   ],
 });
-//POPULATE
+
 cartSchema.pre("find", function () {
   this.populate("products.prodId");
 });
@@ -38,6 +39,10 @@ export class CartMongoDBManager extends MongoDBManager {
       const quantity = 1;
       const cart = await this.getElementById(cartId);
       if (!cart) return false;
+
+
+      const productExists = await productManager.getElementById(productId);
+      if(!productExists) return false;     
 
       const productIndex = cart.products.findIndex(
         (product) => product.prodId.toString() == productId
@@ -80,11 +85,9 @@ export class CartMongoDBManager extends MongoDBManager {
   async updateCartById(cid, products) {
     try {
       const cart = await this.getElementById(cid);
-      console.log("Soy el cart: " + cart); //PRUEBA
       if (!cart) throw new Error("Cart not found");
       cart.products = products;
       await cart.save();
-      console.log("Soy el nuevo cart: " + cart); //PRUEBA
       return true;
     } catch (error) {
       console.log(error);
@@ -97,7 +100,6 @@ export class CartMongoDBManager extends MongoDBManager {
       const productIndex = cart.products.findIndex(
         (product) => product.prodId.toString() === pid
       );
-      console.log(`Soy el product ${productIndex}`); //PRUEBA
       if (!productIndex) throw new Error("Product not found");
       const updateQuantity = (cart.products[productIndex].quantity = quantity);
       await cart.save();

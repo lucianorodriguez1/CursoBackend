@@ -13,8 +13,6 @@ export const viewHome = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
-//PRUEBAS***
 export const viewChat = async (req,res)=>{
   try {
     const messages = await messageManager.getElements();

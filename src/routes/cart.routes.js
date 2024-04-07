@@ -13,9 +13,5 @@ cartRouter.put("/:cid",updateCartById);
 cartRouter.put("/:cid/product/:pid",updateProductCart);
 
 export default cartRouter;
-/*
-//PRUEBAS **************
-//getProductCart
-cartRouter.get("/:cid/product/:pid", getProductCart);
-*/
+
 

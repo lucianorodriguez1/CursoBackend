@@ -4,7 +4,7 @@ export const getCarts = async (req, res) => {
   try {
     const carts = await cartManager.getElements();
     res.status(200).json({ status: "succes", data: carts });
-  } catch (error) {
+  } catch (error) { 
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
   }
@@ -95,7 +95,4 @@ export const updateProductCart = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-//PRUEBAS*****************
-/*
-export const getProductCart = async (req, res) => {};
-*/
+

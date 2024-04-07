@@ -82,12 +82,35 @@ export class ProductMongoDBManager extends MongoDBManager {
         page: paginate.page,
         hasPrevPage: paginate.hasPrevPage,
         hasNextPage: paginate.hasNextPage,
-        prevLink:paginate.prevPage!=null?`http://localhost:8080/api/products?limit=${limit}&page=${page-1}&sort=${sort}`:null,
-        nextLink:paginate.nextPage!=null?`http://localhost:8080/api/products?limit=${limit}&page=${page+1}&sort=${sort}`:null,
+        prevLink:
+          paginate.prevPage != null
+            ? `http://localhost:8080/api/products?limit=${limit}&page=${
+                page - 1
+              }&sort=${sort}`
+            : null,
+        nextLink:
+          paginate.nextPage != null
+            ? `http://localhost:8080/api/products?limit=${limit}&page=${
+                page + 1
+              }&sort=${sort}`
+            : null,
       };
       return response;
     } catch (error) {
       console.log(console.log);
+    }
+  }
+
+  async createProduct(elements) {
+    this.setConnection();
+    try {
+      return await this.model.insertMany(elements);
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new Error(
+          "El código del producto ya existe en la base de datos."
+        );
+      }
     }
   }
 }

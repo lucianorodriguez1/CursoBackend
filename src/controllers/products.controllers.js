@@ -2,8 +2,14 @@ import { productManager } from "../models/product.model.js";
 
 export const getProducts = async (req, res) => {
   try {
-    let { limit, page, sort, category,stock } = req.query;
-    let response = await productManager.getProducts(limit, page, sort, category,stock);
+    let { limit, page, sort, category, stock } = req.query;
+    let response = await productManager.getProducts(
+      limit,
+      page,
+      sort,
+      category,
+      stock
+    );
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
     console.log(error);
@@ -24,7 +30,7 @@ export const createProduct = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const data = await productManager.addElements({
+    const data = await productManager.createProduct({
       title,
       description,
       code,
@@ -38,8 +44,14 @@ export const createProduct = async (req, res) => {
       .status(201)
       .json({ message: "Producto agregado correctamente: ", data });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error interno del servidor" });
+    if (
+      error.message === "El código del producto ya existe en la base de datos."
+    ) {
+      res.status(404).json({ message: "Código de producto duplicado" });
+    } else {
+      console.error(error);
+      res.status(500).json({ message: "Error interno del servidor" });
+    }
   }
 };
 

@@ -6,6 +6,5 @@ const messageRouter = Router();
 messageRouter.get("/",getMessages);
 messageRouter.post("/",CreateMessage);
 
-
 export default messageRouter;
 
