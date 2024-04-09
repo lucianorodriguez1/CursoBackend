@@ -1,0 +1,17 @@
+<h1>Hola soy id:{{cartId}}</h1>
+
+{{#each cart}}
+  <div
+    style="flex: 0 0 calc(33.33% - 20px); margin-right: 20px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 20px;"
+  >
+    <button style="background-color: #f0f0f0; width: 100%;cursor:pointer;">
+      <h2>{{this.prodId.title}}</h2>
+      <p>Description: {{this.prodId.description}}</p>
+      <p>Code: {{this.product.code}}</p>
+      <p>Price: {{this.product.price}}</p>
+      <p>Status: {{#if this.product.status}}Available{{else}}Not Available{{/if}}</p>
+      <p>Stock: {{this.product.stock}}</p>
+      <p>Category: {{this.product.category}}</p>
+       <p>Quantity: {{this.prodId.quantity}}</p>
+  </div>
+{{/each}}

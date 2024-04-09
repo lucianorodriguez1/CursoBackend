@@ -1,0 +1,25 @@
+<h1> Products</h1>
+
+<div style="display: flex; flex-wrap: wrap;">
+  {{#each products}}
+    <div
+      style="flex: 0 0 calc(33.33% - 20px); margin-right: 20px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 20px;"
+    >
+      <button style="background-color: #f0f0f0; width: 100%;cursor:pointer;" onclick="window.location.href = '/products/{{this._id}}';">
+        <h2>{{this.title}}</h2>
+        <p>Description: {{this.description}}</p>
+        <p>Code: {{this.code}}</p>
+        <p>Price: {{this.price}}</p>
+        <p>Status: {{#if this.status}}Available{{else}}Not Available{{/if}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <p>Category: {{this.category}}</p>
+        <button
+          style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 5px; width: 100%; cursor:pointer; margin-top:10px"
+        >Agregar al carrito</button>
+      </button>
+    </div>
+  {{/each}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

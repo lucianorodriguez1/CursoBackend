@@ -36,7 +36,7 @@ export class MongoDBManager{
     async getElementById(id){
         this.setConnection()
         try{
-            return await this.model.findById(id) 
+            return await this.model.findById(id).lean();
         }catch(error){
             console.log(error)
         }

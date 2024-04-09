@@ -57,7 +57,6 @@ export class ProductMongoDBManager extends MongoDBManager {
       let query;
 
       if (category != undefined) {
-        console.log(category);
         query = { category: category };
       } else if (stock != undefined) {
         query = { stock: stock };

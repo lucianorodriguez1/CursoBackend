@@ -29,7 +29,7 @@ export class CartMongoDBManager extends MongoDBManager {
   async getCartPopulate(id) {
     this.setConnection();
     try {
-      return await this.model.findById(id).populate("products.prodId");
+      return await this.model.findById(id).populate("products.prodId").lean();
     } catch (error) {
       console.log(error);
     }
