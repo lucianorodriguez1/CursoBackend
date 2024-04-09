@@ -1,6 +1,6 @@
 import { productManager } from "../models/product.model.js";
 import { messageManager } from "../models/message.model.js";
-import {cartManager} from '../models/cart.model.js'
+import { cartManager } from "../models/cart.model.js";
 
 export const viewHome = async (req, res) => {
   try {
@@ -29,7 +29,16 @@ export const viewChat = async (req, res) => {
 //PRUEBAS***************
 export const viewProducts = async (req, res) => {
   try {
-    const products = await productManager.getElements();
+    let { limit, page, sort, category, stock } = req.query;
+    const response = await productManager.getProducts(
+      limit,
+      page,
+      sort,
+      category,
+      stock
+    );
+    const dataMongoose = response.payload;
+    const products = dataMongoose.map(doc=>doc.toObject());
     res.render("../views/products", {
       products,
     });
@@ -41,11 +50,11 @@ export const viewProducts = async (req, res) => {
 
 export const viewProductById = async (req, res) => {
   try {
-    const{pid} = req.params;
+    const { pid } = req.params;
     const product = await productManager.getElementById(pid);
     res.render("../views/product", {
-      productId:pid,
-      product
+      productId: pid,
+      product,
     });
   } catch (error) {
     console.log(error);
@@ -55,11 +64,11 @@ export const viewProductById = async (req, res) => {
 
 export const viewCartById = async (req, res) => {
   try {
-    const{cid} = req.params;
+    const { cid } = req.params;
     const cartData = await cartManager.getCartPopulate(cid);
     res.render("../views/cart", {
-      cartId:cid,
-      cart:cartData.products
+      cartId: cid,
+      cart: cartData.products,
     });
   } catch (error) {
     console.log(error);

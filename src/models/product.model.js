@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
     default: [],
   },
 });
-
+ 
 productSchema.plugin(mongoosePaginate);
 
 export class ProductMongoDBManager extends MongoDBManager {
