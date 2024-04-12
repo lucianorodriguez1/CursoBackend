@@ -25,8 +25,6 @@ export const viewChat = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
-//PRUEBAS***************
 export const viewProducts = async (req, res) => {
   try {
     let { limit, page, sort, category, stock } = req.query;
@@ -47,7 +45,6 @@ export const viewProducts = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
 export const viewProductById = async (req, res) => {
   try {
     const { pid } = req.params;
@@ -61,7 +58,6 @@ export const viewProductById = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
 export const viewCartById = async (req, res) => {
   try {
     const { cid } = req.params;
@@ -75,3 +71,4 @@ export const viewCartById = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
+ 

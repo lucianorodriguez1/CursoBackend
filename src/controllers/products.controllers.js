@@ -1,5 +1,5 @@
 import { productManager } from "../models/product.model.js";
-
+ 
 export const getProducts = async (req, res) => {
   try {
     let { limit, page, sort, category, stock } = req.query;

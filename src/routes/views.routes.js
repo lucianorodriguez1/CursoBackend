@@ -5,7 +5,6 @@ const viewsRouter = Router();
 
 viewsRouter.get("/", viewHome);
 viewsRouter.get("/chat", viewChat);
-//PRUEBAS*************
 viewsRouter.get("/products", viewProducts);
 viewsRouter.get("/products/:pid", viewProductById);
 viewsRouter.get("/carts/:cid", viewCartById);
