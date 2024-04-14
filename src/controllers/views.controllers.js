@@ -4,11 +4,8 @@ import { cartManager } from "../models/cart.model.js";
 
 export const viewHome = async (req, res) => {
   try {
-    const products = await productManager.getElements();
 
-    res.render("index", {
-      products,
-    });
+    res.render("index"); 
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
@@ -71,4 +68,24 @@ export const viewCartById = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
- 
+
+//PRUEBAS****
+export const viewRegister = async (req, res) => {
+  try {
+    res.render("register", {
+    }); 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
+  }
+};
+
+export const viewLogin = async (req, res) => {
+  try {
+    res.render("login", {
+    }); 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
+  }
+};

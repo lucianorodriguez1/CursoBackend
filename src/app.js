@@ -12,6 +12,8 @@ import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
 import messageRouter from "./routes/message.routes.js";
+import sessionRouter from "./routes/session.routes.js"
+import userRouter from "./routes/user.routes.js"
 import { messageManager } from "./models/message.model.js";
 
 const app = express();
@@ -55,6 +57,8 @@ app.use(session({
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
 app.use("/api/messages/", messageRouter);
+app.use("/api/users/",userRouter);
+app.use("/api/sessions/", sessionRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
