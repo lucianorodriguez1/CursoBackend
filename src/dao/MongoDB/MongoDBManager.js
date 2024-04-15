@@ -36,6 +36,14 @@ export class MongoDBManager{
     async getElementById(id){
         this.setConnection()
         try{
+            return await this.model.findById(id);
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async getElementByIdLean(id){
+        this.setConnection()
+        try{
             return await this.model.findById(id).lean();
         }catch(error){
             console.log(error)

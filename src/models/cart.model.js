@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 import { MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
-import {productManager} from "./product.model.js"
+import { productManager } from "./product.model.js";
 
 const cartCollection = "carts";
 
@@ -8,7 +8,7 @@ const cartSchema = new Schema({
   products: [
     {
       prodId: {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: "products",
       },
       quantity: {
@@ -39,21 +39,18 @@ export class CartMongoDBManager extends MongoDBManager {
       const quantity = 1;
       const cart = await this.getElementById(cartId);
       if (!cart) return false;
-
-
       const productExists = await productManager.getElementById(productId);
-      if(!productExists) return false;     
+      if (!productExists) return false;
 
       const productIndex = cart.products.findIndex(
         (product) => product.prodId.toString() == productId
       );
-
       if (productIndex == -1) {
         cart.products.push({ prodId: productId, quantity: quantity });
       } else {
-        let res = (cart.products[productIndex].quantity += 1);
+        cart.products[productIndex].quantity += 1;
       }
-      const res = await cart.save();
+      await cart.save();
       return true;
     } catch (error) {
       console.log(error);

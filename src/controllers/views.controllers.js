@@ -5,7 +5,7 @@ import { cartManager } from "../models/cart.model.js";
 export const viewHome = async (req, res) => {
   try {
 
-    res.render("index"); 
+    res.render("index");  
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
@@ -25,17 +25,34 @@ export const viewChat = async (req, res) => {
 export const viewProducts = async (req, res) => {
   try {
     let { limit, page, sort, category, stock } = req.query;
+    const pageInt=parseInt(page);
     const response = await productManager.getProducts(
       limit,
-      page,
+      pageInt,
       sort,
       category,
       stock
     );
+    //**PRUEBA******** */
+    const existsNextPage = response.hasNextPage;
+    const existsPrevPage = response.hasPrevPage;
+    const nextLink=`http://localhost:8080/products?page=${(page+1)}&limit=2`;
+    const prevLink=`http://localhost:8080/products?page=${page-1}&limit=2`;
+    console.log(existsNextPage,
+      existsPrevPage,
+      nextLink,
+      prevLink)
+    //***** */
     const dataMongoose = response.payload;
     const products = dataMongoose.map(doc=>doc.toObject());
     res.render("../views/products", {
       products,
+      //***Prueba******** */
+      existsNextPage,
+      existsPrevPage,
+      nextLink,
+      prevLink
+      // ****Prueba****
     });
   } catch (error) {
     console.log(error);
@@ -45,7 +62,7 @@ export const viewProducts = async (req, res) => {
 export const viewProductById = async (req, res) => {
   try {
     const { pid } = req.params;
-    const product = await productManager.getElementById(pid);
+    const product = await productManager.getElementByIdLean(pid);
     res.render("../views/product", {
       productId: pid,
       product,

@@ -21,5 +21,15 @@
   {{/each}}
 </div>
 
+  <hr>
+  <div>
+    {{#if  existsPrevPage}}
+      <a href="{{prevLink}}"> anterior</a>
+    {{/if}}
+    {{#if  existsNextPage}}
+      <a href="{{nextLink}}">  siguiente</a>
+    {{/if}}
+  </div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/products.js"></script>
