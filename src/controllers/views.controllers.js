@@ -24,35 +24,23 @@ export const viewChat = async (req, res) => {
 };
 export const viewProducts = async (req, res) => {
   try {
-    let { limit, page, sort, category, stock } = req.query;
-    const pageInt=parseInt(page);
-    const response = await productManager.getProducts(
-      limit,
-      pageInt,
-      sort,
-      category,
-      stock
-    );
-    //**PRUEBA******** */
+    let { limit, page, sort, query } = req.query;
+    
+    limit = !limit ? 2:limit;
+    const response = await productManager.getProducts(limit,page,sort,query)
+
     const existsNextPage = response.hasNextPage;
     const existsPrevPage = response.hasPrevPage;
-    const nextLink=`http://localhost:8080/products?page=${(page+1)}&limit=2`;
-    const prevLink=`http://localhost:8080/products?page=${page-1}&limit=2`;
-    console.log(existsNextPage,
-      existsPrevPage,
-      nextLink,
-      prevLink)
-    //***** */
+    const nextLink=`http://localhost:8080/products?page=${(response.page+1)}&limit=2`;
+    const prevLink=`http://localhost:8080/products?page=${response.page-1}&limit=2`;
     const dataMongoose = response.payload;
     const products = dataMongoose.map(doc=>doc.toObject());
     res.render("../views/products", {
       products,
-      //***Prueba******** */
       existsNextPage,
       existsPrevPage,
       nextLink,
       prevLink
-      // ****Prueba****
     });
   } catch (error) {
     console.log(error);

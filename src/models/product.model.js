@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
     default: [],
   },
 });
- 
+
 productSchema.plugin(mongoosePaginate);
 
 export class ProductMongoDBManager extends MongoDBManager {
@@ -49,20 +49,19 @@ export class ProductMongoDBManager extends MongoDBManager {
     super(process.env.URL_MONGODB, ProductCollection, productSchema);
   }
 
-  async getProducts(limit, page, sort, category, stock) {
+  async getProducts(limit, page, sort,query) {
     this.setConnection();
     try {
       limit = !limit ? 10 : parseInt(limit);
       page = !page ? 1 : parseInt(page);
-      let query;
-
-      if (category != undefined) {
-        query = { category: category };
-      } else if (stock != undefined) {
-        query = { stock: stock };
-      } else {
-        query = {};
-      }
+      query = !query ? {} : { title: query };
+      // if (category != undefined) {
+      //   query = { category: category };
+      // } else if (stock != undefined) {
+      //   query = { stock: stock };
+      // } else {
+      //   query = {};
+      // }
       const options = {
         limit: limit,
         page: page,
