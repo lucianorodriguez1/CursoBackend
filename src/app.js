@@ -50,8 +50,8 @@ app.use(session({
     ttl:15,
   }),
   secret:'secrett',
-  resave:false,
-  saveUninitialized:false
+  resave:true,
+  saveUninitialized:true
 }))
 
 app.use("/api/products/", productRouter);

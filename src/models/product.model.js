@@ -95,7 +95,7 @@ export class ProductMongoDBManager extends MongoDBManager {
       };
       return response;
     } catch (error) {
-      console.log(console.log);
+      console.log(error);
     }
   }
 

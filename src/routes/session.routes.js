@@ -1,5 +1,7 @@
 import { Router } from "express";
 import {auth} from "../middlewares/auth.middleware.js"
+import { userManager } from "../models/user.model.js";
+
 const sessionRouter = Router();
 
 sessionRouter.get("/", (req, res) => {
@@ -14,21 +16,26 @@ sessionRouter.get("/", (req, res) => {
 
 sessionRouter.get("/logout", (req, res) => {
   req.session.destroy((err) => {
-    if (!err) res.send("Logout ok!");
-    else res.json({ status: "Logout error", body: err });
+    if (!err){
+    res.redirect("/login");
+    }else{
+    
+     res.json({ status: "Logout error", body: err });
+    }
   });
 });
 
-sessionRouter.get("/login",(req, res) => {
-  const { username, password } = req.query;
-  console.log(username,password)
-  if (username !== "pepe" || password !== "pepepass") {
+sessionRouter.post("/login",async (req, res) => {
+  const { email, password } = req.body;
+  const isUser = await userManager.FindOne(email);
+  if (email !== isUser.email || password !== isUser.password) {
     return res.send("Login Failed");
   }
-  req.session.user=username;
-  req.session.admin=true;
-
-  res.send('Login success');
+  req.session.user=isUser.first_name;
+  req.session.admin=false;
+  req.session.isLogin=true;
+  console.log(req.session)
+  res.redirect('/products'); 
 
 });
 export default sessionRouter;

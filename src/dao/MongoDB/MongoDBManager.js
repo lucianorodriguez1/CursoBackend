@@ -32,6 +32,16 @@ export class MongoDBManager{
             console.log(error)
         }
     }
+    //////PRUEBA
+    async FindOne(param){
+        this.setConnection()
+        try{
+            return await this.model.findOne({email:param});
+        }catch(error){
+            console.log(error)
+        }
+    }
+    ///////
 
     async getElementById(id){
         this.setConnection()

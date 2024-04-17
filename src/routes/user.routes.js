@@ -3,9 +3,14 @@ import { userManager } from "../models/user.model.js";
 
 const userRouter = Router();
 
-userRouter.get("/",async (req,res)=>{
-    res.send("Hola")
-})
+userRouter.get("/", async (req, res) => {
+  try {
+    const users = await userManager.getElements();
+    res.json(users);
+  } catch (error) { 
+    console.log(error);
+  }
+});
 
 userRouter.post("/register", async (req, res) => {
   try {

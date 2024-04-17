@@ -1,4 +1,8 @@
-<form style="max-width: 300px; margin: 0 auto;">
+<form
+  style="max-width: 300px; margin: 0 auto;"
+  action="http://localhost:8080/api/sessions/login"
+  method="POST"
+>
   <h2 style="text-align: center;">Login</h2>
   <label for="email">Email:</label>
   <input
@@ -6,7 +10,7 @@
     id="email"
     name="email"
     placeholder="Email"
-    style="width: 100%; padding: 8px; margin-bottom: 10px;" 
+    style="width: 100%; padding: 8px; margin-bottom: 10px;"
   />
   <label for="password">Password:</label>
   <input
@@ -16,4 +20,7 @@
     placeholder="*******"
     style="width: 100%; padding: 8px; margin-bottom: 10px;"
   />
+  <button type="submit">
+    Iniciar sesion
+  </button>
 </form>

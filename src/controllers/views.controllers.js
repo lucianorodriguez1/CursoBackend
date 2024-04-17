@@ -4,8 +4,7 @@ import { cartManager } from "../models/cart.model.js";
 
 export const viewHome = async (req, res) => {
   try {
-
-    res.render("index");  
+    res.render("index");
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
@@ -25,22 +24,31 @@ export const viewChat = async (req, res) => {
 export const viewProducts = async (req, res) => {
   try {
     let { limit, page, sort, query } = req.query;
-    
-    limit = !limit ? 2:limit;
-    const response = await productManager.getProducts(limit,page,sort,query)
 
+    let usernameUser;
+    if (req.session.user) {
+      usernameUser = req.session.user;
+    } else {
+      usernameUser = "anonimo";
+    }
+    const response = await productManager.getProducts(limit, page, sort, query);
     const existsNextPage = response.hasNextPage;
     const existsPrevPage = response.hasPrevPage;
-    const nextLink=`http://localhost:8080/products?page=${(response.page+1)}&limit=2`;
-    const prevLink=`http://localhost:8080/products?page=${response.page-1}&limit=2`;
+    const nextLink = `http://localhost:8080/products?page=${
+      response.page + 1
+    }&limit=2`;
+    const prevLink = `http://localhost:8080/products?page=${
+      response.page - 1
+    }&limit=2`;
     const dataMongoose = response.payload;
-    const products = dataMongoose.map(doc=>doc.toObject());
+    const products = dataMongoose.map((doc) => doc.toObject());
     res.render("../views/products", {
       products,
       existsNextPage,
       existsPrevPage,
       nextLink,
-      prevLink
+      prevLink,
+      usernameUser,
     });
   } catch (error) {
     console.log(error);
@@ -77,8 +85,7 @@ export const viewCartById = async (req, res) => {
 //PRUEBAS****
 export const viewRegister = async (req, res) => {
   try {
-    res.render("register", {
-    }); 
+    res.render("register", {});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
@@ -87,10 +94,20 @@ export const viewRegister = async (req, res) => {
 
 export const viewLogin = async (req, res) => {
   try {
-    res.render("login", {
-    }); 
+    console.log(req.session)
+    res.render("login", {});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });
   }
 };
+
+export const viewProfile = async (req,res)=>{
+  try {
+    console.log(req.session)
+    res.render("profile");
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({message:"error en el servidor"})
+  }
+}
