@@ -35,7 +35,7 @@ sessionRouter.post("/login", async (req, res) => {
     if (email !== isUser.email || password !== isUser.password) {
       return res.send("Login Failed");
     }
-    req.session.user = isUser.first_name;
+    req.session.user = isUser;
     if (isUser.rol == "admin") {
       req.session.admin = true;
     } else {
@@ -46,5 +46,5 @@ sessionRouter.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-});
+}); 
 export default sessionRouter;

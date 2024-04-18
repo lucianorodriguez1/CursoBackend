@@ -11,7 +11,6 @@ viewsRouter.get("/products", viewProducts);
 viewsRouter.get("/products/:pid", viewProductById);
 viewsRouter.get("/carts/:cid", viewCartById);
 
-
 //PRUEBAS***
 viewsRouter.get("/register",viewRegister);
 viewsRouter.get("/login",viewLogin);

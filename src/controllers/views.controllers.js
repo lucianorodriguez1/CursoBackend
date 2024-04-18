@@ -27,11 +27,11 @@ export const viewProducts = async (req, res) => {
 
     let usernameUser;
     let admin;
-    if(req.session.admin){
-      admin=true;
+    if (req.session.admin) {
+      admin = true;
     }
     if (req.session.user) {
-      usernameUser = req.session.user;
+      usernameUser = req.session.user.first_name;
     } else {
       usernameUser = "anonimo";
     }
@@ -53,7 +53,7 @@ export const viewProducts = async (req, res) => {
       nextLink,
       prevLink,
       usernameUser,
-      admin
+      admin,
     });
   } catch (error) {
     console.log(error);
@@ -86,8 +86,6 @@ export const viewCartById = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
-//PRUEBAS****
 export const viewRegister = async (req, res) => {
   try {
     res.render("register", {});
@@ -96,7 +94,6 @@ export const viewRegister = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
 export const viewLogin = async (req, res) => {
   try {
     res.render("login", {});
@@ -105,12 +102,17 @@ export const viewLogin = async (req, res) => {
     res.status(500).json({ message: "error en el servidor" });
   }
 };
-
-export const viewProfile = async (req,res)=>{
+export const viewProfile = async (req, res) => {
   try {
-    res.render("profile");
+    const userData = req.session.user;
+    res.render("profile", {
+      userFirstName: userData.first_name,
+      userLastName: userData.last_name,
+      userAge: userData.age,
+      userEmail: userData.email,
+    });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({message:"error en el servidor"})
+    console.log(error);
+    res.status(500).json({ message: "error en el servidor" });
   }
-}
+};

@@ -1,6 +1,6 @@
 import cartModel from "../models/cart.js";
 
- class CartMongoDBManager {
+class CartMongoDBManager {
   constructor() {}
 
   async getCarts() {
@@ -30,11 +30,25 @@ import cartModel from "../models/cart.js";
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");
 
-      
-      const update = await cartModel.updateOne(
-        { _id: cid },
-        { $push: { products:{prodId:pid, quantity:1}} }
+      const productExists = cart.products.findIndex(
+        (prod) => prod.prodId._id == pid
       );
+      if (productExists == -1) {
+        let response = await cartModel.updateOne(
+          { _id: cid },
+          { $push: { products: { prodId: { _id: pid }, quantity: 1 } } }
+        );
+        console.log("agregue", response);
+      } else {
+        let response = await cartModel.updateOne(
+          {
+            _id: cid,
+            "products.prodId": pid,
+          },
+          { $inc: { "products.$.quantity": 1 } }
+        );
+        console.log("Incremente", response);
+      }
 
       return true;
     } catch (error) {
@@ -47,7 +61,7 @@ import cartModel from "../models/cart.js";
       if (!cart) throw new Error("Cart not found");
       const update = await cartModel.updateOne(
         { _id: cid },
-        { $set: { "products":[] } }
+        { $set: { products: [] } }
       );
     } catch (error) {
       console.log(error);
