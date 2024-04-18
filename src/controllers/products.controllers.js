@@ -1,4 +1,4 @@
-import { productManager } from "../models/product.model.js";
+import { productManager } from "../dao/MongoDB/managers/product.js";
  
 export const getProducts = async (req, res) => {
   try {
@@ -65,7 +65,7 @@ export const createProduct = async (req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const id = req.params.pid;
-    const response = await productManager.getElementById({ _id: id });
+    const response = await productManager.getProductById(id);
     if (response) {
       return res
         .status(200)
@@ -92,8 +92,8 @@ export const updateProductById = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const response = await productManager.updateElement(
-      { _id: id },
+    const response = await productManager.updateProductById(
+      id,
       {
         title,
         description,
@@ -109,6 +109,7 @@ export const updateProductById = async (req, res) => {
       return res.status(200).json({
         status: "succes",
         message: "Producto actualizado con éxito",
+        data:response,
       });
     }
     res.status(404).json({
@@ -123,7 +124,7 @@ export const updateProductById = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   try {
     let id = req.params.pid;
-    const response = await productManager.deleteElement({ _id: id });
+    const response = await productManager.deleteProductById(id);
     if (response) {
       return res
         .status(200)

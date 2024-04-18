@@ -14,7 +14,8 @@ import viewsRouter from "./routes/views.routes.js";
 import messageRouter from "./routes/message.routes.js";
 import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
-import { messageManager } from "./models/message.model.js";
+import { messageManager } from "./dao/MongoDB/managers/message.js";
+import { connnectDB } from "./utils/mongo.js";
 
 const app = express();
 const fileStore = FileStore(session);
@@ -22,8 +23,7 @@ const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${PORT}`);
 });
- 
-//DESAFIO WEBSOCKETS MEESAGE-----------------------
+connnectDB();
 
 const io = new Server(serverHTTP);
 
@@ -36,7 +36,6 @@ io.on("connection", async(socket) => {
     }
   });
 });
-//DESAFIO WEBSOCKETS TERMINADO-----------------------
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

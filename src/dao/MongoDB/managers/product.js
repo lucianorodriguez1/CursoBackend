@@ -1,56 +1,11 @@
 import mongoose from "mongoose";
-import { MongoDBManager } from "../dao/MongoDB/MongoDBManager.js";
 import mongoosePaginate from "mongoose-paginate-v2";
+import productModel from "../models/product.js";
 
-const ProductCollection = "products";
+class ProductMongoDBManager {
+  constructor() {}
 
-const productSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  code: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-    index: true,
-  },
-  status: {
-    type: Boolean,
-    default: true,
-  },
-  stock: {
-    type: Number,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-    index: true,
-  },
-  thumbnails: {
-    type: Array,
-    default: [],
-  },
-});
-
-productSchema.plugin(mongoosePaginate);
-
-export class ProductMongoDBManager extends MongoDBManager {
-  constructor() {
-    super(process.env.URL_MONGODB, ProductCollection, productSchema);
-  }
-
-  async getProducts(limit, page, sort,query) {
-    this.setConnection();
+  async getProducts(limit, page, sort, query) {
     try {
       limit = !limit ? 10 : parseInt(limit);
       page = !page ? 1 : parseInt(page);
@@ -70,7 +25,7 @@ export class ProductMongoDBManager extends MongoDBManager {
         const sortOrder = sort === "desc" ? -1 : 1;
         options.sort = { price: sortOrder };
       }
-      const paginate = await this.model.paginate(query, options);
+      const paginate = await productModel.paginate(query, options);
       const response = {
         status: "success",
         payload: paginate.docs,
@@ -100,9 +55,8 @@ export class ProductMongoDBManager extends MongoDBManager {
   }
 
   async createProduct(elements) {
-    this.setConnection();
     try {
-      return await this.model.insertMany(elements);
+      return await productModel.insertMany(elements);
     } catch (error) {
       if (error.code === 11000) {
         throw new Error(
@@ -110,6 +64,28 @@ export class ProductMongoDBManager extends MongoDBManager {
         );
       }
     }
+  }
+
+  async getProductById(id) {
+    try {
+      return await productModel.findOne({_id:id})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async updateProductById(id,data){
+    try {
+      return await productModel.findOneAndUpdate({_id:id},{...data},{new:true})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async deleteProductById(id){
+  try {
+    return await productModel.findOneAndDelete({_id:id})
+  } catch (error) {
+    console.log(error)
+  }
   }
 }
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import {auth} from "../middlewares/auth.middleware.js"
-import { userManager } from "../models/user.model.js";
+import { auth } from "../middlewares/auth.middleware.js";
+import { userManager } from "../dao/MongoDB/managers/user.js";
 
 const sessionRouter = Router();
 
@@ -16,26 +16,35 @@ sessionRouter.get("/", (req, res) => {
 
 sessionRouter.get("/logout", (req, res) => {
   req.session.destroy((err) => {
-    if (!err){
-    res.redirect("/login");
-    }else{
-    
-     res.json({ status: "Logout error", body: err });
+    if (!err) {
+      res.redirect("/login");
+    } else {
+      res.json({ status: "Logout error", body: err });
     }
   });
 });
 
-sessionRouter.post("/login",async (req, res) => {
-  const { email, password } = req.body;
-  const isUser = await userManager.FindOne(email);
-  if (email !== isUser.email || password !== isUser.password) {
-    return res.send("Login Failed");
-  }
-  req.session.user=isUser.first_name;
-  req.session.admin=false;
-  req.session.isLogin=true;
-  console.log(req.session)
-  res.redirect('/products'); 
+sessionRouter.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const isUser = await userManager.getUserByEmail(email);
 
+    if (!isUser) {
+      return res.status(404).json({message:"Usuario no encontrado"});
+    }
+    if (email !== isUser.email || password !== isUser.password) {
+      return res.send("Login Failed");
+    }
+    req.session.user = isUser.first_name;
+    if (isUser.rol == "admin") {
+      req.session.admin = true;
+    } else {
+      req.session.admin = false;
+    }
+    req.session.isLogin = true;
+    res.redirect("/products");
+  } catch (error) {
+    console.log(error);
+  }
 });
 export default sessionRouter;

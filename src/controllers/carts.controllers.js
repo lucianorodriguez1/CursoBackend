@@ -1,8 +1,8 @@
-import { cartManager } from "../models/cart.model.js";
+import { cartManager } from "../dao/MongoDB/managers/cart.js";
 
 export const getCarts = async (req, res) => {
   try {
-    const carts = await cartManager.getElements();
+    const carts = await cartManager.getCarts();
     res.status(200).json({ status: "succes", data: carts });
   } catch (error) { 
     console.log(error);
@@ -11,7 +11,7 @@ export const getCarts = async (req, res) => {
 };
 export const createCart = async (req, res) => {
   try {
-    const response = await cartManager.addElements();
+    const response = await cartManager.createCart();
     res.status(201).json({ message: "Created cart", data: response });
   } catch (error) {
     console.log(error);

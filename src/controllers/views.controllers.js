@@ -1,6 +1,6 @@
-import { productManager } from "../models/product.model.js";
-import { messageManager } from "../models/message.model.js";
-import { cartManager } from "../models/cart.model.js";
+import { productManager } from "../dao/MongoDB/managers/product.js";
+import { messageManager } from "../dao/MongoDB/managers/message.js";
+import { cartManager } from "../dao/MongoDB/managers/cart.js";
 
 export const viewHome = async (req, res) => {
   try {
@@ -26,6 +26,10 @@ export const viewProducts = async (req, res) => {
     let { limit, page, sort, query } = req.query;
 
     let usernameUser;
+    let admin;
+    if(req.session.admin){
+      admin=true;
+    }
     if (req.session.user) {
       usernameUser = req.session.user;
     } else {
@@ -49,6 +53,7 @@ export const viewProducts = async (req, res) => {
       nextLink,
       prevLink,
       usernameUser,
+      admin
     });
   } catch (error) {
     console.log(error);
@@ -94,7 +99,6 @@ export const viewRegister = async (req, res) => {
 
 export const viewLogin = async (req, res) => {
   try {
-    console.log(req.session)
     res.render("login", {});
   } catch (error) {
     console.log(error);
@@ -104,7 +108,6 @@ export const viewLogin = async (req, res) => {
 
 export const viewProfile = async (req,res)=>{
   try {
-    console.log(req.session)
     res.render("profile");
   } catch (error) {
     console.log(error)
