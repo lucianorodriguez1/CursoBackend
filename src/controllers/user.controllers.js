@@ -9,9 +9,7 @@ export const getUsers = async (req, res) => {
     console.log(error);
   } 
 };
-
 export const getUser = async (req, res) => {};
-
 export const createUser = async (req, res) => {
   try {
     const { first_name, last_name, age, email, password } = req.body;
