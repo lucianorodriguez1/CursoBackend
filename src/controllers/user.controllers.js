@@ -1,4 +1,4 @@
-import { userManager } from "../dao/MongoDB/managers/user.js";
+import { userManager } from "../dao/MongoDB/managers/user.dao.js";
 
 export const getUsers = async (req, res) => {
   try {

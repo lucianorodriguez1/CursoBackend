@@ -1,4 +1,4 @@
-import { messageManager } from "../dao/MongoDB/managers/message.js";
+import { messageManager } from "../dao/MongoDB/managers/message.dao.js";
 //PRUBEAS***********
 export const getMessages = async (req, res) => {
   try {

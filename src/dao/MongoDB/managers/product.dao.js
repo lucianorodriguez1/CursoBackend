@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
-import productModel from "../models/product.js";
+import productModel from "../models/product.model.js";
 
 class ProductMongoDBManager {
   constructor() {}

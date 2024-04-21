@@ -1,6 +1,6 @@
-import { productManager } from "../dao/MongoDB/managers/product.js";
-import { messageManager } from "../dao/MongoDB/managers/message.js";
-import { cartManager } from "../dao/MongoDB/managers/cart.js";
+import { productManager } from "../dao/MongoDB/managers/product.dao.js";
+import { messageManager } from "../dao/MongoDB/managers/message.dao.js";
+import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 
 export const viewHome = async (req, res) => {
   try {

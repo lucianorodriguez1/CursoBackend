@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { auth } from "../middlewares/auth.middleware.js";
-import { userManager } from "../dao/MongoDB/managers/user.js";
+import { userManager } from "../dao/MongoDB/managers/user.dao.js";
 
 const sessionRouter = Router();
 

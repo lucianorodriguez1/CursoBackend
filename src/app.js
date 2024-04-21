@@ -14,7 +14,7 @@ import viewsRouter from "./routes/views.routes.js";
 import messageRouter from "./routes/message.routes.js";
 import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
-import { messageManager } from "./dao/MongoDB/managers/message.js";
+import { messageManager } from "./dao/MongoDB/managers/message.dao.js";
 import { connnectDB } from "./utils/mongo.js";
 
 const app = express();
