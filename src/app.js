@@ -16,6 +16,8 @@ import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
 import { messageManager } from "./dao/MongoDB/managers/message.dao.js";
 import { connnectDB } from "./utils/mongo.js";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js"
 
 const app = express();
 const fileStore = FileStore(session);
@@ -52,6 +54,9 @@ app.use(session({
   resave:true,
   saveUninitialized:true
 }))
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);

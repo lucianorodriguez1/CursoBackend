@@ -8,3 +8,8 @@ function isValidPassword(user,password){
     const isValid = bcrypt.compareSync(password,user.password);
     return isValid;
 }
+
+export {
+    createHash,
+    isValidPassword
+}

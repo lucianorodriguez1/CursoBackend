@@ -1,4 +1,5 @@
 import { userManager } from "../dao/MongoDB/managers/user.dao.js";
+import {createHash} from "../utils/bcrypt.js"
 
 export const getUsers = async (req, res) => {
   try {
@@ -22,7 +23,7 @@ export const createUser = async (req, res) => {
         last_name,
         age,
         email,
-        password,
+        password:createHash(password),
         rol: "admin",
       });
     } else {
@@ -31,7 +32,7 @@ export const createUser = async (req, res) => {
         last_name,
         age,
         email,
-        password,
+        password:createHash(password),
       });
     }
 
