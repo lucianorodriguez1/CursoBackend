@@ -10,6 +10,13 @@ class UserMongoDBManager {
       console.log(error);
     }
   }
+  async getUserById(id){
+    try {
+      return await userModel.findOne({_id:id});
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   async getUserByEmail(email){
     try {

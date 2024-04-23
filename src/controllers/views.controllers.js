@@ -4,7 +4,9 @@ import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 
 export const viewHome = async (req, res) => {
   try {
-    res.render("index");
+    res.render("index",{
+    isLogin : req.session.isLogin
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error en el servidor" });

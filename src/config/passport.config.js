@@ -6,13 +6,6 @@ import { userManager } from "../dao/MongoDB/managers/user.dao.js";
 import { createHash, isValidPassword } from "../utils/bcrypt.js";
 
 const LocalStrategy = local.Strategy;
-/* LOCAL
-const initializePassport = () => {
-  
-};
-LOCAL FIN *************/
-
-///////GITHUB
 const initializePassport = () => {
   passport.use(
     "register",

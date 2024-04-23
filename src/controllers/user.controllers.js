@@ -9,7 +9,15 @@ export const getUsers = async (req, res) => {
     console.log(error);
   } 
 };
-export const getUser = async (req, res) => {};
+export const getUser = async (req, res) => {  
+  try {
+    const id = req.params.uid;
+    const user = await userManager.getUserById(id);
+    res.status(200).json({status:"succes",payload:user});
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const createUser = async (req, res) => {
   try {
     const { first_name, last_name, age, email, password } = req.body;

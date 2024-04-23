@@ -20,13 +20,14 @@ import passport from "passport";
 import initializePassport from "./config/passport.config.js"
 
 const app = express();
-const fileStore = FileStore(session);
+//const fileStore = FileStore(session); ESPERO A CLASE PARA VER SI LO SIGO USANDO
 const PORT = 8080;
 const serverHTTP = app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${PORT}`);
 });
 connnectDB();
 
+/*WEB SOCKET ///
 const io = new Server(serverHTTP);
 
 io.on("connection", async(socket) => {
@@ -38,7 +39,7 @@ io.on("connection", async(socket) => {
     }
   });
 });
-
+*/
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../public"));

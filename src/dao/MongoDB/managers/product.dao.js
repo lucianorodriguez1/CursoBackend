@@ -2,7 +2,6 @@ import productModel from "../models/product.model.js";
 
 class ProductMongoDBManager {
   constructor() {}
-
   async getProducts(limit, page, sort, query) {
     try {
       limit = !limit ? 10 : parseInt(limit);
@@ -51,7 +50,6 @@ class ProductMongoDBManager {
       console.log(error);
     }
   }
-
   async createProduct(elements) {
     try {
       return await productModel.insertMany(elements);
@@ -63,7 +61,6 @@ class ProductMongoDBManager {
       }
     }
   }
-
   async getProductById(id) {
     try {
       return await productModel.findOne({_id:id})
