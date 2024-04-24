@@ -71,23 +71,22 @@ const initializePassport = () => {
     "github",
     new GitHubStrategy(
       {
-        clientID: "Iv1.20882f0a0e059dfa",
-        clientSecret: "8bcfd5288971cb2f582409a0019130736e8b7230",
+        clientID: process.env.CLIENT_ID_GITHUB,
+        clientSecret: process.env.CLIENT_SECRETS_GITHUB,
         callbackURL: "http://localhost:8080/api/sessions/githubcallback",
       },
       async (accesToken, refreshToken, profile, done) => {
         try {
-          //console.log(profile);
+          console.log(profile);//PRUEBAAAAAAA*/////
           let user = await userManager.getUserByEmail(profile.profileUrl);
           if (!user) {
             let newUser = {
               first_name: profile.username,
               last_name: " ",
-              age: 0,
+              age: 20,
               email: profile.profileUrl,
               password: " ",
             };
-            console.log(profile);
             let result = await userManager.createUser(newUser);
             done(null, result);
           } else {

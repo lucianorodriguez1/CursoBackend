@@ -60,6 +60,7 @@ sessionRouter.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   async (req, res) => {
     req.session.user = req.user;
+    console.log(req.user);
     req.session.isLogin = true;
     res.redirect("/");
   }
