@@ -51,9 +51,9 @@ app.use(session({
     //mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},  OPCIONES OBSOLETAS?
     ttl:1500,
   }),
-  secret:'secrett',
-  resave:true,
-  saveUninitialized:true
+  secret:'secret',
+  resave:false, 
+  saveUninitialized:false
 }))
 initializePassport();
 app.use(passport.initialize());

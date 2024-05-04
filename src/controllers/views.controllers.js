@@ -5,7 +5,7 @@ import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 export const viewHome = async (req, res) => {
   try {
     res.render("index",{
-    isLogin : req.session.isLogin
+      isLogin:req.user
     });
   } catch (error) {
     console.log(error);
@@ -105,13 +105,13 @@ export const viewLogin = async (req, res) => {
   }
 };
 export const viewProfile = async (req, res) => {
+  const userData = req.user;
   try {
-    const userData = req.session.user;
     res.render("profile", {
-      userFirstName: userData.first_name,
-      userLastName: userData.last_name,
-      userAge: userData.age,
-      userEmail: userData.email,
+      userFirstName: userData.user.first_name,
+      userLastName: userData.user.last_name,
+      userAge: userData.user.age,
+      userEmail: userData.user.email,
     });
   } catch (error) {
     console.log(error);

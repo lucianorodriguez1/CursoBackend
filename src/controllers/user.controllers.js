@@ -22,6 +22,7 @@ export const createUser = async (req, res) => {
   try {
     const { first_name, last_name, age, email, password } = req.body;
     let newUser;
+    let passwordHash = createHash(password);
 
     if (email == "adminCoder@coder.com" && password == "adminCod3r123") {
       newUser = await userManager.createUser({
@@ -38,10 +39,9 @@ export const createUser = async (req, res) => {
         last_name,
         age,
         email,
-        password:createHash(password),
+        password:passwordHash
       });
     }
-
     res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
