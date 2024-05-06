@@ -4,8 +4,9 @@ export const passportCall = (strategy) =>{
     return async(req,res,next)=>{
         passport.authenticate(strategy,function(err,user,info){
             if(err) return next(err);
+            console.log(info.message);
             if(!user){
-                return res.status(401).send({error:info.message?info.message:info.toString()});
+                return res.status(401).send({error:"User not found"});
             }
             req.user = user;
             next();

@@ -1,17 +1,11 @@
 import { Router } from "express";
 import passport from "passport";
-import { authToken, generateToken } from "../utils/jwt.js";
 import { passportCall } from "../utils/passport.js";
 import { authorization } from "../middlewares/auth.middleware.js";
-import { userManager } from "../dao/MongoDB/managers/user.dao.js";
-import { createHash, isValidPassword } from "../utils/bcrypt.js";
+import { register,logout, login } from "../controllers/session.controllers.js";
 
 const sessionRouter = Router();
 
-sessionRouter.get("/logout", (req, res) => {
-  res.clearCookie("coderCookieToken");
-  res.redirect("/");
-});
 //desafio local
 /*
 // sessionRouter.post(
@@ -70,53 +64,9 @@ sessionRouter.get(
     res.redirect("/");
   }
 );
-sessionRouter.post("/register", async (req, res) => {
-  try {
-    const { first_name, last_name, age, email, password } = req.body;
-    const passwordHash = createHash(password);
-    const newUser = await userManager.createUser({
-      first_name,
-      last_name,
-      age,
-      email,
-      password: passwordHash,
-    });
-    const token = generateToken(newUser);
-    res
-      .cookie("coderCookieToken", token, {
-        maxAgre: 60 * 60 * 1000,
-        httpOnly: true,
-      })
-      .redirect("/");
-  } catch (error) {
-    console.log(error);
-  }
-});
-sessionRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await userManager.getUserByEmail(email);
-    if (!user)
-      return res
-        .status(401)
-        .json({ status: "succes", message: "credenciales incorrectas" });
-    const validatePassword = isValidPassword(user, password);
-    if (!validatePassword)
-      return res
-        .status(403)
-        .json({ status: "succes", message: "credenciales incorrectas" });
-
-    const token = generateToken(user);
-    res
-      .cookie("coderCookieToken", token, {
-        maxAgre: 60 * 60 * 1000,
-        httpOnly: true,
-      })
-      .redirect("/");
-  } catch (error) {
-    console.log(error);
-  }
-});
+sessionRouter.post("/register",register);
+sessionRouter.post("/login",login);
+sessionRouter.get("/logout", logout);
 //¿Esto seria como un ejemplo??
 sessionRouter.get(
   "/current",
