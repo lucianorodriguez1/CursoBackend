@@ -5,6 +5,7 @@ export const generateToken = (user) => {
   return token;
 };
 
+/*
 export const authToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).send({ error: "Not authenticated" });
@@ -15,3 +16,4 @@ export const authToken = (req, res, next) => {
     next();
   });
 };
+*/

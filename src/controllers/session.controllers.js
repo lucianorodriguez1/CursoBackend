@@ -1,6 +1,7 @@
 import { userManager } from "../dao/MongoDB/managers/user.dao.js";
 import { generateToken } from "../utils/jwt.js";
 import { isValidPassword,createHash } from "../utils/bcrypt.js";
+import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 
 export async function login(req,res){
     const { email, password } = req.body;
@@ -11,6 +12,7 @@ export async function login(req,res){
     const validatePassword = isValidPassword(user, password);
     if (!validatePassword)
       return res.render("login", { error: "credenciales incorrectas" });
+    delete user.password;
     const token = generateToken(user);
     res
       .cookie("coderCookieToken", token, {
@@ -20,19 +22,23 @@ export async function login(req,res){
       .redirect("/");
   } catch (error) {
     console.log(error);
-  }
+  } 
 }
 export async function register(req,res){
     try {
     const { first_name, last_name, age, email, password } = req.body;
     const passwordHash = createHash(password);
+    const cartObject = await cartManager.createCart();
+    const cartId = cartObject[0]._id;
     const newUser = await userManager.createUser({
       first_name,
       last_name,
       age,
       email,
       password: passwordHash,
+      cartId:cartId
     });
+    delete user.password;
     const token = generateToken(newUser);
     res
       .cookie("coderCookieToken", token, {

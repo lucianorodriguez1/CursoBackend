@@ -1,12 +1,9 @@
 import passport from "passport";
-import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import userModel from "../dao/MongoDB/models/user.model.js";
 import { userManager } from "../dao/MongoDB/managers/user.dao.js";
-import { createHash, isValidPassword } from "../utils/bcrypt.js";
 import jwt from "passport-jwt";
 
-const LocalStrategy = local.Strategy;
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
 
@@ -18,13 +15,12 @@ const cookieExtractor = (req) => {
   return token;
 };
 
-const initializePassport = () => {
+const initializatePassport = () => {
   passport.use(
     "jwt",
     new JWTStrategy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        //misma secret que en app.js
         secretOrKey: process.env.TOKEN_KEY,
       },
       async (jwt_payload, done) => {
@@ -79,4 +75,4 @@ const initializePassport = () => {
     done(null, user);
   });
 };
-export default initializePassport;
+export default initializatePassport;
