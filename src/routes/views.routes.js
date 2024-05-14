@@ -1,6 +1,5 @@
 import {Router} from 'express';
 import { viewHome,viewChat, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile} from '../controllers/views.controllers.js';
-import { isLogin } from '../middlewares/auth.middleware.js';
 import { passportCall } from '../utils/passport.js';
 import { authorization } from '../middlewares/auth.middleware.js';
 
@@ -13,6 +12,6 @@ viewsRouter.get("/products/:pid", viewProductById);
 viewsRouter.get("/carts/:cid", viewCartById);
 viewsRouter.get("/register",viewRegister);
 viewsRouter.get("/login",viewLogin);
-viewsRouter.get("/profile",passportCall("jwt"),authorization("user"),isLogin,viewProfile);
+viewsRouter.get("/profile",passportCall("jwt"),authorization("user"),viewProfile);
 
 export default viewsRouter;

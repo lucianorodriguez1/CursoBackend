@@ -7,7 +7,9 @@ export const passportCall = (strategy) =>{
             if(!user){
                 return res.status(401).send({error:"User not found"});
             }
+            console.log(req)
             req.user = user;
+            console.log(req)
             next();
         })(req,res,next);
     }

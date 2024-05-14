@@ -12,7 +12,6 @@ export async function login(req,res){
     const validatePassword = isValidPassword(user, password);
     if (!validatePassword)
       return res.render("login", { error: "credenciales incorrectas" });
-    delete user.password;
     const token = generateToken(user);
     res
       .cookie("coderCookieToken", token, {
@@ -38,8 +37,9 @@ export async function register(req,res){
       password: passwordHash,
       cartId:cartId
     });
-    delete user.password;
-    const token = generateToken(newUser);
+
+    const user = await userManager.getUserByEmail(email);
+    const token = generateToken(user);
     res
       .cookie("coderCookieToken", token, {
         maxAgre: 60 * 60 * 1000,

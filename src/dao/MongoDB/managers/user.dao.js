@@ -25,6 +25,17 @@ class UserMongoDBManager {
       console.log(error)
     }
   }
+  /*
+  async getUserByEmail(email){
+    try {
+      const user = await userModel.findOne({email:email});
+      delete user.password;
+      return user;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  */
   async createUser(data) {
     try {
       return await userModel.insertMany(data);
