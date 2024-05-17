@@ -3,14 +3,9 @@ import { messageManager } from "../dao/MongoDB/managers/message.dao.js";
 import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 
 export const viewHome = async (req, res) => {
-  try {
-    res.render("index",{
-      isLogin:req.user
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  res.render("index", {
+    isLogin: req.user,
+  });
 };
 export const viewChat = async (req, res) => {
   try {
@@ -63,58 +58,34 @@ export const viewProducts = async (req, res) => {
   }
 };
 export const viewProductById = async (req, res) => {
-  try {
-    const { pid } = req.params;
-    const product = await productManager.getElementByIdLean(pid);
-    res.render("../views/product", {
-      productId: pid,
-      product,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  const { pid } = req.params;
+  const product = await productManager.getElementByIdLean(pid);
+  res.render("../views/product", {
+    productId: pid,
+    product,
+  });
 };
 export const viewCartById = async (req, res) => {
-  try {
-    const { cid } = req.params;
-    const cartData = await cartManager.getCartPopulate(cid);
-    res.render("../views/cart", {
-      cartId: cid,
-      cart: cartData.products,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  const { cid } = req.params;
+  const cartData = await cartManager.getCartPopulate(cid);
+  res.render("../views/cart", {
+    cartId: cid,
+    cart: cartData.products,
+  });
 };
 export const viewRegister = async (req, res) => {
-  try {
-    res.render("register", {});
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  res.render("register", {});
 };
 export const viewLogin = async (req, res) => {
-  try {
-    res.render("login", {});
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  res.render("login", {});
 };
 export const viewProfile = async (req, res) => {
   const userData = req.user;
-  try {
-    res.render("profile", {
-      userFirstName: userData.user.first_name,
-      userLastName: userData.user.last_name,
-      userAge: userData.user.age,
-      userEmail: userData.user.email,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+
+  res.render("profile", {
+    userFirstName: userData.user.first_name,
+    userLastName: userData.user.last_name,
+    userAge: userData.user.age,
+    userEmail: userData.user.email,
+  });
 };

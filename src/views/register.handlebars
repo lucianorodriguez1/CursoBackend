@@ -1,3 +1,6 @@
+{{#if error}} <!-- Verificar si hay un error -->
+    <p>{{error}}</p> <!-- Mostrar el mensaje de error -->
+  {{/if}}
 <form
   style="max-width: 300px; margin: 0 auto;"
   action="http://localhost:8080/api/sessions/register"

@@ -5,11 +5,9 @@ export const passportCall = (strategy) =>{
         passport.authenticate(strategy,function(err,user,info){
             if(err) return next(err);
             if(!user){
-                return res.status(401).send({error:"User not found"});
+                return res.render("not-available");
             }
-            console.log(req)
             req.user = user;
-            console.log(req)
             next();
         })(req,res,next);
     }

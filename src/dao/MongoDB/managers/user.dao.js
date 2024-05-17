@@ -10,19 +10,19 @@ class UserMongoDBManager {
       console.log(error);
     }
   }
-  async getUserById(id){
+  async getUserById(id) {
     try {
-      return await userModel.findOne({_id:id});
+      return await userModel.findOne({ _id: id });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
-  async getUserByEmail(email){
+  async getUserByEmail(email) {
     try {
-      return await userModel.findOne({email:email})
+      return await userModel.findOne({ email: email });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   /*
@@ -36,6 +36,7 @@ class UserMongoDBManager {
     }
   }
   */
+  /*
   async createUser(data) {
     try {
       return await userModel.insertMany(data);
@@ -44,6 +45,23 @@ class UserMongoDBManager {
     }
   }
 }
-
+*/
+  async createUser(data) {
+    try {
+      return await userModel.insertMany(data);
+    } catch (error) {
+      if (error.code === 11000) {
+        // Lanzar un error más descriptivo
+        throw new Error(
+          "Duplicate key error: a user with this email already exists."
+        );
+      } else {
+        // Lanzar otros errores
+        throw new Error("Error");
+      }
+    }
+  }
+  
+}
 
 export const userManager = new UserMongoDBManager();

@@ -37,7 +37,6 @@ export async function register(req,res){
       password: passwordHash,
       cartId:cartId
     });
-
     const user = await userManager.getUserByEmail(email);
     const token = generateToken(user);
     res
@@ -47,7 +46,11 @@ export async function register(req,res){
       })
       .redirect("/");
   } catch (error) {
-    console.log(error);
+    if (error.message.includes('Duplicate key error')) {
+      return res.render("register",{error:"Email duplicado"});
+    } else {
+      res.status(500).send({ message: 'An unexpected error occurred.' });
+    }
   }
 }
 export async function logout(req,res){
