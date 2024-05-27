@@ -5,15 +5,15 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
 import "dotenv/config";
+import passport from "passport";
+
 import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
-import messageRouter from "./routes/message.routes.js";
 import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
 import { connnectDB } from "./utils/mongo.js";
-import passport from "passport";
 import initializatePassport from "./config/passport.config.js"
 
 const app = express();
@@ -44,7 +44,6 @@ app.use(passport.session());
 
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
-app.use("/api/messages/", messageRouter);
 app.use("/api/users/",userRouter);
 app.use("/api/sessions/", sessionRouter);
 

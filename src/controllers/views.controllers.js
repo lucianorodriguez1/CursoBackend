@@ -1,22 +1,11 @@
 import { productManager } from "../dao/MongoDB/managers/product.dao.js";
-import { messageManager } from "../dao/MongoDB/managers/message.dao.js";
 import { cartManager } from "../dao/MongoDB/managers/cart.dao.js";
 
 export const viewHome = async (req, res) => {
+  console.log(req.user);
   res.render("index", {
     isLogin: req.user,
   });
-};
-export const viewChat = async (req, res) => {
-  try {
-    const messages = await messageManager.getElements();
-    res.render("../views/chat", {
-      messages,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
 };
 export const viewProducts = async (req, res) => {
   try {
@@ -88,4 +77,4 @@ export const viewProfile = async (req, res) => {
     userAge: userData.user.age,
     userEmail: userData.user.email,
   });
-};
+}; 
