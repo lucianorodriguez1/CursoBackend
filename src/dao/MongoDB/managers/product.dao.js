@@ -7,13 +7,6 @@ class ProductMongoDBManager {
       limit = !limit ? 10 : parseInt(limit);
       page = !page ? 1 : parseInt(page);
       query = !query ? {} : { title: query };
-      // if (category != undefined) {
-      //   query = { category: category };
-      // } else if (stock != undefined) {
-      //   query = { stock: stock };
-      // } else {
-      //   query = {};
-      // }
       const options = {
         limit: limit,
         page: page,

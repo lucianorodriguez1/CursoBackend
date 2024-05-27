@@ -7,6 +7,7 @@ import morgan from "morgan";
 import "dotenv/config";
 import passport from "passport";
 
+import config from "./config/config.js"
 import __dirname from "./utils.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
@@ -14,13 +15,13 @@ import viewsRouter from "./routes/views.routes.js";
 import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
 import { connnectDB } from "./utils/mongo.js";
-import initializatePassport from "./config/passport.config.js"
+import initializatePassport from "./utils/passport.js"
 
 const app = express();
 
 const PORT = 8080;
-const serverHTTP = app.listen(PORT, () => {
-  console.log(`listening to the server on PORT ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`listening to the server on PORT ${config.port}`);
 });
 connnectDB();
 
@@ -31,7 +32,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(session({
   store: MongoStore.create({
-    mongoUrl:process.env.URL_MONGODB,
+    mongoUrl:config.mongoUrl,
     ttl:1500,
   }),
   secret:'secret',

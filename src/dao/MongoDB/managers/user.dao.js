@@ -4,7 +4,7 @@ class UserMongoDBManager {
   constructor() {}
 
   async getUsers() {
-    try {
+    try { 
       return await userModel.find();
     } catch (error) {
       console.log(error);
@@ -25,33 +25,12 @@ class UserMongoDBManager {
       console.log(error);
     }
   }
-  /*
-  async getUserByEmail(email){
-    try {
-      const user = await userModel.findOne({email:email});
-      delete user.password;
-      return user;
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  */
-  /*
-  async createUser(data) {
-    try {
-      return await userModel.insertMany(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-*/
   async createUser(data) {
     try {
       return await userModel.insertMany(data);
     } catch (error) {
       if (error.code === 11000) {
-        // Lanzar un error más descriptivo
+        // Lanzar un error más descriptivo 
         throw new Error(
           "Duplicate key error: a user with this email already exists."
         );
