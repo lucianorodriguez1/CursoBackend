@@ -1,10 +1,11 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github2";
-import userModel from "../dao/MongoDB/models/user.model.js";
-import { userManager } from "../dao/MongoDB/managers/user.dao.js";
+import userModel from "../dao/mongo/models/user.model.js";
+import User from "../dao/mongo/user.dao.js";
 import jwt from "passport-jwt";
 import config from "../config/config.js";
 
+const userService = new User();
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
 
@@ -44,7 +45,7 @@ const initializatePassport = () => {
       },
       async (accesToken, refreshToken, profile, done) => {
         try {
-          let user = await userManager.getUserByEmail(profile.profileUrl);
+          let user = await userService.getUserByEmail(profile.profileUrl);
           if (!user) {
             let newUser = {
               first_name: profile.username,
@@ -53,7 +54,7 @@ const initializatePassport = () => {
               email: profile.profileUrl,
               password: " ",
             };
-            let result = await userManager.createUser(newUser);
+            let result = await userService.createUser(newUser);
             done(null, result);
           } else {
             done(null, user);

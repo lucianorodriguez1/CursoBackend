@@ -1,9 +1,11 @@
-import { userManager } from "../dao/MongoDB/managers/user.dao.js";
+import User from "../dao/mongo/user.dao.js";
 import {createHash} from "../utils/bcrypt.js"
+
+const userService = new User();
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await userManager.getUsers();
+    const users = await userService.getUsers();
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -12,7 +14,7 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {  
   try {
     const id = req.params.uid;
-    const user = await userManager.getUserById(id);
+    const user = await userService.getUserById(id);
     res.status(200).json({status:"succes",payload:user});
   } catch (error) {
     console.log(error);
@@ -25,7 +27,7 @@ export const createUser = async (req, res) => {
     let passwordHash = createHash(password);
 
     if (email == "adminCoder@coder.com" && password == "adminCod3r123") {
-      newUser = await userManager.createUser({
+      newUser = await userService.createUser({
         first_name,
         last_name,
         age,
@@ -34,7 +36,7 @@ export const createUser = async (req, res) => {
         rol: "admin",
       });
     } else {
-      newUser = await userManager.createUser({
+      newUser = await userService.createUser({
         first_name,
         last_name,
         age,

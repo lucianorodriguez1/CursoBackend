@@ -8,7 +8,7 @@ import "dotenv/config";
 import passport from "passport";
 
 import config from "./config/config.js"
-import __dirname from "./utils.js";
+import __dirname from "./utils/multer.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
@@ -16,6 +16,7 @@ import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
 import { connnectDB } from "./utils/mongo.js";
 import initializatePassport from "./utils/passport.js"
+
 
 const app = express();
 

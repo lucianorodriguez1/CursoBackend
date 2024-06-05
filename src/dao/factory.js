@@ -1,0 +1,21 @@
+import { connnectDB } from "../utils/mongo.js";
+import config from "../config/config.js";
+
+export let Product;
+export let Cart;
+export let User;
+
+switch (config.persistence) {
+  case "MONGO":
+    connnectDB();
+    const { default: ProductMongo } = await import("./mongo/models/product.model.js");
+    const { default: CartMongo } = await import("./mongo/models/cart.model.js");
+    const { default: UserMongo } = await import("./mongo/models/user.model.js");
+    Product = ProductMongo;
+    Cart = CartMongo;
+    User = UserMongo;
+    break;
+
+  default:
+    throw new Error("Invalid persistence option");
+}

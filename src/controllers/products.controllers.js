@@ -1,22 +1,16 @@
-import { productManager } from "../dao/MongoDB/managers/product.dao.js";
- 
+//import Product from "../dao/mongo/product.dao.js";
+import { productsService } from "../repositories/index.js";
+
 export const getProducts = async (req, res) => {
   try {
-    //let { limit, page, sort, category, stock } = req.query;
     let { limit, page, sort, query } = req.query;
-    let response = await productManager.getProducts(
+    let response = await productsService.getProducts(
       limit,
       page,
       sort,
       query
     );
-    // let response = await productManager.getProducts(
-    //   limit,
-    //   page,
-    //   sort,
-    //   category,
-    //   stock
-    // );
+
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
     console.log(error);
@@ -37,7 +31,7 @@ export const createProduct = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const data = await productManager.createProduct({
+    const data = await productsService.createProduct({
       title,
       description,
       code,
@@ -60,12 +54,12 @@ export const createProduct = async (req, res) => {
       res.status(500).json({ message: "Error interno del servidor" });
     }
   }
-};
+}; 
 
 export const getProductById = async (req, res) => {
   try {
     const id = req.params.pid;
-    const response = await productManager.getProductById(id);
+    const response = await productsService.getProductById(id);
     if (response) {
       return res
         .status(200)
@@ -92,7 +86,7 @@ export const updateProductById = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const response = await productManager.updateProductById(
+    const response = await productsService.updateProductById(
       id,
       {
         title,
@@ -124,7 +118,7 @@ export const updateProductById = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   try {
     let id = req.params.pid;
-    const response = await productManager.deleteProductById(id);
+    const response = await productsService.deleteProductById(id);
     if (response) {
       return res
         .status(200)

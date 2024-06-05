@@ -1,6 +1,6 @@
-import userModel from "../models/user.model.js";
+import userModel from "./models/user.model.js";
 
-class UserMongoDBManager {
+export default class User {
   constructor() {}
 
   async getUsers() {
@@ -23,7 +23,7 @@ class UserMongoDBManager {
       return await userModel.findOne({ email: email });
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
   async createUser(data) {
     try {
@@ -43,4 +43,3 @@ class UserMongoDBManager {
   
 }
 
-export const userManager = new UserMongoDBManager();

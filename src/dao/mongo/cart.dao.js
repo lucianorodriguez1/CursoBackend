@@ -1,13 +1,13 @@
-import cartModel from "../models/cart.model.js";
+import cartModel from "./models/cart.model.js";
 
-class CartMongoDBManager {
+export default class Cart {
   constructor() {}
 
   async getCarts() {
     try {
       return await cartModel.find();
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   }
   async getCartPopulate(id) {
@@ -15,7 +15,7 @@ class CartMongoDBManager {
       return await cartModel.findById(id).populate("products.prodId").lean();
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
   async createCart() {
     try {
@@ -114,4 +114,3 @@ class CartMongoDBManager {
   }
 }
 
-export const cartManager = new CartMongoDBManager();

@@ -1,12 +1,12 @@
-import productModel from "../models/product.model.js";
+import productModel from "./models/product.model.js";
 
-class ProductMongoDBManager {
+export default class Product {
   constructor() {}
-  async getProducts(limit, page, sort, query) {
+  async get(limit, page, sort, query) {
     try {
       limit = !limit ? 10 : parseInt(limit);
       page = !page ? 1 : parseInt(page);
-      query = !query ? {} : { title: query };
+      query = !query ? {} : { title: query }; 
       const options = {
         limit: limit,
         page: page,
@@ -43,7 +43,7 @@ class ProductMongoDBManager {
       console.log(error);
     }
   }
-  async createProduct(elements) {
+  async create(elements) {
     try {
       return await productModel.insertMany(elements);
     } catch (error) {
@@ -54,27 +54,29 @@ class ProductMongoDBManager {
       }
     }
   }
-  async getProductById(id) {
+  async getById(id) {
     try {
-      return await productModel.findOne({_id:id})
+      return await productModel.findOne({ _id: id });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
-  async updateProductById(id,data){
+  async update(id, data) {
     try {
-      return await productModel.findOneAndUpdate({_id:id},{...data},{new:true})
+      return await productModel.findOneAndUpdate(
+        { _id: id },
+        { ...data },
+        { new: true }
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
-  async deleteProductById(id){
-  try {
-    return await productModel.findOneAndDelete({_id:id})
-  } catch (error) {
-    console.log(error)
-  }
+  async delete(id) {
+    try {
+      return await productModel.findOneAndDelete({ _id: id });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
-
-export const productManager = new ProductMongoDBManager();
