@@ -1,5 +1,5 @@
 export default class CartDTO{
     constructor(cart){
-        this.products = cart.productss
+        //this.products = cart.products
     }
 }

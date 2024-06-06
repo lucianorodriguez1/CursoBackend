@@ -1,4 +1,3 @@
-//import Product from "../dao/mongo/product.dao.js";
 import { productsService } from "../repositories/index.js";
 
 export const getProducts = async (req, res) => {

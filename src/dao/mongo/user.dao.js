@@ -3,14 +3,14 @@ import userModel from "./models/user.model.js";
 export default class User {
   constructor() {}
 
-  async getUsers() {
+  async get() {
     try { 
       return await userModel.find();
     } catch (error) {
       console.log(error);
     }
   }
-  async getUserById(id) {
+  async getById(id) {
     try {
       return await userModel.findOne({ _id: id });
     } catch (error) {
@@ -18,14 +18,14 @@ export default class User {
     }
   }
 
-  async getUserByEmail(email) {
+  async getByEmail(email) {
     try {
       return await userModel.findOne({ email: email });
     } catch (error) {
       console.log(error);
     } 
   }
-  async createUser(data) {
+  async create(data) {
     try {
       return await userModel.insertMany(data);
     } catch (error) {

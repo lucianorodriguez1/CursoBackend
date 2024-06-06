@@ -24,7 +24,6 @@ const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${config.port}`);
 });
-connnectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -3,21 +3,21 @@ import cartModel from "./models/cart.model.js";
 export default class Cart {
   constructor() {}
 
-  async getCarts() {
+  async get() {
     try {
       return await cartModel.find();
     } catch (error) {
       console.log(error); 
     }
   }
-  async getCartPopulate(id) {
+  async getById(id) {
     try {
       return await cartModel.findById(id).populate("products.prodId").lean();
     } catch (error) {
       console.log(error);
     } 
   }
-  async createCart() {
+  async create() {
     try {
       return await cartModel.insertMany();
     } catch (error) {
@@ -25,7 +25,7 @@ export default class Cart {
     }
   }
 
-  async addProductFromCart(cid, pid) {
+  async addProd(cid, pid) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");
@@ -38,7 +38,6 @@ export default class Cart {
           { _id: cid },
           { $push: { products: { prodId: { _id: pid }, quantity: 1 } } }
         );
-        console.log("agregue", response);
       } else {
         let response = await cartModel.updateOne(
           {
@@ -47,7 +46,6 @@ export default class Cart {
           },
           { $inc: { "products.$.quantity": 1 } }
         );
-        console.log("Incremente", response);
       }
 
       return true;
@@ -55,7 +53,7 @@ export default class Cart {
       console.log(error);
     }
   }
-  async deleteAllProductsFromCartById(cid) {
+  async deleteAll(cid) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");
@@ -67,7 +65,7 @@ export default class Cart {
       console.log(error);
     }
   }
-  async deleteProductCart(cid, pid) {
+  async delete(cid, pid) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");
@@ -85,7 +83,7 @@ export default class Cart {
       console.log(error);
     }
   }
-  async updateCartById(cid, products) {
+  async updateAll(cid, products) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");
@@ -98,7 +96,7 @@ export default class Cart {
       console.log(error);
     }
   }
-  async updateProductCart(cid, pid, quantity) {
+  async update(cid, pid, quantity) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       if (!cart) throw new Error("Cart not found");

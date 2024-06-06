@@ -21,15 +21,7 @@ export default class UserRepository {
     return result;
   }
   async getUserByEmail(email) {
-    let result = await this.dao.getByEmail(id);
-    return result;
-  }
-  async updateProductById(id, data) {
-    let result = await this.dao.update(id, data);
-    return result;
-  }
-  async deleteProductById(id) {
-    let result = await this.dao.delete(id);
+    let result = await this.dao.getByEmail(email);
     return result;
   }
 }

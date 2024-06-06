@@ -6,13 +6,15 @@ import {
   updateProductById,
   deleteProductById,
 } from "../controllers/products.controllers.js";
+import { authorization } from "../middlewares/auth.middleware.js";
+import { passportCall } from "../middlewares/passport.middleware.js";
 
 const productRouter = Router();
 
 productRouter.get("/", getProducts);
-productRouter.post("/", createProduct);
+productRouter.post("/", passportCall('jwt'),authorization("admin"), createProduct);
 productRouter.get("/:pid", getProductById);
-productRouter.put("/:pid", updateProductById);
-productRouter.delete("/:pid", deleteProductById);
+productRouter.put("/:pid",  passportCall('jwt'),authorization("admin"), updateProductById);
+productRouter.delete("/:pid",  passportCall('jwt'),authorization("admin"), deleteProductById);
 
 export default productRouter;

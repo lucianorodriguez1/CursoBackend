@@ -8,9 +8,9 @@ export let User;
 switch (config.persistence) {
   case "MONGO":
     connnectDB();
-    const { default: ProductMongo } = await import("./mongo/models/product.model.js");
-    const { default: CartMongo } = await import("./mongo/models/cart.model.js");
-    const { default: UserMongo } = await import("./mongo/models/user.model.js");
+    const { default: ProductMongo } = await import("./mongo/product.dao.js");
+    const { default: CartMongo } = await import("./mongo/cart.dao.js");
+    const { default: UserMongo } = await import("./mongo/user.dao.js");
     Product = ProductMongo;
     Cart = CartMongo;
     User = UserMongo;
