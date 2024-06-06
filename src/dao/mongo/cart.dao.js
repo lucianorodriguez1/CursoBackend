@@ -1,5 +1,7 @@
 import cartModel from "./models/cart.model.js";
-
+import productModel from "./models/product.model.js";
+import ticketModel from "./models/ticket.model.js";
+import { v4 as uuidv4 } from 'uuid';
 export default class Cart {
   constructor() {}
 
@@ -7,7 +9,7 @@ export default class Cart {
     try {
       return await cartModel.find();
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   }
   async getById(id) {
@@ -15,7 +17,7 @@ export default class Cart {
       return await cartModel.findById(id).populate("products.prodId").lean();
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
   async create() {
     try {
@@ -110,5 +112,60 @@ export default class Cart {
       console.log(error);
     }
   }
-}
 
+  async purchase(cid) {
+    try {
+      const cart = await cartModel.findOne({ _id: cid });
+      let totalPrice;
+      // Recorrer los productos del carrito y realizar las operaciones necesarias
+      for (const item of cart.products) {
+        const productId = item.prodId._id;
+        const product = await productModel.findById(item.prodId)
+        const quantity = item.quantity;
+
+        console.log(`Product id: ${productId}`)
+        console.log(`Stock: ${product.stock}`)
+        console.log(`quantity: ${quantity}`)
+
+        if(product.stock<quantity){
+          throw new Error(`Stock Insuficiente. No se pudo realizar la compra.`);
+        }
+        
+
+        // Usar findOneAndUpdate para restar la cantidad del carrito del stock del producto
+        const updatedProduct = await productModel.findOneAndUpdate(
+          { _id: productId, stock: { $gte: quantity } }, // Condición: stock suficiente
+          { $inc: { stock: -quantity } }, // Operación: decrementar stock
+          { new: true } // Opciones: devolver el documento actualizado
+        );
+        
+        if (!updatedProduct) {
+          throw new Error(`Not enough stock for product ${item.prodId.title}`);
+        }
+        
+        // Calcular el precio total del producto basado en la cantidad
+          totalPrice = updatedProduct.price * quantity;
+        
+        // Puedes hacer otras operaciones, como sumar el total al total del carrito, etc.
+        console.log(
+          `Total price for ${quantity} x ${updatedProduct.title}: ${totalPrice}`
+        );
+        /*
+        */
+      }
+      
+      // Opcional: guardar el carrito si realizaste algún cambio en él
+      const ticket = {
+        code: uuidv4(), // Genera un código único
+        purchase_datetime: new Date(),
+        amount: totalPrice,
+        purchaser: "correo",
+      };
+
+      await ticketModel.insertMany(ticket); // Crea el ticket en la base de datos
+      await cart.save();
+    } catch (error) {
+      console.log("error en el purcharse dao " + error);
+    }
+  }
+}

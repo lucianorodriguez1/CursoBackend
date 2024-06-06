@@ -96,3 +96,17 @@ export const updateProductCart = async (req, res) => {
   }
 };
 
+export const purchase = async(req,res) =>{
+  try {
+    const { cid} = req.params;
+    const response = await cartsService.purchaseCart(cid);
+    res.status(200).json({
+      status: "succes",
+      message: `cart con id:${cid}`,
+    });
+  } catch (error) {
+    console.log(error)
+
+  }
+}
+
