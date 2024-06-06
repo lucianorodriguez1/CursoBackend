@@ -2,6 +2,7 @@ import { Router } from "express";
 import { getCarts,createCart,getCartById,addProductFromCart, deleteAllProductsFromCartById,deleteProductFromCart,updateCartById,updateProductCart } from "../controllers/carts.controllers.js";
 import { authorization } from "../middlewares/auth.middleware.js";
 import { passportCall } from "../middlewares/passport.middleware.js";
+//purchase
 
 const cartRouter = Router();
 
@@ -13,6 +14,13 @@ cartRouter.delete("/:cid",deleteAllProductsFromCartById);
 cartRouter.delete("/:cid/product/:pid",deleteProductFromCart);
 cartRouter.put("/:cid",updateCartById);
 cartRouter.put("/:cid/product/:pid",updateProductCart);
+
+//purchase
+cartRouter.get("/:cid/purchase",(req,res)=>{
+
+
+});
+
 
 export default cartRouter;
 
