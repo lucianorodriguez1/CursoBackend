@@ -14,9 +14,9 @@ import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
 import sessionRouter from "./routes/session.routes.js"
 import userRouter from "./routes/user.routes.js"
-import { connnectDB } from "./utils/mongo.js";
+import mockingRouter from "./routes/mocking.routes.js"
 import initializatePassport from "./utils/passport.js"
-
+import errorHandler from "./middlewares/errors/index.js"
 
 const app = express();
 
@@ -47,6 +47,8 @@ app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
 app.use("/api/users/",userRouter);
 app.use("/api/sessions/", sessionRouter);
+app.use(errorHandler);
+app.use("/api/mocking/",mockingRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
