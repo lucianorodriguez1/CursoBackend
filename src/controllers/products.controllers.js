@@ -1,14 +1,12 @@
 import { productsService } from "../repositories/index.js";
+import { generateProductErrorInfo } from "../services/errors/info.js";
+import CustomError from "../services/errors/CustomError.js";
+import { ErrorCodes } from "../services/errors/enums.js";
 
 export const getProducts = async (req, res) => {
   try {
     let { limit, page, sort, query } = req.query;
-    let response = await productsService.getProducts(
-      limit,
-      page,
-      sort,
-      query
-    );
+    let response = await productsService.getProducts(limit, page, sort, query);
 
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
@@ -30,6 +28,32 @@ export const createProduct = async (req, res) => {
       thumbnail,
     } = req.body;
 
+    if (
+      !title ||
+      !description ||
+      !code ||
+      !status ||
+      !stock ||
+      !category ||
+      !thumbnail
+    ) {
+      CustomError.createError({
+        name: "Product creation error",
+        cause: generateProductErrorInfo({
+          title,
+          description,
+          code,
+          price,
+          status,
+          stock,
+          category,
+          thumbnail,
+        }),
+        message: "Error trying to create Product",
+        code: ErrorCodes.INVALID_TYPES_ERROR,
+      });
+    }
+    console.log("FIN")
     const data = await productsService.createProduct({
       title,
       description,
@@ -53,7 +77,7 @@ export const createProduct = async (req, res) => {
       res.status(500).json({ message: "Error interno del servidor" });
     }
   }
-}; 
+};
 
 export const getProductById = async (req, res) => {
   try {
@@ -85,24 +109,21 @@ export const updateProductById = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const response = await productsService.updateProductById(
-      id,
-      {
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnail,
-      }
-    );
+    const response = await productsService.updateProductById(id, {
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      thumbnail,
+    });
     if (response) {
       return res.status(200).json({
         status: "succes",
         message: "Producto actualizado con éxito",
-        data:response,
+        data: response,
       });
     }
     res.status(404).json({

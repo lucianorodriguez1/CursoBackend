@@ -47,7 +47,7 @@ export async function register(req, res) {
         maxAgre: 60 * 60 * 1000,
         httpOnly: true,
       })
-      .redirect("/");
+      .send("Login correcto");
   } catch (error) {
     if (error.message.includes("Duplicate key error")) {
       return res.render("register", { error: "Email duplicado" });
