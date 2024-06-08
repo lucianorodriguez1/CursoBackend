@@ -1,5 +1,5 @@
-export default class customErrors{
-    static createError({name = "Error",cause,message,code = 1}){
+export default class customError{
+    static createError({name = "Error",cause,message,code = 2}){
         const error = new Error(message, { cause });
         error.name = name;
         error.code = code;

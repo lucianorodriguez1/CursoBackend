@@ -7,16 +7,16 @@ import morgan from "morgan";
 import "dotenv/config";
 import passport from "passport";
 
-import config from "./config/config.js"
+import config from "./config/config.js";
 import __dirname from "./utils/multer.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import viewsRouter from "./routes/views.routes.js";
-import sessionRouter from "./routes/session.routes.js"
-import userRouter from "./routes/user.routes.js"
-import mockingRouter from "./routes/mocking.routes.js"
-import initializatePassport from "./utils/passport.js"
-import errorHandler from "./middlewares/errors/index.js"
+import sessionRouter from "./routes/session.routes.js";
+import userRouter from "./routes/user.routes.js";
+import mockingRouter from "./routes/mocking.routes.js";
+import initializatePassport from "./utils/passport.js";
+import errorHandler from "./middlewares/errors/index.js";
 
 const app = express();
 
@@ -28,30 +28,32 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../public"));
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(session({
-  store: MongoStore.create({
-    mongoUrl:config.mongoUrl,
-    ttl:1500,
-  }),
-  secret:'secret',
-  resave:false, 
-  saveUninitialized:false
-}))
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: config.mongoUrl,
+      ttl: 1500,
+    }),
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 initializatePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
-app.use("/api/users/",userRouter);
+app.use("/api/users/", userRouter);
 app.use("/api/sessions/", sessionRouter);
-app.use(errorHandler);
-app.use("/api/mocking/",mockingRouter);
+app.use("/api/mocking/", mockingRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 
+app.use(errorHandler);

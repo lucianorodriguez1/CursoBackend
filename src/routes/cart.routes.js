@@ -14,8 +14,6 @@ cartRouter.delete("/:cid",deleteAllProductsFromCartById);
 cartRouter.delete("/:cid/product/:pid",deleteProductFromCart);
 cartRouter.put("/:cid",updateCartById);
 cartRouter.put("/:cid/product/:pid",updateProductCart);
-
-//purchase
 cartRouter.get("/:cid/purchase",purchase);
 
 

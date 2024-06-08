@@ -2,8 +2,8 @@ import cartModel from "./models/cart.model.js";
 import productModel from "./models/product.model.js";
 import ticketModel from "./models/ticket.model.js";
 import userModel from "./models/user.model.js";
-
 import { v4 as uuidv4 } from "uuid";
+
 export default class Cart {
   constructor() {}
 
@@ -122,7 +122,7 @@ export default class Cart {
       let prodsProcesados = [];
 
       if (!cart) {
-        throw new Error("Cart not found");
+        return "Cart not found"
       }
 
       for (const item of cart.products) {

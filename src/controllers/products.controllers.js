@@ -15,8 +15,8 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res) => {
-  try {
+export const createProduct = async (req, res,next) => {
+  try{
     const {
       title,
       description,
@@ -27,7 +27,7 @@ export const createProduct = async (req, res) => {
       category,
       thumbnail,
     } = req.body;
-
+  
     if (
       !title ||
       !description ||
@@ -63,19 +63,11 @@ export const createProduct = async (req, res) => {
       category,
       thumbnail,
     });
-    res
-      .status(201)
-      .json({ message: "Producto agregado correctamente: ", data });
-  } catch (error) {
-    if (
-      error.message === "El código del producto ya existe en la base de datos."
-    ) {
-      res.status(400).json({ message: "Código de producto duplicado" });
-    } else {
-      console.error(error);
-      res.status(500).json({ message: "Error interno del servidor" });
-    }
+    res.status(201).json({ message: "Producto agregado correctamente: ", data });
+  }catch(error){
+    next(error);
   }
+  
 };
 
 export const getProductById = async (req, res) => {
