@@ -1,7 +1,9 @@
 import cartModel from "./models/cart.model.js";
 import productModel from "./models/product.model.js";
 import ticketModel from "./models/ticket.model.js";
-import { v4 as uuidv4 } from 'uuid';
+import userModel from "./models/user.model.js";
+
+import { v4 as uuidv4 } from "uuid";
 export default class Cart {
   constructor() {}
 
@@ -78,8 +80,6 @@ export default class Cart {
           $pull: { products: { prodId: pid } },
         }
       );
-
-      console.log(update);
       return true;
     } catch (error) {
       console.log(error);
@@ -117,55 +117,59 @@ export default class Cart {
     try {
       const cart = await cartModel.findOne({ _id: cid });
       let totalPrice;
-      // Recorrer los productos del carrito y realizar las operaciones necesarias
+      let prodsNoProcesados = [];
+      let isTicket = false;
+      let prodsProcesados = [];
+
+      if (!cart) {
+        throw new Error("Cart not found");
+      }
+
       for (const item of cart.products) {
         const productId = item.prodId._id;
-        const product = await productModel.findById(item.prodId)
+        const product = await productModel.findById(item.prodId);
         const quantity = item.quantity;
+        let updatedProduct;
 
-        console.log(`Product id: ${productId}`)
-        console.log(`Stock: ${product.stock}`)
-        console.log(`quantity: ${quantity}`)
-
-        if(product.stock<quantity){
-          throw new Error(`Stock Insuficiente. No se pudo realizar la compra.`);
+        if (product.stock < quantity) {
+          prodsNoProcesados.push(productId);
+        } else {
+          updatedProduct = await productModel.findOneAndUpdate(
+            { _id: productId, stock: { $gte: quantity } },
+            { $inc: { stock: -quantity } },
+            { new: true }
+          );
         }
-        
 
-        // Usar findOneAndUpdate para restar la cantidad del carrito del stock del producto
-        const updatedProduct = await productModel.findOneAndUpdate(
-          { _id: productId, stock: { $gte: quantity } }, // Condición: stock suficiente
-          { $inc: { stock: -quantity } }, // Operación: decrementar stock
-          { new: true } // Opciones: devolver el documento actualizado
-        );
-        
-        if (!updatedProduct) {
-          throw new Error(`Not enough stock for product ${item.prodId.title}`);
-        }
-        
-        // Calcular el precio total del producto basado en la cantidad
+        if (updatedProduct) {
           totalPrice = updatedProduct.price * quantity;
-        
-        // Puedes hacer otras operaciones, como sumar el total al total del carrito, etc.
-        console.log(
-          `Total price for ${quantity} x ${updatedProduct.title}: ${totalPrice}`
-        );
-        /*
-        */
-      }
-      
-      // Opcional: guardar el carrito si realizaste algún cambio en él
-      const ticket = {
-        code: uuidv4(), // Genera un código único
-        purchase_datetime: new Date(),
-        amount: totalPrice,
-        purchaser: "correo",
-      };
+          isTicket = true;
+          prodsProcesados.push(productId);
+          await this.delete(cid, productId);
+        }
 
-      await ticketModel.insertMany(ticket); // Crea el ticket en la base de datos
+      }
+
+      const user = await userModel.findOne({ cartId: cid });
+      let ticket;
+
+      if (isTicket) {
+        ticket = {
+          code: uuidv4(),
+          purchase_datetime: new Date(),
+          amount: totalPrice,
+          purchaser: user.email,
+        };
+      await ticketModel.insertMany(ticket);
+      }
+
       await cart.save();
+      return {
+        productosProcesados: prodsProcesados,
+        productosNoProcesados: prodsNoProcesados,
+      };
     } catch (error) {
-      console.log("error en el purcharse dao " + error);
+      console.log("error en el purcharse dao: " + error);
     }
   }
 }

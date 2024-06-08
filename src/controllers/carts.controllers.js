@@ -102,10 +102,11 @@ export const purchase = async(req,res) =>{
     const response = await cartsService.purchaseCart(cid);
     res.status(200).json({
       status: "succes",
-      message: `cart con id:${cid}`,
+      payload: response,
     });
   } catch (error) {
     console.log(error)
+    res.status(500).json({status:"error",message:"Error en el controller purchase"})
 
   }
 }

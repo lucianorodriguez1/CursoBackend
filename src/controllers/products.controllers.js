@@ -53,7 +53,6 @@ export const createProduct = async (req, res) => {
         code: ErrorCodes.INVALID_TYPES_ERROR,
       });
     }
-    console.log("FIN")
     const data = await productsService.createProduct({
       title,
       description,
