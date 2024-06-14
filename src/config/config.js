@@ -8,5 +8,6 @@ export default{
     mongoUrl:process.env.URL_MONGODB,
     tokenKey: process.env.TOKEN_KEY,
     clientIdGitHub:process.env.CLIENT_ID_GITHUB,
-    clienteSecretsGitHub: process.env.CLIENT_SECRETS_GITHUB
+    clienteSecretsGitHub: process.env.CLIENT_SECRETS_GITHUB,
+    environment: process.env.ENVIRONMENT
 }

@@ -17,6 +17,8 @@ import userRouter from "./routes/user.routes.js";
 import mockingRouter from "./routes/mocking.routes.js";
 import initializatePassport from "./utils/passport.js";
 import errorHandler from "./middlewares/errors/index.js";
+import { addLoger } from "./utils/logger.js";
+import loggerRouter from "./routes/logger.routes.js";
 
 const app = express();
 
@@ -28,6 +30,7 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../public"));
+app.use(addLoger);
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
@@ -50,6 +53,8 @@ app.use("/api/carts/", cartRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/sessions/", sessionRouter);
 app.use("/api/mocking/", mockingRouter);
+app.use("/api/loggerTest/", loggerRouter);
+
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);

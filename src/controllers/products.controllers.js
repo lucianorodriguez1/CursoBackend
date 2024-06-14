@@ -8,9 +8,10 @@ export const getProducts = async (req, res) => {
     let { limit, page, sort, query } = req.query;
     let response = await productsService.getProducts(limit, page, sort, query);
 
+    req.logger.info("Se visitaron los productos");
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
-    console.log(error);
+   req.logger.info(error);
     res.status(500).json({ message: "error en el servidor" });
   }
 };

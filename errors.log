@@ -1,0 +1,14 @@
+{"level":"fatal","message":" Thu Jun 13 2024 GET /api/products/"}
+{"level":"error","message":"Se visitaron los productos"}
+{"level":"fatal","message":" Thu Jun 13 2024 GET /api/products/"}
+{"level":"fatal","message":" Thu Jun 13 2024 GET /api/products/"}
+{"level":"fatal","message":" Thu Jun 13 2024 GET /api/products/"}
+{"level":"fatal","message":" Fri Jun 14 2024 GET /api/loggerTest/"}
+{"level":"error","message":"test error"}
+{"level":"fatal","message":"test fatal"}
+{"level":"error","message":"test error"}
+{"level":"fatal","message":"test fatal"}
+{"level":"error","message":" Fri Jun 14 2024 GET /"}
+{"level":"error","message":"test error"}
+{"level":"fatal","message":"test fatal"}
+{"level":"error","message":" Fri Jun 14 2024 GET /"}
