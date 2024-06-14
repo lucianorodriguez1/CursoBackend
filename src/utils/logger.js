@@ -42,5 +42,4 @@ export const addLoger = (req, res, next) => {
   req.logger = config.environment == "production" ? prodLogger : devLogger;
   req.logger.http(` ${new Date().toDateString()} ${req.method} ${req.url}`);
   next();
-  next();
 };
