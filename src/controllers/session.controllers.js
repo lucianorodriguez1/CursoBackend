@@ -1,12 +1,12 @@
-import { usersService } from "../repositories/index.js";
-import { cartsService } from "../repositories/index.js";
+import { usersRepository } from "../repositories/index.js";
+import { cartsRepository } from "../repositories/index.js";
 import { generateToken } from "../utils/jwt.js";
 import { isValidPassword, createHash } from "../utils/bcrypt.js";
 
 export async function login(req, res) {
   const { email, password } = req.body;
   try {
-    const user = await usersService.getUserByEmail(email);
+    const user = await usersRepository.getUserByEmail(email);
 
     if (!user)
       return res.render("login", { error: "credenciales incorrectas" });
@@ -30,9 +30,9 @@ export async function register(req, res) {
   try {
     const { first_name, last_name, age, email, password } = req.body;
     const passwordHash = createHash(password);
-    const cartObject = await cartsService.createCart();
+    const cartObject = await cartsRepository.createCart();
     const cartId = cartObject[0]._id;
-    const newUser = await usersService.createUser({
+    const newUser = await usersRepository.createUser({
       first_name,
       last_name,
       age,
@@ -40,7 +40,7 @@ export async function register(req, res) {
       password: passwordHash,
       cartId: cartId,
     });
-    const user = await usersService.getUserByEmail(email);
+    const user = await usersRepository.getUserByEmail(email);
     const token = generateToken(user);
     res
       .cookie("coderCookieToken", token, {

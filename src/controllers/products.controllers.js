@@ -1,4 +1,4 @@
-import { productsService } from "../repositories/index.js";
+import { productsRepository } from "../repositories/index.js";
 import { generateProductErrorInfo } from "../services/errors/info.js";
 import CustomError from "../services/errors/CustomError.js";
 import { ErrorCodes } from "../services/errors/enums.js";
@@ -6,12 +6,10 @@ import { ErrorCodes } from "../services/errors/enums.js";
 export const getProducts = async (req, res) => {
   try {
     let { limit, page, sort, query } = req.query;
-    let response = await productsService.getProducts(limit, page, sort, query);
-
-    req.logger.info("Se visitaron los productos");
+    let response = await productsRepository.getProducts(limit, page, sort, query);
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
-   req.logger.info(error);
+    req.logger.error(error);
     res.status(500).json({ message: "error en el servidor" });
   }
 };
@@ -54,7 +52,7 @@ export const createProduct = async (req, res,next) => {
         code: ErrorCodes.INVALID_TYPES_ERROR,
       });
     }
-    const data = await productsService.createProduct({
+    const data = await productsRepository.createProduct({
       title,
       description,
       code,
@@ -64,8 +62,11 @@ export const createProduct = async (req, res,next) => {
       category,
       thumbnail,
     });
+    
     res.status(201).json({ message: "Producto agregado correctamente: ", data });
   }catch(error){
+    req.logger.error(error);
+    
     next(error);
   }
   
@@ -74,7 +75,7 @@ export const createProduct = async (req, res,next) => {
 export const getProductById = async (req, res) => {
   try {
     const id = req.params.pid;
-    const response = await productsService.getProductById(id);
+    const response = await productsRepository.getProductById(id);
     if (response) {
       return res
         .status(200)
@@ -82,7 +83,7 @@ export const getProductById = async (req, res) => {
     }
     res.status(404).json({ message: "Product not found" });
   } catch (error) {
-    console.log(error);
+    req.logger.error(error);
     res.status(500).json({ message: "error en el servidor" });
   }
 };
@@ -101,7 +102,7 @@ export const updateProductById = async (req, res) => {
       thumbnail,
     } = req.body;
 
-    const response = await productsService.updateProductById(id, {
+    const response = await productsRepository.updateProductById(id, {
       title,
       description,
       code,
@@ -122,7 +123,7 @@ export const updateProductById = async (req, res) => {
       message: "Product not found",
     });
   } catch (error) {
-    console.log(error);
+    req.logger.error(error);
     res.status(500).json({ message: "error en el servidor" });
   }
 };
@@ -130,7 +131,7 @@ export const updateProductById = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   try {
     let id = req.params.pid;
-    const response = await productsService.deleteProductById(id);
+    const response = await productsRepository.deleteProductById(id);
     if (response) {
       return res
         .status(200)
@@ -138,6 +139,7 @@ export const deleteProductById = async (req, res) => {
     }
     res.status(404).json({ message: "Product not found" });
   } catch (error) {
-    console.log(error);
+    req.logger.error(error);
+    res.status(500).json({ message: "error en el servidor" });
   }
 };

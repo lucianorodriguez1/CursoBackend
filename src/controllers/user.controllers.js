@@ -1,9 +1,9 @@
-import { usersService } from "../repositories/index.js";
+import { usersRepository } from "../repositories/index.js";
 import {createHash} from "../utils/bcrypt.js"
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await usersService.getUsers();
+    const users = await usersRepository.getUsers();
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -12,7 +12,7 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {  
   try {
     const id = req.params.uid;
-    const user = await usersService.getUserById(id);
+    const user = await usersRepository.getUserById(id);
     res.status(200).json({status:"succes",payload:user});
   } catch (error) {
     console.log(error);
@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
     let passwordHash = createHash(password);
 
     if (email == "adminCoder@coder.com" && password == "adminCod3r123") {
-      newUser = await usersService.createUser({
+      newUser = await usersRepository.createUser({
         first_name,
         last_name,
         age,
@@ -34,7 +34,7 @@ export const createUser = async (req, res) => {
         rol: "admin",
       });
     } else {
-      newUser = await usersService.createUser({
+      newUser = await usersRepository.createUser({
         first_name,
         last_name,
         age,
