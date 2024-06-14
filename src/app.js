@@ -17,6 +17,7 @@ import userRouter from "./routes/user.routes.js";
 import mockingRouter from "./routes/mocking.routes.js";
 import initializatePassport from "./utils/passport.js";
 import errorHandler from "./middlewares/errors/index.js";
+import messageRouter from "./routes/message.routes.js";
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use("/api/carts/", cartRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/sessions/", sessionRouter);
 app.use("/api/mocking/", mockingRouter);
+app.use("/api/messages/",messageRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
