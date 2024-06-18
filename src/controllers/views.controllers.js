@@ -1,11 +1,9 @@
 import Cart from "../dao/mongo/cart.dao.js";
 import Product from "../dao/mongo/product.dao.js";
+import { productsRepository,cartsRepository } from "../repositories/index.js";
 
-const productService = new Product();
-const cartService = new Cart();
 
 export const viewHome = async (req, res) => {
-  console.log(req.user);
   res.render("index", {
     isLogin: req.user,
   });
@@ -23,7 +21,7 @@ export const viewProducts = async (req, res) => {
   } else {
     usernameUser = "anonimo";
   }
-  const response = await productService.getProducts(limit, page, sort, query);
+  const response = await productsRepository.getProducts(limit, page, sort, query);
   const existsNextPage = response.hasNextPage;
   const existsPrevPage = response.hasPrevPage;
   const nextLink = `http://localhost:8080/products?page=${
@@ -46,7 +44,7 @@ export const viewProducts = async (req, res) => {
 };
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
-  const product = await productService.getElementByIdLean(pid);
+  const product = await productsRepository.getElementByIdLean(pid);
   res.render("../views/product", {
     productId: pid,
     product,
@@ -54,7 +52,7 @@ export const viewProductById = async (req, res) => {
 };
 export const viewCartById = async (req, res) => {
   const { cid } = req.params;
-  const cartData = await cartService.getCartPopulate(cid);
+  const cartData = await cartsRepository.getCartPopulate(cid);
   res.render("../views/cart", {
     cartId: cid,
     cart: cartData.products,

@@ -6,7 +6,12 @@ import { ErrorCodes } from "../services/errors/enums.js";
 export const getProducts = async (req, res) => {
   try {
     let { limit, page, sort, query } = req.query;
-    let response = await productsRepository.getProducts(limit, page, sort, query);
+    let response = await productsRepository.getProducts(
+      limit,
+      page,
+      sort,
+      query
+    );
     return res.status(200).json({ status: "succes", data: response });
   } catch (error) {
     req.logger.error(error);
@@ -14,8 +19,8 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res,next) => {
-  try{
+export const createProduct = async (req, res, next) => {
+  try {
     const {
       title,
       description,
@@ -26,7 +31,7 @@ export const createProduct = async (req, res,next) => {
       category,
       thumbnail,
     } = req.body;
-  
+
     if (
       !title ||
       !description ||
@@ -62,14 +67,17 @@ export const createProduct = async (req, res,next) => {
       category,
       thumbnail,
     });
-    
-    res.status(201).json({ message: "Producto agregado correctamente: ", data });
-  }catch(error){
+
+    if (data == 11000) {
+      return res.status(200).json({ message: "Codigo de producto duplicado" });
+    }
+    res
+      .status(201)
+      .json({ message: "Producto agregado correctamente: ", data });
+  } catch (error) {
     req.logger.error(error);
-    
     next(error);
   }
-  
 };
 
 export const getProductById = async (req, res) => {

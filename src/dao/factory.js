@@ -15,7 +15,6 @@ switch (config.persistence) {
     Cart = CartMongo;
     User = UserMongo;
     break;
-
   default:
     throw new Error("Invalid persistence option");
 }

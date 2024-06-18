@@ -40,7 +40,11 @@ export default class Product {
     return response;
   }
   async create(elements) {
-    return await productModel.insertMany(elements);
+    try {
+      return await productModel.insertMany(elements);
+    } catch (error) {
+      return error.code;
+    }
   }
   async getById(id) {
     return await productModel.findOne({ _id: id });

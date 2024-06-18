@@ -15,7 +15,7 @@ const messageSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Habilita los timestamps
+    timestamps: true, 
   }
 );
 
