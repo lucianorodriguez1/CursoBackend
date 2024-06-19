@@ -2,11 +2,12 @@ import { productsRepository } from "../repositories/index.js";
 import { generateProductErrorInfo } from "../services/errors/info.js";
 import CustomError from "../services/errors/CustomError.js";
 import { ErrorCodes } from "../services/errors/enums.js";
+import { response } from "../utils/response.js";
 
 export const getProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
-  let response = await productsRepository.getProducts(limit, page, sort, query);
-  return res.status(200).json({ status: "succes", data });
+  let data = await productsRepository.getProducts(limit, page, sort, query);
+  response(res,200,data)
 };
 
 export const createProduct = async (req, res, next) => {
