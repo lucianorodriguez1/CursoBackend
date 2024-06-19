@@ -4,19 +4,9 @@ import CustomError from "../services/errors/CustomError.js";
 import { ErrorCodes } from "../services/errors/enums.js";
 
 export const getProducts = async (req, res) => {
-  try {
-    let { limit, page, sort, query } = req.query;
-    let response = await productsRepository.getProducts(
-      limit,
-      page,
-      sort,
-      query
-    );
-    return res.status(200).json({ status: "succes", data: response });
-  } catch (error) {
-    req.logger.error(error);
-    res.status(500).json({ message: "error en el servidor" });
-  }
+  let { limit, page, sort, query } = req.query;
+  let response = await productsRepository.getProducts(limit, page, sort, query);
+  return res.status(200).json({ status: "succes", data });
 };
 
 export const createProduct = async (req, res, next) => {

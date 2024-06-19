@@ -16,8 +16,7 @@ export default class Product {
     }
     const paginate = await productModel.paginate(query, options);
     const response = {
-      status: "success",
-      payload: paginate.docs,
+      data: paginate.docs,
       totalPages: paginate.totalPages,
       prevPage: paginate.prevPage,
       nextPage: paginate.nextPage,
