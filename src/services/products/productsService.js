@@ -12,9 +12,14 @@ class ProductService {
     return result;
   }
 
-  async codeExists(product) {
-    return await productModel.findOne({ code: product.code });
-  }
+  async codeExists(product, excludeId = null) {
+    const query = { code: product.code };
+    if (excludeId) {
+        query._id = { $ne: excludeId };  
+    }
+    return await productModel.findOne(query);
+}
+
 
   async createProduct(product) {
     if (
@@ -82,15 +87,16 @@ class ProductService {
   //1. da error si dejo el code como estaba
   //2.que no permita campos vacios
   async updateProductById(id, data) {
-    const codeExists = await this.codeExists(data);
+    const codeExists = await this.codeExists(data, id);  
     if (codeExists) {
-      CustomError.createError({
-        name: "Product with this code already exists",
-        cause: "code duplicado",
-        message: "Error trying to updating Product",
-        code: ErrorCodes.DUPLICATE_CODE,
-      });
+        CustomError.createError({
+            name: "Product with this code already exists",
+            cause: "code duplicado",
+            message: "Error trying to update Product",
+            code: ErrorCodes.DUPLICATE_CODE,
+        });
     }
+
     let result = await productsRepository.updateProductById(id, data);
     if (!result)
       CustomError.createError({

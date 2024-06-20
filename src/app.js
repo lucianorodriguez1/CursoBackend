@@ -1,4 +1,3 @@
-//1. arreglar el _dirname archivo
 //2. arreglar el archivo multer.js
 //3. arreglar el middleware de la carpeta public
 //4. customizar el logger
