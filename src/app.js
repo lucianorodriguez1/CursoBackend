@@ -11,7 +11,7 @@ import path from 'path';
 import config from "./config/config.js";
 //import __dirname from "./utils/multer.js"; //PRUEBA
 import initializatePassport from "./utils/passport.js";
-import errorHandler from "./middlewares/errors/index.js";
+import errorHandler from "./middlewares/errorHandler.js";
 import { addLogger } from "./utils/logger.js";
 import productRouter from "./routes/products.routes.js";
 import cartRouter from "./routes/cart.routes.js";
