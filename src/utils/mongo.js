@@ -6,6 +6,7 @@ export async function connnectDB() {
     await mongoose.connect(config.mongoUrl);
     console.log("*****DB CONNECT FROM APP****");
   } catch (error) {
-    console.log(`***ERRROR NO SE PUEDO CONECTAR A LA DB***, ${error}`);
+    console.log(`***ERRROR NO SE PUEDO CONECTAR A LA DB***¨,
+    error: ${error}`);
   }
 }
