@@ -18,7 +18,7 @@ const productRouter = Router();
 productRouter.get("/", products.getProducts);
 productRouter.post("/", passportCall('jwt'),authorization("admin"), validateCreate,products.createProduct);
 productRouter.get("/:pid", products.getProductById);
-productRouter.put("/:pid",  passportCall('jwt'),authorization("admin"), products.updateProductById);
+productRouter.put("/:pid",  passportCall('jwt'),authorization("admin"),products.updateProductById);
 productRouter.delete("/:pid",  passportCall('jwt'),authorization("admin"), products.deleteProductById);
 
 export default productRouter;
