@@ -1,10 +1,10 @@
 import ProductDTO from "../dao/DTO/product.dto.js";
+import productsService from "../services/products/productsService.js";
 
 export default class ProductRepository {
   constructor(dao) {
     this.dao = dao;
   }
-
 
   async getProducts(limit, page, sort, query) {
     let result = await this.dao.get(limit, page, sort, query);

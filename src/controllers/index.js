@@ -1,7 +1,6 @@
 import * as productsControllers from './products.controllers.js';
 import { catchedAsync } from '../utils/catchedAsync.js';
 
-
 const wrapAsyncFunctions = (controller) => {
   const wrappedController = {};
   for (const [key, value] of Object.entries(controller)) {
