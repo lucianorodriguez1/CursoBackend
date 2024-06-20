@@ -1,7 +1,7 @@
 import { Router } from "express";
-import messageModel from "../dao/mongo/models/message.model.js";
-import { passportCall } from "../middlewares/passport.middleware.js";
-import { authorization } from "../middlewares/auth.middleware.js";
+import messageModel from "../../dao/mongo/models/message.model.js";
+import { passportCall } from "../../middlewares/passport.middleware.js";
+import { authorization } from "../../middlewares/auth.middleware.js";
 
 const messageRouter = Router();
 

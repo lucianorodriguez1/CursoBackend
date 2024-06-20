@@ -1,8 +1,8 @@
 import { Router } from "express";
 import passport from "passport";
-import { passportCall } from "../middlewares/passport.middleware.js";
-import { authorization } from "../middlewares/auth.middleware.js";
-import { register, logout, login } from "../controllers/session.controllers.js";
+import { passportCall } from "../../middlewares/passport.middleware.js";
+import { authorization } from "../../middlewares/auth.middleware.js";
+import { register, logout, login } from "../../controllers/session.controllers.js";
 
 const sessionRouter = Router();
 

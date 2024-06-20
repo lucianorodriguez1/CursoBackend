@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { getCarts,createCart,getCartById,addProductFromCart, deleteAllProductsFromCartById,deleteProductFromCart,updateCartById,updateProductCart,purchase } from "../controllers/carts.controllers.js";
-import { authorization } from "../middlewares/auth.middleware.js";
-import { passportCall } from "../middlewares/passport.middleware.js";
+import { getCarts,createCart,getCartById,addProductFromCart, deleteAllProductsFromCartById,deleteProductFromCart,updateCartById,updateProductCart,purchase } from "../../controllers/carts.controllers.js";
+import { authorization } from "../../middlewares/auth.middleware.js";
+import { passportCall } from "../../middlewares/passport.middleware.js";
 //purchase
 
 const cartRouter = Router();

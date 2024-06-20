@@ -13,12 +13,15 @@ import config from "./config/config.js";
 import initializatePassport from "./utils/passport.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import { addLogger } from "./utils/logger.js";
-import productRouter from "./routes/products.routes.js";
-import cartRouter from "./routes/cart.routes.js";
+/* PROBAR
+import productRouter from "./routes/api/products.routes.js";
+import cartRouter from "./routes/api/cart.routes.js";
+import sessionRouter from "./routes/api/session.routes.js";
+import userRouter from "./routes/api/user.routes.js";
+import messageRouter from "./routes/api/message.routes.js";
+//PROBAR FIN */
+import routes from './routes/index.js';
 import viewsRouter from "./routes/views.routes.js";
-import sessionRouter from "./routes/session.routes.js";
-import userRouter from "./routes/user.routes.js";
-import messageRouter from "./routes/message.routes.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -49,12 +52,14 @@ initializatePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+/* PRUEBA
 app.use("/api/products/", productRouter);
 app.use("/api/carts/", cartRouter);
 app.use("/api/users/", userRouter);
 app.use("/api/sessions/", sessionRouter);
 app.use("/api/messages/",messageRouter);
-
+FIN PRUEBA*/
+app.use(routes);
 app.engine("handlebars", handlebars.engine());
 
 app.set("views",  path.join(__dirname, 'src/views'));

@@ -8,10 +8,10 @@ import {
   deleteProductById,
 } from "../controllers/products.controllers.js";
 */
-import { products } from '../controllers/index.js';
-import { authorization } from "../middlewares/auth.middleware.js";
-import { passportCall } from "../middlewares/passport.middleware.js";
-import {validateCreate} from "../validator/product.js"
+import { products } from '../../controllers/index.js';
+import { authorization } from "../../middlewares/auth.middleware.js";
+import { passportCall } from "../../middlewares/passport.middleware.js";
+import {validateCreate} from "../../validator/product.js"
 
 const productRouter = Router();
 
