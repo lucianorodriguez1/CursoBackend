@@ -2,6 +2,7 @@ import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 import { generateToken } from "../utils/jwt.js";
 import { isValidPassword, createHash } from "../utils/bcrypt.js";
+import { response } from "../utils/response.js";
 
 export async function login(req, res) {
   const { email, password } = req.body;
@@ -59,4 +60,8 @@ export async function register(req, res) {
 export async function logout(req, res) {
   res.clearCookie("coderCookieToken");
   res.redirect("/");
+}
+
+export async function current(req, res) {
+  response(res,200,req.user)
 }

@@ -1,6 +1,6 @@
-//2. arreglar el archivo multer.js
-//3. arreglar el middleware de la carpeta public
-//4. customizar el logger
+//1. arreglar el archivo multer.js
+//2. customizar el logger
+//3, probar passport github con jwt
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";

@@ -1,4 +1,9 @@
 import * as productsControllers from './products.controllers.js';
+import * as usersControllers from './user.controllers.js';
+import * as sessionsControllers from './session.controllers.js';
+import * as cartsControllers from './carts.controllers.js';
+import * as viewsControllers from './views.controllers.js';
+
 import { catchedAsync } from '../utils/catchedAsync.js';
 
 const wrapAsyncFunctions = (controller) => {
@@ -14,3 +19,7 @@ const wrapAsyncFunctions = (controller) => {
 };
 
 export const products = wrapAsyncFunctions(productsControllers);
+export const users = wrapAsyncFunctions(usersControllers);
+export const sessions = wrapAsyncFunctions(sessionsControllers);
+export const carts = wrapAsyncFunctions(cartsControllers);
+export const views = wrapAsyncFunctions(viewsControllers);

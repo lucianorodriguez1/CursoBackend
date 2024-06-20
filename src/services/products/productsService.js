@@ -15,11 +15,10 @@ class ProductService {
   async codeExists(product, excludeId = null) {
     const query = { code: product.code };
     if (excludeId) {
-        query._id = { $ne: excludeId };  
+      query._id = { $ne: excludeId };
     }
     return await productModel.findOne(query);
-}
-
+  }
 
   async createProduct(product) {
     if (
@@ -84,19 +83,19 @@ class ProductService {
     return result;
   }
 
-  //1. da error si dejo el code como estaba
-  //2.que no permita campos vacios
+  //1.que no permita campos vacios
   async updateProductById(id, data) {
-    const codeExists = await this.codeExists(data, id);  
+    const codeExists = await this.codeExists(data, id);
     if (codeExists) {
-        CustomError.createError({
-            name: "Product with this code already exists",
-            cause: "code duplicado",
-            message: "Error trying to update Product",
-            code: ErrorCodes.DUPLICATE_CODE,
-        });
+      CustomError.createError({
+        name: "Product with this code already exists",
+        cause: "code duplicado",
+        message: "Error trying to update Product",
+        code: ErrorCodes.DUPLICATE_CODE,
+      });
     }
 
+    this.removeEmptyFields(data);
     let result = await productsRepository.updateProductById(id, data);
     if (!result)
       CustomError.createError({
@@ -106,6 +105,20 @@ class ProductService {
         code: ErrorCodes.INVALID_ID,
       });
     return result;
+  }
+  removeEmptyFields(obj) {
+    for (let key in obj) {
+      if (
+        obj[key] === null || 
+        obj[key] === undefined || 
+        obj[key] === '' || 
+        (Array.isArray(obj[key]) && obj[key].length === 0) || 
+        (typeof obj[key] === 'object' && Object.keys(obj[key]).length === 0)
+      ) {
+        delete obj[key];
+      }
+    }
+    return obj;
   }
 }
 
