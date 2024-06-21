@@ -1,4 +1,6 @@
 import { usersRepository } from "../repositories/index.js";
+import { cartsRepository } from "../repositories/index.js";
+import { createHash } from "../utils/bcrypt.js";
 
 class UserService {
   constructor() {}
@@ -10,13 +12,17 @@ class UserService {
 
   async createUser(user) {
     const passwordHash = createHash(user.password);
-    const result = {
+    const cartObject = await cartsRepository.createCart();
+    const cartId = cartObject[0]._id;
+    const newUser = {
       first_name: user.first_name,
       last_name: user.last_name,
       age: user.age,
       email: user.email,
       password: passwordHash,
+      cartId:cartId
     }
+    const result = await usersRepository.createUser(newUser);
     return result;
   }
 

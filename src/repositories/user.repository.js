@@ -11,8 +11,8 @@ export default class UserRepository {
   }
 
   async createUser(user) {
-    let userToInsert = new UserDTO(user);
-    let result = await this.dao.create(userToInsert);
+    //let userToInsert = new UserDTO(user); //probar
+    let result = await this.dao.create(user);
     return result;
   }
 

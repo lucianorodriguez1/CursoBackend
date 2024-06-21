@@ -1,7 +1,7 @@
 import { ErrorCodes } from "../services/errors/enums.js";
 
 export default (error, req, res, next) => {
-  req.logger.error(error.cause);
+  req.logger.error(`${error}`);
   switch (error.code) {
     case ErrorCodes.ROUTING_ERROR:
       res.status(400).json({ error: true, name: error.name });
@@ -18,6 +18,9 @@ export default (error, req, res, next) => {
     case ErrorCodes.DUPLICATE_CODE:
       res.status(400).json({ error: true, name: error.name });
       break;
+      case ErrorCodes.DUPLICATE_EMAIL:
+      res.status(400).json({ error: true, name: error.name });
+      break
     case ErrorCodes.AUTHENTICATION_ERROR:
       res.status(401).json({ error: true, name: error.name });
       break;
