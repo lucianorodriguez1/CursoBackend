@@ -1,6 +1,15 @@
 //1. arreglar el archivo multer.js
 //2. customizar el logger
 //3, probar passport github con jwt
+//4 mejorar session controller
+//5 mejorar user controller
+//6 mejorar cart controller
+//7 mover purchase de cart controller a ticket routes
+//8 hacer service de usuarios
+//9 hacer service de session
+//10 hacer service de cart
+//11 ver que no se esta usando en app.js(ej los passport y session)
+//12 hacer la ruta web/view.routes.js
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";

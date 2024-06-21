@@ -1,8 +1,8 @@
-import { productsRepository } from "../../repositories/index.js";
-import productModel from "../../dao/mongo/models/product.model.js";
-import CustomError from "../errors/CustomError.js";
-import { ErrorCodes } from "../errors/enums.js";
-import { generateProductErrorInfo } from "../errors/info.js";
+import { productsRepository } from "../repositories/index.js";
+import productModel from "../dao/mongo/models/product.model.js";
+import CustomError from "./errors/CustomError.js";
+import { ErrorCodes } from "./errors/enums.js";
+import { generateProductErrorInfo } from "./errors/info.js";
 
 class ProductService {
   constructor() {}

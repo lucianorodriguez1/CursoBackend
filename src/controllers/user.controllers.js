@@ -1,5 +1,6 @@
 import { usersRepository } from "../repositories/index.js";
 import {createHash} from "../utils/bcrypt.js"
+import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {
   try {
