@@ -8,23 +8,11 @@ class SessionService {
 
     async login(email, password) {
         const user = await usersRepository.getUserByEmail(email);
-
-        if (!user)
-            return res.render("login", { error: "credenciales incorrectas" }); //probar error
-
-        const validatePassword = isValidPassword(user, password);
-        if (!validatePassword)
-            return res.render("login", { error: "credenciales incorrectas" }); //probar error
-
         const token = generateToken(user);
-        res
-            .cookie("coderCookieToken", token, {
-                maxAgre: 60 * 60 * 1000,
-                httpOnly: true,
-            })
+        return token
+        
     }
     async register(data) {
-        //probar si email existe
         const passwordHash = createHash(data.password);
         const cartObject = await cartsRepository.createCart();
         const cartId = cartObject[0]._id;

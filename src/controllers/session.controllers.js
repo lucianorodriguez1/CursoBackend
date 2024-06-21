@@ -3,8 +3,11 @@ import { response } from "../utils/response.js";
 
 export async function login(req, res) {
   const { email, password } = req.body;
-  const data = await sessionService.login(email, password);
-
+  const token = await sessionService.login(email, password);
+  res.cookie("coderCookieToken", token, {
+                maxAgre: 60 * 60 * 1000,
+                httpOnly: true,
+            })
   response(res, 200, 'Login correcto');
 }
 
