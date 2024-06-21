@@ -9,7 +9,6 @@ export default (error, req, res, next) => {
     case ErrorCodes.INVALID_TYPES_ERROR:
       res.status(400).json({ error: true, error: "campos incompletos" });
       break;
-    //bloque prueba
     case ErrorCodes.INVALID_ID:
       res.status(404).json({ error: true, name: error.name });
       break;
@@ -45,13 +44,12 @@ export default (error, req, res, next) => {
     case ErrorCodes.RATE_LIMITING_ERROR:
       res.status(429).json({ error: true, error: "Too many requests" });
       break;
-    //fin bloque prueba
     default:
       res.status(500).json({
         error: true,
         error: "Unhaled error",
         message: error.message,
-      }); //probar message
+      });
       break;
   }
 };

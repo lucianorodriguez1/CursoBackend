@@ -9,7 +9,14 @@ class UserService {
   }
 
   async createUser(user) {
-    let result = await usersRepository.createUser(user);
+    const passwordHash = createHash(user.password);
+    const result = {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      age: user.age,
+      email: user.email,
+      password: passwordHash,
+    }
     return result;
   }
 
@@ -17,6 +24,7 @@ class UserService {
     let result = await usersRepository.getUserById(id);
     return result;
   }
+
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
     return result;

@@ -1,3 +1,8 @@
+//user service
+//1.Hacer delete usuario por ID. Al eliminar usuario eliminar carrito
+//2. Hacer update usuario por id,data
+//3. GUARDAR: elimine archivo de ticketService y modificar el createUser servicio de user para que tenga el createHash
+//4. Probar el createUser
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
