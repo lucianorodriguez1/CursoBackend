@@ -1,8 +1,4 @@
 import cartModel from "./models/cart.model.js";
-import productModel from "./models/product.model.js";
-import ticketModel from "./models/ticket.model.js";
-import userModel from "./models/user.model.js";
-import { v4 as uuidv4 } from "uuid";
 
 export default class Cart {
   constructor() {}
@@ -75,53 +71,6 @@ export default class Cart {
   }
 
   async purchase(cid) {
-    const cart = await cartModel.findOne({ _id: cid });
-    let totalPrice;
-    let prodsNoProcesados = [];
-    let isTicket = false;
-    let prodsProcesados = [];
-
-    for (const item of cart.products) {
-      const productId = item.prodId._id;
-      const product = await productModel.findById(item.prodId);
-      const quantity = item.quantity;
-      let updatedProduct;
-
-      if (product.stock < quantity) {
-        prodsNoProcesados.push(productId);
-      } else {
-        updatedProduct = await productModel.findOneAndUpdate(
-          { _id: productId, stock: { $gte: quantity } },
-          { $inc: { stock: -quantity } },
-          { new: true }
-        );
-      }
-
-      if (updatedProduct) {
-        totalPrice = updatedProduct.price * quantity;
-        isTicket = true;
-        prodsProcesados.push(productId);
-        await this.delete(cid, productId);
-      }
-    }
-
-    const user = await userModel.findOne({ cartId: cid });
-    let ticket;
-
-    if (isTicket) {
-      ticket = {
-        code: uuidv4(),
-        purchase_datetime: new Date(),
-        amount: totalPrice,
-        purchaser: user.email,
-      };
-      await ticketModel.insertMany(ticket);
-    }
-
-    await cart.save();
-    return {
-      productosProcesados: prodsProcesados,
-      productosNoProcesados: prodsNoProcesados,
-    };
+    
   }
 }

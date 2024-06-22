@@ -6,6 +6,7 @@
 //1.mejorar el metodo get
 //2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
 //3.probar codigo CART entero
+//GUARDAR: cambie el nombre del controlador purchase a purchaseCart
 
 import express from "express";
 import handlebars from "express-handlebars";

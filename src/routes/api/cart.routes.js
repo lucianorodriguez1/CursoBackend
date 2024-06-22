@@ -13,7 +13,7 @@ cartRouter.delete("/:cid",carts.deleteAllProductsFromCartById);
 cartRouter.delete("/:cid/product/:pid",carts.deleteProductFromCart);
 cartRouter.put("/:cid",carts.updateCartById);
 cartRouter.put("/:cid/product/:pid",carts.updateProductCart);
-cartRouter.get("/:cid/purchase",carts.purchase);
+cartRouter.get("/:cid/purchase",carts.purchaseCart);
 
 
 export default cartRouter;

@@ -43,7 +43,7 @@ export const updateProductCart = async (req, res) => {
   response(res, 200, data)
 };
 
-export const purchase = async (req, res) => {
+export const purchaseCart = async (req, res) => {
   const { cid } = req.params;
   const data = await cartsService.purchaseCart(cid);
   response(res, 200, data)
