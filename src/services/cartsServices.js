@@ -1,7 +1,8 @@
-import {cartsRepository } from "../repositories/index.js";
+import { cartsRepository } from "../repositories/index.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import { generateProductErrorInfo } from "./errors/info.js";
+import productsService from "./productsServices.js";
 
 class CartService {
   constructor() {}
@@ -27,9 +28,10 @@ class CartService {
       });
     return result;
   }
+
   async addProductFromCart(cid, pid) {
     const cart = await this.getCartById(cid);
-    if(!cart){
+    if (!cart) {
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
@@ -37,34 +39,70 @@ class CartService {
         code: ErrorCodes.INVALID_ID,
       });
     }
-    let result = await cartsRepository.addProductFromCart(cid,pid);
-    if (!result)
+    await productsService.getProductById(pid);
+    await cartsRepository.addProductFromCart(cid, pid);
+    return "Se agrego el producto al cart";
+  }
+
+  async deleteProductsCart(cid) {
+    const cart = await this.getCartById(cid);
+    if (!cart) {
       CustomError.createError({
-        name: "producto no encontrado",
+        name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error add product in cart",
+        message: "Error delete product in cart",
         code: ErrorCodes.INVALID_ID,
       });
+    }
+    let result = await cartsRepository.deleteProductsCart(cid);
+    return  "Se eliminaron todos los productos del carrito";
+  }
+
+  async deleteProduct(cid, pid) {
+    const cart = await this.getCartById(cid);
+    if (!cart) {
+      CustomError.createError({
+        name: "cart no encontrado",
+        cause: "invalid id",
+        message: "Error delete product in cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
+    await productsService.getProductById(pid);
+    let result = await cartsRepository.deleteProduct(cid, pid);
     return result;
   }
 
   async updateProductsCart(cid, products) {
-    let result = await cartsRepository.updateProductsCart(cid,products);
+    const cart = await this.getCartById(cid);
+    if (!cart) {
+      CustomError.createError({
+        name: "cart no encontrado",
+        cause: "invalid id",
+        message: "Error add product in cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
+    let result = await cartsRepository.updateProductsCart(cid, products);
     return result;
   }
-  async updateProduct(cid, pid,quantity) {
-    let result = await cartsRepository.updateProduct(cid,pid,quantity);
+
+  async updateProduct(cid, pid, quantity) {
+    const cart = await this.getCartById(cid);
+    if (!cart) {
+      CustomError.createError({
+        name: "cart no encontrado",
+        cause: "invalid id",
+        message: "Error delete product in cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
+    await productsService.getProductById(pid);
+    let result = await cartsRepository.updateProduct(cid, pid, quantity);
     return result;
   }
-  async deleteProductsCart(cid) {
-    let result = await cartsRepository.deleteProductsCart(cid);
-    return result;
-  }
-  async deleteProduct(cid,pid) {
-    let result = await cartsRepository.deleteProduct(cid,pid);
-    return result;
-  }
-  async purchaseCart(cid){
+
+  async purchaseCart(cid) {
     let result = await cartsRepository.purchaseCart(cid);
     return result;
   }

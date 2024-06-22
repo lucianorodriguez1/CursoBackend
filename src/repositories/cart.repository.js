@@ -11,8 +11,7 @@ export default class CartRepository {
   }
 
   async createCart() {
-    let cartToInsert = new CartDTO();
-    let result = await this.dao.create(cartToInsert);
+    let result = await this.dao.create();
     return result;
   }
 

@@ -5,13 +5,7 @@
 //product dao
 //1.mejorar el metodo get
 //2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-
-//cart service
-//GUARDAR: agregar error al no encontrar id de cart en service cart
-
-//cart dao
-//sacar try catch
-//corregir metodo add Product in cart
+//3.probar codigo CART entero
 
 import express from "express";
 import handlebars from "express-handlebars";
