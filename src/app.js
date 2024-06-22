@@ -2,12 +2,16 @@
 //1.Hacer delete usuario por ID. Al eliminar usuario eliminar carrito
 //2. Hacer update usuario por id,data
 
-//product service
-//GUARDAR: comente tipos de errores  enums.js y errorHandler.js. eliminar dto de user repository. eliminar dto product repository
-
 //product dao
 //1.mejorar el metodo get
 //2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+
+//cart service
+//GUARDAR: agregar error al no encontrar id de cart en service cart
+
+//cart dao
+//sacar try catch
+//corregir metodo add Product in cart
 
 import express from "express";
 import handlebars from "express-handlebars";

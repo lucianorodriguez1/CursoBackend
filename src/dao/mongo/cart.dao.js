@@ -32,8 +32,6 @@ export default class Cart {
   async addProd(cid, pid) {
     try {
       const cart = await cartModel.findOne({ _id: cid });
-      if (!cart) throw new Error("Cart not found");
-
       const productExists = cart.products.findIndex(
         (prod) => prod.prodId._id == pid
       );
@@ -52,7 +50,6 @@ export default class Cart {
         );
       }
 
-      return true;
     } catch (error) {
       console.log(error);
     }
