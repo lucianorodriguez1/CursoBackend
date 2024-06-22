@@ -33,13 +33,13 @@ class SessionService {
     const user = await usersServices.getUserByEmail(data.email);
     if(user){
         CustomError.createError({
-            name: "error de registro",
-            cause: "email proporcionado: " + email,
-            message: "email duplicado. vuelva a intentarlo",
+            name: "email duplicado. vuelva a intentarlo",
+            cause: "email proporcionado: " + data.email,
+            message: "error en proceso de registro de usuario",
             code: ErrorCodes.DUPLICATE_EMAIL,
           });
     }
-    const newUser = await usersServices.createUser(data);
+    await usersServices.createUser(data);
     const token = generateToken(user);
     return token
   }
