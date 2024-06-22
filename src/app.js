@@ -1,5 +1,4 @@
-//1. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-//2.probar codigo CART entero
+//1.probar codigo CART entero
 //GUARDAR: 
 import express from "express";
 import handlebars from "express-handlebars";
@@ -12,6 +11,7 @@ import path from 'path'
 import config from "./config/config.js";
 import initializatePassport from "./utils/passport.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import routeErrorHandler from "./middlewares/routeErrorHandler.js";
 import { addLogger } from "./utils/logger.js";
 import routes from './routes/index.js';
 import viewsRouter from "./routes/views.routes.js";
@@ -52,4 +52,5 @@ app.set("views",  path.join(__dirname, 'src/views'));
 app.set("view engine", "handlebars");
 app.use("/", viewsRouter);
 
+app.use(routeErrorHandler);
 app.use(errorHandler);

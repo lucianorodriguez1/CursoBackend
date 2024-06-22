@@ -32,10 +32,10 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_FOUND_ERROR:
       res.status(404).json({ error: true, name: error.name });
       break;
-    /*
       case ErrorCodes.ROUTING_ERROR:
         res.status(400).json({ error: true, name: error.name });
         break;
+        /*
     case ErrorCodes.DATABASE_ERROR:
       res.status(500).json({ error: true, error: "Database error" });
       break;
