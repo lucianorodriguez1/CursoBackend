@@ -1,12 +1,9 @@
-//user service
 //1.Hacer delete usuario por ID. Al eliminar usuario eliminar carrito
 //2. Hacer update usuario por id,data
-
-//product dao
-//1.mejorar el metodo get
-//2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+//3..mejorar el metodo get de product dao
+//4. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
 //3.probar codigo CART entero
-//GUARDAR: cambie el nombre del controlador purchase a purchaseCart
+
 
 import express from "express";
 import handlebars from "express-handlebars";
