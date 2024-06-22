@@ -16,4 +16,13 @@ export default class User {
   async create(data) {
     return await userModel.insertMany(data);
   }
+  async delete(id){
+    return await userModel.findOneAndDelete({ _id: id });
+  }
+  async update(id){
+    return await userModel.findOneAndUpdate({ _id: id },
+      { ...data },
+      { new: true }
+    );
+  }
 }

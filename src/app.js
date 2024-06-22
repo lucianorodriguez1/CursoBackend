@@ -1,10 +1,9 @@
 //1.Hacer delete usuario por ID. Al eliminar usuario eliminar carrito
 //2. Hacer update usuario por id,data
-//3..mejorar el metodo get de product dao
-//4. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-//5.probar codigo CART entero
-//6. Mejorar la ubicacion de los archivos views en carpeta web
-//GUARDAR: Cambiar los links prevPage y nextPage por si no se pasa por parametro sort
+//3. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+//4.probar codigo CART entero
+//5. Mejorar la ubicacion de los archivos views en carpeta web
+//GUARDAR: 
 
 import express from "express";
 import handlebars from "express-handlebars";
