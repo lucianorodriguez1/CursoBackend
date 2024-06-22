@@ -58,7 +58,7 @@ class CartService {
       });
     }
     let result = await cartsRepository.deleteProductsCart(cid);
-    return  "Se eliminaron todos los productos del carrito";
+    return "Se eliminaron todos los productos del carrito";
   }
 
   async deleteProduct(cid, pid) {
@@ -139,7 +139,6 @@ class CartService {
     const user = await userModel.findOne({ cartId: cid });
     let ticket;
 
-
     // HACER UNA FUNCION CREAR TICKET
     if (isTicket) {
       ticket = {
@@ -156,8 +155,7 @@ class CartService {
     return {
       productosProcesados: prodsProcesados,
       productosNoProcesados: prodsNoProcesados,
-    }
-
+    };
   }
 }
 

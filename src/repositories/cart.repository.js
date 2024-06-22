@@ -24,25 +24,25 @@ export default class CartRepository {
     return result;
   }
 
-  async updateProductsCart(cid, products) {
-    let result = await this.dao.updateAll(cid, products);
-    return result;
-  }
-  async updateProduct(cid, pid,quantity) {
-    let result = await this.dao.update(cid, pid,quantity);
-    return result;
-  }
   async deleteProductsCart(cid) {
     let result = await this.dao.deleteAll(cid);
     return result;
   }
-  async deleteProduct(cid,pid) {
-    let result = await this.dao.delete(cid,pid);
+  async deleteProduct(cid, pid) {
+    let result = await this.dao.delete(cid, pid);
     return result;
   }
-  async purchaseCart(cid){
+
+  async updateProductsCart(cid, products) {
+    let result = await this.dao.updateAll(cid, products);
+    return result;
+  }
+  async updateProduct(cid, pid, quantity) {
+    let result = await this.dao.update(cid, pid, quantity);
+    return result;
+  }
+  async purchaseCart(cid) {
     let result = await this.dao.purchase(cid);
     return result;
   }
-  
 }
