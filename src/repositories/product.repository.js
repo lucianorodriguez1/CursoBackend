@@ -1,6 +1,3 @@
-import ProductDTO from "../dao/DTO/product.dto.js";
-import productsService from "../services/productsServices.js";
-
 export default class ProductRepository {
   constructor(dao) {
     this.dao = dao;
@@ -12,8 +9,7 @@ export default class ProductRepository {
   }
 
   async createProduct(product) {
-    let productToInsert = new ProductDTO(product);
-    let result = await this.dao.create(productToInsert);
+    let result = await this.dao.create(product);
     return result;
   }
 
@@ -22,8 +18,7 @@ export default class ProductRepository {
     return result;
   }
   async updateProductById(id, data) {
-    let productToInsert = new ProductDTO(data);
-    let result = await this.dao.update(id, productToInsert);
+    let result = await this.dao.update(id, data);
     return result;
   }
   async deleteProductById(id) {

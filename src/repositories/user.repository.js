@@ -1,5 +1,3 @@
-import UserDTO from "../dao/DTO/user.dto.js";
-
 export default class UserRepository {
   constructor(dao) {
     this.dao = dao;
@@ -11,7 +9,6 @@ export default class UserRepository {
   }
 
   async createUser(user) {
-    //let userToInsert = new UserDTO(user); //probar
     let result = await this.dao.create(user);
     return result;
   }

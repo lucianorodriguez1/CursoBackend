@@ -3,11 +3,9 @@ import { ErrorCodes } from "../services/errors/enums.js";
 export default (error, req, res, next) => {
   req.logger.error(`${error}`);
   switch (error.code) {
-    case ErrorCodes.ROUTING_ERROR:
-      res.status(400).json({ error: true, name: error.name });
-      break;
+   
     case ErrorCodes.INVALID_TYPES_ERROR:
-      res.status(400).json({ error: true, error: "campos incompletos" });
+      res.status(400).json({ error: true, name:error.name });
       break;
     case ErrorCodes.INVALID_ID:
       res.status(404).json({ error: true, name: error.name });
@@ -32,6 +30,10 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_FOUND_ERROR:
       res.status(404).json({ error: true, name: error.name });
       break;
+      /*
+      case ErrorCodes.ROUTING_ERROR:
+        res.status(400).json({ error: true, name: error.name });
+        break;
     case ErrorCodes.DATABASE_ERROR:
       res.status(500).json({ error: true, error: "Database error" });
       break;
@@ -47,6 +49,7 @@ export default (error, req, res, next) => {
     case ErrorCodes.RATE_LIMITING_ERROR:
       res.status(429).json({ error: true, error: "Too many requests" });
       break;
+      */
     default:
       res.status(500).json({
         error: true,

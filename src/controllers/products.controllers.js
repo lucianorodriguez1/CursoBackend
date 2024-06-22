@@ -7,7 +7,7 @@ export const getProducts = async (req, res) => {
   response(res, 200, data);
 };
 
-export const createProduct = async (req, res, next) => {
+export const createProduct = async (req, res) => {
   const {
     title,
     description,

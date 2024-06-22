@@ -49,7 +49,7 @@ class ProductService {
     const codeExists = await this.codeExists(product);
     if (codeExists) {
       CustomError.createError({
-        name: "Product with this code already exists",
+        name: "producto con este codigo ya existe.",
         cause: "code duplicado",
         message: "Error trying to create Product",
         code: ErrorCodes.DUPLICATE_CODE,
@@ -63,7 +63,7 @@ class ProductService {
     let result = await productsRepository.getProductById(id);
     if (!result)
       CustomError.createError({
-        name: "INVALID ID",
+        name: "producto no encontrado",
         cause: "invalid id",
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
@@ -75,7 +75,7 @@ class ProductService {
     let result = await productsRepository.deleteProductById(id);
     if (!result)
       CustomError.createError({
-        name: "INVALID ID",
+        name: "producto no encontrado",
         cause: "invalid id",
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
@@ -88,7 +88,7 @@ class ProductService {
     const codeExists = await this.codeExists(data, id);
     if (codeExists) {
       CustomError.createError({
-        name: "Product with this code already exists",
+        name: "producto con este codigo ya existe",
         cause: "code duplicado",
         message: "Error trying to update Product",
         code: ErrorCodes.DUPLICATE_CODE,
@@ -99,7 +99,7 @@ class ProductService {
     let result = await productsRepository.updateProductById(id, data);
     if (!result)
       CustomError.createError({
-        name: "INVALID ID",
+        name: "producto no encontrado",
         cause: "invalid id",
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
