@@ -3,11 +3,13 @@ import { ErrorCodes } from "../services/errors/enums.js";
 export default (error, req, res, next) => {
   req.logger.error(`${error}`);
   switch (error.code) {
-   
     case ErrorCodes.INVALID_TYPES_ERROR:
-      res.status(400).json({ error: true, name:error.name });
+      res.status(400).json({ error: true, name: error.name });
       break;
     case ErrorCodes.INVALID_ID:
+      res.status(404).json({ error: true, name: error.name });
+      break;
+    case ErrorCodes.INVALID_EMAIL:
       res.status(404).json({ error: true, name: error.name });
       break;
     case ErrorCodes.VALIDATION_ERROR:
@@ -16,9 +18,9 @@ export default (error, req, res, next) => {
     case ErrorCodes.DUPLICATE_CODE:
       res.status(400).json({ error: true, name: error.name });
       break;
-      case ErrorCodes.DUPLICATE_EMAIL:
+    case ErrorCodes.DUPLICATE_EMAIL:
       res.status(400).json({ error: true, name: error.name });
-      break
+      break;
     case ErrorCodes.AUTHENTICATION_ERROR:
       res.status(401).json({ error: true, name: error.name });
       break;
@@ -30,7 +32,7 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_FOUND_ERROR:
       res.status(404).json({ error: true, name: error.name });
       break;
-      /*
+    /*
       case ErrorCodes.ROUTING_ERROR:
         res.status(400).json({ error: true, name: error.name });
         break;

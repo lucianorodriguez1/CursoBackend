@@ -1,10 +1,8 @@
-//1.Hacer delete usuario por ID. Al eliminar usuario eliminar carrito
-//2. Hacer update usuario por id,data
-//3. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-//4.probar codigo CART entero
-//5. Mejorar la ubicacion de los archivos views en carpeta web
-//GUARDAR: 
-
+//1. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+//2.probar codigo CART entero
+//3. Mejorar la ubicacion de los archivos views en carpeta web
+//GUARDAR: agregar tipos de errores en userServices. agregar invalid_email como error en errorService. crear funcion deleteCartById para CART
+//4.verificar que al actualizar user no se manden campos vacios, copiar funcion de productService
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";

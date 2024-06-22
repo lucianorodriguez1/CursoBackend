@@ -157,6 +157,12 @@ class CartService {
       productosNoProcesados: prodsNoProcesados,
     };
   }
+
+  async deleteCartById(cid){
+    await this.getCartById(cid);
+    let result = await this.dao.deleteCart(cid);
+    return result;
+  }
 }
 
 const cartsService = new CartService();

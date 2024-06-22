@@ -73,4 +73,7 @@ export default class Cart {
   async purchase(cid) {
     
   }
+  async deleteCart(cid){
+    return await cartModel.findByIdAndDelete(cid);
+  }
 }

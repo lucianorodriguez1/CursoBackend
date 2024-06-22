@@ -21,8 +21,28 @@ export const createUser = async (req, res) => {
     last_name,
     age,
     email,
-    password
+    password,
   });
 
-  response(res,201,newUser);
+  response(res, 201, newUser);
+};
+
+export const deleteUser = async (req, res) => {
+ const {id} = req.params;
+  const result = await usersServices.deleteUserById(id);
+  response(res, 200, "user eliminado");
+};
+
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { first_name, last_name, age, email, password } = req.body;
+
+  const result = await usersServices.updateUserById(id, {
+    first_name,
+    last_name,
+    age,
+    email,
+    password,
+  });
+  response(res, 200, result);
 };

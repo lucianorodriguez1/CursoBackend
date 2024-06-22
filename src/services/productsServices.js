@@ -82,8 +82,7 @@ class ProductService {
       });
     return result;
   }
-
-  //1.que no permita campos vacios
+  
   async updateProductById(id, data) {
     const codeExists = await this.codeExists(data, id);
     if (codeExists) {

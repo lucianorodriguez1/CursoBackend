@@ -1,5 +1,3 @@
-import CartDTO from "../dao/DTO/cart.dto.js";
-
 export default class CartRepository {
   constructor(dao) {
     this.dao = dao;
@@ -44,5 +42,9 @@ export default class CartRepository {
   async purchaseCart(cid) {
     let result = await this.dao.purchase(cid);
     return result;
+  }
+  async deleteCartById(cid){
+    let result = await this.dao.deleteCart(cid);
+    return result ;
   }
 }
