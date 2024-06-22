@@ -16,13 +16,12 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
   const { first_name, last_name, age, email, password } = req.body;
 
-
   const newUser = await usersServices.createUser({
     first_name,
     last_name,
     age,
     email,
-    password: passwordHash,
+    password
   });
 
   response(res,201,newUser);

@@ -18,11 +18,11 @@ export async function register(req, res) {
 }
 
 export async function logout(req, res) {
-  const data = await sessionService.logout();
+  res.clearCookie("coderCookieToken");
   response(res, 200, 'logout correcto');
 }
 
 export async function current(req, res) {
-  const data = await sessionService.current(req);
+  const data = await sessionService.current(req,res);
   response(res, 200, req.user);
 }

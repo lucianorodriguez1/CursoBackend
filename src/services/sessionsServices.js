@@ -44,10 +44,11 @@ class SessionService {
     return token
   }
 
+  /*
   async logout(req, res) {
-    res.clearCookie("coderCookieToken");
+    res.clearCookie("coderCookieToken"); //NO FUNCIONA//
   }
-
+*/ 
   async current(req) {
     return req.user;
   }
