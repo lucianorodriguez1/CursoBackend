@@ -23,7 +23,7 @@ export const addProductFromCart = async (req, res) => {
 export const deleteAllProductsFromCartById = async (req, res) => {
   const { cid } = req.params;
   const data = await cartsService.deleteProductsCart(cid);
-  response(res, 200, data)
+  response(res, 200, data);
 };
 export const deleteProductFromCart = async (req, res) => {
   const { cid, pid } = req.params;
@@ -34,18 +34,23 @@ export const updateCartById = async (req, res) => {
   const { products } = req.body;
   const { cid } = req.params;
   const data = await cartsService.updateProductsCart(cid, products);
-  response(res, 200, data)
+  response(res, 200, data);
 };
 export const updateProductCart = async (req, res) => {
   const { cid, pid } = req.params;
   const { quantity } = req.body;
   const data = await cartsService.updateProduct(cid, pid, quantity);
-  response(res, 200, data)
+  response(res, 200, data);
 };
 
 export const purchaseCart = async (req, res) => {
   const { cid } = req.params;
   const data = await cartsService.purchaseCart(cid);
-  response(res, 200, data)
-}
+  response(res, 200, data);
+};
 
+export const deleteCartById = async (req, res) => {
+  const { cid } = req.params;
+  const data = await cartsService.deleteCartById(cid);
+  response(res, 200, 'delete cart');
+};

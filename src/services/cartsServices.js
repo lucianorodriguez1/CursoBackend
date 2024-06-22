@@ -160,7 +160,7 @@ class CartService {
 
   async deleteCartById(cid){
     await this.getCartById(cid);
-    let result = await this.dao.deleteCart(cid);
+    let result = await cartsRepository.deleteCartById(cid);
     return result;
   }
 }

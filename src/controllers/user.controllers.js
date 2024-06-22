@@ -1,5 +1,4 @@
 import usersServices from "../services/usersServices.js";
-import { createHash } from "../utils/bcrypt.js";
 import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {
@@ -28,13 +27,13 @@ export const createUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
- const {id} = req.params;
+ const id = req.params.uid;
   const result = await usersServices.deleteUserById(id);
   response(res, 200, "user eliminado");
 };
 
 export const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const  id  = req.params.uid;
   const { first_name, last_name, age, email, password } = req.body;
 
   const result = await usersServices.updateUserById(id, {

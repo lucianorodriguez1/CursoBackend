@@ -30,6 +30,7 @@ class UserService {
 
   async getUserById(id) {
     let result = await usersRepository.getUserById(id);
+    console.log(result)
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -52,7 +53,7 @@ class UserService {
     return result;
   }
   async deleteUserById(id) {
-    const user = this.getUserById(id);
+    const user = await this.getUserById(id);
     let cartDelete = await cartsRepository.deleteCartById(user.cartId);
     let result = await usersRepository.deleteUserById(id);
     return result;

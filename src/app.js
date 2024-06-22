@@ -1,8 +1,7 @@
-//1. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-//2.probar codigo CART entero
-//3. Mejorar la ubicacion de los archivos views en carpeta web
-//GUARDAR: agregar tipos de errores en userServices. agregar invalid_email como error en errorService. crear funcion deleteCartById para CART
-//4.verificar que al actualizar user no se manden campos vacios, copiar funcion de productService
+//1.verificar que al actualizar user no se manden campos vacios, copiar funcion de productService
+//2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+//3.probar codigo CART entero
+//GUARDAR: 
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
