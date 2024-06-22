@@ -19,7 +19,7 @@ export default class User {
   async delete(id){
     return await userModel.findOneAndDelete({ _id: id });
   }
-  async update(id){
+  async update(id,data){
     return await userModel.findOneAndUpdate({ _id: id },
       { ...data },
       { new: true }

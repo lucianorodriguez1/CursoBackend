@@ -100,7 +100,7 @@ class ProductService {
       CustomError.createError({
         name: "producto no encontrado",
         cause: "invalid id",
-        message: "Error get product",
+        message: "Error update product",
         code: ErrorCodes.INVALID_ID,
       });
     return result;

@@ -1,6 +1,5 @@
-//1.verificar que al actualizar user no se manden campos vacios, copiar funcion de productService
-//2. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
-//3.probar codigo CART entero
+//1. controlar el error de la ruta al introductir un id que no se pueda enviar la base de datos
+//2.probar codigo CART entero
 //GUARDAR: 
 import express from "express";
 import handlebars from "express-handlebars";

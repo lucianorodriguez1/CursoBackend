@@ -30,7 +30,6 @@ class UserService {
 
   async getUserById(id) {
     let result = await usersRepository.getUserById(id);
-    console.log(result)
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -59,15 +58,24 @@ class UserService {
     return result;
   }
   async updateUserById(id, data) {
-    let result = await usersRepository.updateUserById(id, data);
-    if (!result)
-      CustomError.createError({
-        name: "user no encontrado",
-        cause: "invalid id",
-        message: "Error update user",
-        code: ErrorCodes.INVALID_ID,
-      });
+  await this.getUserById(id);
+  this.removeEmptyFields(data);
+  let result = await usersRepository.updateUserById(id, data);
     return result;
+  }
+  removeEmptyFields(obj) {
+    for (let key in obj) {
+      if (
+        obj[key] === null || 
+        obj[key] === undefined || 
+        obj[key] === '' || 
+        (Array.isArray(obj[key]) && obj[key].length === 0) || 
+        (typeof obj[key] === 'object' && Object.keys(obj[key]).length === 0)
+      ) {
+        delete obj[key];
+      }
+    }
+    return obj;
   }
 }
 
