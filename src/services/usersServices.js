@@ -11,7 +11,7 @@ class UserService {
     let result = await usersRepository.getUsers();
     return result;
   }
-
+  //probar: crear usuario con campos vacios.
   async createUser(user) {
     const passwordHash = createHash(user.password);
     const cartObject = await cartsRepository.createCart();
@@ -76,6 +76,12 @@ class UserService {
       }
     }
     return obj;
+  }
+
+  async changePremium(id){
+    await this.getUserById(id);
+    let result = await usersRepository.updateUserById(id,{role:'premium'});
+    return result;
   }
 }
 

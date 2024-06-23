@@ -1,5 +1,4 @@
-//1.probar codigo CART entero
-//GUARDAR: 
+//GURDAR: agregar error NOT_PERMISSION_DELETE_PRODUCT en errorService, usarlo en metodo deleteProduct y corregir validacion de email en prodctServices. 
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";

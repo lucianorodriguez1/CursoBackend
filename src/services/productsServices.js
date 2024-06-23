@@ -20,7 +20,7 @@ class ProductService {
     return await productModel.findOne(query);
   }
 
-  async createProduct(product) {
+  async createProduct(product, email, role) {
     if (
       !product.title ||
       !product.description ||
@@ -55,6 +55,8 @@ class ProductService {
         code: ErrorCodes.DUPLICATE_CODE,
       });
     }
+    if (role == "premium") product.owner = email;
+
     let result = await productsRepository.createProduct(product);
     return result;
   }
@@ -71,18 +73,26 @@ class ProductService {
     return result;
   }
 
-  async deleteProductById(id) {
-    let result = await productsRepository.deleteProductById(id);
-    if (!result)
+  async deleteProductById(id, email, role) {
+    const product = await this.getProductById(id);
+    let result = null;
+    if (role == "premium" && email == product.owner)
+      return (result = await productsRepository.deleteProductById(id));
+    console.log("entre");
+
+    if (role == "admin")
+      return (result = await productsRepository.deleteProductById(id));
+
+    if(role == "premium" && email != product.owner)
       CustomError.createError({
-        name: "producto no encontrado",
-        cause: "invalid id",
-        message: "Error get product",
-        code: ErrorCodes.INVALID_ID,
+        name: "el producto no se puede eliminar",
+        cause: "no tiene permisos para eliminar producto",
+        message: "Error delete product",
+        code: ErrorCodes.NOT_PERMISSION_DELETE_PRODUCT,
       });
     return result;
   }
-  
+
   async updateProductById(id, data) {
     const codeExists = await this.codeExists(data, id);
     if (codeExists) {
@@ -108,11 +118,11 @@ class ProductService {
   removeEmptyFields(obj) {
     for (let key in obj) {
       if (
-        obj[key] === null || 
-        obj[key] === undefined || 
-        obj[key] === '' || 
-        (Array.isArray(obj[key]) && obj[key].length === 0) || 
-        (typeof obj[key] === 'object' && Object.keys(obj[key]).length === 0)
+        obj[key] === null ||
+        obj[key] === undefined ||
+        obj[key] === "" ||
+        (Array.isArray(obj[key]) && obj[key].length === 0) ||
+        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
       ) {
         delete obj[key];
       }

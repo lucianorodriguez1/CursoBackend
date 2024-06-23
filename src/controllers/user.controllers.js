@@ -45,3 +45,11 @@ export const updateUser = async (req, res) => {
   });
   response(res, 200, result);
 };
+
+export const changePremium = async (req,res) => {
+  const id = req.params.uid;
+
+  const result = await usersServices.changePremium(id);
+
+  response(res,200,result);
+}
