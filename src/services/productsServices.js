@@ -20,7 +20,7 @@ class ProductService {
     return await productModel.findOne(query);
   }
 
-  async createProduct(product) {
+  async createProduct(product, email, role) {
     if (
       !product.title ||
       !product.description ||
@@ -55,6 +55,9 @@ class ProductService {
         code: ErrorCodes.DUPLICATE_CODE,
       });
     }
+    if (role == "premium") 
+      product.owner = email;
+    
     let result = await productsRepository.createProduct(product);
     return result;
   }
@@ -82,7 +85,7 @@ class ProductService {
       });
     return result;
   }
-  
+
   async updateProductById(id, data) {
     const codeExists = await this.codeExists(data, id);
     if (codeExists) {
@@ -108,11 +111,11 @@ class ProductService {
   removeEmptyFields(obj) {
     for (let key in obj) {
       if (
-        obj[key] === null || 
-        obj[key] === undefined || 
-        obj[key] === '' || 
-        (Array.isArray(obj[key]) && obj[key].length === 0) || 
-        (typeof obj[key] === 'object' && Object.keys(obj[key]).length === 0)
+        obj[key] === null ||
+        obj[key] === undefined ||
+        obj[key] === "" ||
+        (Array.isArray(obj[key]) && obj[key].length === 0) ||
+        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
       ) {
         delete obj[key];
       }

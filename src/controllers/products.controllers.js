@@ -18,7 +18,7 @@ export const createProduct = async (req, res) => {
     category,
     thumbnail,
   } = req.body;
-
+  
   const data = await productsService.createProduct({
     title,
     description,
@@ -28,8 +28,7 @@ export const createProduct = async (req, res) => {
     stock,
     category,
     thumbnail,
-  });
-
+  },req.user.user.email,req.user.user.role);
   response(res, 201, data);
 };
 
