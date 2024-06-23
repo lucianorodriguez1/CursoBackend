@@ -7,8 +7,16 @@ export const passportCall = (strategy) => {
     passport.authenticate(strategy, function (err, user, info) {
       if (err) return next(err);
       if (!user) {
-        req.user =  null;
-        next();
+        try {
+          CustomError.createError({
+            name: "no se autentico",
+            cause: "no hay nadie autenticado",
+            message: "Error passportCall middleware",
+            code: ErrorCodes.AUTHENTICATION_ERROR,
+          });
+        } catch (error) {
+          return next(error);
+        }
       }
       req.user = user;
       next();
