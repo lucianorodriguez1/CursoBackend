@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
  
-const userCollection = "users";
+const userCollection = 'users';
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -31,18 +31,19 @@ const userSchema = new mongoose.Schema({
   },
   cartId:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "carts",
+    ref: 'carts',
     required: true,
   },
   role: {
     type: String, 
-    default: "user",
+    enum: ['user', 'admin', 'premium'],
+    default: 'user',
     required: true,
   },
 });
 
-userSchema.pre("find", function () {
-  this.populate("cartId");
+userSchema.pre('find', function () {
+  this.populate('cartId');
 });
 
 const userModel = mongoose.model(userCollection,userSchema);
