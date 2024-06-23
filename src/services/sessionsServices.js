@@ -49,7 +49,19 @@ class SessionService {
     res.clearCookie("coderCookieToken"); //NO FUNCIONA//
   }
 */ 
+
+/*
+ERROR: ME MUESTRA LOS ARCHIVOS AL MOMENTO DE QUE NO EXISTE USUARIO EN EL METODO 'current'
+*/
   async current(req) {
+    if(!req.user){
+      CustomError.createError({
+        name: "no se autentico",
+        cause: "no hay nadie autenticado",
+        message: "Error passportCall middleware",
+        code: ErrorCodes.AUTHENTICATION_ERROR,
+      });
+    }
     return req.user;
   }
 }

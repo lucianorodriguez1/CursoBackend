@@ -24,5 +24,5 @@ export async function logout(req, res) {
 
 export async function current(req, res) {
   const data = await sessionService.current(req,res);
-  response(res, 200, req.user);
+  response(res, 200, data);
 }

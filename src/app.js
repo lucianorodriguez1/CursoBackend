@@ -1,4 +1,4 @@
-//GURDAR: agregar error NOT_PERMISSION_DELETE_PRODUCT en errorService, usarlo en metodo deleteProduct y corregir validacion de email en prodctServices. 
+//GURDAR: 
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
