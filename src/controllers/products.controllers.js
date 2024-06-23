@@ -40,7 +40,7 @@ export const getProductById = async (req, res) => {
 
 export const deleteProductById = async (req, res) => {
   let id = req.params.pid;
-  const result = await productsService.deleteProductById(id);
+  const result = await productsService.deleteProductById(id,req.user.user.email,req.user.user.role);
   response(res, 200, "producto eliminado");
 };
 

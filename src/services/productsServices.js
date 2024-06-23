@@ -55,9 +55,8 @@ class ProductService {
         code: ErrorCodes.DUPLICATE_CODE,
       });
     }
-    if (role == "premium") 
-      product.owner = email;
-    
+    if (role == "premium") product.owner = email;
+
     let result = await productsRepository.createProduct(product);
     return result;
   }
@@ -74,15 +73,17 @@ class ProductService {
     return result;
   }
 
-  async deleteProductById(id) {
-    let result = await productsRepository.deleteProductById(id);
-    if (!result)
-      CustomError.createError({
-        name: "producto no encontrado",
-        cause: "invalid id",
-        message: "Error get product",
-        code: ErrorCodes.INVALID_ID,
-      });
+  async deleteProductById(id, email, role) {
+    const product = await this.getProductById(id);
+    let result = null;
+    if (role == "premium" && email == product.email)
+      return (result = await productsRepository.deleteProductById(id));
+
+    if (role == "admin")
+      return (result = await productsRepository.deleteProductById(id));
+
+    if(role == "premium" && email != product.email)
+    return 'el producto no es propio del usuario'; //probar crear un error.
     return result;
   }
 
