@@ -18,17 +18,21 @@ export const createProduct = async (req, res) => {
     category,
     thumbnail,
   } = req.body;
-  
-  const data = await productsService.createProduct({
-    title,
-    description,
-    code,
-    price,
-    status,
-    stock,
-    category,
-    thumbnail,
-  },req.user.user.email,req.user.user.role);
+
+  const data = await productsService.createProduct(
+    {
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      thumbnail,
+    },
+    req.user.user.email,
+    req.user.user.role
+  );
   response(res, 201, data);
 };
 
@@ -40,7 +44,11 @@ export const getProductById = async (req, res) => {
 
 export const deleteProductById = async (req, res) => {
   let id = req.params.pid;
-  const result = await productsService.deleteProductById(id,req.user.user.email,req.user.user.role);
+  const result = await productsService.deleteProductById(
+    id,
+    req.user.user.email,
+    req.user.user.role
+  );
   response(res, 200, "producto eliminado");
 };
 
@@ -67,5 +75,5 @@ export const updateProductById = async (req, res) => {
     category,
     thumbnail,
   });
-  response(res,200,result);
+  response(res, 200, result);
 };

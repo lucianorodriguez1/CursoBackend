@@ -76,14 +76,20 @@ class ProductService {
   async deleteProductById(id, email, role) {
     const product = await this.getProductById(id);
     let result = null;
-    if (role == "premium" && email == product.email)
+    if (role == "premium" && email == product.owner)
       return (result = await productsRepository.deleteProductById(id));
+    console.log("entre");
 
     if (role == "admin")
       return (result = await productsRepository.deleteProductById(id));
 
-    if(role == "premium" && email != product.email)
-    return 'el producto no es propio del usuario'; //probar crear un error.
+    if(role == "premium" && email != product.owner)
+      CustomError.createError({
+        name: "el producto no se puede eliminar",
+        cause: "no tiene permisos para eliminar producto",
+        message: "Error delete product",
+        code: ErrorCodes.NOT_PERMISSION_DELETE_PRODUCT,
+      });
     return result;
   }
 
