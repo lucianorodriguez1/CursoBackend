@@ -1,5 +1,4 @@
-//1.probar codigo CART entero
-//GUARDAR: 
+//GURDAR:
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
