@@ -8,7 +8,7 @@ const cartRouter = Router();
 cartRouter.get("/", carts.getCarts); 
 cartRouter.post("/", carts.createCart);
 cartRouter.get("/:cid", carts.getCartById);
-cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization("user"),carts.addProductFromCart);
+cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization('user','premium'),carts.addProductFromCart);
 cartRouter.delete("/:cid",carts.deleteAllProductsFromCartById);
 cartRouter.delete("/:cid/product/:pid",carts.deleteProductFromCart);
 cartRouter.put("/:cid",carts.updateCartById);

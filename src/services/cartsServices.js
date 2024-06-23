@@ -32,7 +32,7 @@ class CartService {
     return result;
   }
 
-  async addProductFromCart(cid, pid) {
+  async addProductFromCart(cid, pid, email) {
     const cart = await this.getCartById(cid);
     if (!cart) {
       CustomError.createError({
@@ -42,9 +42,18 @@ class CartService {
         code: ErrorCodes.INVALID_ID,
       });
     }
-    await productsService.getProductById(pid);
-    await cartsRepository.addProductFromCart(cid, pid);
-    return "Se agrego el producto al cart";
+    const product = await productsService.getProductById(pid);
+    if (product.owner == email) {
+      CustomError.createError({
+        name: "no se puede agregar su propio prod al carrito",
+        cause: "invalid add product cart",
+        message: "Error add product in cart",
+        code: ErrorCodes.NOT_AVAILABLE_ADDPRODUCTCART,
+      });
+    } else {
+      await cartsRepository.addProductFromCart(cid, pid);
+      return "Se agrego el producto al cart";
+    }
   }
 
   async deleteProductsCart(cid) {
@@ -158,7 +167,7 @@ class CartService {
     };
   }
 
-  async deleteCartById(cid){
+  async deleteCartById(cid) {
     await this.getCartById(cid);
     let result = await cartsRepository.deleteCartById(cid);
     return result;

@@ -17,7 +17,7 @@ export const getCartById = async (req, res) => {
 export const addProductFromCart = async (req, res) => {
   const idCart = req.params.cid;
   const idProduct = req.params.pid;
-  const data = await cartsService.addProductFromCart(idCart, idProduct);
+  const data = await cartsService.addProductFromCart(idCart, idProduct,req.user.user.email);
   response(res, 200, data);
 };
 export const deleteAllProductsFromCartById = async (req, res) => {
