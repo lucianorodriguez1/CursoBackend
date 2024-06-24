@@ -22,7 +22,7 @@ export async function register(req, res) {
 }
 
 export async function logout(req, res) {
-  res.clearCookie("coderCookieToken");
+  await sessionService.logout(req,res,req.user.user.email);
   response(res, 200, 'logout correcto');
 }
 

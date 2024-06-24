@@ -7,7 +7,7 @@ const sessionRouter = Router();
 
 sessionRouter.post("/register", sessions.register);
 sessionRouter.post("/login", sessions.login);
-sessionRouter.get("/logout", sessions.logout);
+sessionRouter.get("/logout", passportCall("jwt"),sessions.logout);
 sessionRouter.get("/current", passportCall("jwt"), sessions.current);
 
 export default sessionRouter;

@@ -9,4 +9,8 @@ userRouter.delete("/:uid",users.deleteUser);
 userRouter.put("/:uid",users.updateUser);
 userRouter.get("/premium/:uid",users.changePremium)
 
+/*
+userRouter.post('/:uid/documents',users.createDocuments);
+*/
+
 export default userRouter;

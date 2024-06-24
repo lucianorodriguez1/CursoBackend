@@ -10,8 +10,9 @@ class UserService {
 
   async getUsers() {
     let users = await usersRepository.getUsers();
-    const result = users.map(user => UserDTO.getUserTokenFrom(user));
-    return result;
+    return users;
+    //const result = users.map(user => UserDTO.getUserTokenFrom(user));
+    //return result;
   }
   //probar: crear usuario con campos vacios.
   async createUser(user) {
