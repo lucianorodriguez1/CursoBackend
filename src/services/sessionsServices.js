@@ -3,6 +3,7 @@ import { isValidPassword } from "../utils/bcrypt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import usersServices from "./usersServices.js";
+import UserDTO from "../DTO/user.dto.js";
 
 class SessionService {
   constructor() {}
@@ -25,7 +26,8 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    const token = generateToken(user);
+    const userDto = UserDTO.getUserTokenFrom(user);
+    const token = generateToken(userDto);
     return token;
   }
 

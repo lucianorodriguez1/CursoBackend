@@ -1,4 +1,4 @@
-//GURDAR: cambiar ubicacion de carpeta dto. hacer una funcion getUserTokenFromToken que retorna de user (name,role,email).
+//GURDAR: agregar dto a login de sessionsService. provocar al hacer login se muestra en la ruta current enviada (nombre, rol, email) del usuario. 
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
