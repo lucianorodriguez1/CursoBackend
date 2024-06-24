@@ -40,16 +40,25 @@ const userSchema = new mongoose.Schema({
     default: "user",
     required: true,
   },
-  documents:{ type:[
-    {
-      name: {
-        type: String,
+  documents: {
+    type: [
+      {
+        name: {
+          type: String,
+          default:'name',
+        },
+        reference: {
+          type: String,
+          default:'reference',
+        },
       },
-      reference: {
-        type: String,
-      },
-    },
-  ],default:[]},
+    ],
+    default: [],
+  },
+  last_connection:{
+    type:mongoose.Schema.Types.Mixed, 
+    default:null,
+  }
 });
 
 userSchema.pre("find", function () {
