@@ -1,3 +1,4 @@
+import UserDTO from "../DTO/user.dto.js";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 import { createHash } from "../utils/bcrypt.js";
@@ -8,7 +9,8 @@ class UserService {
   constructor() {}
 
   async getUsers() {
-    let result = await usersRepository.getUsers();
+    let users = await usersRepository.getUsers();
+    const result = users.map(user => UserDTO.getUserTokenFrom(user));
     return result;
   }
   //probar: crear usuario con campos vacios.
@@ -42,6 +44,7 @@ class UserService {
 
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
+    /*
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -49,6 +52,7 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_EMAIL,
       });
+      */
     return result;
   }
   async deleteUserById(id) {

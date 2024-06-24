@@ -41,8 +41,8 @@ class SessionService {
             code: ErrorCodes.DUPLICATE_EMAIL,
           });
     }
-    await usersServices.createUser(data);
-    const token = generateToken(user);
+    const newUser = await usersServices.createUser(data);
+    const token = generateToken(newUser);
     return token
   }
 
@@ -52,9 +52,6 @@ class SessionService {
   }
 */ 
 
-/*
-ERROR: ME MUESTRA LOS ARCHIVOS AL MOMENTO DE QUE NO EXISTE USUARIO EN EL METODO 'current'
-*/
   async current(req) {
     if(!req.user){
       CustomError.createError({

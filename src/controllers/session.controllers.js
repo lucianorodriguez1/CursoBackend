@@ -13,7 +13,11 @@ export async function login(req, res) {
 
 export async function register(req, res) {
   const { first_name, last_name, age, email, password } = req.body;
-  const data = await sessionService.register({first_name, last_name, age, email, password});
+  const token = await sessionService.register({first_name, last_name, age, email, password});
+  res.cookie("coderCookieToken", token, {
+    maxAgre: 60 * 60 * 1000,
+    httpOnly: true,
+})
   response(res, 200, 'register correcto');
 }
 

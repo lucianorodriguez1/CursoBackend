@@ -1,4 +1,4 @@
-//GURDAR: agregar dto a login de sessionsService. provocar al hacer login se muestra en la ruta current enviada (nombre, rol, email) del usuario. 
+//GURDAR:
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
