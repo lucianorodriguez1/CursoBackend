@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
     default: [],
   },
   last_connection:{
-    type:mongoose.Schema.Types.Mixed, 
+    type:Date, 
     default:null,
   },
   isOnline:{

@@ -14,10 +14,13 @@ export default class User {
     return await userModel.findOne({ email: email });
   }
   async create(data) {
-    return await userModel.insertMany(data);
+    return await userModel.insertMany();
   }
   async delete(id){
     return await userModel.findOneAndDelete({ _id: id });
+  }
+  async deleteMany(cond){
+    return await userModel.deleteMany(cond);
   }
   async update(id,data){
     return await userModel.findOneAndUpdate({ _id: id },

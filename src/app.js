@@ -1,4 +1,4 @@
-//GURDAR: agregar const swaggerOptions, const specs y el middleware de swaggeuiExpress a app.js. crear archivos products y cart .yaml. 
+//Guardar
 //arreglar: modifique el getUsers de userServices para probar.
 import express from "express";
 import handlebars from "express-handlebars";
@@ -21,6 +21,7 @@ import viewsRouter from "./routes/views.routes.js";
 const app = express();
 const __dirname = path.resolve();
 const PORT = config.port;
+
 
 app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${config.port}`);
