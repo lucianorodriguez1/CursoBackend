@@ -45,15 +45,6 @@ class UserService {
 
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
-    /*
-    if (!result)
-      CustomError.createError({
-        name: "user no encontrado",
-        cause: "invalid email",
-        message: "Error get user",
-        code: ErrorCodes.INVALID_EMAIL,
-      });
-      */
     return result;
   }
   async deleteUserById(id) {
@@ -63,19 +54,19 @@ class UserService {
     return result;
   }
   async updateUserById(id, data) {
-  await this.getUserById(id);
-  this.removeEmptyFields(data);
-  let result = await usersRepository.updateUserById(id, data);
+    await this.getUserById(id);
+    this.removeEmptyFields(data);
+    let result = await usersRepository.updateUserById(id, data);
     return result;
   }
   removeEmptyFields(obj) {
     for (let key in obj) {
       if (
-        obj[key] === null || 
-        obj[key] === undefined || 
-        obj[key] === '' || 
-        (Array.isArray(obj[key]) && obj[key].length === 0) || 
-        (typeof obj[key] === 'object' && Object.keys(obj[key]).length === 0)
+        obj[key] === null ||
+        obj[key] === undefined ||
+        obj[key] === "" ||
+        (Array.isArray(obj[key]) && obj[key].length === 0) ||
+        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
       ) {
         delete obj[key];
       }
@@ -83,9 +74,9 @@ class UserService {
     return obj;
   }
 
-  async changePremium(id){
+  async changePremium(id) {
     await this.getUserById(id);
-    let result = await usersRepository.updateUserById(id,{role:'premium'});
+    let result = await usersRepository.updateUserById(id, { role: "premium" });
     return result;
   }
 }

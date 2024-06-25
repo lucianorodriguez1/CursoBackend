@@ -26,9 +26,9 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    await usersServices.updateUserById(user._id,{isOnline:true});
-    const userDto = UserDTO.getUserTokenFrom(user);
-    const token = generateToken(userDto);
+    const userUpd=await usersServices.updateUserById(user._id, { isOnline: true });
+    //const userDto = UserDTO.getUserTokenFrom(user);
+    const token = generateToken(userUpd);
     return token;
   }
 
@@ -44,9 +44,9 @@ class SessionService {
     }
     await usersServices.createUser(data);
     user = await usersServices.getUserByEmail(data.email);
-    await usersServices.updateUserById(user._id,{isOnline:true});
-    console.log("entre")
-    const token = generateToken(user);
+    await usersServices.updateUserById(user._id, { isOnline: true });
+    const userUpd=await usersServices.updateUserById(user._id, { isOnline: true });
+    const token = generateToken(userUpd);
     return token;
   }
 
@@ -61,10 +61,10 @@ class SessionService {
     }
     const user = await usersServices.getUserByEmail(email);
     const fecha = new Date().toISOString();
-    const upd = await usersServices.updateUserById(user._id, {
-      last_connection: fecha, isOnline:false
+    await usersServices.updateUserById(user._id, {
+      last_connection: fecha,
+      isOnline: false,
     });
-    console.log("upd: " + upd);
 
     res.clearCookie("coderCookieToken");
   }
