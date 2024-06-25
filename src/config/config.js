@@ -9,5 +9,7 @@ export default{
     tokenKey: process.env.TOKEN_KEY,
     clientIdGitHub:process.env.CLIENT_ID_GITHUB,
     clienteSecretsGitHub: process.env.CLIENT_SECRETS_GITHUB,
-    environment: process.env.ENVIRONMENT
+    environment: process.env.ENVIRONMENT,
+    passwordGmail:process.env.PASSWORD_APP_GMAIL,
+    correoGmail: process.env.CORREO_GMAIL
 }
