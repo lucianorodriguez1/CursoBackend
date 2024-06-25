@@ -18,11 +18,13 @@ import viewsRouter from "./routes/views.routes.js";
 
 const app = express();
 const __dirname = path.resolve();
-const PORT = 8080;
+const PORT = config.port;
 
 app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${config.port}`);
 });
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
