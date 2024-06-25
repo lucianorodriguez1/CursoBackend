@@ -1,0 +1,9 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        '200':
+          description: A list of products.

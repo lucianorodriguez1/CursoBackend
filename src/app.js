@@ -1,4 +1,4 @@
-//GURDAR: 
+//GURDAR: agregar const swaggerOptions, const specs y el middleware de swaggeuiExpress a app.js. crear archivos products y cart .yaml. 
 //arreglar: modifique el getUsers de userServices para probar.
 import express from "express";
 import handlebars from "express-handlebars";
@@ -7,6 +7,8 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import path from 'path'
+import swaggerJsDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
 
 import config from "./config/config.js";
 import initializatePassport from "./utils/passport.js";
@@ -24,7 +26,19 @@ app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${config.port}`);
 });
 
-
+//generar documentacion api
+const swaggerOptions = {
+  definition:{
+    openapi:'3.0.1',
+    info:{
+      title:'Documentacion de e-commerce coder',
+      description:'API para el ecommerce'
+    }
+  },
+  apis:[`${path.join(__dirname)}/src/docs/**/*.yaml`]
+}
+const specs = swaggerJsDoc(swaggerOptions);
+app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
