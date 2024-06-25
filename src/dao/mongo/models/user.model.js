@@ -58,6 +58,10 @@ const userSchema = new mongoose.Schema({
   last_connection:{
     type:mongoose.Schema.Types.Mixed, 
     default:null,
+  },
+  isOnline:{
+    type: Boolean,
+    default:false
   }
 });
 

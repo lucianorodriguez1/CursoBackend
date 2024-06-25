@@ -26,28 +26,32 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
+    await usersServices.updateUserById(user._id,{isOnline:true});
     const userDto = UserDTO.getUserTokenFrom(user);
     const token = generateToken(userDto);
     return token;
   }
 
   async register(data) {
-    const user = await usersServices.getUserByEmail(data.email);
-    if(user){
-        CustomError.createError({
-            name: "email duplicado. vuelva a intentarlo",
-            cause: "email proporcionado: " + data.email,
-            message: "error en proceso de registro de usuario",
-            code: ErrorCodes.DUPLICATE_EMAIL,
-          });
+    let user = await usersServices.getUserByEmail(data.email);
+    if (user) {
+      CustomError.createError({
+        name: "email duplicado. vuelva a intentarlo",
+        cause: "email proporcionado: " + data.email,
+        message: "error en proceso de registro de usuario",
+        code: ErrorCodes.DUPLICATE_EMAIL,
+      });
     }
-    const newUser = await usersServices.createUser(data);
-    const token = generateToken(newUser);
-    return token
+    await usersServices.createUser(data);
+    user = await usersServices.getUserByEmail(data.email);
+    await usersServices.updateUserById(user._id,{isOnline:true});
+    console.log("entre")
+    const token = generateToken(user);
+    return token;
   }
 
-  async logout(req, res,email) {
-    if(!req.user){
+  async logout(req, res, email) {
+    if (!req.user) {
       CustomError.createError({
         name: "no se autentico",
         cause: "no hay nadie autenticado",
@@ -56,17 +60,17 @@ class SessionService {
       });
     }
     const user = await usersServices.getUserByEmail(email);
-    const fecha = new Date().toISOString(); // Obtener la fecha y hora en formato ISO
-  console.log("fecha: " + fecha);
-
-  const upd = await usersServices.updateUserById(user._id, { last_connection: fecha });
+    const fecha = new Date().toISOString();
+    const upd = await usersServices.updateUserById(user._id, {
+      last_connection: fecha, isOnline:false
+    });
     console.log("upd: " + upd);
-   
-    res.clearCookie("coderCookieToken"); 
+
+    res.clearCookie("coderCookieToken");
   }
 
   async current(req) {
-    if(!req.user){
+    if (!req.user) {
       CustomError.createError({
         name: "no se autentico",
         cause: "no hay nadie autenticado",

@@ -7,7 +7,7 @@ export default class User {
     return await userModel.find();
   }
   async getById(id) {
-    return await userModel.findOne({ _id: id }).select('-password -__v -_id');
+    return await userModel.findOne({ _id: id })
   }
 
   async getByEmail(email) {

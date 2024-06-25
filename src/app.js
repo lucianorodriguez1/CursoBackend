@@ -1,4 +1,4 @@
-//GURDAR: 
+//GURDAR: agregar el isOnline en userModel
 //arreglar: modifique el getUsers de userServices para probar.
 import express from "express";
 import handlebars from "express-handlebars";
