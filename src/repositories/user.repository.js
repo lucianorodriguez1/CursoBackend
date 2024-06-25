@@ -25,6 +25,10 @@ export default class UserRepository {
     let result = await this.dao.delete(id);
     return result;
   }
+  async deleteMany(cond){
+    let result = await this.dao.deleteMany(cond);
+    return result;
+  }
   async updateUserById(id,data) {
     let result = await this.dao.update(id,data);
     return result;

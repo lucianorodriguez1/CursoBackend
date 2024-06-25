@@ -1,4 +1,4 @@
-//GURDAR: 
+//GURDAR: agregar funcion deleteInactive en sessionService. agregar deleteMany en userDao y UserRepo. declarar funcion deleteInactivce en app.js
 //arreglar: modifique el getUsers de userServices para probar.
 import express from "express";
 import handlebars from "express-handlebars";
@@ -19,6 +19,7 @@ import viewsRouter from "./routes/views.routes.js";
 const app = express();
 const __dirname = path.resolve();
 const PORT = 8080;
+
 
 app.listen(PORT, () => {
   console.log(`listening to the server on PORT ${config.port}`);
