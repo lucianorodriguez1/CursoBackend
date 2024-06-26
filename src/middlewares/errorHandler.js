@@ -41,23 +41,10 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_AVAILABLE_ADDPRODUCTCART:
       res.status(400).json({ error: true, name: error.name });
       break;
-    /*
+
     case ErrorCodes.DATABASE_ERROR:
-      res.status(500).json({ error: true, error: "Database error" });
+      res.status(500).json({ error: true, error: error.name });
       break;
-    case ErrorCodes.PAYMENT_ERROR:
-      res.status(402).json({ error: true, error: "Payment error" });
-      break;
-    case ErrorCodes.INVENTORY_ERROR:
-      res.status(409).json({ error: true, error: "Inventory error" });
-      break;
-    case ErrorCodes.SHIPPING_ERROR:
-      res.status(502).json({ error: true, error: "Shipping error" });
-      break;
-    case ErrorCodes.RATE_LIMITING_ERROR:
-      res.status(429).json({ error: true, error: "Too many requests" });
-      break;
-      */
     default:
       res.status(500).json({
         error: true,

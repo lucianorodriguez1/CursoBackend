@@ -12,7 +12,7 @@ mailRouter.get("/", async (req, res) => {
     subject: "correo pruebaa subj",
     html: `
         <div>
-            <h3>luchito cuidate</h3>
+            <a href="http://localhost:${config.port}/reestablecerContrasenia">Reestablecer mi contrasenia</a>
         </div>
         `,
         attachments:[]

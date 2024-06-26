@@ -12,7 +12,7 @@ class SessionService {
     const user = await usersServices.getUserByEmail(email);
     if (!user) {
       CustomError.createError({
-        name: "error de autenticacion",
+        name: "credenciales incorrectas",
         cause: "email y contraseña no coinciden",
         message: "Credenciales incorrectas",
         code: ErrorCodes.AUTHENTICATION_ERROR,
@@ -20,7 +20,7 @@ class SessionService {
     }
     if (!isValidPassword(user, password)) {
       CustomError.createError({
-        name: "error de autenticacion",
+        name: "credenciales incorrectas",
         cause: "email y contraseña no coinciden",
         message: "Credenciales incorrectas",
         code: ErrorCodes.AUTHENTICATION_ERROR,
@@ -29,7 +29,6 @@ class SessionService {
     const userUpd = await usersServices.updateUserById(user._id, {
       isOnline: true,
     });
-    //const userDto = UserDTO.getUserTokenFrom(user);
     const token = generateToken(userUpd);
     return token;
   }
@@ -84,8 +83,6 @@ class SessionService {
     }
     return req.user;
   }
-
-  //***PRUEBA */
 
   async deleteInactive() {
     const now = new Date();

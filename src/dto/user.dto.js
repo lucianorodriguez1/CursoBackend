@@ -1,6 +1,3 @@
-import CustomError from "../services/errors/CustomError.js";
-import { ErrorCodes } from "../services/errors/enums.js";
-
 export default class UserDTO {
   static getUserTokenFrom = (user) => {
     return {
@@ -12,7 +9,7 @@ export default class UserDTO {
 
   static getUserResponseForRole = (user, role) => {
     switch (role) {
-      case 'admin':
+      case "admin":
         return {
           id: user._id,
           name: `${user.first_name} ${user.last_name}`,
@@ -22,7 +19,7 @@ export default class UserDTO {
           last_connection: user.last_connection,
           isOnline: user.isOnline,
         };
-      case 'premium':
+      case "premium":
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
@@ -30,7 +27,7 @@ export default class UserDTO {
           isOnline: user.isOnline,
           role: user.role,
         };
-      case 'user':
+      case "user":
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
@@ -38,12 +35,10 @@ export default class UserDTO {
           isOnline: user.isOnline,
         };
       default:
-        CustomError.createError({
-          name: "no se auntentico. autenticate",
-          cause: "sin autenticacion",
-          message: "Error user dto",
-          code: ErrorCodes.AUTHENTICATION_ERROR,
-        });
+        return {
+          name: `${user.first_name} ${user.last_name}`,
+          email: user.email,
+        };
     }
   };
 }

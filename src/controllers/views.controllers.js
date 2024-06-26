@@ -74,3 +74,8 @@ export const viewProfile = async (req, res) => {
     userEmail: userData.user.email,
   });
 };
+
+export const reestablecerContrasenia = async(req,res) =>{
+
+  res.render("reestablecerContrasenia",{});
+}
