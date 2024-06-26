@@ -8,13 +8,11 @@ import { ErrorCodes } from "./errors/enums.js";
 class UserService {
   constructor() {}
 
-  async getUsers() {
-    let users = await usersRepository.getUsers();
-    return users;
-    //const result = users.map(user => UserDTO.getUserTokenFrom(user));
-    //return result;
+  async getUsers(req) {
+    const users = await usersRepository.getUsers();
+    const result = users.map(user=>UserDTO.getUserResponseForRole(user,req.user.user.role))
+    return result;
   }
-  //probar: crear usuario con campos vacios.
   async createUser(user) {
     const passwordHash = createHash(user.password);
     const cartObject = await cartsRepository.createCart();

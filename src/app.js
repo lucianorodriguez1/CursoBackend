@@ -1,5 +1,33 @@
-//Guardar
-//arreglar: modifique el getUsers de userServices para probar.
+//Guardar:
+/**
+ * 
+ * 
+ * 
+ * 
+*/
+//GUARDAR HECHO
+/**
+ * agregar func getUserResponseForRole que devuleve una estructura de usuario en base al rol en userdto y devuelve error si no hay rol. cambiar el getUsers de userSession para que devuelva la estructura . agregar passportcall a GET de userRoutes
+ */
+//mejorar
+/**
+ * cambiar el nombre de archivos dao por mongo, product.dao --> product.mongo
+ * cambiar el nombre a docs/products a docs/product. y cart
+ *  controlar el error cuando se tarda mucho tiempo al consultar a la base de datos
+ * cambiar nombres de archivos con . por mayus, --> product.services a productsServices
+ */
+
+// preguntar a ger
+/**
+ * los problemas con el logger personalizado
+ * donde puedo tener archivo para documentar todas estas pruebas.
+ * 
+ */
+//probar
+/**
+ * donde se guardan los loggers de error en produccion
+ * crear usuario con campos vacios.
+ */
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";

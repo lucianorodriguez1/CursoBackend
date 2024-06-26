@@ -86,7 +86,6 @@ class SessionService {
   }
 
   //***PRUEBA */
-  //en 15 minutos elimina al usuario que se su ltima sesion fua hace 30 minutos que corre el servidor local.
 
   async deleteInactive() {
     const now = new Date();

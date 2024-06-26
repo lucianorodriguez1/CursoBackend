@@ -2,7 +2,7 @@ import usersServices from "../services/usersServices.js";
 import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {
-  const users = await usersServices.getUsers();
+  const users = await usersServices.getUsers(req);
   response(res, 200, users);
 };
 
