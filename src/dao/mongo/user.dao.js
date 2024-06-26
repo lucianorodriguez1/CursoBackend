@@ -14,7 +14,7 @@ export default class User {
     return await userModel.findOne({ email: email });
   }
   async create(data) {
-    return await userModel.insertMany();
+    return await userModel.insertMany(data);
   }
   async delete(id){
     return await userModel.findOneAndDelete({ _id: id });
