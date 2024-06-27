@@ -45,6 +45,9 @@ export default (error, req, res, next) => {
     case ErrorCodes.DATABASE_ERROR:
       res.status(500).json({ error: true, error: error.name });
       break;
+    case ErrorCodes.NOT_PERMISSION_GET_CART:
+      res.status(400).json({ error: true, name: error.name });
+      break;
     default:
       res.status(500).json({
         error: true,

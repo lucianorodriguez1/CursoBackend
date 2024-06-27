@@ -6,12 +6,14 @@ import productModel from "../dao/mongo/models/productModel.js";
 import ticketModel from "../dao/mongo/models/ticketModel.js";
 import userModel from "../dao/mongo/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
+import CartDTO from "../dto/CartDto.js";
 
 class CartService {
   constructor() {}
 
-  async getCarts() {
-    let result = await cartsRepository.getCarts();
+  async getCarts(role) {
+    let carts = await cartsRepository.getCarts();
+    const result = carts.map((cart)=> CartDTO.getCartResponseForRole(cart,role))
     return result;
   }
 

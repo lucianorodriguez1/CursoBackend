@@ -2,7 +2,8 @@ import cartService from "../services/CartService.js";
 import { response } from "../utils/response.js";
 
 export const getCarts = async (req, res) => {
-  const data = await cartService.getCarts();
+  const role = req.user?.user?.role || null;
+  const data = await cartService.getCarts(role);
   response(res, 200, data);
 };
 export const createCart = async (req, res) => {
