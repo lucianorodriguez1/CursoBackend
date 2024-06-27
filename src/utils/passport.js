@@ -1,7 +1,7 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github2";
-import userModel from "../dao/mongo/models/user.model.js";
-import User from "../dao/mongo/user.dao.js";
+import userModel from "../dao/mongo/models/userModel.js";
+import User from "../dao/mongo/UserMongo.js";
 import jwt from "passport-jwt";
 import config from "../config/config.js";
 

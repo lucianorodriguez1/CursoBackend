@@ -2,9 +2,9 @@ import { cartsRepository } from "../repositories/index.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import productsService from "./productsServices.js";
-import productModel from "../dao/mongo/models/product.model.js";
-import ticketModel from "../dao/mongo/models/ticket.model.js";
-import userModel from "../dao/mongo/models/user.model.js";
+import productModel from "../dao/mongo/models/productModel.js";
+import ticketModel from "../dao/mongo/models/ticketModel.js";
+import userModel from "../dao/mongo/models/userModel.js";
 import { v4 as uuidv4 } from "uuid";
 
 class CartService {
