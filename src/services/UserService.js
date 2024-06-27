@@ -48,13 +48,6 @@ class UserService {
 
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
-    if (!result)
-      CustomError.createError({
-        name: "user no encontrado",
-        cause: "invalid email",
-        message: "Error get user",
-        code: ErrorCodes.INVALID_EMAIL,
-      });
     return result;
   }
   async deleteUserById(id) {
@@ -145,6 +138,7 @@ class UserService {
     const email = decoded.email;
     const user = await userService.getUserByEmail(email);
     const passwordHash = createHash(password);
+    console.log("user:" + user)
     await this.updateUserById(user._id, { password: passwordHash });
     return 'Se cambio la contraseña con exito';
   }

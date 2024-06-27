@@ -58,14 +58,15 @@ export async function deleteInactives(req, res) {
 //nueva funcionalidad
 export async function sendEmailToResetPassword(req, res) {
   const {email} = req.body;
-  await userService.sendEmailToResetPassword(email);
-  response(res, 200, 'se envio correo el amail.');
+  const result = await userService.sendEmailToResetPassword(email);
+  req.logger.info(result);
+  response(res,200,'Se envio el correo');
 }
 
 export const resetPassword = async(req,res) =>{
   const {token,password} = req.body;
   const result = await userService.resetPassword(token,password);
-  response(res,200,result);
+  response(res, 200, result);
 }
 
 

@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * cambiar name de input, agregar script para campturar el valor del token req.query y agregar input de token reestab..handlebars. sacar error de getUserByEmail
  */
 
 //Realizar
@@ -116,6 +116,7 @@ app.use(errorHandler);
  * Desafio entrega final:
  * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
  * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
+ * mejorar respuestas de validacion al crear usuareios y tener los campos vacios.
  */
 
 
