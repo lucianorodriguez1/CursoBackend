@@ -71,7 +71,6 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * Mover la funcion deleteInactive de sessions a users. borrar los async de los controladores de viewsControllers
  * 
  */
 
@@ -106,14 +105,6 @@ app.use(errorHandler);
  * 
  * Poner la ruta views en routes/web y crear su index
  * 
-  *  Controlar el error cuando se tarda mucho tiempo al consultar a la base de datos.
- * 
- * 
- * Completar mvc de tickets:
- *    ticketsControllers.js
- *    ticketMongo.js
- *    TicketServices.js 
- *    TicketRepository.js
  * 
  * Modificar el dto de cart:
  *     devolver todos los carritos completos sin __v al admin. sin permisos a otro rol
@@ -138,8 +129,7 @@ app.use(errorHandler);
  * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
  *      Evaluar que hacer en dto,etc.
  * 
- * Controlar los async-await de los viewsControllers
- * 
+ * agregar permisos para el ticket
  */
 
 
@@ -167,6 +157,8 @@ app.use(errorHandler);
  * como puedo hacer req.user.campo y no req.user.user.campo
  * 
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
+ * 
+ * mvc de ticket
  */
 
 

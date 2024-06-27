@@ -6,19 +6,19 @@ const ticketSchema = new mongoose.Schema({
   code: {
     type: String,
     unique: true,
-    default: () => uuidv4(), // Genera un código único automáticamente
+    default: () => uuidv4(), 
   },
   purchase_datetime: {
     type: Date,
-    default: Date.now, // Guarda la fecha y hora exacta de la compra automáticamente
+    default: Date.now, 
   },
   amount: {
     type: Number,
-    required: true, // Asegura que este campo sea obligatorio
+    required: true, 
   },
   purchaser: {
     type: String,
-    required: true, // Asegura que este campo sea obligatorio
+    required: true, 
   },
 });
 
