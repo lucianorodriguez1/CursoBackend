@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * cambiar name de input, agregar script para campturar el valor del token req.query y agregar input de token reestab..handlebars. sacar error de getUserByEmail
+ * 
  */
 
 //Realizar

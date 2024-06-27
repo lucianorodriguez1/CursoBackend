@@ -1,7 +1,7 @@
 import UserDTO from "../dto/UserDto.js";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
-import { createHash } from "../utils/bcrypt.js";
+import { createHash, isValidPassword } from "../utils/bcrypt.js";
 import { decodedToken, generateToken } from "../utils/jwt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
@@ -137,6 +137,14 @@ class UserService {
     const decoded = decodedToken(token);
     const email = decoded.data.email;
     const user = await userService.getUserByEmail(email);
+    if (isValidPassword(user, password)) {
+      CustomError.createError({
+        name: "La contraseña es la misma. Introduce otra.",
+        cause: "la contraseña que se quiere reestablecer es la misma del usuario",
+        message: "Contraseña repetido",
+        code: ErrorCodes.DUPLICATE_CODE, //cambiar
+      });
+    }
     const passwordHash = createHash(password);
     console.log("user: " + user)
     await this.updateUserById(user._id, { password: passwordHash });
