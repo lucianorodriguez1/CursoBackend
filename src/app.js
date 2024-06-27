@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * hacer dto de producto de acuerdo al rol en ProductDto
+ * agregar ticket.router a index.js
  */
 
 //Realizar
@@ -79,6 +79,27 @@ app.use(errorHandler);
  * Desafio complementario:
  *    enviar por medio de un correo un boton que redireccione a una pagina para restablecer la contrasenia.(el link del correo debe durar 1 hr. si es la misma contrasenia indicar un mensaje 'no se puede colocar la misma contrasenia'. Si el link expiro debe redirigir a una vista que le permita generar nuevamente el correo de restablecimeiento, con una duracion de 1hr).
  *
+ * 
+ *   Modificar el dto de cart:
+ *     devolver todos los carritos completos sin __v al admin. sin permisos a otro rol
+ *     solamente devolver el carrito al usuario logueado con sus producto. sacar el __v y el id
+ * 
+ * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
+ * 
+ * La ruta current debe devolver  el user solo sin las cosas adicionales.
+ * 
+ * Resolver el metodo getBy de mis daos:
+ *    user.dao.js --> eliminar dos funciones y hacer una generica
+ * 
+ *  * Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
+ * 
+ * Borrar las variables declaradas de todos los archivos que no uso
+ * 
+ * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
+ *      Evaluar que hacer en dto,etc.
+ * 
+ * agregar permisos para el ticket
+ * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
@@ -99,37 +120,10 @@ app.use(errorHandler);
  * Desafio entrega final:
  * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
  * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
- *
- * Resolver el metodo getBy de mis daos:
- *    user.dao.js --> eliminar dos funciones y hacer una generica
- * 
- * Poner la ruta views en routes/web y crear su index
- * 
- * Mejorar la eficiencia del addProd de cart.dao.js
- *
- * Modificar el dto de cart:
- *     devolver todos los carritos completos sin __v al admin. sin permisos a otro rol
- *     solamente devolver el carrito al usuario logueado con sus producto. sacar el __v y el id
- * 
- * 
- * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
- * 
- * La ruta current debe devolver  el user solo sin las cosas adicionales.
- * 
- * Resolver el problema del middleware passportCall para que si no se esta logueado me devuelva los productos con los campos definidos en userDto
- * 
- * Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
- * 
- * Borrar las variables declaradas de todos los archivos que no uso
- * 
- * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
- *      Evaluar que hacer en dto,etc.
- * 
- * agregar permisos para el ticket
  */
 
 
-// consultas:
+// Consultas:
 /**
  * se puede hacer que los errores en /service esten dentro de un archivo errorServices.
  * 
@@ -155,6 +149,10 @@ app.use(errorHandler);
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
  * 
  * mvc de ticket
+ * 
+ * Poner la ruta views en routes/web y crear su index
+ * 
+ * Mejorar la eficiencia del addProd de cart.dao.js
  */
 
 
