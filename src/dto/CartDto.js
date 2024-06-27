@@ -1,5 +1,6 @@
 import CustomError from "../services/errors/CustomError.js";
-import {ErrorCodes} from "../services/errors/enums.js";
+import { ErrorCodes } from "../services/errors/enums.js";
+import ProductDTO from "./ProductDto.js";
 
 export default class CartDTO {
   constructor(cart) {
@@ -7,39 +8,36 @@ export default class CartDTO {
   }
 
   static getCartResponseForRole = (cart, role) => {
-    switch (role) {
-      case "admin":
-        if (cart.products.length == 0) {
-          return {
-            id: cart._id,
-            products: "No hay productos",
-          };
-        }
-        return {
-          id: cart._id,
-          products: cart.products,
-        };
-
-      case "premium":
-        if (cart.products.length == 0) {
-          return {
-            id: cart._id,
-            products: "No hay productos",
-          };
-        }
-        return {
-          id: cart._id,
-          products: cart.products,
-        };
-
-      default:
-        CustomError.createError({
-          name: "no hay permiso para ver el cart",
-          cause: "no permisos para cart",
-          message: "Error dto cart",
-          code: ErrorCodes.NOT_PERMISSION_GET_CART,
-        });
+    if (role === "admin" || role === "premium") {
+      return {
+        id: cart._id,
+        products:
+          cart.products.length > 0
+            ? cart.products.map((prod) =>
+                ProductDTO.getProductResponseForRole(prod.prodId, role)
+              )
+            : "No hay productos",
+      };
     }
+
+    if (role === "premium") {
+      return {
+        id: cart._id,
+        products:
+          cart.products.length > 0
+            ? cart.products.map((prod) =>
+                ProductDTO.getProductResponseForRole(prod.prodId, role)
+              )
+            : "No hay productos",
+      };
+    }
+
+    CustomError.createError({
+      name: "no hay permiso para ver el cart",
+      cause: "no permisos para cart",
+      message: "Error dto cart",
+      code: ErrorCodes.NOT_PERMISSION_GET_CART,
+    });
   };
 }
 /*
