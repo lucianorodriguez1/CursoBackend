@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail} from '../controllers/views.controllers.js';
+import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail} from '../controllers/viewsControllers.js';
 import { passportCall } from '../middlewares/passport.middleware.js';
 import { authorization } from '../middlewares/auth.middleware.js';
 

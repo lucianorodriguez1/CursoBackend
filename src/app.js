@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * Cambiar nombres de variable de export en archvos .services y .controllers por singular.  
+ * Cambiar nombres de archivos .controllers a camelCase
  */
 
 //Realizar

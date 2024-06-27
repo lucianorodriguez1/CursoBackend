@@ -1,8 +1,8 @@
-import * as productsControllers from './products.controllers.js';
-import * as usersControllers from './user.controllers.js';
-import * as sessionsControllers from './session.controllers.js';
-import * as cartsControllers from './carts.controllers.js';
-import * as viewsControllers from './views.controllers.js';
+import * as productsControllers from './productsControllers.js';
+import * as usersControllers from './usersControllers.js';
+import * as sessionsControllers from './sessionsControllers.js';
+import * as cartsControllers from './cartsControllers.js';
+import * as viewsControllers from './viewsControllers.js';
 
 import { catchedAsync } from '../utils/catchedAsync.js';
 
