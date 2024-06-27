@@ -3,12 +3,14 @@ import productModel from "../dao/mongo/models/productModel.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import { generateProductErrorInfo } from "./errors/info.js";
+import ProductDTO from "../dto/ProductDto.js";
 
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query) {
-    let result = await productsRepository.getProducts(limit, page, sort, query);
+  async getProducts(limit, page, sort, query,role) {
+    let products = await productsRepository.getProducts(limit, page, sort, query);
+    const result = products.data.map((prod)=> ProductDTO.getProductResponseForRole(prod,role))
     return result;
   }
 

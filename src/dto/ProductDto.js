@@ -8,6 +8,30 @@ export default class ProductDTO{
         this.stock = product.stock,
         this.category = product.category,
         this.thumbnail = product.thumbnail
-
     }
+    //agregar fecha de creacion.
+    static getProductResponseForRole = (product, role) => {
+        switch (role) {
+          case "admin":
+            return {
+              id: product._id,
+              title: product.title,
+            description: product.description,
+              price: product.price,
+              stock: product.stock,
+              category: product.category,
+                owner: product.owner
+            };
+          default:
+            return {
+                title: product.title,
+              description: product.description,
+                price: product.price,
+                stock: product.stock,
+                category: product.category,
+            };
+        }
+      }; 
+
 }
+

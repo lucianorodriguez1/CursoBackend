@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * hacer dto de producto de acuerdo al rol en ProductDto
  */
 
 //Realizar
@@ -105,18 +105,14 @@ app.use(errorHandler);
  * 
  * Poner la ruta views en routes/web y crear su index
  * 
- * 
+ * Mejorar la eficiencia del addProd de cart.dao.js
+ *
  * Modificar el dto de cart:
  *     devolver todos los carritos completos sin __v al admin. sin permisos a otro rol
  *     solamente devolver el carrito al usuario logueado con sus producto. sacar el __v y el id
  * 
- * Mejorar la eficiencia del addProd de cart.dao.js
- *
- * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
  * 
- * Hacer dto de producto:
- *    para user normal, premium y no logueado no devolver campos owner, status, id. 
- *    para user admin devolver todo menos __v.
+ * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
  * 
  * La ruta current debe devolver  el user solo sin las cosas adicionales.
  * 
