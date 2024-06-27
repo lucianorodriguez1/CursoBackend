@@ -1,7 +1,7 @@
 import { cartsRepository } from "../repositories/index.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
-import productsService from "./productsServices.js";
+import productsService from "./ProductService.js";
 import productModel from "../dao/mongo/models/productModel.js";
 import ticketModel from "../dao/mongo/models/ticketModel.js";
 import userModel from "../dao/mongo/models/userModel.js";

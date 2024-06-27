@@ -1,4 +1,4 @@
-import UserDTO from "../DTO/user.dto.js";
+import UserDTO from "../dto/UserDto.js";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 import { createHash } from "../utils/bcrypt.js";

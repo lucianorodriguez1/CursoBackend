@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * Cambiar nombres de archivos .dao a ...Mongo. cambiar nombres de modelos por camelCase.
+ * 
  */
 
 //Realizar

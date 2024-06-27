@@ -1,4 +1,4 @@
-import userService from "../services/usersServices.js";
+import userService from "../services/UserService.js";
 import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {

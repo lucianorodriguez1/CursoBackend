@@ -1,4 +1,4 @@
-import sessionService from "../services/sessionsServices.js";
+import sessionService from "../services/SessionService.js";
 import { response } from "../utils/response.js";
 
 export async function login(req, res) {
