@@ -135,10 +135,10 @@ class UserService {
 
   async resetPassword(token, password) {
     const decoded = decodedToken(token);
-    const email = decoded.email;
+    const email = decoded.data.email;
     const user = await userService.getUserByEmail(email);
     const passwordHash = createHash(password);
-    console.log("user:" + user)
+    console.log("user: " + user)
     await this.updateUserById(user._id, { password: passwordHash });
     return 'Se cambio la contraseña con exito';
   }
