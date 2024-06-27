@@ -9,8 +9,8 @@ userRouter.get("/:uid",users.getUser);
 userRouter.delete("/:uid",users.deleteUser);
 userRouter.put("/:uid",users.updateUser);
 userRouter.get("/premium/:uid",users.changePremium);
-userRouter.post("/sendEmailToResetPass",users.sendEmailToResetPassword);
-userRouter.post("/restorePassword",users.resetPassword);
+userRouter.post("/sendEmailToResetPassword",users.sendEmailToResetPassword);
+userRouter.post("/resetPassword",users.resetPassword);
 userRouter.delete("/inactives",users.deleteInactives);
 /* PROBAR
 userRouter.post('/:uid/documents',users.createDocuments);
