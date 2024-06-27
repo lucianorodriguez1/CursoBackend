@@ -24,11 +24,9 @@ export default (error, req, res, next) => {
     case ErrorCodes.AUTHENTICATION_ERROR:
       res.status(401).json({ error: true, name: error.name });
       break;
-
     case ErrorCodes.AUTHORIZATION_ERROR:
       res.status(403).json({ error: true, name: error.name });
       break;
-
     case ErrorCodes.NOT_FOUND_ERROR:
       res.status(404).json({ error: true, name: error.name });
       break;
@@ -41,12 +39,20 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_AVAILABLE_ADDPRODUCTCART:
       res.status(400).json({ error: true, name: error.name });
       break;
-
     case ErrorCodes.DATABASE_ERROR:
       res.status(500).json({ error: true, error: error.name });
       break;
     case ErrorCodes.NOT_PERMISSION_GET_CART:
       res.status(400).json({ error: true, name: error.name });
+      break;
+    case ErrorCodes.INVALID_TOKEN:
+      res.status(400).json({ error: true, name: error.name });
+      break;
+    case ErrorCodes.TOKEN_EXPIRED:
+      res.status(400).json({ error: true, name: error.name });
+      break;
+    case ErrorCodes.TOKEN_ERROR:
+      res.status(500).json({ error: true, name: error.name });
       break;
     default:
       res.status(500).json({

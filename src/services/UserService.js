@@ -2,12 +2,11 @@ import UserDTO from "../dto/UserDto.js";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 import { createHash } from "../utils/bcrypt.js";
+import { decodedToken, generateToken } from "../utils/jwt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
-/* prueba del codigo comentado
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";
-*/
 
 class UserService {
   constructor() {}
@@ -49,6 +48,13 @@ class UserService {
 
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
+    if (!result)
+      CustomError.createError({
+        name: "user no encontrado",
+        cause: "invalid email",
+        message: "Error get user",
+        code: ErrorCodes.INVALID_EMAIL,
+      });
     return result;
   }
   async deleteUserById(id) {
@@ -116,30 +122,33 @@ class UserService {
     }
   }
 
-  /*PRUEBA
-  async restorePassword(email){
-    let result = await transport.sendMail({
+  async sendEmailToResetPassword(email){
+    await userService.getUserByEmail(email);
+    const token = generateToken({email:email})
+    const resetLink = `http://localhost:${config.port}/reestablecerContrasenia?token=${token}`;
+    const  result = await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
-      to: `${email}`,
-      subject: "Reestablecer contrasenia e-commerce",
+      to: email,
+      subject: "Reestablecer contraseña",
       html: `
           <div>
-              <a href="http://localhost:${config.port}/reestablecerContrasenia">Reestablecer mi contrasenia</a>
+              <a href="${resetLink}">Reestablecer mi contraseña</a>
           </div>
           `,
           attachments:[]
     });
     return result;
   }
-  */
 
-  //prueba
-  async restorePassword(email, password) {
-    const user = await this.getUserByEmail(email);
+  async resetPassword(token, password) {
+    const decoded = decodedToken(token);
+    const email = decoded.email;
+    const user = await userService.getUserByEmail(email);
     const passwordHash = createHash(password);
-    const upd = await this.updateUserById(user._id, { password: passwordHash });
-    return upd;
+    await this.updateUserById(user._id, { password: passwordHash });
+    return 'Se cambio la contraseña con exito';
   }
+
 }
 
 const userService = new UserService();

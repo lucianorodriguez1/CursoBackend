@@ -50,13 +50,22 @@ export const changePremium = async (req,res) => {
   response(res,200,result);
 }
 
-export const restorePassword = async(req,res) =>{
-  const {email,password} = req.body;
-  await userService.restorePassword(email,password);
-  response(res,200,'se reestablecio la contrasenia');
-}
-
 export async function deleteInactives(req, res) {
   const data = await sessionService.deleteInactive();
   response(res, 200, data);
 }
+
+//nueva funcionalidad
+export async function sendEmailToResetPassword(req, res) {
+  const {email} = req.body;
+  await userService.sendEmailToResetPassword(email);
+  response(res, 200, 'se envio correo el amail.');
+}
+
+export const resetPassword = async(req,res) =>{
+  const {token,password} = req.body;
+  const result = await userService.resetPassword(token,password);
+  response(res,200,result);
+}
+
+
