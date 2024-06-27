@@ -55,3 +55,8 @@ export const restorePassword = async(req,res) =>{
   await userService.restorePassword(email,password);
   response(res,200,'se reestablecio la contrasenia');
 }
+
+export async function deleteInactives(req, res) {
+  const data = await sessionService.deleteInactive();
+  response(res, 200, data);
+}

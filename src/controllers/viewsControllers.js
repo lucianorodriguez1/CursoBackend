@@ -1,7 +1,7 @@
 import { productsRepository,cartsRepository } from "../repositories/index.js";
 
 
-export const viewHome = async (req, res) => {
+export const viewHome = (req, res) => {
   res.render("index", {
     isLogin: req.user,
   });
@@ -56,13 +56,13 @@ export const viewCartById = async (req, res) => {
     cart: cartData.products,
   });
 };
-export const viewRegister = async (req, res) => {
+export const viewRegister = (req, res) => {
   res.render("register", {});
 };
-export const viewLogin = async (req, res) => {
+export const viewLogin = (req, res) => {
   res.render("login", {});
 };
-export const viewProfile = async (req, res) => {
+export const viewProfile = (req, res) => {
   const userData = req.user;
 
   res.render("profile", {
@@ -73,11 +73,11 @@ export const viewProfile = async (req, res) => {
   });
 };
 
-export const reestablecerContrasenia = async(req,res) =>{
+export const reestablecerContrasenia = (req,res) =>{
 
   res.render("reestablecerContrasenia",{});
 }
 
-export const mandarEmail = async (req,res) =>{
+export const mandarEmail = (req,res) =>{
   res.render("mandarEmail",{});
 }

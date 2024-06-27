@@ -71,7 +71,8 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * Cambiar nombre de archivos middleware por camelCase
+ * Mover la funcion deleteInactive de sessions a users. borrar los async de los controladores de viewsControllers
+ * 
  */
 
 //Realizar
@@ -136,8 +137,6 @@ app.use(errorHandler);
  * 
  * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
  *      Evaluar que hacer en dto,etc.
- * 
- * Mover la funcion deleteInactive a usersServices.
  * 
  * Controlar los async-await de los viewsControllers
  * 

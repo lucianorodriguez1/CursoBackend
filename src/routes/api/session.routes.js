@@ -9,6 +9,6 @@ sessionRouter.post("/register", sessions.register);
 sessionRouter.post("/login", sessions.login);
 sessionRouter.get("/logout", passportCall("jwt"),sessions.logout);
 sessionRouter.get("/current", passportCall("jwt"), sessions.current);
-sessionRouter.delete("/inactives",sessions.deleteInactives);
+
 
 export default sessionRouter;
