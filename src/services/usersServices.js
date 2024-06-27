@@ -14,7 +14,9 @@ class UserService {
 
   async getUsers(req) {
     const users = await usersRepository.getUsers();
-    const result = users.map(user=>UserDTO.getUserResponseForRole(user,req.user.user.role))
+    const result = users.map((user) =>
+      UserDTO.getUserResponseForRole(user, req.user.user.role)
+    );
     return result;
   }
   async createUser(user) {
@@ -83,7 +85,6 @@ class UserService {
   }
 
   /*PRUEBA
-
   async restorePassword(email){
     let result = await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
@@ -99,6 +100,14 @@ class UserService {
     return result;
   }
   */
+
+  //prueba
+  async restorePassword(email, password) {
+    const user = await this.getUserByEmail(email);
+    const passwordHash = createHash(password);
+    const upd = await this.updateUserById(user._id, { password: passwordHash });
+    return upd;
+  }
 }
 
 const usersServices = new UserService();

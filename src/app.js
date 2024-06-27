@@ -73,9 +73,8 @@ app.use(errorHandler);
 //Guardar:
 /**
  * hacer la lista de test.
- * crear funcion restorePassword en userServices.
- * crear input en reestablecerContrasenia.hbs para reestablecer contrasenia
- * crear archivo mandarEmail.hbs y crear input para mandar un correo al email.
+ * crear resetPassword en userController y su ruta en user.routes.
+ * 
 */
 
 //mejorar

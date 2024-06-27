@@ -14,7 +14,6 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { first_name, last_name, age, email, password } = req.body;
-
   const newUser = await usersServices.createUser({
     first_name,
     last_name,
@@ -22,7 +21,6 @@ export const createUser = async (req, res) => {
     email,
     password,
   });
-
   response(res, 201, newUser);
 };
 
@@ -48,8 +46,12 @@ export const updateUser = async (req, res) => {
 
 export const changePremium = async (req,res) => {
   const id = req.params.uid;
-
   const result = await usersServices.changePremium(id);
-
   response(res,200,result);
+}
+
+export const restorePassword = async(req,res) =>{
+  const {email,password} = req.body;
+  await usersServices.restorePassword(email,password);
+  response(res,200,'se reestablecio la contrasenia');
 }
