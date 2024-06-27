@@ -72,10 +72,10 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * modificar ruta de mailRouter para probar mandar un email con un enlace.
- * crear controlador restablecerContrasenia en viewController y su ruta en views.routes.
- * cambiar nombre de error en login a credenciales incorrectas en userService
  * hacer la lista de test.
+ * crear funcion restorePassword en userServices.
+ * crear input en reestablecerContrasenia.hbs para reestablecer contrasenia
+ * crear archivo mandarEmail.hbs y crear input para mandar un correo al email.
 */
 
 //mejorar

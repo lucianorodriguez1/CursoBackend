@@ -4,6 +4,10 @@ import { cartsRepository } from "../repositories/index.js";
 import { createHash } from "../utils/bcrypt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
+/* prueba del codigo comentado
+import config from "../config/config.js";
+import { transport } from "../utils/nodemailer.js";
+*/
 
 class UserService {
   constructor() {}
@@ -77,6 +81,24 @@ class UserService {
     let result = await usersRepository.updateUserById(id, { role: "premium" });
     return result;
   }
+
+  /*PRUEBA
+
+  async restorePassword(email){
+    let result = await transport.sendMail({
+      from: `lucho rodri <${config.correoGmail}>`,
+      to: `${email}`,
+      subject: "Reestablecer contrasenia e-commerce",
+      html: `
+          <div>
+              <a href="http://localhost:${config.port}/reestablecerContrasenia">Reestablecer mi contrasenia</a>
+          </div>
+          `,
+          attachments:[]
+    });
+    return result;
+  }
+  */
 }
 
 const usersServices = new UserService();
