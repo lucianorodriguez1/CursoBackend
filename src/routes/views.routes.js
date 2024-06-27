@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia} from '../controllers/views.controllers.js';
+import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail} from '../controllers/views.controllers.js';
 import { passportCall } from '../middlewares/passport.middleware.js';
 import { authorization } from '../middlewares/auth.middleware.js';
 
@@ -13,5 +13,6 @@ viewsRouter.get("/register",viewRegister);
 viewsRouter.get("/login",viewLogin);
 viewsRouter.get("/profile",passportCall("jwt"),authorization("user"),viewProfile);
 viewsRouter.get("/reestablecerContrasenia",reestablecerContrasenia);
+viewsRouter.get("/mandarEmail",mandarEmail);
 
 export default viewsRouter;

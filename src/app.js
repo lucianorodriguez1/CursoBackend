@@ -73,8 +73,8 @@ app.use(errorHandler);
 //Guardar:
 /**
  * hacer la lista de test.
- * crear resetPassword en userController y su ruta en user.routes.
- * 
+ * agregar boton olvideMiContrasenia en inicio que redirige a mandarEmail.
+ * agregar mandarEmail en viewsController y su ruta en viewsRoutes
 */
 
 //mejorar

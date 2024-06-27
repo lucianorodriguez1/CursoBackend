@@ -79,3 +79,7 @@ export const reestablecerContrasenia = async(req,res) =>{
 
   res.render("reestablecerContrasenia",{});
 }
+
+export const mandarEmail = async (req,res) =>{
+  res.render("mandarEmail",{});
+}
