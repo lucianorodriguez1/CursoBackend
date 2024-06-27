@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * Cambiar nombre de archivos middleware por camelCase
  */
 
 //Realizar
@@ -105,33 +105,10 @@ app.use(errorHandler);
  * 
  * Poner la ruta views en routes/web y crear su index
  * 
- * Cambiar el nombre de archivos dao por mongo:
- *    product.dao --> ProductMongo
- *    cart.dao --> CartMongo
- *    user.dao --> UserMongo
+  *  Controlar el error cuando se tarda mucho tiempo al consultar a la base de datos.
  * 
- *  Controlar el error cuando se tarda mucho tiempo al consultar a la base de datos.
  * 
- * Cambiar nombres de archivos con . por camelCase:
- *    cart.controllers.js --> cartsControllers.js
- *    cart.model --> cartModel
- *    cart.repository --> CartRespository
- *    cart.dto --> CartDto
- *    products.controllers.js --> productsControllers.js
- *    product.model --> productModel
- *    product.repository --> ProductRespository
- *    product.dto --> ProductDto
- *    users.controllers.js --> usersControllers.js
- *    user.model --> userModel
- *    user.repository --> UserRespository
- *    user.dto --> UserDto
- *    sessions.controllers.js --> sessionsControllers.js
- *    views.controllers.js --> viewsControllers.js
- *    ticket.model --> ticketModel
- *    message.model --> messageModel
- *    passport.middleware.js --> passportMiddleware.js   
- * 
- * Crear mvc de tickets:
+ * Completar mvc de tickets:
  *    ticketsControllers.js
  *    ticketMongo.js
  *    TicketServices.js 

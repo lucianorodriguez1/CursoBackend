@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { carts } from '../../controllers/index.js';
-import { authorization } from "../../middlewares/auth.middleware.js";
-import { passportCall } from "../../middlewares/passport.middleware.js";
+import { authorization } from "../../middlewares/authMiddleware.js";
+import { passportCall } from "../../middlewares/passportMiddleware.js";
 
 const cartRouter = Router();
 
