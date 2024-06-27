@@ -131,5 +131,5 @@ class ProductService {
   }
 }
 
-const productsService = new ProductService();
-export default productsService;
+const productService = new ProductService();
+export default productService;

@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * hacer la lista de test.
+ * Cambiar nombres de variable de export en archvos .services y .controllers por singular.  
  */
 
 //Realizar
@@ -166,21 +166,30 @@ app.use(errorHandler);
  * 
  */
 
+
 // consultas:
 /**
  * se puede hacer que los errores en /service esten dentro de un archivo errorServices.
+ * 
  * ejemplos de documentar el codigo en los mismos archivos en el que fue creada la funcionalidad.
- * ger tengo una pregunta para un escenario en especifico. Si yo tengo a dos tipos de user, ‘normal’ y ‘premium’, pero al ser premium quiero que tenga un dato de “productosCreados” que representa un array con productos creados, y es una funcionalidad solo para users ‘premium’. ¿Como hago esto si un user normal no tiene que tener ese campo xq sino ocuparia espacio en la base de datos si a todos los users le pongo productosCreados = null?
+ * 
+ * tengo una pregunta para un escenario en especifico. Si yo tengo a dos tipos de user, ‘normal’ y ‘premium’, pero al ser premium quiero que tenga un dato de “productosCreados” que representa un array con productos creados, y es una funcionalidad solo para users ‘premium’. ¿Como hago esto si un user normal no tiene que tener ese campo xq sino ocuparia espacio en la base de datos si a todos los users le pongo productosCreados = null?
  */
 
 //Probar:
 /**
  * donde se guardan los loggers de error en produccion
+ * 
  * get con sort -1 de products
+ * 
  * funcion deleteInactives de sessionServices
+ * 
  * las vistas.
+ * 
  * borrar los datos que hay en la base de datos
+ * 
  * como puedo hacer req.user.campo y no req.user.user.campo
+ * 
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
  */
 

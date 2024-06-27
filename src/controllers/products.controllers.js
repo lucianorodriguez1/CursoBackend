@@ -1,9 +1,9 @@
-import productsService from "../services/productsServices.js";
+import productService from "../services/productsServices.js";
 import { response } from "../utils/response.js";
 
 export const getProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
-  let data = await productsService.getProducts(limit, page, sort, query);
+  let data = await productService.getProducts(limit, page, sort, query);
   response(res, 200, data);
 };
 
@@ -19,7 +19,7 @@ export const createProduct = async (req, res) => {
     thumbnail,
   } = req.body;
 
-  const data = await productsService.createProduct(
+  const data = await productService.createProduct(
     {
       title,
       description,
@@ -38,13 +38,13 @@ export const createProduct = async (req, res) => {
 
 export const getProductById = async (req, res) => {
   const id = req.params.pid;
-  const result = await productsService.getProductById(id);
+  const result = await productService.getProductById(id);
   response(res, 200, result);
 };
 
 export const deleteProductById = async (req, res) => {
   let id = req.params.pid;
-  const result = await productsService.deleteProductById(
+  const result = await productService.deleteProductById(
     id,
     req.user.user.email,
     req.user.user.role
@@ -65,7 +65,7 @@ export const updateProductById = async (req, res) => {
     thumbnail,
   } = req.body;
 
-  const result = await productsService.updateProductById(id, {
+  const result = await productService.updateProductById(id, {
     title,
     description,
     code,

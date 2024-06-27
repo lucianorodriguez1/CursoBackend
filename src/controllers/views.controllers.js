@@ -1,5 +1,3 @@
-import Cart from "../dao/mongo/cart.dao.js";
-import Product from "../dao/mongo/product.dao.js";
 import { productsRepository,cartsRepository } from "../repositories/index.js";
 
 

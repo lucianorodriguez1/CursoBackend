@@ -174,5 +174,5 @@ class CartService {
   }
 }
 
-const cartsService = new CartService();
-export default cartsService;
+const cartService = new CartService();
+export default cartService;
