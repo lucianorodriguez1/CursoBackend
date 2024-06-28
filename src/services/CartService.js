@@ -9,7 +9,9 @@ class CartService {
 
   async getCarts(role) {
     let carts = await cartsRepository.getCarts();
-    const result = carts.map((cart)=> CartDTO.getCartResponseForRole(cart,role))
+    const result = carts.map((cart) =>
+      CartDTO.getCartResponseForRole(cart, role)
+    );
     return result;
   }
 
@@ -64,7 +66,7 @@ class CartService {
         code: ErrorCodes.INVALID_ID,
       });
     }
-    let result = await cartsRepository.deleteProductsCart(cid);
+   await cartsRepository.deleteProductsCart(cid);
     return "Se eliminaron todos los productos del carrito";
   }
 
@@ -79,8 +81,8 @@ class CartService {
       });
     }
     await productsService.getProductById(pid);
-    let result = await cartsRepository.deleteProduct(cid, pid);
-    return result;
+    await cartsRepository.deleteProduct(cid, pid);
+    return "Se elimino el producto del carrito";
   }
 
   async updateProductsCart(cid, products) {
@@ -93,8 +95,8 @@ class CartService {
         code: ErrorCodes.INVALID_ID,
       });
     }
-    let result = await cartsRepository.updateProductsCart(cid, products);
-    return result;
+    await cartsRepository.updateProductsCart(cid, products);
+    return "Se actualizo el carrito";
   }
 
   async updateProduct(cid, pid, quantity) {
@@ -108,15 +110,14 @@ class CartService {
       });
     }
     await productsService.getProductById(pid);
-    let result = await cartsRepository.updateProduct(cid, pid, quantity);
-    return result;
+    await cartsRepository.updateProduct(cid, pid, quantity);
+    return "Se actualizo el producto del carrito"
   }
-
 
   async deleteCartById(cid) {
     await this.getCartById(cid);
-    let result = await cartsRepository.deleteCartById(cid);
-    return result;
+    await cartsRepository.deleteCartById(cid);
+    return "Se elimino el cart";
   }
 }
 

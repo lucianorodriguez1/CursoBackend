@@ -71,15 +71,11 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ *  
  */
 
 //Realizar
-/** 
- *  Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
- *  Borrar las variables declaradas de todos los archivos que no uso
- * 
- * 
+/**  
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts

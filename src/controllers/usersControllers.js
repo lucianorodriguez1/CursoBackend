@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
  const id = req.params.uid;
   const result = await userService.deleteUserById(id);
-  response(res, 200, "user eliminado");
+  response(res, 200, result);
 };
 
 export const updateUser = async (req, res) => {
@@ -55,12 +55,11 @@ export async function deleteInactives(req, res) {
   response(res, 200, data);
 }
 
-//nueva funcionalidad
 export async function sendEmailToResetPassword(req, res) {
   const {email} = req.body;
   const result = await userService.sendEmailToResetPassword(email);
-  req.logger.info(result);
-  response(res,200,'Se envio el correo');
+  req.logger.info(result.infoEnvio);
+  response(res,200,result.message);
 }
 
 export const resetPassword = async(req,res) =>{

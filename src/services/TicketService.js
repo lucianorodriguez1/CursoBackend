@@ -27,8 +27,8 @@ class TicketService {
     return result;
   }
   async deleteTicketById(id) {
-    let result = await ticketRepository.deleteTicketById(id);
-    return result;
+    await ticketRepository.deleteTicketById(id);
+    return 'El ticket fue eliminado';
   }
 }
 

@@ -6,6 +6,7 @@ export const getCarts = async (req, res) => {
   const data = await cartService.getCarts(role);
   response(res, 200, data);
 };
+//probar la informacion que devuelve
 export const createCart = async (req, res) => {
   const data = await cartService.createCart();
   response(res, 201, data);
@@ -18,7 +19,11 @@ export const getCartById = async (req, res) => {
 export const addProductFromCart = async (req, res) => {
   const idCart = req.params.cid;
   const idProduct = req.params.pid;
-  const data = await cartService.addProductFromCart(idCart, idProduct,req.user.data.email);
+  const data = await cartService.addProductFromCart(
+    idCart,
+    idProduct,
+    req.user.data.email
+  );
   response(res, 200, data);
 };
 export const deleteAllProductsFromCartById = async (req, res) => {
@@ -53,5 +58,5 @@ export const purchaseCart = async (req, res) => {
 export const deleteCartById = async (req, res) => {
   const { cid } = req.params;
   const data = await cartService.deleteCartById(cid);
-  response(res, 200, 'delete cart');
+  response(res, 200, data);
 };

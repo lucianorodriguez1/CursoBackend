@@ -30,7 +30,10 @@ class SessionService {
       isOnline: true,
     });
     const token = generateToken(userUpd);
-    return token;
+    return {
+      token:token,
+      message:"Login correct"
+    };
   }
 
   async register(data) {
@@ -50,7 +53,10 @@ class SessionService {
       isOnline: true,
     });
     const token = generateToken(userUpd);
-    return token;
+    return {
+      token:token,
+      message:"Register correct"
+    };
   }
 
   async logout(req, res, email) {
@@ -69,7 +75,11 @@ class SessionService {
       isOnline: false,
     });
 
-    res.clearCookie("coderCookieToken");
+    return {
+      cookie:'coderCookieToken',
+      message:"Logout correct"
+    }
+    
   }
 
   async current(req) {

@@ -65,22 +65,21 @@ class UserService {
   }
   async deleteUserById(id) {
     const user = await this.getUserById(id);
-    let cartDelete = await cartsRepository.deleteCartById(user.cartId);
-    let result = await usersRepository.deleteUserById(id);
-    return result;
+    await cartsRepository.deleteCartById(user.cartId);
+    await usersRepository.deleteUserById(id);
+    return 'user eliminado';
   }
   async updateUserById(id, data) {
     await this.getUserById(id);
     removeEmptyObjectFields(data);
     let result = await usersRepository.updateUserById(id, data);
-    return result;
+    return 'se actualizo el user';
   }
-  
 
   async changePremium(id) {
     await this.getUserById(id);
     let result = await usersRepository.updateUserById(id, { role: "premium" });
-    return result;
+    return 'se actualizo el rol user a premium';
   }
 
   async deleteInactive() {
@@ -130,7 +129,10 @@ class UserService {
           `,
           attachments:[]
     });
-    return result;
+    return{
+      infoEnvio:result,
+      message: 'Envio de correo exitoso'
+    };
   }
 
   async resetPassword(token, password) {
@@ -142,7 +144,7 @@ class UserService {
         name: "La contraseña es la misma. Introduce otra.",
         cause: "la contraseña que se quiere reestablecer es la misma del usuario",
         message: "Contraseña repetido",
-        code: ErrorCodes.REPEATED_PASSWORD, //cambiar
+        code: ErrorCodes.REPEATED_PASSWORD, 
       });
     }
     const passwordHash = createHash(password);

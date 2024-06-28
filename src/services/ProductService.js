@@ -9,9 +9,16 @@ import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query,role) {
-    let products = await productsRepository.getProducts(limit, page, sort, query);
-    const result = products.data.map((prod)=> ProductDTO.getProductResponseForRole(prod,role))
+  async getProducts(limit, page, sort, query, role) {
+    let products = await productsRepository.getProducts(
+      limit,
+      page,
+      sort,
+      query
+    );
+    const result = products.data.map((prod) =>
+      ProductDTO.getProductResponseForRole(prod, role)
+    );
     return result;
   }
 
@@ -65,7 +72,7 @@ class ProductService {
   }
 
   async getProductById(id) {
-    let result = await productsRepository.getProductBy({_id:id});
+    let result = await productsRepository.getProductBy({ _id: id });
     if (!result)
       CustomError.createError({
         name: "producto no encontrado",
@@ -86,14 +93,14 @@ class ProductService {
     if (role == "admin")
       return (result = await productsRepository.deleteProductById(id));
 
-    if(role == "premium" && email != product.owner)
+    if (role == "premium" && email != product.owner)
       CustomError.createError({
         name: "el producto no se puede eliminar",
         cause: "no tiene permisos para eliminar producto",
         message: "Error delete product",
         code: ErrorCodes.NOT_PERMISSION_DELETE_PRODUCT,
       });
-    return result;
+    return 'El producto fue eliminado';
   }
 
   async updateProductById(id, data) {
@@ -115,11 +122,11 @@ class ProductService {
         message: "Error update product",
         code: ErrorCodes.INVALID_ID,
       });
-    return result;
-  }
-  async upddatePurchaseProductById(pid){
-    await productsRepository.updatePurchaseProductById(pid);
     return 'Se actualizo el producto';
+  }
+  async upddatePurchaseProductById(pid) {
+    await productsRepository.updatePurchaseProductById(pid);
+    return "Se actualizo el producto por la compra";
   }
 }
 

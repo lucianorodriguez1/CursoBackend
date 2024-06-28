@@ -4,7 +4,7 @@ import { response } from "../utils/response.js";
 export const getProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
   const role = req.user?.data?.role || null;
-  let data = await productService.getProducts(limit, page, sort, query,role);
+  let data = await productService.getProducts(limit, page, sort, query, role);
   response(res, 200, data);
 };
 
@@ -50,7 +50,7 @@ export const deleteProductById = async (req, res) => {
     req.user.data.email,
     req.user.data.role
   );
-  response(res, 200, "producto eliminado");
+  response(res, 200, result);
 };
 
 export const updateProductById = async (req, res) => {
