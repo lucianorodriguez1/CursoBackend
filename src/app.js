@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- *  agregar passportCall,passporCallOptional y authorization a cart.routes. comentar DELETE cart
+ *  
  */
 
 //Realizar
@@ -116,6 +116,7 @@ app.use(errorHandler);
  * las vistas.
  * borrar los datos que hay en la base de datos
  * si es posible hacer req.user.campo y no req.user.user.campo
+ * si se actualiza el isConnect cuando cuando hago login y register
 */
 
 //Mejorar

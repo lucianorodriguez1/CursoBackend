@@ -5,7 +5,7 @@ import { authorization } from '../../middlewares/authMiddleware.js';
 
 const purchaseRouter = Router();
 
-purchaseRouter.post('/', passportCall('jwt'),authorization('admin'),purchases.createPurchase);
+purchaseRouter.post('/:cid', passportCall('jwt'),authorization('admin'),purchases.createPurchase);
 
 export default purchaseRouter;
  

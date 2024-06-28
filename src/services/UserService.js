@@ -34,7 +34,6 @@ class UserService {
     const result = await usersRepository.createUser(newUser);
     return result;
   }
-
   async getUserById(id) {
     let result = await usersRepository.getUserById(id);
     if (!result)
@@ -46,9 +45,8 @@ class UserService {
       });
     return result;
   }
-
-  async getUserByCart(cartId){
-    let result = await usersRepository.getUserByCart(cartId); 
+  async getUserByCart(cartId) {
+    let result = await usersRepository.getUserByCart(cartId);
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -58,7 +56,6 @@ class UserService {
       });
     return result;
   }
-
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
     return result;
@@ -67,58 +64,25 @@ class UserService {
     const user = await this.getUserById(id);
     await cartsRepository.deleteCartById(user.cartId);
     await usersRepository.deleteUserById(id);
-    return 'user eliminado';
+    return "user eliminado";
   }
   async updateUserById(id, data) {
     await this.getUserById(id);
     removeEmptyObjectFields(data);
     await usersRepository.updateUserById(id, data);
-    return 'se actualizo el user';
+    return "se actualizo el user";
   }
 
   async changePremium(id) {
     await this.getUserById(id);
     await usersRepository.updateUserById(id, { role: "premium" });
-    return 'se actualizo el rol user a premium';
+    return "se actualizo el rol user a premium";
   }
-
-  async deleteInactive() {
-    const now = new Date();
-    const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
-
-    const user = await usersRepository.getUserById("6678f20e85b706c0f070f8a5");
-
-    if (!user) {
-      return "Usuario no encontrado.";
-    }
-
-    const lastConnectionDate = new Date(user.last_connection);
-    const currentDate = new Date();
-
-    const timeDifference = currentDate.getTime() - lastConnectionDate.getTime();
-
-    console.log(lastConnectionDate)
-    console.log(currentDate)
-    console.log(thirtyMinutesAgo)
-    console.log(`Diferencia de tiempo en milisegundos: ${timeDifference}`);
-
-    const result = await usersRepository.deleteMany({
-      last_connection: { $lt: thirtyMinutesAgo },
-    });
-    console.log(result);
-
-    if (result.deletedCount > 0) {
-      return `Usuarios eliminados: ${result.deletedCount}`;
-    } else {
-      return "No se encontraron usuarios inactivos para eliminar.";
-    }
-  }
-
-  async sendEmailToResetPassword(email){
+  async sendEmailToResetPassword(email) {
     await userService.getUserByEmail(email);
-    const token = generateToken({email:email})
+    const token = generateToken({ email: email });
     const resetLink = `http://localhost:${config.port}/reestablecerContrasenia?token=${token}`;
-    const  result = await transport.sendMail({
+    const result = await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
       to: email,
       subject: "Reestablecer contraseña",
@@ -127,11 +91,11 @@ class UserService {
               <a href="${resetLink}">Reestablecer mi contraseña</a>
           </div>
           `,
-          attachments:[]
+      attachments: [],
     });
-    return{
-      infoEnvio:result,
-      message: 'Envio de correo exitoso'
+    return {
+      infoEnvio: result,
+      message: "Envio de correo exitoso",
     };
   }
 
@@ -142,17 +106,42 @@ class UserService {
     if (isValidPassword(user, password)) {
       CustomError.createError({
         name: "La contraseña es la misma. Introduce otra.",
-        cause: "la contraseña que se quiere reestablecer es la misma del usuario",
+        cause:
+          "la contraseña que se quiere reestablecer es la misma del usuario",
         message: "Contraseña repetido",
-        code: ErrorCodes.REPEATED_PASSWORD, 
+        code: ErrorCodes.REPEATED_PASSWORD,
       });
     }
     const passwordHash = createHash(password);
-    console.log("user: " + user)
+    console.log("user: " + user);
     await this.updateUserById(user._id, { password: passwordHash });
-    return 'Se cambio la contraseña con exito';
+    return "Se cambio la contraseña con exito";
   }
-
+  
+  async deleteInactive() {
+    const now = new Date();
+    const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
+    const user = await usersRepository.getUserById("6678f20e85b706c0f070f8a5");
+    if (!user) {
+      return "Usuario no encontrado.";
+    }
+    const lastConnectionDate = new Date(user.last_connection);
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - lastConnectionDate.getTime();
+    console.log(lastConnectionDate);
+    console.log(currentDate);
+    console.log(thirtyMinutesAgo);
+    console.log(`Diferencia de tiempo en milisegundos: ${timeDifference}`);
+    const result = await usersRepository.deleteMany({
+      last_connection: { $lt: thirtyMinutesAgo },
+    });
+    console.log(result);
+    if (result.deletedCount > 0) {
+      return `Usuarios eliminados: ${result.deletedCount}`;
+    } else {
+      return "No se encontraron usuarios inactivos para eliminar.";
+    }
+  }
 }
 
 const userService = new UserService();

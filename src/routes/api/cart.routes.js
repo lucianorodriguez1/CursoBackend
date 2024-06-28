@@ -14,6 +14,7 @@ cartRouter.delete("/:cid/product/:pid",passportCallOptional('jwt'),authorization
 cartRouter.put("/:cid",passportCallOptional('jwt'),authorization('user','premium'),carts.updateCartById);
 cartRouter.put("/:cid/product/:pid",passportCallOptional('jwt'),authorization('user','premium'),carts.updateProductCart);
 //cartRouter.delete("/all/:cid",carts.deleteCartById)  BORRAR
+
 export default cartRouter;
 
 

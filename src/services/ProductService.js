@@ -10,12 +10,7 @@ class ProductService {
   constructor() {}
 
   async getProducts(limit, page, sort, query, role) {
-    let result = await productsRepository.getProducts(
-      limit,
-      page,
-      sort,
-      query
-    );
+    let result = await productsRepository.getProducts(limit, page, sort, query);
     const products = result.data.map((prod) =>
       ProductDTO.getProductResponseForRole(prod, role)
     );
@@ -68,7 +63,6 @@ class ProductService {
       });
     }
     if (role == "premium") product.owner = email;
-
     let result = await productsRepository.createProduct(product);
     return result;
   }
@@ -102,7 +96,7 @@ class ProductService {
         message: "Error delete product",
         code: ErrorCodes.NOT_PERMISSION_DELETE_PRODUCT,
       });
-    return 'El producto fue eliminado';
+    return "El producto fue eliminado";
   }
 
   async updateProductById(id, data) {
@@ -124,7 +118,7 @@ class ProductService {
         message: "Error update product",
         code: ErrorCodes.INVALID_ID,
       });
-    return 'Se actualizo el producto';
+    return "Se actualizo el producto";
   }
   async upddatePurchaseProductById(pid) {
     await productsRepository.updatePurchaseProductById(pid);
