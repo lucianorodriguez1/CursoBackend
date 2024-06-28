@@ -142,7 +142,7 @@ class UserService {
         name: "La contraseña es la misma. Introduce otra.",
         cause: "la contraseña que se quiere reestablecer es la misma del usuario",
         message: "Contraseña repetido",
-        code: ErrorCodes.DUPLICATE_CODE, //cambiar
+        code: ErrorCodes.REPEATED_PASSWORD, //cambiar
       });
     }
     const passwordHash = createHash(password);
