@@ -3,7 +3,7 @@ import { response } from "../utils/response.js";
 
 export const getProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
-  const role = req.user?.user?.role || null;
+  const role = req.user?.data?.role || null;
   let data = await productService.getProducts(limit, page, sort, query,role);
   response(res, 200, data);
 };

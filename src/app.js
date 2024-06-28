@@ -71,15 +71,12 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * eliminar purchase de cart.routes. y metodo http GET de purchase.routes.js
+ * cambiar getById por getBy en ProductMongo, ProductRepository y productService de PRODUCT.
  */
 
 //Realizar
-/**
- * Cambair los dao y los params.
- * 
- * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
- * 
+/** 
+ * cambiar el req.user.user por req.user.data
  * La ruta current debe devolver  el user solo sin las cosas adicionales.
  * 
  * Resolver el metodo getBy de mis daos:
@@ -91,8 +88,6 @@ app.use(errorHandler);
  * 
  * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
  *      Evaluar que hacer en dto,etc.
- * 
- * agregar permisos para el ticket
  * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
@@ -121,32 +116,21 @@ app.use(errorHandler);
 // Consultas:
 /**
  * se puede hacer que los errores en /service esten dentro de un archivo errorServices.
- * 
  * ejemplos de documentar el codigo en los mismos archivos en el que fue creada la funcionalidad.
- * 
  * tengo una pregunta para un escenario en especifico. Si yo tengo a dos tipos de user, ‘normal’ y ‘premium’, pero al ser premium quiero que tenga un dato de “productosCreados” que representa un array con productos creados, y es una funcionalidad solo para users ‘premium’. ¿Como hago esto si un user normal no tiene que tener ese campo xq sino ocuparia espacio en la base de datos si a todos los users le pongo productosCreados = null?
  */
 
 //Probar:
 /**
  * donde se guardan los loggers de error en produccion
- * 
  * get con sort -1 de products
- * 
  * funcion deleteInactives de sessionServices
- * 
  * las vistas.
- * 
  * borrar los datos que hay en la base de datos
- * 
  * como puedo hacer req.user.campo y no req.user.user.campo
- * 
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
- * 
  * mvc de ticket
- * 
  * Poner la ruta views en routes/web y crear su index
- * 
  * Mejorar la eficiencia del addProd de cart.dao.js
  */
 

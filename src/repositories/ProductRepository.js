@@ -13,8 +13,8 @@ export default class ProductRepository {
     return result;
   }
 
-  async getProductById(id) {
-    let result = await this.dao.getById(id);
+  async getProductBy(params) {
+    let result = await this.dao.getBy(params);
     return result;
   }
   async updateProductById(id, data) {

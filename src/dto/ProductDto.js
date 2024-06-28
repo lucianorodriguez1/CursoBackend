@@ -11,7 +11,7 @@ export default class ProductDTO {
   }
   //agregar fecha de creacion.
   static getProductResponseForRole = (product, role) => {
-    switch (role) {
+    switch (role) { 
       case "admin":
         return {
           id: product._id,

@@ -44,8 +44,8 @@ export default class Product {
   async create(elements) {
     return await productModel.insertMany(elements);
   }
-  async getById(id) {
-    return await productModel.findOne({ _id: id });
+  async getBy(params) {
+    return await productModel.findOne(params);
   }
   async update(id, data) {
     return await productModel.findOneAndUpdate(
