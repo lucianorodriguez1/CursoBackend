@@ -15,7 +15,7 @@ export function authorization(...allowedRoles){
         return next(error); 
       }
     }
-    if (!allowedRoles.includes(req.user.user.role)) {
+    if (!allowedRoles.includes(req.user.data.role)) {
       try {
         CustomError.createError({
           name: "sin permisos",
