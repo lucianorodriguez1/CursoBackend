@@ -2,10 +2,6 @@ import { cartsRepository } from "../repositories/index.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import productsService from "./ProductService.js";
-import productModel from "../dao/mongo/models/productModel.js";
-import ticketModel from "../dao/mongo/models/ticketModel.js";
-import userModel from "../dao/mongo/models/userModel.js";
-import { v4 as uuidv4 } from "uuid";
 import CartDTO from "../dto/CartDto.js";
 
 class CartService {
@@ -116,58 +112,6 @@ class CartService {
     return result;
   }
 
-  async purchaseCart(cid) {
-    const cart = await this.getCartById(cid);
-    let totalPrice;
-    let prodsNoProcesados = [];
-    let isTicket = false;
-    let prodsProcesados = [];
-
-    for (const item of cart.products) {
-      const productId = item.prodId._id;
-      const product = await productsService.getProductById(item.prodId);
-      const quantity = item.quantity;
-      let updatedProduct;
-
-      if (product.stock < quantity) {
-        prodsNoProcesados.push(productId);
-      } else {
-        updatedProduct = await productModel.findOneAndUpdate(
-          { _id: productId, stock: { $gte: quantity } },
-          { $inc: { stock: -quantity } },
-          { new: true }
-        );
-      }
-
-      if (updatedProduct) {
-        totalPrice = updatedProduct.price * quantity;
-        isTicket = true;
-        prodsProcesados.push(productId);
-        await cartsService.deleteProduct(cid, productId);
-      }
-    }
-    //HACER UNA FUNCION EN SERVICIOS DE USUARIO QUE BUSQUE POR CART
-    const user = await userModel.findOne({ cartId: cid });
-    let ticket;
-
-    // HACER UNA FUNCION CREAR TICKET
-    if (isTicket) {
-      ticket = {
-        code: uuidv4(),
-        purchase_datetime: new Date(),
-        amount: totalPrice,
-        purchaser: user.email,
-      };
-      await ticketModel.insertMany(ticket);
-    }
-
-    //ESTO HACE FALTA?
-    await cart.save();
-    return {
-      productosProcesados: prodsProcesados,
-      productosNoProcesados: prodsNoProcesados,
-    };
-  }
 
   async deleteCartById(cid) {
     await this.getCartById(cid);

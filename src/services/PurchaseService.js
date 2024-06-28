@@ -1,9 +1,8 @@
 import productsService from "./ProductService.js";
 import cartService from "./CartService.js";
 import productModel from "../dao/mongo/models/productModel.js";
-import ticketModel from "../dao/mongo/models/ticketModel.js";
 import userModel from "../dao/mongo/models/userModel.js";
-import { v4 as uuidv4 } from "uuid";
+import ticketService from "./TicketService.js";
 
 class PurchaseService {
     constructor() {
@@ -45,19 +44,13 @@ class PurchaseService {
         const user = await userModel.findOne({ cartId: cid });
         let ticket;
 
-        // HACER UNA FUNCION CREAR TICKET
         if (isTicket) {
             ticket = {
-                code: uuidv4(),
-                purchase_datetime: new Date(),
                 amount: totalPrice,
                 purchaser: user.email,
             };
-            await ticketModel.insertMany(ticket);
+            await ticketService.createTicket(ticket);
         }
-
-        //ESTO HACE FALTA?
-        await cart.save();
         return {
             productosProcesados: prodsProcesados,
             productosNoProcesados: prodsNoProcesados,

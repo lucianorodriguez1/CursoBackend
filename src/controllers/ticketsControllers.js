@@ -14,6 +14,7 @@ export const getTicketById = async (req, res) => {
 }
 
 export const deleteTicketById = async (req, res) => {
+    const id = req.params.tid
     await ticketService.deleteTicketById(id);
     response(res, 200, 'ticket eliminado');
 }

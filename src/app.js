@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * eliminar purchase de cart.routes. y metodo http GET de purchase.routes.js
  */
 
 //Realizar
