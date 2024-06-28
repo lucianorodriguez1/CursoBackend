@@ -13,6 +13,9 @@ export default class User {
   async getByEmail(email) {
     return await userModel.findOne({ email: email });
   }
+  async getByCart(cartId) {
+    return await userModel.findOne({ cartId: cartId });
+  }
   async create(data) {
     return await userModel.insertMany(data);
   }

@@ -21,6 +21,10 @@ export default class ProductRepository {
     let result = await this.dao.update(id, data);
     return result;
   }
+  async updatePurchaseProductById(pid) {
+    let result = await this.dao.updatePurchase(pid);
+    return result;
+  }
   async deleteProductById(id) {
     let result = await this.dao.delete(id);
     return result;

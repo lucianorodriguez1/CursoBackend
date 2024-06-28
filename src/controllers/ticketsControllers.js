@@ -1,7 +1,6 @@
 import ticketService from "../services/TicketService.js";
 import { response } from "../utils/response.js";
 
-
 export const getTickets = async (req, res) => {
     let result = await ticketService.getTickets();
     response(res, 200, result);;

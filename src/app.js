@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * cambiar getById por getBy en ProductMongo, ProductRepository y productService de PRODUCT.
+ * 
  */
 
 //Realizar

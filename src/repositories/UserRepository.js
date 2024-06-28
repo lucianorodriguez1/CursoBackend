@@ -21,6 +21,10 @@ export default class UserRepository {
     let result = await this.dao.getByEmail(email);
     return result;
   }
+  async getUserByCart(cartId) {
+    let result = await this.dao.getByCart(cartId);
+    return result;
+  }
   async deleteUserById(id) {
     let result = await this.dao.delete(id);
     return result;

@@ -30,11 +30,6 @@ class TicketService {
     let result = await ticketRepository.deleteTicketById(id);
     return result;
   }
-
-  async updateTicketById(id, data) {
-    let result = await ticketRepository.updateTicketById(id, data);
-    return result;
-  }
 }
 
 const ticketService = new TicketService();

@@ -46,6 +46,18 @@ class UserService {
     return result;
   }
 
+  async getUserByCart(cartId){
+    let result = await usersRepository.getUserByCart(cartId); 
+    if (!result)
+      CustomError.createError({
+        name: "user no encontrado",
+        cause: "invalid id de cart",
+        message: "Error get user  by car",
+        code: ErrorCodes.INVALID_ID,
+      });
+    return result;
+  }
+
   async getUserByEmail(email) {
     let result = await usersRepository.getUserByEmail(email);
     return result;

@@ -131,6 +131,10 @@ class ProductService {
     }
     return obj;
   }
+  async upddatePurchaseProductById(pid){
+    await productsRepository.updatePurchaseProductById(pid);
+    return 'Se actualizo el producto';
+  }
 }
 
 const productService = new ProductService();

@@ -54,6 +54,13 @@ export default class Product {
       { new: true }
     );
   }
+  async updatePurchase(pid){
+    return await productModel.findOneAndUpdate(
+      { _id:pid, stock: { $gte: quantity } },
+      { $inc: { stock: -quantity } },
+      { new: true }
+    );
+  }
   async delete(id) {
     return await productModel.findOneAndDelete({ _id: id });
   }
