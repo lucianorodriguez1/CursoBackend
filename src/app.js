@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- *  modificar getProducts de ProductService.js
+ *  agregar passportCall,passporCallOptional y authorization a cart.routes. comentar DELETE cart
  */
 
 //Realizar
@@ -112,22 +112,21 @@ app.use(errorHandler);
 
 //Probar:
 /**
- * donde se guardan los loggers de error en produccion
- * get con sort -1 de products
  * funcion deleteInactives de sessionServices
  * las vistas.
  * borrar los datos que hay en la base de datos
- * como puedo hacer req.user.campo y no req.user.user.campo
- * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
- * mvc de ticket
- * Poner la ruta views en routes/web y crear su index
- * Mejorar la eficiencia del addProd de cart.dao.js
- */
-
+ * si es posible hacer req.user.campo y no req.user.user.campo
+*/
 
 //Mejorar
 /**
  * hacer DTO de GET api/products/:pid
+ * que el usuario logueado solo pueda ver su carrito.
+ * que el admin no pueda editar el producto publicado de un user premium, ni borrarlo, pero si ocultarlo.
+ * GET de api/products/ (no funciona el 'desc' y el filtro ).
+ * la eficiencia del addProd de cart.dao.js
+ * error de ruta cuando hago un get de las rutas de views.
+ * Poner la ruta views en routes/web y crear su index
  */
 
 
