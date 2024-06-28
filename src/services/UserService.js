@@ -72,13 +72,13 @@ class UserService {
   async updateUserById(id, data) {
     await this.getUserById(id);
     removeEmptyObjectFields(data);
-    let result = await usersRepository.updateUserById(id, data);
+    await usersRepository.updateUserById(id, data);
     return 'se actualizo el user';
   }
 
   async changePremium(id) {
     await this.getUserById(id);
-    let result = await usersRepository.updateUserById(id, { role: "premium" });
+    await usersRepository.updateUserById(id, { role: "premium" });
     return 'se actualizo el rol user a premium';
   }
 

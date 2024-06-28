@@ -26,10 +26,11 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    const userUpd = await usersServices.updateUserById(user._id, {
+    await usersServices.updateUserById(user._id, {
       isOnline: true,
     });
-    const token = generateToken(userUpd);
+
+    const token = generateToken(user);
     return {
       token:token,
       message:"Login correct"
@@ -49,10 +50,10 @@ class SessionService {
     await usersServices.createUser(data);
     user = await usersServices.getUserByEmail(data.email);
     await usersServices.updateUserById(user._id, { isOnline: true });
-    const userUpd = await usersServices.updateUserById(user._id, {
+    await usersServices.updateUserById(user._id, {
       isOnline: true,
     });
-    const token = generateToken(userUpd);
+    const token = generateToken(user);
     return {
       token:token,
       message:"Register correct"

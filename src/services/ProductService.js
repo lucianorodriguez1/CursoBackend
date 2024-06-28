@@ -10,15 +10,17 @@ class ProductService {
   constructor() {}
 
   async getProducts(limit, page, sort, query, role) {
-    let products = await productsRepository.getProducts(
+    let result = await productsRepository.getProducts(
       limit,
       page,
       sort,
       query
     );
-    const result = products.data.map((prod) =>
+    const products = result.data.map((prod) =>
       ProductDTO.getProductResponseForRole(prod, role)
     );
+
+    result.data = products;
     return result;
   }
 

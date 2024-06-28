@@ -71,11 +71,11 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- *  
+ *  modificar getProducts de ProductService.js
  */
 
 //Realizar
-/**  
+/**   
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
@@ -124,5 +124,10 @@ app.use(errorHandler);
  * Mejorar la eficiencia del addProd de cart.dao.js
  */
 
+
+//Mejorar
+/**
+ * hacer DTO de GET api/products/:pid
+ */
 
 
