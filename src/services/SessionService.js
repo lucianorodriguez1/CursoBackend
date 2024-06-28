@@ -3,6 +3,7 @@ import { isValidPassword } from "../utils/bcrypt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import usersServices from "./UserService.js";
+import UserDTO from "../dto/UserDto.js";
 
 class SessionService {
   constructor() {}
@@ -80,7 +81,7 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    return req.user;
+    return UserDTO.getUserResponseForCurrent(req.user.data);
   }
 
   

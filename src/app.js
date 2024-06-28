@@ -71,14 +71,16 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * La ruta current debe devolver  el user solo sin las cosas adicionales.
+ * "first_name": "luciano",
+    "last_name": "rodrig",
+    "email": "lucerolucho801@gmail.com",
+    "cartId": "667deb9172d76745efadb6d5",
+    "role": "user",
  */
 
 //Realizar
 /** 
- * cambiar el req.user.user por req.user.data
- * La ruta current debe devolver  el user solo sin las cosas adicionales.
- * 
  * Resolver el metodo getBy de mis daos:
  *    user.dao.js --> eliminar dos funciones y hacer una generica
  * 
