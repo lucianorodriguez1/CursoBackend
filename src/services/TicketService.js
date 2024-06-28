@@ -1,4 +1,6 @@
 import { ticketRepository } from "../repositories/index.js";
+import { v4 as uuidv4 } from "uuid";
+
 class TicketService {
     constructor() {
     }
@@ -8,7 +10,10 @@ class TicketService {
       return result;
     }
   
-    async createTicket(ticket) {
+    async createTicket(data) {
+      const ticket={
+
+      }
       let result = await ticketRepository.createTicket(ticket);
       return result;
     }

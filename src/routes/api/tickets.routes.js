@@ -11,3 +11,4 @@ ticketRouter.get('/:tid', passportCall('jwt'),authorization('admin'),tickets.get
 ticketRouter.delete('/:tid', passportCall('jwt'),authorization('admin'),tickets.deleteTicketById);
 
 export default ticketRouter;
+ 

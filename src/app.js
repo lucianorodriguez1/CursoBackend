@@ -76,9 +76,7 @@ app.use(errorHandler);
 
 //Realizar
 /**
- * Desafio complementario:
- *    enviar por medio de un correo un boton que redireccione a una pagina para restablecer la contrasenia.(el link del correo debe durar 1 hr. si es la misma contrasenia indicar un mensaje 'no se puede colocar la misma contrasenia'. Si el link expiro debe redirigir a una vista que le permita generar nuevamente el correo de restablecimeiento, con una duracion de 1hr).
- *
+ * Cambair los dao y los params.
  * 
  * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
  * 
