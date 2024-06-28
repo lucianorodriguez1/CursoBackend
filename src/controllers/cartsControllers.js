@@ -2,7 +2,7 @@ import cartService from "../services/CartService.js";
 import { response } from "../utils/response.js";
 
 export const getCarts = async (req, res) => {
-  const role = req.user?.user?.role || null;
+  const role = req.user?.data?.role || null;
   const data = await cartService.getCarts(role);
   response(res, 200, data);
 };
@@ -18,7 +18,7 @@ export const getCartById = async (req, res) => {
 export const addProductFromCart = async (req, res) => {
   const idCart = req.params.cid;
   const idProduct = req.params.pid;
-  const data = await cartService.addProductFromCart(idCart, idProduct,req.user.user.email);
+  const data = await cartService.addProductFromCart(idCart, idProduct,req.user.data.email);
   response(res, 200, data);
 };
 export const deleteAllProductsFromCartById = async (req, res) => {

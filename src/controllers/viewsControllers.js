@@ -1,6 +1,5 @@
 import { productsRepository,cartsRepository } from "../repositories/index.js";
 
-
 export const viewHome = (req, res) => {
   res.render("index", {
     isLogin: req.user,

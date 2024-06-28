@@ -28,7 +28,7 @@ export async function register(req, res) {
 }
 
 export async function logout(req, res) {
-  await sessionService.logout(req, res, req.user.user.email);
+  await sessionService.logout(req, res, req.user.data.email);
   response(res, 200, "logout correcto");
 }
 

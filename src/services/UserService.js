@@ -14,7 +14,7 @@ class UserService {
   async getUsers(req) {
     const users = await usersRepository.getUsers();
     const result = users.map((user) =>
-      UserDTO.getUserResponseForRole(user, req.user.user.role)
+      UserDTO.getUserResponseForRole(user, req.user.data.role)
     );
     return result;
   }

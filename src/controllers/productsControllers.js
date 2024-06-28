@@ -31,8 +31,8 @@ export const createProduct = async (req, res) => {
       category,
       thumbnail,
     },
-    req.user.user.email,
-    req.user.user.role
+    req.user.data.email,
+    req.user.data.role
   );
   response(res, 201, data);
 };
@@ -47,8 +47,8 @@ export const deleteProductById = async (req, res) => {
   let id = req.params.pid;
   const result = await productService.deleteProductById(
     id,
-    req.user.user.email,
-    req.user.user.role
+    req.user.data.email,
+    req.user.data.role
   );
   response(res, 200, "producto eliminado");
 };

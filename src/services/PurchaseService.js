@@ -25,7 +25,6 @@ class PurchaseService {
       } else {
         updatedProduct = await productService.upddatePurchaseProductById(productId);
       }
-
       if (updatedProduct) {
         totalPrice = updatedProduct.price * quantity;
         isTicket = true;
