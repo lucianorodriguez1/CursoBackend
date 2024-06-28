@@ -4,6 +4,7 @@ import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import { generateProductErrorInfo } from "./errors/info.js";
 import ProductDTO from "../dto/ProductDto.js";
+import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 
 class ProductService {
   constructor() {}
@@ -105,8 +106,7 @@ class ProductService {
         code: ErrorCodes.DUPLICATE_CODE,
       });
     }
-
-    this.removeEmptyFields(data);
+    removeEmptyObjectFields(data);
     let result = await productsRepository.updateProductById(id, data);
     if (!result)
       CustomError.createError({
@@ -116,20 +116,6 @@ class ProductService {
         code: ErrorCodes.INVALID_ID,
       });
     return result;
-  }
-  removeEmptyFields(obj) {
-    for (let key in obj) {
-      if (
-        obj[key] === null ||
-        obj[key] === undefined ||
-        obj[key] === "" ||
-        (Array.isArray(obj[key]) && obj[key].length === 0) ||
-        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
-      ) {
-        delete obj[key];
-      }
-    }
-    return obj;
   }
   async upddatePurchaseProductById(pid){
     await productsRepository.updatePurchaseProductById(pid);

@@ -7,6 +7,7 @@ import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";
+import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 
 class UserService {
   constructor() {}
@@ -70,24 +71,11 @@ class UserService {
   }
   async updateUserById(id, data) {
     await this.getUserById(id);
-    this.removeEmptyFields(data);
+    removeEmptyObjectFields(data);
     let result = await usersRepository.updateUserById(id, data);
     return result;
   }
-  removeEmptyFields(obj) {
-    for (let key in obj) {
-      if (
-        obj[key] === null ||
-        obj[key] === undefined ||
-        obj[key] === "" ||
-        (Array.isArray(obj[key]) && obj[key].length === 0) ||
-        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
-      ) {
-        delete obj[key];
-      }
-    }
-    return obj;
-  }
+  
 
   async changePremium(id) {
     await this.getUserById(id);

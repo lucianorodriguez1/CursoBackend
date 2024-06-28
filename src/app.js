@@ -71,35 +71,26 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * La ruta current debe devolver  el user solo sin las cosas adicionales.
- * "first_name": "luciano",
-    "last_name": "rodrig",
-    "email": "lucerolucho801@gmail.com",
-    "cartId": "667deb9172d76745efadb6d5",
-    "role": "user",
+ * 
  */
 
 //Realizar
 /** 
- * Resolver el metodo getBy de mis daos:
- *    user.dao.js --> eliminar dos funciones y hacer una generica
+ *  Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
+ *  Borrar las variables declaradas de todos los archivos que no uso
  * 
- *  * Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
- * 
- * Borrar las variables declaradas de todos los archivos que no uso
- * 
- * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
- *      Evaluar que hacer en dto,etc.
  * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
  *
+ * 
  * Desafio Test en 3 modulos:
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
  *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
  *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
  *
+ * 
  * Desafio 4 entrega integradora:
  *    crear un endpoint en el router de usuarios api/users/:uid/documents con el método POST que permita subir uno o múltiples archivos. Utilizar el middleware de Multer para poder recibir los documentos que se carguen y actualizar en el usuario su status para hacer saber que ya subió algún documento en particular.
  *    El middleware de multer deberá estar modificado para que pueda guardar en diferentes carpetas los diferentes archivos que se suban.
@@ -108,6 +99,7 @@ app.use(errorHandler);
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  *
+ * 
  * Desafio entrega final:
  * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
  * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
