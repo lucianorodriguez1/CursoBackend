@@ -1,4 +1,4 @@
-import purchaseService from "../services/UserService.js";
+import purchaseService from "../services/PurchaseService.js";
 import { response } from "../utils/response.js";
 
 export const createPurchase = async(req,res) => {

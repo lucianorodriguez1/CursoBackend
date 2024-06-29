@@ -16,6 +16,7 @@ export default class UserDTO {
           age: user.age,
           email: user.email,
           role: user.role,
+          cartId:user.cartId,
           last_connection: user.last_connection,
           isOnline: user.isOnline,
         };

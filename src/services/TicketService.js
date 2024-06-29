@@ -14,8 +14,8 @@ class TicketService {
     const ticket = {
       code: uuidv4(),
       purchase_datetime: new Date(),
-      amount: data.totalPrice,
-      purchaser: data.email,
+      amount: data.amount,
+      purchaser: data.purchaser,
 
     }
     let result = await ticketRepository.createTicket(ticket);

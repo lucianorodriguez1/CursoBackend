@@ -120,8 +120,8 @@ class ProductService {
       });
     return "Se actualizo el producto";
   }
-  async upddatePurchaseProductById(pid) {
-    await productsRepository.updatePurchaseProductById(pid);
+  async upddatePurchaseProductById(pid,quantity) {
+    await productsRepository.updatePurchaseProductById(pid,quantity);
     return "Se actualizo el producto por la compra";
   }
 }

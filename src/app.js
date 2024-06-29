@@ -71,22 +71,38 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- *  
+ * arreglar nombre de purchaseService
  */
 
 //Realizar
-/**   
+/**
+ * Cambair los dao y los params.
+ * 
+ * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
+ * 
+ * La ruta current debe devolver  el user solo sin las cosas adicionales.
+ * 
+ * Resolver el metodo getBy de mis daos:
+ *    user.dao.js --> eliminar dos funciones y hacer una generica
+ * 
+ *  * Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
+ * 
+ * Borrar las variables declaradas de todos los archivos que no uso
+ * 
+ * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
+ *      Evaluar que hacer en dto,etc.
+ * 
+ * agregar permisos para el ticket
+ * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
  *
- * 
  * Desafio Test en 3 modulos:
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
  *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
  *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
  *
- * 
  * Desafio 4 entrega integradora:
  *    crear un endpoint en el router de usuarios api/users/:uid/documents con el método POST que permita subir uno o múltiples archivos. Utilizar el middleware de Multer para poder recibir los documentos que se carguen y actualizar en el usuario su status para hacer saber que ya subió algún documento en particular.
  *    El middleware de multer deberá estar modificado para que pueda guardar en diferentes carpetas los diferentes archivos que se suban.
@@ -95,7 +111,6 @@ app.use(errorHandler);
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  *
- * 
  * Desafio entrega final:
  * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
  * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
@@ -106,28 +121,34 @@ app.use(errorHandler);
 // Consultas:
 /**
  * se puede hacer que los errores en /service esten dentro de un archivo errorServices.
+ * 
  * ejemplos de documentar el codigo en los mismos archivos en el que fue creada la funcionalidad.
+ * 
  * tengo una pregunta para un escenario en especifico. Si yo tengo a dos tipos de user, ‘normal’ y ‘premium’, pero al ser premium quiero que tenga un dato de “productosCreados” que representa un array con productos creados, y es una funcionalidad solo para users ‘premium’. ¿Como hago esto si un user normal no tiene que tener ese campo xq sino ocuparia espacio en la base de datos si a todos los users le pongo productosCreados = null?
  */
 
 //Probar:
 /**
+ * donde se guardan los loggers de error en produccion
+ * 
+ * get con sort -1 de products
+ * 
  * funcion deleteInactives de sessionServices
+ * 
  * las vistas.
+ * 
  * borrar los datos que hay en la base de datos
- * si es posible hacer req.user.campo y no req.user.user.campo
- * si se actualiza el isConnect cuando cuando hago login y register
-*/
-
-//Mejorar
-/**
- * hacer DTO de GET api/products/:pid
- * que el usuario logueado solo pueda ver su carrito.
- * que el admin no pueda editar el producto publicado de un user premium, ni borrarlo, pero si ocultarlo.
- * GET de api/products/ (no funciona el 'desc' y el filtro ).
- * la eficiencia del addProd de cart.dao.js
- * error de ruta cuando hago un get de las rutas de views.
+ * 
+ * como puedo hacer req.user.campo y no req.user.user.campo
+ * 
+ * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
+ * 
+ * mvc de ticket
+ * 
  * Poner la ruta views en routes/web y crear su index
+ * 
+ * Mejorar la eficiencia del addProd de cart.dao.js
  */
+
 
 

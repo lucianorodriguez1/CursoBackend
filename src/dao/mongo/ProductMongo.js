@@ -54,7 +54,7 @@ export default class Product {
       { new: true }
     );
   }
-  async updatePurchase(pid){
+  async updatePurchase(pid,quantity){
     return await productModel.findOneAndUpdate(
       { _id:pid, stock: { $gte: quantity } },
       { $inc: { stock: -quantity } },

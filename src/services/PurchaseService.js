@@ -8,7 +8,8 @@ class PurchaseService {
   constructor() {}
 
   async createPurchase(cid) {
-    const cart = await cartService.getCartById(cid);
+    try {
+      const cart = await cartService.getCartById(cid);
     let totalPrice;
     let prodsNoProcesados = [];
     let isTicket = false;
@@ -23,10 +24,11 @@ class PurchaseService {
       if (product.stock < quantity) {
         prodsNoProcesados.push(productId);
       } else {
-        updatedProduct = await productService.upddatePurchaseProductById(productId);
+        updatedProduct = await productService.upddatePurchaseProductById(productId,quantity);
       }
+
       if (updatedProduct) {
-        totalPrice = updatedProduct.price * quantity;
+        totalPrice = product.price * quantity;
         isTicket = true;
         prodsProcesados.push(productId);
         await cartService.deleteProduct(cid, productId);
@@ -34,7 +36,7 @@ class PurchaseService {
     }
     const user = await userService.getUserByCart(cid);
     let ticket;
-
+    
     if (isTicket) {
       ticket = {
         amount: totalPrice,
@@ -42,11 +44,15 @@ class PurchaseService {
       };
       await ticketService.createTicket(ticket);
     }
-    await cart.save();
     return {
       productosProcesados: prodsProcesados,
       productosNoProcesados: prodsNoProcesados,
     };
+      
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 }
 
