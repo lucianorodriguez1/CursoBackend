@@ -71,28 +71,11 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * arreglar nombre de purchaseService
+ *
  */
 
 //Realizar
 /**
- * Cambair los dao y los params.
- * 
- * Eliminar purchase de los archivos CART y agregarlo a mvc de ticket
- * 
- * La ruta current debe devolver  el user solo sin las cosas adicionales.
- * 
- * Resolver el metodo getBy de mis daos:
- *    user.dao.js --> eliminar dos funciones y hacer una generica
- * 
- *  * Mover funcion de removeEmptyFileds de userServices y productsService a otra capa.
- * 
- * Borrar las variables declaradas de todos los archivos que no uso
- * 
- * Al hacer login y register mandar la info del usuario necesario para mostrarla en su perfil. 
- *      Evaluar que hacer en dto,etc.
- * 
- * agregar permisos para el ticket
  * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos

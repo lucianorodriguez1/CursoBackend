@@ -36,7 +36,7 @@ class PurchaseService {
     }
     const user = await userService.getUserByCart(cid);
     let ticket;
-    
+
     if (isTicket) {
       ticket = {
         amount: totalPrice,
