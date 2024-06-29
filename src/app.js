@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- *
+ * 
  */
 
 //Realizar
@@ -117,7 +117,7 @@ app.use(errorHandler);
  * get con sort -1 de products
  * 
  * funcion deleteInactives de sessionServices
- * 
+ * ver permisos de user.routes
  * las vistas.
  * 
  * borrar los datos que hay en la base de datos
@@ -125,8 +125,6 @@ app.use(errorHandler);
  * como puedo hacer req.user.campo y no req.user.user.campo
  * 
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
- * 
- * mvc de ticket
  * 
  * Poner la ruta views en routes/web y crear su index
  * 

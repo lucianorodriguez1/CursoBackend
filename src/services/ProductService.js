@@ -84,8 +84,7 @@ class ProductService {
     let result = null;
     if (role == "premium" && email == product.owner)
       return (result = await productsRepository.deleteProductById(id));
-    console.log("entre");
-
+    
     if (role == "admin")
       return (result = await productsRepository.deleteProductById(id));
 
