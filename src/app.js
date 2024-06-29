@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * agregar permisos de admin a GET getCart. agregar dto a GET getCartById. borrar usuarios y carts de la bbdd
  */
 
 //Realizar
@@ -129,6 +129,8 @@ app.use(errorHandler);
  * Poner la ruta views en routes/web y crear su index
  * 
  * Mejorar la eficiencia del addProd de cart.dao.js
+ * 
+ * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
  */
 
 

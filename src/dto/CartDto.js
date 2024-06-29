@@ -8,19 +8,7 @@ export default class CartDTO {
   }
 
   static getCartResponseForRole = (cart, role) => {
-    if (role === "admin" || role === "premium") {
-      return {
-        id: cart._id,
-        products:
-          cart.products.length > 0
-            ? cart.products.map((prod) =>
-                ProductDTO.getProductResponseForRole(prod.prodId, role)
-              )
-            : "No hay productos",
-      };
-    }
-
-    if (role === "premium") {
+    if (role === "admin" || role === "premium" || role === 'user') {
       return {
         id: cart._id,
         products:

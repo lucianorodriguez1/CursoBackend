@@ -20,15 +20,16 @@ class CartService {
     return result;
   }
 
-  async getCartById(id) {
-    let result = await cartsRepository.getCartById(id);
-    if (!result)
+  async getCartById(id,role) {
+    let cart = await cartsRepository.getCartById(id);
+    if (!cart)
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
         message: "Error get cart",
         code: ErrorCodes.INVALID_ID,
       });
+    const result = CartDTO.getCartResponseForRole(cart,role);
     return result;
   }
 
@@ -114,8 +115,8 @@ class CartService {
     return "Se actualizo el producto del carrito"
   }
 
-  async deleteCartById(cid) {
-    await this.getCartById(cid);
+  async deleteCartById(cid,role) {
+    await this.getCartById(cid,role);
     await cartsRepository.deleteCartById(cid);
     return "Se elimino el cart";
   }
