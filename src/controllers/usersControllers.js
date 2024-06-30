@@ -2,7 +2,8 @@ import userService from "../services/UserService.js";
 import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {
-  const users = await userService.getUsers(req);
+  const role = req.user?.data?.role || null;
+  const users = await userService.getUsers(role);
   response(res, 200, users);
 };
 

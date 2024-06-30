@@ -81,12 +81,15 @@ class ProductService {
 
   async deleteProductById(id, email, role) {
     const product = await this.getProductById(id);
-    let result = null;
-    if (role == "premium" && email == product.owner)
-      return (result = await productsRepository.deleteProductById(id));
-    
-    if (role == "admin")
-      return (result = await productsRepository.deleteProductById(id));
+    if (role == "premium" && email == product.owner) {
+      await productsRepository.deleteProductById(id);
+      return "El producto fue eliminado por el owner";
+    }
+
+    if (role == "admin") {
+      await productsRepository.deleteProductById(id);
+      return "El producto fue eliminado por el admin";
+    }
 
     if (role == "premium" && email != product.owner)
       CustomError.createError({
@@ -119,8 +122,8 @@ class ProductService {
       });
     return "Se actualizo el producto";
   }
-  async upddatePurchaseProductById(pid,quantity) {
-    await productsRepository.updatePurchaseProductById(pid,quantity);
+  async upddatePurchaseProductById(pid, quantity) {
+    await productsRepository.updatePurchaseProductById(pid, quantity);
     return "Se actualizo el producto por la compra";
   }
 }

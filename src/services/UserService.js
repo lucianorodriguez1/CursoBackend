@@ -12,10 +12,10 @@ import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 class UserService {
   constructor() {}
 
-  async getUsers(req) {
+  async getUsers(role) {
     const users = await usersRepository.getUsers();
     const result = users.map((user) =>
-      UserDTO.getUserResponseForRole(user, req.user.data.role)
+      UserDTO.getUserResponseForRole(user, role)
     );
     return result;
   }

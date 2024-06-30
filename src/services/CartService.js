@@ -20,7 +20,7 @@ class CartService {
     return result;
   }
 
-  async getCartById(id,role) {
+  async getCartById(id, role) {
     let cart = await cartsRepository.getCartById(id);
     if (!cart)
       CustomError.createError({
@@ -29,7 +29,7 @@ class CartService {
         message: "Error get cart",
         code: ErrorCodes.INVALID_ID,
       });
-    const result = CartDTO.getCartResponseForRole(cart,role);
+    const result = CartDTO.getCartResponseForRole(cart, role);
     return result;
   }
 
@@ -67,7 +67,7 @@ class CartService {
         code: ErrorCodes.INVALID_ID,
       });
     }
-   await cartsRepository.deleteProductsCart(cid);
+    await cartsRepository.deleteProductsCart(cid);
     return "Se eliminaron todos los productos del carrito";
   }
 
@@ -112,14 +112,16 @@ class CartService {
     }
     await productsService.getProductById(pid);
     await cartsRepository.updateProduct(cid, pid, quantity);
-    return "Se actualizo el producto del carrito"
+    return "Se actualizo el producto del carrito";
   }
 
+  /*
   async deleteCartById(cid,role) {
     await this.getCartById(cid,role);
     await cartsRepository.deleteCartById(cid);
     return "Se elimino el cart";
   }
+  */
 }
 
 const cartService = new CartService();
