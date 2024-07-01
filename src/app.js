@@ -110,4 +110,6 @@ app.use(errorHandler);
  * Mejorar la eficiencia del addProd de cart.dao.js
  * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
  * Ver si esta bien devolver el producto por el controlador al crearl un modelo.
+ * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
+ * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
  */

@@ -28,7 +28,7 @@ export const deleteAllProductsFromCartById = async (req, res) => {
 };
 export const deleteProductFromCart = async (req, res) => {
   const { cid, pid } = req.params;
-  const data = cartService.deleteProduct(cid, pid);
+  const data = await cartService.deleteProduct(cid, pid);
   response(res, 200, data);
 };
 export const updateCartById = async (req, res) => {

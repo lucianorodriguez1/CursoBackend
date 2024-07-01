@@ -69,7 +69,6 @@ class ProductService {
 
   async getProductById(id) {
     let result = await productsRepository.getProductBy({ _id: id });
-    console.log(result);
     if (!result)
       CustomError.createError({
         name: "producto no encontrado",

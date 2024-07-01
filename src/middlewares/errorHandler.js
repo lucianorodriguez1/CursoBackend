@@ -54,7 +54,10 @@ export default (error, req, res, next) => {
     case ErrorCodes.TOKEN_ERROR:
       res.status(500).json({ error: true, name: error.name });
       break;
-      case ErrorCodes.REPEATED_PASSWORD:
+    case ErrorCodes.REPEATED_PASSWORD:
+      res.status(404).json({ error: true, name: error.name });
+      break;
+    case ErrorCodes.PRODUCT_NOT_FOUND__IN_CART:
       res.status(404).json({ error: true, name: error.name });
       break;
     default:
