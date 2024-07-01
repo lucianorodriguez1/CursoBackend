@@ -76,7 +76,7 @@ class UserService {
   async changePremium(id) {
     await this.getUserById(id);
     await usersRepository.updateUserById(id, { role: "premium" });
-    return "se actualizo el rol user a premium";
+    return "se actualizo el rol del user a premium";
   }
   async sendEmailToResetPassword(email) {
     await userService.getUserByEmail(email);

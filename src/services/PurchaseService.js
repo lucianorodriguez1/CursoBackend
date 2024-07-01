@@ -3,13 +3,14 @@ import cartService from "./CartService.js";
 import ticketService from "./TicketService.js";
 import userService from "./UserService.js";
 import productService from "./ProductService.js";
+import CartRepository from "../repositories/CartRepository.js";
 
 class PurchaseService {
   constructor() {}
 
   async createPurchase(cid) {
     try {
-      const cart = await cartService.getCartById(cid);
+      const cart = await CartRepository.getCartById(cid);
     let totalPrice;
     let prodsNoProcesados = [];
     let isTicket = false;

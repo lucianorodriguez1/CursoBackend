@@ -28,21 +28,21 @@ class CartService {
         cause: "invalid id",
         message: "Error get cart",
         code: ErrorCodes.INVALID_ID,
-      });
+      });   
     const result = CartDTO.getCartResponseForRole(cart, role);
     return result;
   }
 
   async addProductFromCart(cid, pid, email) {
-    const cart = await this.getCartById(cid);
-    if (!cart) {
+    const cart = await cartsRepository.getCartById(cid);
+    if (!cart)
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error add product in cart",
+        message: "Error get cart",
         code: ErrorCodes.INVALID_ID,
       });
-    }
+  
     const product = await productsService.getProductById(pid);
     if (product.owner == email) {
       CustomError.createError({
@@ -53,12 +53,12 @@ class CartService {
       });
     } else {
       await cartsRepository.addProductFromCart(cid, pid);
-      return "Se agrego el producto al cart";
+      return "Se agrego el producto al carrito";
     }
   }
 
   async deleteProductsCart(cid) {
-    const cart = await this.getCartById(cid);
+    const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
         name: "cart no encontrado",
@@ -72,7 +72,7 @@ class CartService {
   }
 
   async deleteProduct(cid, pid) {
-    const cart = await this.getCartById(cid);
+    const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
         name: "cart no encontrado",
@@ -87,7 +87,7 @@ class CartService {
   }
 
   async updateProductsCart(cid, products) {
-    const cart = await this.getCartById(cid);
+    const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
         name: "cart no encontrado",
@@ -101,7 +101,7 @@ class CartService {
   }
 
   async updateProduct(cid, pid, quantity) {
-    const cart = await this.getCartById(cid);
+    const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
         name: "cart no encontrado",
@@ -114,14 +114,6 @@ class CartService {
     await cartsRepository.updateProduct(cid, pid, quantity);
     return "Se actualizo el producto del carrito";
   }
-
-  /*
-  async deleteCartById(cid,role) {
-    await this.getCartById(cid,role);
-    await cartsRepository.deleteCartById(cid);
-    return "Se elimino el cart";
-  }
-  */
 }
 
 const cartService = new CartService();

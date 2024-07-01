@@ -49,19 +49,3 @@ export const purchaseCart = async (req, res) => {
   const data = await cartService.purchaseCart(cid);
   response(res, 200, data);
 };
-
-
-/* BORRAR
-export const deleteCartById = async (req, res) => {
-  const { cid } = req.params;
-  const data = await cartService.deleteCartById(cid,req.user.data.role);
-  response(res, 200, data);
-};
-*/
-
-/* BORRAR
-export const createCart = async (req, res) => {
-  const data = await cartService.createCart();
-  response(res, 201, data);
-};
-*/

@@ -8,7 +8,7 @@ export default class CartDTO {
   }
 
   static getCartResponseForRole = (cart, role) => {
-    if (role === "admin" || role === "premium" || role === 'user') {
+    if (role === "admin" || role === "premium" || role === "user") {
       return {
         id: cart._id,
         products:
@@ -19,12 +19,5 @@ export default class CartDTO {
             : "No hay productos",
       };
     }
-
-    CustomError.createError({
-      name: "no hay permiso para ver el cart",
-      cause: "no permisos para cart",
-      message: "Error dto cart",
-      code: ErrorCodes.NOT_PERMISSION_GET_CART,
-    });
   };
 }

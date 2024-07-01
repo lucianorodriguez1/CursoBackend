@@ -70,12 +70,15 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * cambiar en user.routes para que se devulve user a los usuarios no autenticado. borrar productos en la ddbb. modificar return de metodo delete  de ProductService. 
+ * 
  */
 
 //Realizar
 /**
- *
+ * * Desafio entrega final:
+ * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
+ * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
+ * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
@@ -92,11 +95,6 @@ app.use(errorHandler);
  * Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
- *
- * Desafio entrega final:
- * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
- * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
- * mejorar respuestas de validacion al crear usuareios y tener los campos vacios.
  */
 
 //Probar:
@@ -106,10 +104,10 @@ app.use(errorHandler);
  * funcion deleteInactives de sessionServices
  * ver permisos de user.routes
  * las vistas.
- * borrar los datos que hay en la base de datos
  * como puedo hacer req.user.campo y no req.user.user.campo
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
  * Poner la ruta views en routes/web y crear su index
  * Mejorar la eficiencia del addProd de cart.dao.js
  * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
+ * Ver si esta bien devolver el producto por el controlador al crearl un modelo.
  */
