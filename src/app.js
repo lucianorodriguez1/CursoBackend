@@ -112,4 +112,11 @@ app.use(errorHandler);
  * Ver si esta bien devolver el producto por el controlador al crearl un modelo.
  * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
  * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
+ * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
+ * Crear errores en TicketsService.
+ * Si se elimina un prducto de la base de dato que se borre de los carritos.
+ * Si el producto tiene stock 0 modificar el status a false.
+ * poner en el DTO de cart los quantity de los productos.
+ * acordarse de poner el code en el ProductDto
+ * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
  */

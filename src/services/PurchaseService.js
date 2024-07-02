@@ -3,14 +3,23 @@ import cartService from "./CartService.js";
 import ticketService from "./TicketService.js";
 import userService from "./UserService.js";
 import productService from "./ProductService.js";
-import CartRepository from "../repositories/CartRepository.js";
+import { cartsRepository } from "../repositories/index.js";
+import CustomError from "./errors/CustomError.js";
+import { ErrorCodes } from "./errors/enums.js";
 
 class PurchaseService {
   constructor() {}
 
   async createPurchase(cid) {
-    try {
-      const cart = await CartRepository.getCartById(cid);
+    const cart = await cartsRepository.getCartById(cid);
+    if (!cart)
+      CustomError.createError({
+        name: "cart no encontrado",
+        cause: "invalid id",
+        message: "Error get cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+      
     let totalPrice;
     let prodsNoProcesados = [];
     let isTicket = false;
@@ -25,7 +34,10 @@ class PurchaseService {
       if (product.stock < quantity) {
         prodsNoProcesados.push(productId);
       } else {
-        updatedProduct = await productService.upddatePurchaseProductById(productId,quantity);
+        updatedProduct = await productService.upddatePurchaseProductById(
+          productId,
+          quantity
+        );
       }
 
       if (updatedProduct) {
@@ -49,11 +61,6 @@ class PurchaseService {
       productosProcesados: prodsProcesados,
       productosNoProcesados: prodsNoProcesados,
     };
-      
-    } catch (error) {
-      console.log(error)
-    }
-    
   }
 }
 
