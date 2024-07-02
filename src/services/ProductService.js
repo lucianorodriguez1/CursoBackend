@@ -4,6 +4,8 @@ import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import { generateProductErrorInfo } from "./errors/info.js";
 import ProductDTO from "../dto/ProductDto.js";
+import config from "../config/config.js";
+import { transport } from "../utils/nodemailer.js";
 import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 
 class ProductService {
@@ -83,11 +85,34 @@ class ProductService {
     const product = await this.getProductById(id);
     if (role == "premium" && email == product.owner) {
       await productsRepository.deleteProductById(id);
+      await transport.sendMail({
+        from: `lucho rodri <${config.correoGmail}>`,
+        to: product.owner,
+        subject: "producto eliminado",
+        html: `
+            <div>
+                <p>Tu producto fue eliminado.</p>
+            </div>
+            `,
+        attachments: [],
+      });
       return "El producto fue eliminado por el owner";
     }
-
     if (role == "admin") {
       await productsRepository.deleteProductById(id);
+      if (product.owner != "admin") {
+        await transport.sendMail({
+          from: `lucho rodri <${config.correoGmail}>`,
+          to: product.owner,
+          subject: "producto eliminado",
+          html: `
+              <div>
+                  <p>Tu producto fue eliminado.</p>
+              </div>
+              `,
+          attachments: [],
+        });
+      }
       return "El producto fue eliminado por el admin";
     }
 

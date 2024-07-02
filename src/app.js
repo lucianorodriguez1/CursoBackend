@@ -74,20 +74,10 @@ app.use(errorHandler);
  */
 
 //Realizar
-/**
- * * Desafio entrega final:
- * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
- * 
+/*
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
- *
- * 
- * 
- * 
- * 
- * 
- * 
  * 
  * Desafio Test en 3 modulos:
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
