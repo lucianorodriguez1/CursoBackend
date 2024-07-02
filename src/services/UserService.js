@@ -64,6 +64,17 @@ class UserService {
     const user = await this.getUserById(id);
     await cartsRepository.deleteCartById(user.cartId);
     await usersRepository.deleteUserById(id);
+    await transport.sendMail({
+      from: `lucho rodri <${config.correoGmail}>`,
+      to: user.email,
+      subject: "User eliminado",
+      html: `
+          <div>
+              <p>Tu usuario fue eliminado.</p>
+          </div>
+          `,
+      attachments: [],
+    });
     return "user eliminado";
   }
   async updateUserById(id, data) {

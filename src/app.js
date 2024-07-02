@@ -76,13 +76,19 @@ app.use(errorHandler);
 //Realizar
 /**
  * * Desafio entrega final:
- * al elimninar un usuario enviar un correo indicandole que se elimino su usuario del sistema por inactividad.
  * en caso de que un producto pertenezca a un usuario premium se le envie un correo que su producto fue eliminado.
  * 
  * Desafio Documentar 2 modulos de mi app:
  *    documentar el modulo API DE productos
  *    documentar el modulo API de carts
  *
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * Desafio Test en 3 modulos:
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
  *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
@@ -101,7 +107,7 @@ app.use(errorHandler);
 /**
  * donde se guardan los loggers de error en produccion
  * get con sort -1 de products
- * funcion deleteInactives de sessionServices
+ * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
  * ver permisos de user.routes
  * las vistas.
  * como puedo hacer req.user.campo y no req.user.user.campo
@@ -119,4 +125,7 @@ app.use(errorHandler);
  * poner en el DTO de cart los quantity de los productos.
  * acordarse de poner el code en el ProductDto
  * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
+ * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
+ * poner permisos en user.routes.js
+ * en GET user sacar el password de la respuesta
  */
