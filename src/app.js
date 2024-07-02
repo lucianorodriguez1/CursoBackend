@@ -76,8 +76,8 @@ app.use(errorHandler);
 //Realizar
 /*
  * Desafio Documentar 2 modulos de mi app:
- *    documentar el modulo API DE productos
- *    documentar el modulo API de carts
+ *    documentar el modulo API DE productos (POST, DELETE)
+ *    documentar el modulo API de carts(GET,GET,POST,DELETE,UPDATE,UPDATE)
  * 
  * Desafio Test en 3 modulos:
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
