@@ -70,7 +70,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * crear metodo createDocuments en UserService  y userControllers y su respectiva ruta en user.routes
  */
 
 //Realizar
@@ -118,4 +118,5 @@ app.use(errorHandler);
  * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
  * poner permisos en user.routes.js
  * en GET user sacar el password de la respuesta
+ * controlar el error de tiempo de espera de la base de datos.
  */

@@ -69,4 +69,10 @@ export const resetPassword = async(req,res) =>{
   response(res, 200, result);
 }
 
+export const createDocuments = async(req,res) =>{
+  const usuarioId = req.params.uid
+  const file = req.file || null;
+  const result = await userService.createDocuments(usuarioId,file);
+  response(res, 200, result);
+}
 

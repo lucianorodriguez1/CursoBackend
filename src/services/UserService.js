@@ -124,7 +124,6 @@ class UserService {
       });
     }
     const passwordHash = createHash(password);
-    console.log("user: " + user);
     await this.updateUserById(user._id, { password: passwordHash });
     return "Se cambio la contraseña con exito";
   }
@@ -152,6 +151,22 @@ class UserService {
     } else {
       return "No se encontraron usuarios inactivos para eliminar.";
     }
+  }
+
+  async createDocuments(uid,file){
+    if(!file){
+      return 'No hay archivos.'
+    }
+    const updateData = {
+      $push: {
+        documents: {
+          name: file.originalname,
+          reference: file.path
+        }
+      }
+    };
+    const user = await this.updateUserById(uid, updateData);
+    return "create documents"
   }
 }
 

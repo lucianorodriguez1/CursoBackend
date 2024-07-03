@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { users } from '../../controllers/index.js';
 import { passportCall, passportCallOptional } from "../../middlewares/passportMiddleware.js";
+import { uploader } from "../../utils/multer.js";
 
 const userRouter = Router();
 
@@ -12,8 +13,6 @@ userRouter.get("/premium/:uid",users.changePremium);
 userRouter.post("/sendEmailToResetPassword",users.sendEmailToResetPassword);
 userRouter.post("/resetPassword",users.resetPassword);
 userRouter.delete("/inactives",users.deleteInactives);
-/* PROBAR
-userRouter.post('/:uid/documents',users.createDocuments);
-*/
+userRouter.post('/:uid/documents',uploader.single('file'),users.createDocuments);
 
 export default userRouter;
