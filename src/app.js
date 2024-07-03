@@ -70,52 +70,64 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * modificar multer.js para que se pueda guardar los archivos en carpetas segundo su MMIE
- */
-
-//Realizar
-/*
- * Desafio Documentar 2 modulos de mi app:
- *    documentar el modulo API DE productos (POST, DELETE)
- *    documentar el modulo API de carts(GET,GET,POST,DELETE,UPDATE,UPDATE)
  * 
- * Desafio Test en 3 modulos:
- *    desarrollar 3 test(mocha,cai y supertest) para routers de products
- *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
- *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
  */
 
 //Probar:
 /**
- * donde se guardan los loggers de error en produccion
+ * PRODUCTOS
  * get con sort -1 de products
- * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
- * ver permisos de user.routes
- * las vistas.
- * como puedo hacer req.user.campo y no req.user.user.campo
- * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
- * Poner la ruta views en routes/web y crear su index
- * Mejorar la eficiencia del addProd de cart.dao.js
- * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
- * Ver si esta bien devolver el producto por el controlador al crearl un modelo.
- * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
- * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
- * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
- * Crear errores en TicketsService.
  * Si se elimina un prducto de la base de dato que se borre de los carritos.
+ * Ver si esta bien devolver el producto por el controlador al crear un modelo.
  * Si el producto tiene stock 0 modificar el status a false.
- * poner en el DTO de cart los quantity de los productos.
  * acordarse de poner el code en el ProductDto
- * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
- * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
+ * 
+ * lOGGER
+ * donde se guardan los loggers de error en produccion
+ * 
+ * USUARIOS
+ * ver permisos de user.routes
+ * como puedo hacer req.user.campo y no req.user.user.campo
+ * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
+ * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
+ * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
  * poner permisos en user.routes.js
  * en GET user sacar el password de la respuesta
- * controlar el error de tiempo de espera de la base de datos.
- * saber guardar el pdf de user/documents en cvarpeta pdf o si es una imagen en /img y etc.
- * hacer token de login con expiracion de 4 horas. y al expirarse actualizar la ultima conexion del usuario.
- * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
- *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
+ * *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
  *  Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
+ * 
+ * CART
+ * poner en el DTO de cart los quantity de los productos.
+ * Mejorar la eficiencia del addProd de cart.dao.js
+ * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
+ * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
+ * 
+ * SESSION
+ * hacer token de login con expiracion de 4 horas. y al expirarse actualizar la ultima conexion del usuario.
+ * 
+ * TICKET
+ * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
+ * Crear errores en TicketsService.
+ * 
+ * PURCHASE
+ * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
+ * 
+ * ERRORES
+ * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
+ * controlar el error de tiempo de espera de la base de datos.
+ * 
+ * DESAFIO COMPLEMENTARIO 
+ *    documentar el modulo API DE productos (DELETE,POST)
+ *    documentar el modulo API de carts (GET,GET,DELETE,UPDATE,UPDATE)
+ * 
+ * DESAFIO TESTING
+ *    desarrollar 3 test(mocha,cai y supertest) para routers de products
+ *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
+ *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
+ * 
+ * VISTAS
+ * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
+ * Poner la ruta views en routes/web y crear su index
  */
