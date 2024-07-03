@@ -1,6 +1,6 @@
 import winston from "winston";
 import config from "../config/config.js";
-import path from 'path'
+import path, { format } from 'path'
 
 const __dirname = path.resolve();
 
@@ -25,7 +25,12 @@ const customsLevelsOptions = {
 
 const devLogger = winston.createLogger({
   levels: customsLevelsOptions.levels,
-  transports: [new winston.transports.Console({ level: "debug" })],
+  format: winston.format.combine(
+    winston.format.colorize(), // Colorea el nivel del log
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Agrega la marca de tiempo
+    winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`) // Formato personalizado
+  ),
+  transports: [new winston.transports.Console({ level: "debug"})],
 });
 
 const prodLogger = winston.createLogger({
