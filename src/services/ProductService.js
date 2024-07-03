@@ -16,7 +16,6 @@ class ProductService {
     const products = result.data.map((prod) =>
       ProductDTO.getProductResponseForRole(prod, role)
     );
-
     result.data = products;
     return result;
   }
