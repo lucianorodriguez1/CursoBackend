@@ -14,8 +14,8 @@ class UserService {
 
   async getUsers(role) {
     const users = await usersRepository.getUsers();
-    const result = users.map((user) =>
-      UserDTO.getUserResponseForRole(user, role)
+    const result = await Promise.all(
+      users.map(async (user) => UserDTO.getUserResponseForRole(user, role))
     );
     return result;
   }
@@ -34,7 +34,7 @@ class UserService {
     const result = await usersRepository.createUser(newUser);
     return result;
   }
-  async getUserById(id,role) {
+  async getUserById(id, role) {
     let result = await usersRepository.getUserById(id);
     if (!result)
       CustomError.createError({
@@ -43,9 +43,7 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_ID,
       });
-      console.log(result)
-    const userDto = await UserDTO.getUserResponseForRole(result,role)
-    console.log(userDto)
+    const userDto = await UserDTO.getUserResponseForRole(result, role);
     return userDto;
   }
   async getUserByCart(cartId) {
@@ -130,7 +128,7 @@ class UserService {
     await this.updateUserById(user._id, { password: passwordHash });
     return "Se cambio la contraseña con exito";
   }
-  
+
   async deleteInactive() {
     const now = new Date();
     const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
@@ -156,20 +154,20 @@ class UserService {
     }
   }
 
-  async createDocuments(uid,file){
-    if(!file){
-      return 'No hay archivos.'
+  async createDocuments(uid, file) {
+    if (!file) {
+      return "No hay archivos.";
     }
     const updateData = {
       $push: {
         documents: {
           name: file.originalname,
-          reference: file.path
-        }
-      }
+          reference: file.path,
+        },
+      },
     };
     const user = await this.updateUserById(uid, updateData);
-    return "create documents"
+    return "create documents";
   }
 }
 

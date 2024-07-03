@@ -19,7 +19,9 @@ class PurchaseService {
         message: "Error get cart",
         code: ErrorCodes.INVALID_ID,
       });
-      
+    if(cart.products.length == 0){
+      return 'No hay productos en el carrito'
+    }
     let totalPrice;
     let prodsNoProcesados = [];
     let isTicket = false;

@@ -12,7 +12,6 @@ export default class UserDTO {
 
   static getUserResponseForRole = async(user, role) => {
     const cart = await cartService.getCartById(user.cartId, user.role);
-    console.log(role)
     switch (role) {
       case "admin":
         return {

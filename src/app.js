@@ -71,12 +71,6 @@ app.use(errorHandler);
 /**
  * 
  */
-
-//PRIORIDAD
-/** 
-*
- */
-
 //Probar:
 /**
  * TODO
@@ -106,9 +100,6 @@ app.use(errorHandler);
  * TICKET
  * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
  * Crear errores en TicketsService.
- * 
- * PURCHASE
- * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
  * 
  * DESAFIO COMPLEMENTARIO 
  *    documentar el modulo API DE productos (DELETE,POST)
