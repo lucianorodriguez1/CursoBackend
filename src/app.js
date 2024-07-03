@@ -70,7 +70,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * crear metodo createDocuments en UserService  y userControllers y su respectiva ruta en user.routes
+ * modificar multer.js para que se pueda guardar los archivos en carpetas segundo su MMIE
  */
 
 //Realizar
@@ -83,14 +83,6 @@ app.use(errorHandler);
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
  *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
  *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
- *
- * Desafio 4 entrega integradora:
- *    crear un endpoint en el router de usuarios api/users/:uid/documents con el método POST que permita subir uno o múltiples archivos. Utilizar el middleware de Multer para poder recibir los documentos que se carguen y actualizar en el usuario su status para hacer saber que ya subió algún documento en particular.
- *    El middleware de multer deberá estar modificado para que pueda guardar en diferentes carpetas los diferentes archivos que se suban.
- *    Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
- * Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
- *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
- *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  */
 
 //Probar:
@@ -119,4 +111,11 @@ app.use(errorHandler);
  * poner permisos en user.routes.js
  * en GET user sacar el password de la respuesta
  * controlar el error de tiempo de espera de la base de datos.
+ * saber guardar el pdf de user/documents en cvarpeta pdf o si es una imagen en /img y etc.
+ * hacer token de login con expiracion de 4 horas. y al expirarse actualizar la ultima conexion del usuario.
+ * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
+ *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
+ *  Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
+ *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
+ *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  */
