@@ -28,7 +28,7 @@ export const validateCreate = [
   check("stock")
     .exists()
     .withMessage("Stock is required")
-    .isNumeric()
+    .isInt({ min: 0 })
     .withMessage("Stock must be a number"),
   check("category")
     .exists()

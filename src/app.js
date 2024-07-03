@@ -73,11 +73,7 @@ app.use(errorHandler);
  */
 
 //PRIORIDAD
-/**
- * Ver si esta bien devolver el producto por el controlador al crear un modelo.
- * acordarse de poner el code en el ProductDto
- * Si el producto tiene stock 0 modificar el status a false.
- * 
+/** 
  * ver permisos de user.routes
  * como puedo hacer req.user.campo y no req.user.user.campo
  * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
@@ -87,8 +83,13 @@ app.use(errorHandler);
 
 //Probar:
 /**
+ * TODO
+ * agregar fecha de creacion en todos las colecciones.
+ * 
  * PRODUCTOS
  * get con sort -1 de products
+ * devolver al owner si es el propietaria del producto todo las caracteristicas.
+ * 
  * 
  * USUARIOS
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)

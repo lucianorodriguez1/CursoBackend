@@ -39,7 +39,8 @@ export const createProduct = async (req, res) => {
 
 export const getProductById = async (req, res) => {
   const id = req.params.pid;
-  const result = await productService.getProductById(id);
+  const role = req.user?.data?.role || null;
+  const result = await productService.getProductById(id,role);
   response(res, 200, result);
 };
 

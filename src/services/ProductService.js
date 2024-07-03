@@ -35,7 +35,7 @@ class ProductService {
       !product.description ||
       !product.code ||
       !product.status ||
-      !product.stock ||
+      (!product.stock && product.stock < 0) ||
       !product.category ||
       !product.thumbnail
     ) {
@@ -65,11 +65,13 @@ class ProductService {
       });
     }
     if (role == "premium") product.owner = email;
-    let result = await productsRepository.createProduct(product);
-    return result;
+    if (product.stock <= 0) product.status = false;
+    const result = await productsRepository.createProduct(product, role);
+    const productDto = ProductDTO.getProductResponseForRole(result[0], "admin");
+    return productDto;
   }
 
-  async getProductById(id) {
+  async getProductById(id, role) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       CustomError.createError({
         name: "error de casteo de id",
@@ -86,7 +88,8 @@ class ProductService {
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
       });
-    return result;
+    const productDto = ProductDTO.getProductResponseForRole(result, role);
+    return productDto;
   }
 
   async deleteProductById(id, email, role) {
