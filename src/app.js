@@ -69,16 +69,20 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * agregar campos (cartId y documents) en getUserResponseForCurrent en userDto
  */
 
 //PRIORIDAD
 /** 
- * ver permisos de user.routes
- * como puedo hacer req.user.campo y no req.user.user.campo
- * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
+ * en api/sessions/current devolver
+ *    name
+ *    email
+ *    role
+ *    cartId (dto)
+ *    documentos
  * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
  * en GET user sacar el password de la respuesta 
+ * ver permisos de user.routes
  */
 
 //Probar:
@@ -97,6 +101,7 @@ app.use(errorHandler);
  *  Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
+ * arreglar github en passport
  * 
  * CART
  * Mejorar la eficiencia del addProd de cart.dao.js

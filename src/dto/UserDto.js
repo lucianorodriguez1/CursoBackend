@@ -1,3 +1,6 @@
+import cartService from "../services/CartService.js";
+import CartDTO from "./CartDto.js";
+
 export default class UserDTO {
   static getUserTokenFrom = (user) => {
     return {
@@ -16,7 +19,7 @@ export default class UserDTO {
           age: user.age,
           email: user.email,
           role: user.role,
-          cartId:user.cartId,
+          cartId: user.cartId,
           last_connection: user.last_connection,
           isOnline: user.isOnline,
         };
@@ -42,11 +45,20 @@ export default class UserDTO {
         };
     }
   };
-  static getUserResponseForCurrent = (user) => {
+  static getUserResponseForCurrent = async (user) => {
+    const cart = await cartService.getCartById(user.cartId, user.role);
     return {
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
       role: user.role,
+      cartId: cart,
+      documents:
+        user.documents.length > 0
+          ? user.documents.map((doc) => ({
+              name: doc.name,
+              reference: doc.reference,
+            }))
+          : "No hay documentos",
     };
   };
 }
