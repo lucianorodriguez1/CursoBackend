@@ -1,6 +1,6 @@
 import winston from "winston";
 import config from "../config/config.js";
-import path, { format } from 'path'
+import path, { format } from "path";
 
 const __dirname = path.resolve();
 
@@ -22,19 +22,30 @@ const customsLevelsOptions = {
     debug: "white",
   },
 };
+winston.addColors(customsLevelsOptions.colors);
 
 const devLogger = winston.createLogger({
   levels: customsLevelsOptions.levels,
   format: winston.format.combine(
-    winston.format.colorize(), // Colorea el nivel del log
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Agrega la marca de tiempo
-    winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`) // Formato personalizado
+    winston.format.colorize({ all: true }),
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    winston.format.printf(
+      ({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`
+    )
   ),
-  transports: [new winston.transports.Console({ level: "debug"})],
+  transports: [new winston.transports.Console({ level: "debug" })],
 });
 
 const prodLogger = winston.createLogger({
   levels: customsLevelsOptions.levels,
+  levels: customsLevelsOptions.levels,
+  format: winston.format.combine(
+    winston.format.colorize({ all: true }),
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    winston.format.printf(
+      ({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`
+    )
+  ),
   transports: [
     new winston.transports.Console({
       level: "info",
@@ -47,8 +58,15 @@ const prodLogger = winston.createLogger({
 });
 
 export const addLogger = (req, res, next) => {
-  req.logger = config.environment == "production" ? prodLogger : devLogger;
-  req.logger.http(`${new Date().toDateString()} ${req.method} ${req.url}`);
+  const logger = config.environment == "production" ? prodLogger : devLogger;
+  req.logger = logger;
+
+  res.on("finish", () => {
+    const statusCode = res.statusCode;
+    const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+    const logLevel =
+      statusCode >= 500 ? "error" : statusCode >= 400 ? "warning" : "info";
+    logger.log(logLevel, `${req.method} ${fullUrl} ${statusCode}`);
+  });
   next();
 };
- 

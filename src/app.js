@@ -21,10 +21,9 @@ const __dirname = path.resolve();
 const PORT = config.port;
 
 app.listen(PORT, () => {
-  console.log(`listening to the server on PORT ${config.port}`);
+  console.log(`listening to the server on http://localhost:${config.port}`);
 });
 
-//generar documentacion api
 const swaggerOptions = {
   definition: {
     openapi: "3.0.1",
@@ -81,9 +80,6 @@ app.use(errorHandler);
  * Ver si esta bien devolver el producto por el controlador al crear un modelo.
  * Si el producto tiene stock 0 modificar el status a false.
  * acordarse de poner el code en el ProductDto
- * 
- * lOGGER
- * donde se guardan los loggers de error en produccion
  * 
  * USUARIOS
  * ver permisos de user.routes
