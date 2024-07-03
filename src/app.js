@@ -69,13 +69,12 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * solucionar bug de colores personalizados en logger.js
+ * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado en getProductById de ProductService.
  */
 
 //PRIORIDAD
 /**
- * * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
- * controlar el error de tiempo de espera de la base de datos.
+ * *
  * 
  * Si se elimina un prducto de la base de dato que se borre de los carritos.
  * Ver si esta bien devolver el producto por el controlador al crear un modelo.

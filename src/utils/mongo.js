@@ -9,7 +9,7 @@ export async function connnectDB() {
     await mongoose.connect(config.mongoUrl);
     console.log('MONGODB ATLAS connected to app');
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Error connecting to MongoDB');
     if (error.name === 'MongoNetworkError') {
       console.log('Retrying connection in 5 seconds...');
       CustomError.createError({

@@ -7,6 +7,7 @@ import ProductDTO from "../dto/ProductDto.js";
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";
 import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
+import mongoose from "mongoose";
 
 class ProductService {
   constructor() {}
@@ -69,6 +70,14 @@ class ProductService {
   }
 
   async getProductById(id) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      CustomError.createError({
+        name: "error de casteo de id",
+        cause: "object id invalid",
+        message: "Error get product",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     let result = await productsRepository.getProductBy({ _id: id });
     if (!result)
       CustomError.createError({
