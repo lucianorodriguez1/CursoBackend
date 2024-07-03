@@ -6,7 +6,7 @@ import { uploader } from "../../utils/multer.js";
 const userRouter = Router();
 
 userRouter.get("/",passportCallOptional('jwt'),users.getUsers);
-userRouter.get("/:uid",users.getUser);
+userRouter.get("/:uid",passportCallOptional('jwt'),users.getUser);
 userRouter.delete("/:uid",users.deleteUser);
 userRouter.put("/:uid",users.updateUser);
 userRouter.get("/premium/:uid",users.changePremium);

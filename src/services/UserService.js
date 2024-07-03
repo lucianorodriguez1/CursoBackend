@@ -34,7 +34,7 @@ class UserService {
     const result = await usersRepository.createUser(newUser);
     return result;
   }
-  async getUserById(id) {
+  async getUserById(id,role) {
     let result = await usersRepository.getUserById(id);
     if (!result)
       CustomError.createError({
@@ -43,7 +43,10 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_ID,
       });
-    return result;
+      console.log(result)
+    const userDto = await UserDTO.getUserResponseForRole(result,role)
+    console.log(userDto)
+    return userDto;
   }
   async getUserByCart(cartId) {
     let result = await usersRepository.getUserByCart(cartId);

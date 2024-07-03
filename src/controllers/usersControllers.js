@@ -9,7 +9,9 @@ export const getUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
   const id = req.params.uid;
-  const user = await userService.getUserById(id);
+  const role = req.user?.data?.role || null;
+  console.log(req.user)
+  const user = await userService.getUserById(id,role);
   response(res, 200, user);
 };
 

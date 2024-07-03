@@ -69,20 +69,12 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * agregar campos (cartId y documents) en getUserResponseForCurrent en userDto
+ * 
  */
 
 //PRIORIDAD
 /** 
- * en api/sessions/current devolver
- *    name
- *    email
- *    role
- *    cartId (dto)
- *    documentos
- * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
- * en GET user sacar el password de la respuesta 
- * ver permisos de user.routes
+*
  */
 
 //Probar:
@@ -94,7 +86,6 @@ app.use(errorHandler);
  * get con sort -1 de products
  * devolver al owner si es el propietaria del producto todo las caracteristicas.
  * 
- * 
  * USUARIOS
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
  * *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
@@ -102,6 +93,7 @@ app.use(errorHandler);
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  * arreglar github en passport
+ * ver permisos de user.routes
  * 
  * CART
  * Mejorar la eficiencia del addProd de cart.dao.js

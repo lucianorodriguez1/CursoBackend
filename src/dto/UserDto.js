@@ -10,7 +10,9 @@ export default class UserDTO {
     };
   };
 
-  static getUserResponseForRole = (user, role) => {
+  static getUserResponseForRole = async(user, role) => {
+    const cart = await cartService.getCartById(user.cartId, user.role);
+    console.log(role)
     switch (role) {
       case "admin":
         return {
@@ -19,7 +21,7 @@ export default class UserDTO {
           age: user.age,
           email: user.email,
           role: user.role,
-          cartId: user.cartId,
+          cartId: cart,
           last_connection: user.last_connection,
           isOnline: user.isOnline,
         };
