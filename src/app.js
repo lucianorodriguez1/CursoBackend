@@ -21,7 +21,7 @@ const __dirname = path.resolve();
 const PORT = config.port;
 
 app.listen(PORT, () => {
-  console.log(`listening to the server on http://localhost:${config.port}`);
+  console.log(`listening to the server on http://localhost:${PORT}`);
 });
 
 const swaggerOptions = {
@@ -69,7 +69,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * agregar token de auth y passwordReset en UserService y SessionService.
  */
 
 //Probar:

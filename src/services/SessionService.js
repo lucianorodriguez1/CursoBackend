@@ -1,4 +1,4 @@
-import { generateToken } from "../utils/jwt.js";
+import { generateAuthToken } from "../utils/jwt.js";
 import { isValidPassword } from "../utils/bcrypt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
@@ -30,7 +30,7 @@ class SessionService {
       isOnline: true,
     });
 
-    const token = generateToken(user);
+    const token = generateAuthToken(user);
     return {
       token:token,
       message:"Login correct"
@@ -53,7 +53,7 @@ class SessionService {
     await usersServices.updateUserById(user._id, {
       isOnline: true,
     });
-    const token = generateToken(user);
+    const token = generateAuthToken(user);
     return {
       token:token,
       message:"Register correct"

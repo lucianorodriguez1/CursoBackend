@@ -3,10 +3,16 @@ import config from "../config/config.js";
 import CustomError from "../services/errors/CustomError.js";
 import {ErrorCodes} from "../services/errors/enums.js";
 
-export const generateToken = (data) => {
-  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "24h" });
+export const generatePasswordResetToken = (data) => {
+  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "5m" });
   return token;
 };
+
+export const generateAuthToken = (data) => {
+  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "30m" });
+  return token;
+};
+
 
 export const decodedToken = (token) =>{
   try {

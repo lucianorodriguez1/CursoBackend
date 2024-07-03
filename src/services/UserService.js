@@ -2,7 +2,7 @@ import UserDTO from "../dto/UserDto.js";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 import { createHash, isValidPassword } from "../utils/bcrypt.js";
-import { decodedToken, generateToken } from "../utils/jwt.js";
+import { decodedToken, generatePasswordResetToken } from "../utils/jwt.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import config from "../config/config.js";
@@ -91,7 +91,7 @@ class UserService {
   }
   async sendEmailToResetPassword(email) {
     await userService.getUserByEmail(email);
-    const token = generateToken({ email: email });
+    const token = generatePasswordResetToken({ email: email });
     const resetLink = `http://localhost:${config.port}/reestablecerContrasenia?token=${token}`;
     const result = await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
