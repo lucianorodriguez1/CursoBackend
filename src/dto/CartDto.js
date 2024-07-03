@@ -1,5 +1,3 @@
-import CustomError from "../services/errors/CustomError.js";
-import { ErrorCodes } from "../services/errors/enums.js";
 import ProductDTO from "./ProductDto.js";
 
 export default class CartDTO {
@@ -13,8 +11,10 @@ export default class CartDTO {
         id: cart._id,
         products:
           cart.products.length > 0
-            ? cart.products.map((prod) =>
-                ProductDTO.getProductResponseForRole(prod.prodId, role)
+            ? cart.products.map((prod) =>({
+              product:ProductDTO.getProductResponseForRole(prod.prodId, role),
+              quantity: prod.quantity,
+            })
               )
             : "No hay productos",
       };

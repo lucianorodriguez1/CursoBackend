@@ -69,14 +69,11 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado en getProductById de ProductService.
+ * 
  */
 
 //PRIORIDAD
 /**
- * *
- * 
- * Si se elimina un prducto de la base de dato que se borre de los carritos.
  * Ver si esta bien devolver el producto por el controlador al crear un modelo.
  * acordarse de poner el code en el ProductDto
  * Si el producto tiene stock 0 modificar el status a false.
@@ -85,10 +82,7 @@ app.use(errorHandler);
  * como puedo hacer req.user.campo y no req.user.user.campo
  * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
  * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
- * en GET user sacar el password de la respuesta
- * 
- * poner en el DTO de cart los quantity de los productos.
- * 
+ * en GET user sacar el password de la respuesta 
  */
 
 //Probar:
@@ -117,9 +111,6 @@ app.use(errorHandler);
  * 
  * PURCHASE
  * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
- * 
- * ERRORES
- 
  * 
  * DESAFIO COMPLEMENTARIO 
  *    documentar el modulo API DE productos (DELETE,POST)

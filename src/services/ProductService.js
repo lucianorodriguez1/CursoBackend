@@ -1,4 +1,4 @@
-import { productsRepository } from "../repositories/index.js";
+import { cartsRepository, productsRepository } from "../repositories/index.js";
 import productModel from "../dao/mongo/models/productModel.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
@@ -91,6 +91,7 @@ class ProductService {
 
   async deleteProductById(id, email, role) {
     const product = await this.getProductById(id);
+    await cartsRepository.removeDeletedProductsFromcart(id);
     if (role == "premium" && email == product.owner) {
       await productsRepository.deleteProductById(id);
       await transport.sendMail({

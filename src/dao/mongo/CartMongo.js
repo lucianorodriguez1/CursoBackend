@@ -69,11 +69,13 @@ export default class Cart {
     );
     return result;
   }
-
-  async purchase(cid) {
-    
-  }
   async deleteCart(cid){
     return await cartModel.findByIdAndDelete(cid);
+  }
+  async removeDeletedProducts(pid){
+    return await cartModel.updateMany(
+      { "products.prodId": pid },
+      { $pull: { products: { prodId: pid } } }
+    );
   }
 }

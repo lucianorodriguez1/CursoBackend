@@ -47,4 +47,8 @@ export default class CartRepository {
     let result = await this.dao.deleteCart(cid);
     return result ;
   }
+  async removeDeletedProductsFromcart(pid){
+    let result = await this.dao.removeDeletedProducts(pid);
+    return result;
+  }
 }
