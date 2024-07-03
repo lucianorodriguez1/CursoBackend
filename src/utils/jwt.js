@@ -9,7 +9,7 @@ export const generatePasswordResetToken = (data) => {
 };
 
 export const generateAuthToken = (data) => {
-  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "30m" });
+  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "1h" });
   return token;
 };
 
@@ -43,3 +43,7 @@ export const decodedToken = (token) =>{
     }
   }
 }
+
+export const decodeTokenWithoutVerify = (token) => {
+  return jwt.decode(token);
+};

@@ -15,6 +15,7 @@ import routeErrorHandler from "./middlewares/routeErrorHandler.js";
 import { addLogger } from "./utils/logger.js";
 import routes from "./routes/index.js";
 import viewsRouter from "./routes/views.routes.js";
+import tokenExpirationMiddleware from "./middlewares/tokenExpirationMiddleware.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -57,6 +58,7 @@ app.use(
 initializatePassport();
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(tokenExpirationMiddleware)
 
 app.use(routes);
 app.engine("handlebars", handlebars.engine());
@@ -70,11 +72,16 @@ app.use(errorHandler);
 //Guardar:
 /**
  * 
- */
+*/
+
 //Probar:
 /**
  * TODO
  * agregar fecha de creacion en todos las colecciones.
+ * en los archivos routes verificar devolver las respuestas de acuerdo a QUIEN ES.
+ * 
+ * SESSION
+ * hacer token de login con expiracion de 1 hora de inactividad.
  * 
  * PRODUCTOS
  * get con sort -1 de products
@@ -82,8 +89,8 @@ app.use(errorHandler);
  * 
  * USUARIOS
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
- * *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
- *  Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
+ * Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
+ * Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  * arreglar github en passport
@@ -93,9 +100,6 @@ app.use(errorHandler);
  * Mejorar la eficiencia del addProd de cart.dao.js
  * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
  * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
- * 
- * SESSION
- * hacer token de login con expiracion de 4 horas. y al expirarse actualizar la ultima conexion del usuario.
  * 
  * TICKET
  * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
@@ -113,4 +117,4 @@ app.use(errorHandler);
  * VISTAS
  * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
  * Poner la ruta views en routes/web y crear su index
- */
+*/
