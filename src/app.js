@@ -69,33 +69,42 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * agregar token de auth y passwordReset en UserService y SessionService.
+ * solucionar bug de colores personalizados en logger.js
+ */
+
+//PRIORIDAD
+/**
+ * * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
+ * controlar el error de tiempo de espera de la base de datos.
+ * 
+ * Si se elimina un prducto de la base de dato que se borre de los carritos.
+ * Ver si esta bien devolver el producto por el controlador al crear un modelo.
+ * acordarse de poner el code en el ProductDto
+ * Si el producto tiene stock 0 modificar el status a false.
+ * 
+ * ver permisos de user.routes
+ * como puedo hacer req.user.campo y no req.user.user.campo
+ * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
+ * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
+ * en GET user sacar el password de la respuesta
+ * 
+ * poner en el DTO de cart los quantity de los productos.
+ * 
  */
 
 //Probar:
 /**
  * PRODUCTOS
  * get con sort -1 de products
- * Si se elimina un prducto de la base de dato que se borre de los carritos.
- * Ver si esta bien devolver el producto por el controlador al crear un modelo.
- * Si el producto tiene stock 0 modificar el status a false.
- * acordarse de poner el code en el ProductDto
  * 
  * USUARIOS
- * ver permisos de user.routes
- * como puedo hacer req.user.campo y no req.user.user.campo
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
- * ver el GET de api/users/current para saber qie informacion devolver. Cuando llamo a GET de users ver que se mande el DTO de users con DTO de cart en CartId.
- * enviar mediante UserDto el documento del usuario si tiene, y sino que se muestre 'No tiene documentos'
- * poner permisos en user.routes.js
- * en GET user sacar el password de la respuesta
  * *  Si se sube una imagen de perfil, deberá guardarlo en una carpeta profiles, en caso de recibir la imagen de un producto, deberá guardarlo en una carpeta products, mientras que ahora al cargar un documento, multer los guardará en una carpeta documents.
  *  Modificar el endpoint /api/users/premium/:uid   para que sólo actualice al usuario a premium si ya ha cargado los siguientes documentos:
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  * 
  * CART
- * poner en el DTO de cart los quantity de los productos.
  * Mejorar la eficiencia del addProd de cart.dao.js
  * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
  * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
@@ -111,8 +120,7 @@ app.use(errorHandler);
  * si yo quiero hacer purchase del carrito devolver. el cart esta vacio.
  * 
  * ERRORES
- * manejar el error cuando se espera un :id params en una busqued y se introduce algo equivocado.
- * controlar el error de tiempo de espera de la base de datos.
+ 
  * 
  * DESAFIO COMPLEMENTARIO 
  *    documentar el modulo API DE productos (DELETE,POST)

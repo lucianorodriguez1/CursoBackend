@@ -22,7 +22,7 @@ const customsLevelsOptions = {
     debug: "white",
   },
 };
-winston.addColors(customsLevelsOptions.colors);
+//winston.addColors(customsLevelsOptions.colors);
 
 const devLogger = winston.createLogger({
   levels: customsLevelsOptions.levels,
@@ -38,7 +38,7 @@ const devLogger = winston.createLogger({
 
 const prodLogger = winston.createLogger({
   levels: customsLevelsOptions.levels,
-  levels: customsLevelsOptions.levels,
+  //levels: customsLevelsOptions.levels,
   format: winston.format.combine(
     winston.format.colorize({ all: true }),
     winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
