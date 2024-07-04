@@ -78,14 +78,10 @@ app.use(errorHandler);
 /**
  * TODO
  * agregar fecha de creacion en todos las colecciones.
- * en los archivos routes verificar devolver las respuestas de acuerdo a QUIEN ES.
+ * en los archivos routes verificar devolver las respuestas de acuerdo a QUIEN ES. (MIRAR TODOS LOS ROUTES)
  * 
  * SESSION
  * hacer token de login con expiracion de 1 hora de inactividad.
- * 
- * PRODUCTOS
- * get con sort -1 de products
- * devolver al owner si es el propietaria del producto todo las caracteristicas.
  * 
  * USUARIOS
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
@@ -94,7 +90,6 @@ app.use(errorHandler);
  *    Identificación, Comprobante de domicilio, Comprobante de estado de cuenta
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  * arreglar github en passport
- * ver permisos de user.routes
  * 
  * CART
  * Mejorar la eficiencia del addProd de cart.dao.js

@@ -9,7 +9,6 @@ const updateUserOnTokenExpiration = async (token) => {
 
   const user = await userService.getUserByEmail(email);
   if (user) {
-    console.log("entre")
     const fecha = new Date().toISOString();
     await userService.updateUserById(user._id, {
       last_connection: fecha,

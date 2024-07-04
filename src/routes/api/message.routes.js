@@ -5,7 +5,7 @@ import { authorization } from "../../middlewares/authMiddleware.js";
 
 const messageRouter = Router();
 
-messageRouter.get("/",async(req,res)=>{
+messageRouter.get("/",async(req,res)=>{//mal
     try {
         const result = await messageModel.find();
         res.status(200).json({messages:result})
@@ -13,7 +13,7 @@ messageRouter.get("/",async(req,res)=>{
         res.status(500).json({message:"Error controlador message"})
     }
 });
-messageRouter.post("/",passportCall('jwt'),authorization('user') ,async(req,res)=>{
+messageRouter.post("/",passportCall('jwt'),authorization('user') ,async(req,res)=>{//-añ
     const {correo,message} = req.body;
     try {
         const result = await messageModel.insertMany({correo,message});
