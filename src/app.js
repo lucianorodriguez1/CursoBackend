@@ -36,7 +36,7 @@ const swaggerOptions = {
   apis: [`${path.join(__dirname)}/src/docs/**/*.yaml`],
 };
 const specs = swaggerJsDoc(swaggerOptions);
-app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+app.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -74,14 +74,10 @@ app.use(errorHandler);
  * 
 */
 
-//Probar:
+//MEJORAR:
 /**
  * TODO
- * agregar fecha de creacion en todos las colecciones.
  * en los archivos routes verificar devolver las respuestas de acuerdo a QUIEN ES. (MIRAR TODOS LOS ROUTES)
- * 
- * SESSION
- * hacer token de login con expiracion de 1 hora de inactividad.
  * 
  * USUARIOS
  * funcion deleteInactives de sessionServices (borrar usuarios por inactividad y mandarles un correo)
@@ -91,25 +87,10 @@ app.use(errorHandler);
  *    En caso de llamar al endpoint, si no se ha terminado de cargar la documentación, devolver un error indicando que el usuario no ha terminado de procesar su documentación.(Sólo si quiere pasar de user a premium, no al revés)
  * arreglar github en passport
  * 
- * CART
- * Mejorar la eficiencia del addProd de cart.dao.js
- * arreglar el CartModel del CartService(sacarlo y poner la funcion en el controlador del metodo getProductInCart).
- * verificar si puedo borrar los mensajes de de los metodos de CartService si no se encuentra el cart ya que el mensahje esta declarada en la funcion getCartById.
- * 
- * TICKET
- * Crear la funcion en TicketDTO para devolver un formato de fecha vistoso para el usuario en el campo 'purchase_datatime'.
- * Crear errores en TicketsService.
- * 
- * DESAFIO COMPLEMENTARIO 
- *    documentar el modulo API DE productos (DELETE,POST)
- *    documentar el modulo API de carts (GET,GET,DELETE,UPDATE,UPDATE)
  * 
  * DESAFIO TESTING
  *    desarrollar 3 test(mocha,cai y supertest) para routers de products
  *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
  *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
  * 
- * VISTAS
- * Ver porque me da el error de ruta cuando hago un get de las rutas de views.
- * Poner la ruta views en routes/web y crear su index
 */
