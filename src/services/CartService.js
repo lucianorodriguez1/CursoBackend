@@ -6,7 +6,7 @@ import CartDTO from "../dto/CartDto.js";
 import cartModel from "../dao/mongo/models/cartModel.js";
 
 class CartService {
-  constructor() {}
+  constructor() { }
 
   async getCarts(role) {
     let carts = await cartsRepository.getCarts();
@@ -21,7 +21,15 @@ class CartService {
     return result;
   }
 
-  async getCartById(id, role) {
+  async getCartById(id, role, userCartId) {
+    if (id != userCartId && role != 'admin') {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error get cart by id",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     let cart = await cartsRepository.getCartById(id);
     if (!cart)
       CustomError.createError({
@@ -34,7 +42,15 @@ class CartService {
     return result;
   }
 
-  async addProductFromCart(cid, pid, email) {
+  async addProductFromCart(cid, pid, email, userCartId) {
+    if (cid != userCartId) {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error addProductById",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     const cart = await cartsRepository.getCartById(cid);
     if (!cart)
       CustomError.createError({
@@ -58,7 +74,15 @@ class CartService {
     }
   }
 
-  async deleteProductsCart(cid) {
+  async deleteProductsCart(cid, userCartId) {
+    if (cid != userCartId) {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error delete products cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
@@ -90,7 +114,15 @@ class CartService {
     return result;
   }
 
-  async deleteProduct(cid, pid) {
+  async deleteProduct(cid, pid,userCartId) {
+    if (cid != userCartId) {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error delete product cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
@@ -105,7 +137,15 @@ class CartService {
     return "Se elimino el producto del carrito";
   }
 
-  async updateProductsCart(cid, products) {
+  async updateProductsCart(cid, products,userCartId) {
+    if (cid != userCartId) {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error delete product cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
@@ -119,7 +159,15 @@ class CartService {
     return "Se actualizo el carrito";
   }
 
-  async updateProduct(cid, pid, quantity) {
+  async updateProduct(cid, pid, quantity,userCartId) {
+    if (cid != userCartId) {
+      CustomError.createError({
+        name: "no coinciden los parametros",
+        cause: "parametros no coinciden",
+        message: "Error delete product cart",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     const cart = await cartsRepository.getCartById(cid);
     if (!cart) {
       CustomError.createError({
