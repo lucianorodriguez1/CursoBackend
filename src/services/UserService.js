@@ -78,8 +78,23 @@ class UserService {
     });
     return "user eliminado";
   }
-  async updateUserById(id, data) {
-    await this.getUserById(id);
+  async updateUserById(id, data,role,email) {
+    const user = await usersRepository.getUserById(id);
+    if (!result)
+      CustomError.createError({
+        name: "user no encontrado",
+        cause: "invalid id",
+        message: "Error get user",
+        code: ErrorCodes.INVALID_ID,
+      });
+    if(user.email != email && role !='admin'){
+      CustomError.createError({
+        name: "sin permisos para editar el usuario",
+        cause: "se trato de acceder a un endpoint sin authorizacion",
+        message: "Error update user by id",
+        code: ErrorCodes.INVALID_ID,
+      });
+    }
     removeEmptyObjectFields(data);
     await usersRepository.updateUserById(id, data);
     return "se actualizo el user";
@@ -154,7 +169,18 @@ class UserService {
     }
   }
 
-  async createDocuments(uid, file) {
+  async createDocuments(uid, file,idCurrent) {
+    if(uid != idCurrent)
+    {
+      CustomError.createError({
+        name: "no tienes permiso para crear documentos.",
+        cause:"se intento dubir documentos a una cuenta que no le pertenece",
+        message: "No coincide el id de user y current",
+        code: ErrorCodes.INVALID_ID,
+
+      })
+    }
+
     if (!file) {
       return "No hay archivos.";
     }

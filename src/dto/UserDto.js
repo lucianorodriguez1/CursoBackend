@@ -10,7 +10,7 @@ export default class UserDTO {
     };
   };
 
-  static getUserResponseForRole = async(user, role) => {
+  static getUserResponseForRole = async (user, role) => {
     const cart = await cartService.getCartById(user.cartId, user.role);
     switch (role) {
       case "admin":
@@ -20,9 +20,16 @@ export default class UserDTO {
           age: user.age,
           email: user.email,
           role: user.role,
-          cartId: cart,
+          cart: cart,
           last_connection: user.last_connection,
           isOnline: user.isOnline,
+          documents:
+            user.documents.length > 0
+              ? user.documents.map((doc) => ({
+                name: doc.name,
+                reference: doc.reference,
+              }))
+              : "No hay documentos",
         };
       case "premium":
         return {
@@ -49,16 +56,17 @@ export default class UserDTO {
   static getUserResponseForCurrent = async (user) => {
     const cart = await cartService.getCartById(user.cartId, user.role);
     return {
+      id:user._id,
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
       role: user.role,
-      cartId: cart,
+      cart: cart,
       documents:
         user.documents.length > 0
           ? user.documents.map((doc) => ({
-              name: doc.name,
-              reference: doc.reference,
-            }))
+            name: doc.name,
+            reference: doc.reference,
+          }))
           : "No hay documentos",
     };
   };
