@@ -4,6 +4,7 @@ import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
 import usersServices from "./UserService.js";
 import UserDTO from "../dto/UserDto.js";
+import { usersRepository } from "../repositories/index.js";
 
 class SessionService {
   constructor() {}
@@ -32,8 +33,8 @@ class SessionService {
 
     const token = generateAuthToken(user);
     return {
-      token:token,
-      message:"Login correct"
+      token: token,
+      message: "Login correct",
     };
   }
 
@@ -55,8 +56,8 @@ class SessionService {
     });
     const token = generateAuthToken(user);
     return {
-      token:token,
-      message:"Register correct"
+      token: token,
+      message: "Register correct",
     };
   }
 
@@ -77,10 +78,9 @@ class SessionService {
     });
 
     return {
-      cookie:'coderCookieToken',
-      message:"Logout correct"
-    }
-    
+      cookie: "coderCookieToken",
+      message: "Logout correct",
+    };
   }
 
   async current(req) {
@@ -95,7 +95,20 @@ class SessionService {
     return UserDTO.getUserResponseForCurrent(req.user.data);
   }
 
-  
+  async deleteInactive() {
+    const now = new Date();
+    const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
+
+    const result = await usersRepository.deleteMany({
+      last_connection: { $lt: twoDaysAgo },
+    });
+
+    if (result.deletedCount > 0) {
+      return `Usuarios eliminados: ${result.deletedCount}`;
+    } else {
+      return "No se encontraron usuarios inactivos para eliminar.";
+    }
+  }
 }
 
 const sessionService = new SessionService();

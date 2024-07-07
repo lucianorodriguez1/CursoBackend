@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "./public")));
 
 app.use(addLogger);
 app.use(cookieParser());
-app.use(
+app.use( //borrar
   session({
     store: MongoStore.create({
       mongoUrl: config.mongoUrl,
@@ -57,7 +57,7 @@ app.use(
 );
 initializatePassport();
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session());//borrar
 app.use(tokenExpirationMiddleware)
 
 app.use(routes);
@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * 
+ * instalar el paquete mocha en desarrollo: 'npm i -D mocha'.
 */
 
 //MEJORAR:

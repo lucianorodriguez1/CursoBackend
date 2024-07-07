@@ -52,11 +52,6 @@ export const changePremium = async (req,res) => {
   response(res,200,result);
 }
 
-export async function deleteInactives(req, res) {
-  const data = await sessionService.deleteInactive();
-  response(res, 200, data);
-}
-
 export async function sendEmailToResetPassword(req, res) {
   const {email} = req.body;
   const result = await userService.sendEmailToResetPassword(email);

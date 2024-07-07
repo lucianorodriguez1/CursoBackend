@@ -38,4 +38,7 @@ export async function current(req, res) {
   response(res, 200, data);
 }
 
-
+export async function deleteInactives(req, res) {
+  const data = await sessionService.deleteInactive();
+  response(res, 200, data);
+}
