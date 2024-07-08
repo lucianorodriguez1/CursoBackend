@@ -35,6 +35,8 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const  id  = req.params.uid;
   const { first_name, last_name, age, email, password } = req.body;
+  const role = req.user?.data?.role || null;
+  const eCurrent = req.user?.data?.email || null;
 
   const result = await userService.updateUserById(id, {
     first_name,
@@ -42,19 +44,14 @@ export const updateUser = async (req, res) => {
     age,
     email,
     password,
-  });
+  },role,eCurrent);
   response(res, 200, result);
 };
 
 export const changePremium = async (req,res) => {
   const id = req.params.uid;
-  const result = await userService.changePremium(id);
+  const result = await userService.changePremium(id,role);
   response(res,200,result);
-}
-
-export async function deleteInactives(req, res) {
-  const data = await sessionService.deleteInactive();
-  response(res, 200, data);
 }
 
 export async function sendEmailToResetPassword(req, res) {
@@ -69,11 +66,16 @@ export const resetPassword = async(req,res) =>{
   const result = await userService.resetPassword(token,password);
   response(res, 200, result);
 }
+export async function deleteInactives(req, res) {
+  const data = await sessionService.deleteInactive();
+  response(res, 200, data);
+}
 
 export const createDocuments = async(req,res) =>{
   const usuarioId = req.params.uid
   const file = req.file || null;
-  const result = await userService.createDocuments(usuarioId,file);
+  const idCurrent = req.user?.data?.id || null;
+  const result = await userService.createDocuments(usuarioId,file,idCurrent);
   response(res, 200, result);
 }
 
