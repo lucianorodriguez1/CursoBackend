@@ -1,0 +1,40 @@
+{{#if error}} <!-- Verificar si hay un error -->
+    <p>{{error}}</p> <!-- Mostrar el mensaje de error -->
+  {{/if}}
+  
+<form
+  style="max-width: 300px; margin: 0 auto;"
+  action="http://localhost:8080/api/sessions/login"
+  method="POST" 
+>
+  <h2 style="text-align: center;">Login</h2>
+  <label for="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Email"
+    style="width: 100%; padding: 8px; margin-bottom: 10px;"
+  />
+  <label for="password">Password:</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="*******"
+    style="width: 100%; padding: 8px; margin-bottom: 10px;"
+  />
+  <button type="submit">
+    Iniciar sesion
+  </button>
+ 
+</form>
+<div style="max-width: 300px; margin: 0 auto;">
+  <button onclick="window.location.href = '/api/sessions/github';">Entrar con GitHub</button>
+</div >
+ 
+
+<div style="max-width: 300px; margin: 0 auto;">
+  <p>No tienes cuenta?</p>
+  <button onclick="window.location.href = '/register';">Registrarse</button>
+</div>
