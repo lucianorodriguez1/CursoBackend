@@ -145,10 +145,6 @@ class UserService {
     return "Se cambio la contraseña con exito";
   }
 
-<<<<<<< HEAD
-  async uploadDocuments(uid, files) {
-    if (!files || Object.keys(files).length === 0) {
-=======
   async deleteInactive() {
     const now = new Date();
     const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
@@ -187,7 +183,6 @@ class UserService {
     }
 
     if (!file) {
->>>>>>> ce32084a3478323326ffca1f3d8b9b77dbd32258
       return "No hay archivos.";
     }
 

@@ -24,21 +24,12 @@ export default class UserDTO {
           last_connection: user.last_connection,
           isOnline: user.isOnline,
           documents:
-<<<<<<< HEAD
-          user.documents.length > 0
-            ? user.documents.map((doc) => ({
-                name: doc.name,
-                reference: doc.reference,
-              }))
-            : "No hay documentos",
-=======
             user.documents.length > 0
               ? user.documents.map((doc) => ({
                 name: doc.name,
                 reference: doc.reference,
               }))
               : "No hay documentos",
->>>>>>> ce32084a3478323326ffca1f3d8b9b77dbd32258
         };
       case "premium":
         return {

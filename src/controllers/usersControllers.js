@@ -73,7 +73,6 @@ export async function deleteInactives(req, res) {
 
 export const uploadDocuments = async(req,res) =>{
   const usuarioId = req.params.uid
-<<<<<<< HEAD
   const files = req.files || null;
   if (!files || Object.keys(files).length === 0) {
     return res.status(400).send({ message: 'No files were uploaded.' });
@@ -89,11 +88,6 @@ export const uploadProfilePhoto = async(req,res) =>{
     return res.status(400).send({ message: 'No photo were uploaded.' });
   }
   const result = await userService.uploadProfilePhoto(usuarioId,photo);
-=======
-  const file = req.file || null;
-  const idCurrent = req.user?.data?.id || null;
-  const result = await userService.createDocuments(usuarioId,file,idCurrent);
->>>>>>> ce32084a3478323326ffca1f3d8b9b77dbd32258
   response(res, 200, result);
 }
 
