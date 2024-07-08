@@ -20,7 +20,7 @@ export default class UserDTO {
           age: user.age,
           email: user.email,
           role: user.role,
-          cartId: cart,
+          cart: cart,
           last_connection: user.last_connection,
           isOnline: user.isOnline,
         };
@@ -52,7 +52,7 @@ export default class UserDTO {
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
       role: user.role,
-      cartId: cart,
+      cart: cart,
       documents:
         user.documents.length > 0
           ? user.documents.map((doc) => ({
