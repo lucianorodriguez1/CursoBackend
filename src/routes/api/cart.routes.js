@@ -6,11 +6,11 @@ import { passportCall} from "../../middlewares/passportMiddleware.js";
 const cartRouter = Router();
 
 cartRouter.get("/",passportCall('jwt'),authorization('admin'),carts.getCarts); 
-cartRouter.get("/:cid", passportCall('jwt'),authorization('user','premium','admin'),carts.getCartById);// mal
-cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization('user','premium'),carts.addProductFromCart);//mal
-cartRouter.delete("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.deleteProductFromCart);//mal
-cartRouter.put("/:cid",passportCall('jwt'),authorization('user','premium'),carts.updateCartById);//mal
-cartRouter.put("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.updateProductCart);//mal
+cartRouter.get("/:cid", passportCall('jwt'),authorization('user','premium','admin'),carts.getCartById);
+cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization('user','premium'),carts.addProductFromCart);
+cartRouter.delete("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.deleteProductFromCart);
+cartRouter.put("/:cid",passportCall('jwt'),authorization('user','premium'),carts.updateCartById);
+cartRouter.put("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.updateProductCart);
 
 
 export default cartRouter;

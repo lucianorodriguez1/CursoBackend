@@ -12,10 +12,10 @@ import mongoose from "mongoose";
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query, role) {
+  async getProducts(limit, page, sort, query, role,email) {
     let result = await productsRepository.getProducts(limit, page, sort, query);
     const products = result.data.map((prod) =>
-      ProductDTO.getProductResponseForRole(prod, role)
+      ProductDTO.getProductResponseForRole(prod, role, email)
     );
     result.data = products;
     return result;
@@ -71,7 +71,7 @@ class ProductService {
     return productDto;
   }
 
-  async getProductById(id, role) {
+  async getProductById(id, role,email) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       CustomError.createError({
         name: "error de casteo de id",
@@ -88,7 +88,7 @@ class ProductService {
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
       });
-    const productDto = ProductDTO.getProductResponseForRole(result, role);
+    const productDto = ProductDTO.getProductResponseForRole(result, role,email);
     return productDto;
   }
 
@@ -162,6 +162,28 @@ class ProductService {
   async upddatePurchaseProductById(pid, quantity) {
     await productsRepository.updatePurchaseProductById(pid, quantity);
     return "Se actualizo el producto por la compra";
+  }
+
+  async uploadProductImages(pid, images) {
+    if (!images || images.length === 0) {
+      return "No se subieron imágenes de producto.";
+    }
+  
+    const imageReferences = images.map(image => ({
+      name: image.originalname,
+      reference: image.path,
+    }));
+  
+    const updateData = {
+      $push: {
+        productImages: {
+          $each: imageReferences,
+        },
+      },
+    };
+  
+    await this.updateProductById(pid, updateData);
+    return `Se subieron ${images.length} imágenes de producto.`;
   }
 }
 

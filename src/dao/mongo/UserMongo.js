@@ -9,7 +9,6 @@ export default class User {
   async getById(id) {
     return await userModel.findOne({ _id: id })
   }
-
   async getByEmail(email) {
     return await userModel.findOne({ email: email });
   }

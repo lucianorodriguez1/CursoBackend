@@ -10,7 +10,13 @@ import { ErrorCodes } from "./errors/enums.js";
 class PurchaseService {
   constructor() {}
 
-  async createPurchase(cid) {
+  async createPurchase(cid,cCurrent) {
+    if(cid != cCurrent)CustomError.createError({
+      name: "sin permisos para la compra",
+      cause: "invalid parametros de purchase",
+      message: "Error purchase cart",
+      code: ErrorCodes.INVALID_ID,
+    })
     const cart = await cartsRepository.getCartById(cid);
     if (!cart)
       CustomError.createError({

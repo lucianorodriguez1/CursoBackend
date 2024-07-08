@@ -101,7 +101,8 @@ class UserService {
   }
 
   async changePremium(id) {
-    await this.getUserById(id);
+    const user = await this.getUserById(id);
+    if(!user.documents.identification || !user.documents.proofOfResidence || !user.documents.accountStatement)
     await usersRepository.updateUserById(id, { role: "premium" });
     return "se actualizo el rol del user a premium";
   }
@@ -144,6 +145,10 @@ class UserService {
     return "Se cambio la contraseña con exito";
   }
 
+<<<<<<< HEAD
+  async uploadDocuments(uid, files) {
+    if (!files || Object.keys(files).length === 0) {
+=======
   async deleteInactive() {
     const now = new Date();
     const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
@@ -182,18 +187,57 @@ class UserService {
     }
 
     if (!file) {
+>>>>>>> ce32084a3478323326ffca1f3d8b9b77dbd32258
       return "No hay archivos.";
     }
+
+    const documentsToAdd = [];
+
+    const fileFields = ['identification', 'proofOfResidence', 'accountStatement'];
+    
+    fileFields.forEach(field => {
+      if (files[field]) {
+        files[field].forEach(file => {
+          documentsToAdd.push({
+            name: field, 
+            originalname: file.originalname,
+            reference: file.path
+          });
+        });
+      }
+    });
+  
+    if (documentsToAdd.length === 0) {
+      return "No hay archivos válidos.";
+    }
+
+
     const updateData = {
       $push: {
         documents: {
-          name: file.originalname,
-          reference: file.path,
-        },
+          $each: documentsToAdd
+        }
+      }
+    };
+  
+    await this.updateUserById(uid, updateData);
+    return "upload documents";
+  }
+
+  async uploadProfilePhoto(uid, photo) {
+    if (!photo) {
+      return "No hay foto de perfil.";
+    }
+
+    const updateData = {
+      profilePhoto: {
+        name: photo.originalname,
+        reference: photo.path,
       },
     };
-    const user = await this.updateUserById(uid, updateData);
-    return "create documents";
+  
+    await this.updateUserById(uid, updateData);
+    return "upload documents";
   }
 }
 

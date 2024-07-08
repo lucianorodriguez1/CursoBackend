@@ -40,6 +40,16 @@ const userSchema = new mongoose.Schema({
     default: "user",
     required: true,
   },
+  profilePhoto: {
+    name: {
+      type: String,
+      default: null, 
+    },
+    reference: {
+      type: String,
+      default: null, 
+    },
+  },
   documents: {
     type: [
       {

@@ -1,20 +1,23 @@
-import multer from 'multer';
-import path from 'path';
+import multer from "multer";
+import path from "path";
 
 const __dirname = path.resolve();
 
 const getDestinationFolder = (file) => {
-  const fileType = file.mimetype.split('/')[0];
-  
-  switch (fileType) {
-    case 'image':
-      return path.join(__dirname, '/public/img');
-    case 'video':
-      return path.join(__dirname, '/public/videos');
-    case 'application':
-      return path.join(__dirname, '/public/documents');
+  const fieldname = file.fieldname;
+
+  switch (fieldname) {
+    case "profile":
+      return path.join(__dirname, "/public/profiles");
+    case "product":
+      return path.join(__dirname, "/public/products");
+    case "document":
+    case "identification":
+    case "proofOfResidence":
+    case "accountStatement":
+      return path.join(__dirname, "/public/documents");
     default:
-      return path.join(__dirname, '/public/others');
+      return path.join(__dirname, "/public/others");
   }
 };
 
@@ -24,8 +27,8 @@ const storage = multer.diskStorage({
     cb(null, folder);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  }
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
 });
 
 export const uploader = multer({ storage });

@@ -13,7 +13,7 @@ messageRouter.get("/",async(req,res)=>{//mal
         res.status(500).json({message:"Error controlador message"})
     }
 });
-messageRouter.post("/",passportCall('jwt'),authorization('user') ,async(req,res)=>{//-añ
+messageRouter.post("/",passportCall('jwt'),authorization('user') ,async(req,res)=>{//mal
     const {correo,message} = req.body;
     try {
         const result = await messageModel.insertMany({correo,message});
