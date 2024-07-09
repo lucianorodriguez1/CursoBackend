@@ -1,6 +1,8 @@
 import { ticketRepository } from "../repositories/index.js";
 import { v4 as uuidv4 } from "uuid";
 import TicketDTO from "../dto/TicketDto.js";
+import CustomError from "./errors/CustomError.js";
+import { ErrorCodes } from "./errors/enums.js";
 
 class TicketService {
   constructor() {
@@ -26,11 +28,25 @@ class TicketService {
 
   async getTicketById(id) {
     let result = await ticketRepository.getTicketById(id);
+    if (!result)
+      CustomError.createError({
+        name: "ticket no encontrado",
+        cause: "invalid id",
+        message: "Error get ticket by id",
+        code: ErrorCodes.INVALID_ID,
+      });
     const ticketDto = TicketDTO.getTicketDto(result);
     return ticketDto;
   }
   async deleteTicketById(id) {
-    await ticketRepository.deleteTicketById(id);
+    const result = await ticketRepository.deleteTicketById(id);
+    if (!result)
+      CustomError.createError({
+        name: "ticket no encontrado",
+        cause: "invalid id",
+        message: "Error get ticket by id",
+        code: ErrorCodes.INVALID_ID,
+      });
     return 'El ticket fue eliminado';
   }
 }
