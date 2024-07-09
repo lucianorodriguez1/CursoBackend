@@ -24,8 +24,8 @@ class CartService {
   async getCartById(id, role, userCartId) {
     if (id != userCartId && role != 'admin') {
       CustomError.createError({
-        name: "no coinciden los parametros",
-        cause: "parametros no coinciden",
+        name: "no coinciden los identificadores o el rol",
+        cause: "identificadores o rol no coinciden para ver el carrito",
         message: "Error get cart by id",
         code: ErrorCodes.INVALID_ID,
       });
@@ -35,7 +35,7 @@ class CartService {
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error get cart",
+        message: "Error get cart by id",
         code: ErrorCodes.INVALID_ID,
       });
     const result = CartDTO.getCartResponseForRole(cart, role);
@@ -45,8 +45,8 @@ class CartService {
   async addProductFromCart(cid, pid, email, userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
-        name: "no coinciden los parametros",
-        cause: "parametros no coinciden",
+        name: "no coinciden los identificadores",
+        cause: "identificadores o rol no coinciden para agregar productos al carrito",
         message: "Error addProductById",
         code: ErrorCodes.INVALID_ID,
       });
@@ -77,8 +77,8 @@ class CartService {
   async deleteProductsCart(cid, userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
-        name: "no coinciden los parametros",
-        cause: "parametros no coinciden",
+        name: "no coinciden los identificadores",
+        cause: "identificadores o rol no coinciden para eliminar productos del carrito",
         message: "Error delete products cart",
         code: ErrorCodes.INVALID_ID,
       });
@@ -142,7 +142,7 @@ class CartService {
       CustomError.createError({
         name: "no coinciden los parametros",
         cause: "parametros no coinciden",
-        message: "Error delete product cart",
+        message: "Error update products cart",
         code: ErrorCodes.INVALID_ID,
       });
     }
@@ -151,7 +151,7 @@ class CartService {
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error add product in cart",
+        message: "Error update products in cart",
         code: ErrorCodes.INVALID_ID,
       });
     }
@@ -164,7 +164,7 @@ class CartService {
       CustomError.createError({
         name: "no coinciden los parametros",
         cause: "parametros no coinciden",
-        message: "Error delete product cart",
+        message: "Error update product cart",
         code: ErrorCodes.INVALID_ID,
       });
     }
@@ -173,7 +173,7 @@ class CartService {
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error delete product in cart",
+        message: "Error update product in cart",
         code: ErrorCodes.INVALID_ID,
       });
     }

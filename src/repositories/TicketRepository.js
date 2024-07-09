@@ -2,7 +2,6 @@ export default class TicketRepository {
     constructor(dao) {
       this.dao = dao;
     }
-  
     async getTickets() {
       let result = await this.dao.get();
       return result;
@@ -22,9 +21,5 @@ export default class TicketRepository {
       return result;
     }
 
-    async updateTicketById(id,data) {
-      let result = await this.dao.update(id,data);
-      return result;
-    }
   }
   

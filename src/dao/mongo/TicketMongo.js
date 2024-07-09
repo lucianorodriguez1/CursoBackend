@@ -15,10 +15,5 @@ export default class Ticket {
   async delete(id){
     return await ticketModel.findOneAndDelete({ _id: id });
   }
-  async update(id,data){
-    return await ticketModel.findOneAndUpdate({ _id: id },
-      { ...data },
-      { new: true }
-    );
-  }
+
 }

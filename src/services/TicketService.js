@@ -1,5 +1,6 @@
 import { ticketRepository } from "../repositories/index.js";
 import { v4 as uuidv4 } from "uuid";
+import TicketDTO from "../dto/TicketDto.js";
 
 class TicketService {
   constructor() {
@@ -7,7 +8,8 @@ class TicketService {
 
   async getTickets() {
     let result = await ticketRepository.getTickets();
-    return result;
+    const ticketDto = result.map((ticket)=>TicketDTO.getTicketDto(ticket));
+    return ticketDto;
   }
 
   async createTicket(data) {
@@ -24,7 +26,8 @@ class TicketService {
 
   async getTicketById(id) {
     let result = await ticketRepository.getTicketById(id);
-    return result;
+    const ticketDto = TicketDTO.getTicketDto(result);
+    return ticketDto;
   }
   async deleteTicketById(id) {
     await ticketRepository.deleteTicketById(id);
