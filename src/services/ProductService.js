@@ -30,6 +30,7 @@ class ProductService {
   }
 
   async createProduct(product, email, role) {
+    /*
     if (
       !product.title ||
       !product.description ||
@@ -55,6 +56,7 @@ class ProductService {
         code: ErrorCodes.INVALID_TYPES_ERROR,
       });
     }
+    */
     const codeExists = await this.codeExists(product);
     if (codeExists) {
       CustomError.createError({

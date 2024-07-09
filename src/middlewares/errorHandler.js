@@ -1,7 +1,6 @@
 import { ErrorCodes } from "../services/errors/enums.js";
 
 export default (error, req, res, next) => {
-  req.logger.error(`${error.message}\nStack Trace: ${error.stack}`);
   switch (error.code) {
     case ErrorCodes.INVALID_TYPES_ERROR:
       res.status(400).json({ error: true, name: error.name });
@@ -61,6 +60,7 @@ export default (error, req, res, next) => {
       res.status(404).json({ error: true, name: error.name });
       break;
     default:
+      req.logger.error(`${error.message}\nStack Trace: ${error.stack}`);
       res.status(500).json({
         error: true,
         error: "Unhaled error",

@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * agregar el campo productImages y timestams en productMode, modificar el productMongo para que los metodos reciba por parametros objetos.
+ * optimizar codigo de errorHandler
 */
 
 //REALIZAR:
