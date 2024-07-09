@@ -4,7 +4,7 @@ import { response } from "../utils/response.js";
 export const getProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
   const role = req.user?.data?.role || null;
-  const email = req.user?.data.email || null;
+  const email = req.user?.data?.email || null;
   let data = await productService.getProducts(limit, page, sort, query, role,email);
   response(res, 200, data);
 };
@@ -58,12 +58,13 @@ export const deleteProductById = async (req, res) => {
 
 export const updateProductById = async (req, res) => {
   const id = req.params.pid;
+  const email = req.user?.data?.email || null
+  const role = req.user?.data?.role || null;
   const {
     title,
     description,
     code,
     price,
-    status,
     stock,
     category,
     thumbnail,
@@ -74,11 +75,10 @@ export const updateProductById = async (req, res) => {
     description,
     code,
     price,
-    status,
     stock,
     category,
     thumbnail,
-  });
+  },role,email);
   response(res, 200, result);
 };
 

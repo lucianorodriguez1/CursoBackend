@@ -1,15 +1,13 @@
+import moment from "moment";
+
+const formatDate = (date) => {
+  return moment(date).format("DD/MM/YYYY HH:mm:ss");
+};
+
 export default class ProductDTO {
-  constructor(product) {
-    (this.title = product.title),
-      (this.description = product.description),
-      (this.code = product.code),
-      (this.price = product.price),
-      (this.status = product.status),
-      (this.stock = product.stock),
-      (this.category = product.category),
-      (this.thumbnail = product.thumbnail);
-  }
-  static getProductResponseForRole = (product, role, email) => {
+  constructor() {}
+  static getProductResponseForRole = (product, role,email) => {
+
     if (email == product.owner) {
       role = "authorized";
     }
@@ -26,6 +24,8 @@ export default class ProductDTO {
           stock: product.stock,
           category: product.category,
           owner: product.owner,
+          created_data: formatDate(product.createdAt),
+          update_data: formatDate(product.updatedAt),
         };
       default:
         return {
@@ -35,6 +35,8 @@ export default class ProductDTO {
           price: product.price,
           stock: product.stock,
           category: product.category,
+          owner: product.owner,
+          created_data: formatDate(product.createdAt),
         };
     }
   };

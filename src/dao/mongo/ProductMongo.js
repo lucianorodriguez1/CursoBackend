@@ -47,9 +47,9 @@ export default class Product {
   async getBy(params) {
     return await productModel.findOne(params);
   }
-  async update(id, data) {
+  async updateBy(params, data) {
     return await productModel.findOneAndUpdate(
-      { _id: id },
+      params,
       { ...data },
       { new: true }
     );
@@ -61,7 +61,7 @@ export default class Product {
       { new: true }
     );
   }
-  async delete(id) {
-    return await productModel.findOneAndDelete({ _id: id });
+  async deleteBy(params) {
+    return await productModel.findOneAndDelete(params);
   }
 }

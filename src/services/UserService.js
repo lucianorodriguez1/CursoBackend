@@ -145,31 +145,6 @@ class UserService {
     return "Se cambio la contraseña con exito";
   }
 
-  async deleteInactive() {
-    const now = new Date();
-    const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
-    const user = await usersRepository.getUserById("6678f20e85b706c0f070f8a5");
-    if (!user) {
-      return "Usuario no encontrado.";
-    }
-    const lastConnectionDate = new Date(user.last_connection);
-    const currentDate = new Date();
-    const timeDifference = currentDate.getTime() - lastConnectionDate.getTime();
-    console.log(lastConnectionDate);
-    console.log(currentDate);
-    console.log(thirtyMinutesAgo);
-    console.log(`Diferencia de tiempo en milisegundos: ${timeDifference}`);
-    const result = await usersRepository.deleteMany({
-      last_connection: { $lt: thirtyMinutesAgo },
-    });
-    console.log(result);
-    if (result.deletedCount > 0) {
-      return `Usuarios eliminados: ${result.deletedCount}`;
-    } else {
-      return "No se encontraron usuarios inactivos para eliminar.";
-    }
-  }
-
   async createDocuments(uid, file,idCurrent) {
     if(uid != idCurrent)
     {
@@ -230,10 +205,10 @@ class UserService {
         reference: photo.path,
       },
     };
-  
-    await this.updateUserById(uid, updateData);
-    return "upload documents";
+    const user = await this.updateUserById(uid, updateData);
+    return "create documents";
   }
+
 }
 
 const userService = new UserService();
