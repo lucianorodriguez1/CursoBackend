@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query, role) {
+  async getProducts(limit, page, sort, query, role,email) {
     let result = await productsRepository.getProducts(limit, page, sort, query);
     const products = result.data.map((prod) =>
       ProductDTO.getProductResponseForRole(prod, role, email)
@@ -66,7 +66,7 @@ class ProductService {
   }
 
   async deleteProductById(id, email, role) {
-    const product = await this.getProductById(id);
+    const product = await productsRepository.getProductBy({_id:id});
     await cartsRepository.removeDeletedProductsFromcart(id);
     if (role == "premium" && email == product.owner) {
       await productsRepository.deleteProductBy({ _id: id });
@@ -145,6 +145,8 @@ class ProductService {
     return "Se actualizo el producto por la compra";
   }
 
+  //PRUEBA//
+  /* 
   async uploadProductImages(pid, images) {
     if (!images || images.length === 0) {
       return "No se subieron imágenes de producto.";
@@ -166,6 +168,7 @@ class ProductService {
     await this.updateProductById(pid, updateData);
     return `Se subieron ${images.length} imágenes de producto.`;
   }
+  */
 }
 
 const productService = new ProductService();

@@ -27,7 +27,7 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    await usersServices.updateUserById(user._id, {
+    await usersRepository.updateUserById(user._id, {
       isOnline: true,
     });
 

@@ -63,7 +63,7 @@ class UserService {
   }
   async deleteUserById(id) {
     const user = await this.getUserById(id);
-    await cartsRepository.deleteCartById(user.cartId);
+    await cartsRepository.deleteCartById(user.cart);
     await usersRepository.deleteUserById(id);
     await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
@@ -80,7 +80,7 @@ class UserService {
   }
   async updateUserById(id, data,role,email) {
     const user = await usersRepository.getUserById(id);
-    if (!result)
+    if (!user)
       CustomError.createError({
         name: "user no encontrado",
         cause: "invalid id",

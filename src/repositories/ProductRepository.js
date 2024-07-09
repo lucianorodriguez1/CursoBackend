@@ -25,8 +25,8 @@ export default class ProductRepository {
     let result = await this.dao.updatePurchase(pid,quantity);
     return result;
   }
-  async deleteProductBy(id) {
-    let result = await this.dao.deleteBy({_id:id});
+  async deleteProductBy(params) {
+    let result = await this.dao.deleteBy(params);
     return result;
   }
 }
