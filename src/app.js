@@ -71,7 +71,7 @@ app.use(errorHandler);
 
 //Guardar:
 /**
- * optimizar codigo de errorHandler
+ * 
 */
 
 //REALIZAR:

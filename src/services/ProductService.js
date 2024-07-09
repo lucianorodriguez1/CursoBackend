@@ -1,8 +1,6 @@
 import { cartsRepository, productsRepository } from "../repositories/index.js";
-import productModel from "../dao/mongo/models/productModel.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
-import { generateProductErrorInfo } from "./errors/info.js";
 import ProductDTO from "../dto/ProductDto.js";
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";
@@ -12,10 +10,10 @@ import mongoose from "mongoose";
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query, role) {
+  async getProducts(limit, page, sort, query, role, email) {
     let result = await productsRepository.getProducts(limit, page, sort, query);
     const products = result.data.map((prod) =>
-      ProductDTO.getProductResponseForRole(prod, role)
+      ProductDTO.getProductResponseForRole(prod, role, email)
     );
     result.data = products;
     return result;
@@ -26,37 +24,10 @@ class ProductService {
     if (excludeId) {
       query._id = { $ne: excludeId };
     }
-    return await productModel.findOne(query);
+    return await productsRepository.getProductBy(query);
   }
 
   async createProduct(product, email, role) {
-    /*
-    if (
-      !product.title ||
-      !product.description ||
-      !product.code ||
-      !product.status ||
-      (!product.stock && product.stock < 0) ||
-      !product.category ||
-      !product.thumbnail
-    ) {
-      CustomError.createError({
-        name: "Product creation error",
-        cause: generateProductErrorInfo({
-          title,
-          description,
-          code,
-          price,
-          status,
-          stock,
-          category,
-          thumbnail,
-        }),
-        message: "Error trying to create Product",
-        code: ErrorCodes.INVALID_TYPES_ERROR,
-      });
-    }
-    */
     const codeExists = await this.codeExists(product);
     if (codeExists) {
       CustomError.createError({
@@ -98,7 +69,7 @@ class ProductService {
     const product = await this.getProductById(id);
     await cartsRepository.removeDeletedProductsFromcart(id);
     if (role == "premium" && email == product.owner) {
-      await productsRepository.deleteProductById(id);
+      await productsRepository.deleteProductBy({ _id: id });
       await transport.sendMail({
         from: `lucho rodri <${config.correoGmail}>`,
         to: product.owner,
@@ -113,7 +84,7 @@ class ProductService {
       return "El producto fue eliminado por el owner";
     }
     if (role == "admin") {
-      await productsRepository.deleteProductById(id);
+      await productsRepository.deleteProductBy({ _id: id });
       if (product.owner != "admin") {
         await transport.sendMail({
           from: `lucho rodri <${config.correoGmail}>`,
@@ -129,7 +100,6 @@ class ProductService {
       }
       return "El producto fue eliminado por el admin";
     }
-
     if (role == "premium" && email != product.owner)
       CustomError.createError({
         name: "el producto no se puede eliminar",
@@ -140,7 +110,22 @@ class ProductService {
     return "El producto fue eliminado";
   }
 
-  async updateProductById(id, data) {
+  async updateProductById(id, data, role, email) {
+    const product = await productsRepository.getProductBy({ _id: id });
+    if (!product)
+      CustomError.createError({
+        name: "producto no encontrado",
+        cause: "invalid id",
+        message: "Error get product",
+        code: ErrorCodes.INVALID_ID,
+      });
+    if (product.owner != email && role != "admin")
+      CustomError.createError({
+        name: "el producto no se puede actualizar",
+        cause: "no tiene permisos para actualizar el producto",
+        message: "Error actualizar product",
+        code: ErrorCodes.NOT_PERMISSION_DELETE_PRODUCT,
+      });
     const codeExists = await this.codeExists(data, id);
     if (codeExists) {
       CustomError.createError({
@@ -151,16 +136,10 @@ class ProductService {
       });
     }
     removeEmptyObjectFields(data);
-    let result = await productsRepository.updateProductById(id, data);
-    if (!result)
-      CustomError.createError({
-        name: "producto no encontrado",
-        cause: "invalid id",
-        message: "Error update product",
-        code: ErrorCodes.INVALID_ID,
-      });
+    await productsRepository.updateProductBy({ _id: id }, data);
     return "Se actualizo el producto";
   }
+
   async upddatePurchaseProductById(pid, quantity) {
     await productsRepository.updatePurchaseProductById(pid, quantity);
     return "Se actualizo el producto por la compra";

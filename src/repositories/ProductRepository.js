@@ -17,16 +17,16 @@ export default class ProductRepository {
     let result = await this.dao.getBy(params);
     return result;
   }
-  async updateProductById(id, data) {
-    let result = await this.dao.update(id, data);
+  async updateProductBy(params, data) {
+    let result = await this.dao.updateBy(params, data);
     return result;
   }
   async updatePurchaseProductById(pid,quantity) {
     let result = await this.dao.updatePurchase(pid,quantity);
     return result;
   }
-  async deleteProductById(id) {
-    let result = await this.dao.delete(id);
+  async deleteProductBy(id) {
+    let result = await this.dao.deleteBy({_id:id});
     return result;
   }
 }
