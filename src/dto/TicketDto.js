@@ -13,7 +13,7 @@ export default class TicketDTO {
     id:ticket._id,
     code:ticket.code,
     date:formatDate(ticket.purchase_datetime),
-    amount:`$${ticket.amount}`,
+    amount:ticket.amount,
     purchaser:ticket.purchaser,
    }
   };

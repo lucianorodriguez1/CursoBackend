@@ -2,7 +2,6 @@ import productsService from "./ProductService.js";
 import cartService from "./CartService.js";
 import ticketService from "./TicketService.js";
 import userService from "./UserService.js";
-import productService from "./ProductService.js";
 import { cartsRepository } from "../repositories/index.js";
 import CustomError from "./errors/CustomError.js";
 import { ErrorCodes } from "./errors/enums.js";
@@ -14,7 +13,7 @@ class PurchaseService {
     if(cid != cCurrent)CustomError.createError({
       name: "sin permisos para la compra",
       cause: "invalid parametros de purchase",
-      message: "Error purchase cart",
+      message: "Error create purhcase",
       code: ErrorCodes.INVALID_ID,
     })
     const cart = await cartsRepository.getCartById(cid);
@@ -22,7 +21,7 @@ class PurchaseService {
       CustomError.createError({
         name: "cart no encontrado",
         cause: "invalid id",
-        message: "Error get cart",
+        message: "Error get cart en create purchase",
         code: ErrorCodes.INVALID_ID,
       });
     if(cart.products.length == 0){
@@ -35,14 +34,14 @@ class PurchaseService {
 
     for (const item of cart.products) {
       const productId = item.prodId._id;
-      const product = await productsService.getProductById(item.prodId);
+      const product = await productsService.getProductById(productId);
       const quantity = item.quantity;
       let updatedProduct;
 
       if (product.stock < quantity) {
         prodsNoProcesados.push(productId);
       } else {
-        updatedProduct = await productService.upddatePurchaseProductById(
+        updatedProduct = await productsService.upddatePurchaseProductById(
           productId,
           quantity
         );
@@ -52,7 +51,7 @@ class PurchaseService {
         totalPrice = product.price * quantity;
         isTicket = true;
         prodsProcesados.push(productId);
-        await cartService.deleteProduct(cid, productId);
+        await cartService.deleteProduct(cid, productId,cCurrent);
       }
     }
     const user = await userService.getUserByCart(cid);
