@@ -6,28 +6,19 @@ export default class User {
   async get() {
     return await userModel.find();
   }
-  async getById(id) {
-    return await userModel.findOne({ _id: id })
-  }
-  async getByEmail(email) {
-    return await userModel.findOne({ email: email });
-  }
-  async getByCart(cartId) {
-    return await userModel.findOne({ cartId: cartId });
+  async getBy(params) {
+    return await userModel.findOne(params);
   }
   async create(data) {
     return await userModel.insertMany(data);
   }
-  async delete(id){
-    return await userModel.findOneAndDelete({ _id: id });
+  async deleteBy(params) {
+    return await userModel.findOneAndDelete(params);
   }
-  async deleteMany(cond){
+  async deleteMany(cond) {
     return await userModel.deleteMany(cond);
   }
-  async update(id,data){
-    return await userModel.findOneAndUpdate({ _id: id },
-      { ...data },
-      { new: true }
-    );
+  async updateBy(params, data) {
+    return await userModel.findOneAndUpdate(params, { ...data }, { new: true });
   }
 }

@@ -1,6 +1,5 @@
 import { decodedToken, decodeTokenWithoutVerify } from "../utils/jwt.js";
 import userService from "../services/UserService.js";
-import CustomError from "../services/errors/CustomError.js";
 import {ErrorCodes} from "../services/errors/enums.js";
 
 const updateUserOnTokenExpiration = async (token) => {

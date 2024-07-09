@@ -12,13 +12,14 @@ import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 class UserService {
   constructor() {}
 
-  async getUsers(role) {
+  async getUsers(role,email) {
     const users = await usersRepository.getUsers();
     const result = await Promise.all(
-      users.map(async (user) => UserDTO.getUserResponseForRole(user, role))
+      users.map(async (user) => UserDTO.getUserResponseForRole(user, role,email))
     );
     return result;
   }
+
   async createUser(user) {
     const passwordHash = createHash(user.password);
     const cartObject = await cartsRepository.createCart();
@@ -34,8 +35,9 @@ class UserService {
     const result = await usersRepository.createUser(newUser);
     return result;
   }
-  async getUserById(id, role) {
-    let result = await usersRepository.getUserById(id);
+
+  async getUserById(id, role, email) {
+    let result = await usersRepository.getUserBy({ _id: id });
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -43,11 +45,12 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_ID,
       });
-    const userDto = await UserDTO.getUserResponseForRole(result, role);
+    const userDto = await UserDTO.getUserResponseForRole(result, role,email);
     return userDto;
   }
+
   async getUserByCart(cartId) {
-    let result = await usersRepository.getUserByCart(cartId);
+    let result = await usersRepository.getUserBy({ cartId: cartId });
     if (!result)
       CustomError.createError({
         name: "user no encontrado",
@@ -57,14 +60,23 @@ class UserService {
       });
     return result;
   }
+
   async getUserByEmail(email) {
-    let result = await usersRepository.getUserByEmail(email);
+    let result = await usersRepository.getUserBy({ email: email });
     return result;
   }
+
   async deleteUserById(id) {
-    const user = await this.getUserById(id);
-    await cartsRepository.deleteCartById(user.cart);
-    await usersRepository.deleteUserById(id);
+    const user = await usersRepository.getUserBy({_id:id});
+    if (!user)
+      CustomError.createError({
+        name: "user no encontrado",
+        cause: "invalid id de cart",
+        message: "Error get user  by car",
+        code: ErrorCodes.INVALID_ID,
+      });
+    await cartsRepository.deleteCartById(user.cartId);
+    await usersRepository.deleteUserBy({ _id: id });
     await transport.sendMail({
       from: `lucho rodri <${config.correoGmail}>`,
       to: user.email,
@@ -78,8 +90,9 @@ class UserService {
     });
     return "user eliminado";
   }
-  async updateUserById(id, data,role,email) {
-    const user = await usersRepository.getUserById(id);
+
+  async updateUserById(id, data, role, email) {
+    const user = await usersRepository.getUserBy({ _id: id });
     if (!user)
       CustomError.createError({
         name: "user no encontrado",
@@ -87,7 +100,7 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_ID,
       });
-    if(user.email != email && role !='admin'){
+    if (user.email != email && role != "admin") {
       CustomError.createError({
         name: "sin permisos para editar el usuario",
         cause: "se trato de acceder a un endpoint sin authorizacion",
@@ -96,14 +109,18 @@ class UserService {
       });
     }
     removeEmptyObjectFields(data);
-    await usersRepository.updateUserById(id, data);
+    await usersRepository.updateUserBy({ _id: id }, data);
     return "se actualizo el user";
   }
 
   async changePremium(id) {
     const user = await this.getUserById(id);
-    if(!user.documents.identification || !user.documents.proofOfResidence || !user.documents.accountStatement)
-    await usersRepository.updateUserById(id, { role: "premium" });
+    if (
+      !user.documents.identification ||
+      !user.documents.proofOfResidence ||
+      !user.documents.accountStatement
+    )
+      await usersRepository.updateUserBy({ _id: id }, { role: "premium" });
     return "se actualizo el rol del user a premium";
   }
   async sendEmailToResetPassword(email) {
@@ -141,55 +158,57 @@ class UserService {
       });
     }
     const passwordHash = createHash(password);
-    await this.updateUserById(user._id, { password: passwordHash });
+    await usersRepository.updateUserBy({_id:user._id}, { password: passwordHash });
     return "Se cambio la contraseña con exito";
   }
+  /*
 
-  async createDocuments(uid, file,idCurrent) {
-    if(uid != idCurrent)
-    {
+  async createDocuments(uid, files, idCurrent) {
+    if (uid != idCurrent) {
       CustomError.createError({
         name: "no tienes permiso para crear documentos.",
-        cause:"se intento dubir documentos a una cuenta que no le pertenece",
+        cause: "se intento dubir documentos a una cuenta que no le pertenece",
         message: "No coincide el id de user y current",
         code: ErrorCodes.INVALID_ID,
-
-      })
+      });
     }
 
-    if (!file) {
+    if (!files) {
       return "No hay archivos.";
     }
 
     const documentsToAdd = [];
 
-    const fileFields = ['identification', 'proofOfResidence', 'accountStatement'];
-    
-    fileFields.forEach(field => {
+    const fileFields = [
+      "identification",
+      "proofOfResidence",
+      "accountStatement",
+    ];
+
+    fileFields.forEach((field) => {
       if (files[field]) {
-        files[field].forEach(file => {
+        files[field].forEach((file) => {
           documentsToAdd.push({
-            name: field, 
+            name: field,
             originalname: file.originalname,
-            reference: file.path
+            reference: file.path,
           });
         });
       }
     });
-  
+
     if (documentsToAdd.length === 0) {
       return "No hay archivos válidos.";
     }
 
-
     const updateData = {
       $push: {
         documents: {
-          $each: documentsToAdd
-        }
-      }
+          $each: documentsToAdd,
+        },
+      },
     };
-  
+
     await this.updateUserById(uid, updateData);
     return "upload documents";
   }
@@ -205,10 +224,10 @@ class UserService {
         reference: photo.path,
       },
     };
-    const user = await this.updateUserById(uid, updateData);
+    await this.updateUserById(uid, updateData);
     return "create documents";
   }
-
+  */
 }
 
 const userService = new UserService();

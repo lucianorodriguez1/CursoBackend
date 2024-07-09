@@ -22,6 +22,9 @@ class CartService {
   }
 
   async getCartById(id, role, userCartId) {
+    console.log(`id: ${id}`);
+    console.log(`role: ${role}`)
+    console.log(`UserCartId: ${userCartId}`);
     if (id != userCartId && role != 'admin') {
       CustomError.createError({
         name: "no coinciden los parametros",

@@ -1,5 +1,9 @@
 import cartService from "../services/CartService.js";
-import CartDTO from "./CartDto.js";
+import moment from "moment";
+
+const formatDate = (date) => {
+  return moment(date).format("DD/MM/YYYY HH:mm:ss");
+};
 
 export default class UserDTO {
   static getUserTokenFrom = (user) => {
@@ -10,10 +14,16 @@ export default class UserDTO {
     };
   };
 
-  static getUserResponseForRole = async (user, role) => {
-    const cart = await cartService.getCartById(user.cartId, user.role);
+  static getUserResponseForRole = async (user, role, email) => {
+    if (user.email == email) role = "authorized";
+    const cart = await cartService.getCartById(
+      user.cartId,
+      user.role,
+      user.cartId
+    );
     switch (role) {
       case "admin":
+      case "authorized":
         return {
           id: user._id,
           name: `${user.first_name} ${user.last_name}`,
@@ -26,10 +36,12 @@ export default class UserDTO {
           documents:
             user.documents.length > 0
               ? user.documents.map((doc) => ({
-                name: doc.name,
-                reference: doc.reference,
-              }))
+                  name: doc.name,
+                  reference: doc.reference,
+                }))
               : "No hay documentos",
+          created_data: formatDate(user.createdAt),
+          updated_data: formatDate(user.updatedAt),
         };
       case "premium":
         return {
@@ -50,13 +62,18 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
+          role: user.role,
         };
     }
   };
   static getUserResponseForCurrent = async (user) => {
-    const cart = await cartService.getCartById(user.cartId, user.role);
+    const cart = await cartService.getCartById(
+      user.cartId,
+      user.role,
+      user.cartId
+    );
     return {
-      id:user._id,
+      id: user._id,
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
       role: user.role,
@@ -64,9 +81,9 @@ export default class UserDTO {
       documents:
         user.documents.length > 0
           ? user.documents.map((doc) => ({
-            name: doc.name,
-            reference: doc.reference,
-          }))
+              name: doc.name,
+              reference: doc.reference,
+            }))
           : "No hay documentos",
     };
   };

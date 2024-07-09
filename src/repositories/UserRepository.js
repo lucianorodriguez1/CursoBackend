@@ -13,28 +13,20 @@ export default class UserRepository {
     return result;
   }
 
-  async getUserById(id) {
-    let result = await this.dao.getById(id);
+  async getUserBy(params) {
+    let result = await this.dao.getBy(params);
     return result;
   }
-  async getUserByEmail(email) {
-    let result = await this.dao.getByEmail(email);
+  async deleteUserBy(params) {
+    let result = await this.dao.deleteBy(params);
     return result;
   }
-  async getUserByCart(cartId) {
-    let result = await this.dao.getByCart(cartId);
-    return result;
-  }
-  async deleteUserById(id) {
-    let result = await this.dao.delete(id);
-    return result;
-  }
-  async deleteMany(cond){
+  async deleteMany(cond) {
     let result = await this.dao.deleteMany(cond);
     return result;
   }
-  async updateUserById(id,data) {
-    let result = await this.dao.update(id,data);
+  async updateUserBy(params, data) {
+    let result = await this.dao.updateBy(params, data);
     return result;
   }
 }

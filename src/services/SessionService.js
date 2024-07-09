@@ -27,7 +27,7 @@ class SessionService {
         code: ErrorCodes.AUTHENTICATION_ERROR,
       });
     }
-    await usersRepository.updateUserById(user._id, {
+    await usersRepository.updateUserBy(user._id, {
       isOnline: true,
     });
 
@@ -50,10 +50,10 @@ class SessionService {
     }
     await usersServices.createUser(data);
     user = await usersServices.getUserByEmail(data.email);
-    await usersServices.updateUserById(user._id, { isOnline: true });
+    await usersServices.updateUserById(user._id, { isOnline: true },data.role,data.email);
     await usersServices.updateUserById(user._id, {
       isOnline: true,
-    });
+    },data.role,data.email);
     const token = generateAuthToken(user);
     return {
       token: token,
@@ -75,7 +75,7 @@ class SessionService {
     await usersServices.updateUserById(user._id, {
       last_connection: fecha,
       isOnline: false,
-    });
+    },req.user.data.role,req.user.data.email);
 
     return {
       cookie: "coderCookieToken",

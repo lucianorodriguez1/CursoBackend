@@ -3,14 +3,16 @@ import { response } from "../utils/response.js";
 
 export const getUsers = async (req, res) => {
   const role = req.user?.data?.role || null;
-  const users = await userService.getUsers(role);
+  const email = req.user?.data?.email || null;
+  const users = await userService.getUsers(role, email);
   response(res, 200, users);
 };
 
 export const getUser = async (req, res) => {
   const id = req.params.uid;
   const role = req.user?.data?.role || null;
-  const user = await userService.getUserById(id,role);
+  const email = req.user?.data?.email || null;
+  const user = await userService.getUserById(id,role,email);
   response(res, 200, user);
 };
 
