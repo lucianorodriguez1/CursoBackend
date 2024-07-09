@@ -12,7 +12,7 @@ const updateUserOnTokenExpiration = async (token) => {
     await userService.updateUserById(user._id, {
       last_connection: fecha,
       isOnline: false,
-    });
+    },user.role,user.email);
   }
 };
 

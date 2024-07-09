@@ -11,23 +11,23 @@ export default (error, req, res, next) => {
     case ErrorCodes.NOT_AVAILABLE_ADDPRODUCTCART:
     case ErrorCodes.INVALID_TOKEN:
     case ErrorCodes.TOKEN_EXPIRED:
-      res.status(400).json({ error: true, name: error.name });
+      res.status(400).json({ error: false, name: error.name });
       break;
     case ErrorCodes.INVALID_ID:
     case ErrorCodes.INVALID_EMAIL:
     case ErrorCodes.NOT_FOUND_ERROR:
     case ErrorCodes.REPEATED_PASSWORD:
     case ErrorCodes.PRODUCT_NOT_FOUND__IN_CART:
-      res.status(404).json({ error: true, name: error.name });
+      res.status(404).json({ error: false, name: error.name });
       break;
     case ErrorCodes.VALIDATION_ERROR:
-      res.status(422).json({ error: true, name: error.name });
+      res.status(422).json({ error: false, name: error.name });
       break;
     case ErrorCodes.AUTHENTICATION_ERROR:
-      res.status(401).json({ error: true, name: error.name });
+      res.status(401).json({ error: false, name: error.name });
       break;
     case ErrorCodes.AUTHORIZATION_ERROR:
-      res.status(403).json({ error: true, name: error.name });
+      res.status(403).json({ error: false, name: error.name });
       break;
     case ErrorCodes.DATABASE_ERROR:
     case ErrorCodes.TOKEN_ERROR:

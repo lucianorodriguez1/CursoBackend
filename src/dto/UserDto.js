@@ -31,7 +31,7 @@ export default class UserDTO {
           email: user.email,
           role: user.role,
           cart: cart,
-          last_connection: user.last_connection,
+          last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
           documents:
             user.documents.length > 0
@@ -47,7 +47,7 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
-          last_connection: user.last_connection,
+          last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
           role: user.role,
         };
@@ -55,7 +55,7 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
-          last_connection: user.last_connection,
+          last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
         };
       default:
