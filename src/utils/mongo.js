@@ -9,9 +9,8 @@ export async function connnectDB() {
     await mongoose.connect(config.mongoUrl);
     console.log('mongodb connected to app');
   } catch (error) {
-    console.error('Error connecting to MongoDB');
-    if (error.name === 'MongoNetworkError') {
-      console.log('Retrying connection in 5 seconds...');
+    console.log('Error connecting to MongoDB');
+    if (error.name === 'MongoNetworkError' || error.name === 'MongooseServerSelectionError') {
       CustomError.createError({
         name: 'error de conexion del servidor',
         cause: 'se tardo mucho tiempo en conectarse a la ddbb',

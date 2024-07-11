@@ -31,11 +31,15 @@ export default (error, req, res, next) => {
       break;
     case ErrorCodes.DATABASE_ERROR:
     case ErrorCodes.TOKEN_ERROR:
-      req.logger.error(`${error.message}\nStack Trace: ${error.stack}`);
+      req.logger.error(`Mensaje de error:
+        ${error.message}\n\n
+        Stack Trace: ${error.stack}`);
       res.status(500).json({ error: true, error: error.name });
       break;
     default:
-      req.logger.error(`${error.message}\nStack Trace: ${error.stack}`);
+      req.logger.error(`Mensaje de error:
+        ${error.message}\n\n
+        Stack Trace: ${error.stack}`);
       res.status(500).json({
         error: true,
         mssage: "Unhaled error",

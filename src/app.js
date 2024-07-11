@@ -22,7 +22,7 @@ const __dirname = path.resolve();
 const PORT = config.port;
 
 app.listen(PORT, () => {
-  console.log(`listening to the server on http://localhost:${PORT}`);
+  console.log(`listening to the server on ${config.AppUrl}:${PORT}`);
 });
 
 const swaggerOptions = {
@@ -69,15 +69,3 @@ app.use("/", viewsRouter);
 app.use(routeErrorHandler);
 app.use(errorHandler);
 
-//Guardar:
-/**
- * 
-*/
-
-//REALIZAR:
-/**
- * DESAFIO TESTING
- *    desarrollar 3 test(mocha,cai y supertest) para routers de products
- *    desarrollar 3 test(mocha,cai y supertest) para routers de carts
- *    desarrollar 3 test(mocha,cai y supertest) para routers de sessions
-*/

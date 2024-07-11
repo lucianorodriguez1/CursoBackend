@@ -11,5 +11,6 @@ export default{
     clienteSecretsGitHub: process.env.CLIENT_SECRETS_GITHUB,
     environment: process.env.ENVIRONMENT,
     passwordGmail:process.env.PASSWORD_APP_GMAIL,
-    correoGmail: process.env.CORREO_GMAIL
+    correoGmail: process.env.CORREO_GMAIL,
+    AppUrl: process.env.APP_URL
 }
