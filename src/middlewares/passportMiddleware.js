@@ -2,6 +2,7 @@ import passport from "passport";
 import CustomError from "../services/errors/CustomError.js";
 import { ErrorCodes } from "../services/errors/enums.js";
 
+
 export const passportCall = (strategy) => {
   return async (req, res, next) => {
     passport.authenticate(strategy, function (err, user, info) {
@@ -14,6 +15,24 @@ export const passportCall = (strategy) => {
             message: "Error passportCall middleware",
             code: ErrorCodes.AUTHENTICATION_ERROR,
           });
+        } catch (error) {
+          return next(error);
+        }
+      }
+      req.user = user;
+      next();
+    })(req, res, next);
+  };
+};
+
+export const passportCallView = (strategy) => {
+  return async (req, res, next) => {
+    passport.authenticate(strategy, function (err, user, info) {
+      if (err) return next(err);
+      if (!user) {
+        try {
+         res.render("not-available")
+          
         } catch (error) {
           return next(error);
         }

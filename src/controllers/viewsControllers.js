@@ -1,4 +1,4 @@
-import { productsRepository,cartsRepository } from "../repositories/index.js";
+import { productsRepository, cartsRepository } from "../repositories/index.js";
 
 export const viewHome = (req, res) => {
   res.render("index", {
@@ -18,7 +18,12 @@ export const viewProducts = async (req, res) => {
   } else {
     usernameUser = "anonimo";
   }
-  const response = await productsRepository.getProducts(limit, page, sort, query);
+  const response = await productsRepository.getProducts(
+    limit,
+    page,
+    sort,
+    query
+  );
   const existsNextPage = response.hasNextPage;
   const existsPrevPage = response.hasPrevPage;
   const nextLink = `http://localhost:8080/products?page=${
@@ -61,22 +66,24 @@ export const viewRegister = (req, res) => {
 export const viewLogin = (req, res) => {
   res.render("login", {});
 };
-export const viewProfile = (req, res) => {
-  const userData = req.user;
 
+export const viewProfile = (req, res) => {
+  if (!req.user) {
+    return;
+  }
+  const userData = req.user;
   res.render("profile", {
-    userFirstName: userData.user.first_name,
-    userLastName: userData.user.last_name,
-    userAge: userData.user.age,
-    userEmail: userData.user.email,
+    userFirstName: userData.data.first_name,
+    userLastName: userData.data.last_name,
+    userAge: userData.data.age,
+    userEmail: userData.data.email,
   });
 };
 
-export const reestablecerContrasenia = (req,res) =>{
+export const reestablecerContrasenia = (req, res) => {
+  res.render("reestablecerContrasenia", {});
+};
 
-  res.render("reestablecerContrasenia",{});
-}
-
-export const mandarEmail = (req,res) =>{
-  res.render("mandarEmail",{});
-}
+export const mandarEmail = (req, res) => {
+  res.render("mandarEmail", {});
+};
