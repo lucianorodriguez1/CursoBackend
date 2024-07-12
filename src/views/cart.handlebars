@@ -1,17 +1,22 @@
-<h1>Hola soy id:{{cartId}}</h1>
+<h1>CART</h1>
 
 {{#each cart}}
   <div
     style="flex: 0 0 calc(33.33% - 20px); margin-right: 20px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 20px;"
   >
-    <button style="background-color: #f0f0f0; width: 100%;cursor:pointer;">
-      <h2>{{this.prodId.title}}</h2>
-      <p>Description: {{this.prodId.description}}</p>
-      <p>Code: {{this.prodId.code}}</p>
-      <p>Price: {{this.prodId.price}}</p>
-      <p>Status: {{#if this.prodId.status}}true{{else}}false{{/if}}</p>
-      <p>Stock: {{this.prodId.stock}}</p>
-      <p>Category: {{this.prodId.category}}</p>
-       <p>Quantity: {{this.quantity}}</p>
+    <h2>{{this.prodId.title}}</h2>
+    <p>Description: {{this.prodId.description}}</p>
+    <p>Code: {{this.prodId.code}}</p>
+    <p>Price: {{this.prodId.price}}</p>
+    <p>Status: {{#if this.prodId.status}}true{{else}}false{{/if}}</p>
+    <p>Stock: {{this.prodId.stock}}</p>
+    <p>Category: {{this.prodId.category}}</p>
+    <p>Quantity: {{this.quantity}}</p>
   </div>
 {{/each}}
+
+{{#if purchaseAvailable}}
+  <button>Realizar compra</button>
+{{else}}
+  <p>No hay productos en el carrito</p>
+{{/if}}

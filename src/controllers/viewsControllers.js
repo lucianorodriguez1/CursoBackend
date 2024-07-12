@@ -65,7 +65,7 @@ export const viewProducts = async (req, res) => {
     response.page - 1
   }&limit=2`;
   const products = dataMongoose.map((doc) => doc.toObject());
-  res.render("../views/products", {
+  res.render("products", {
     products,
     existsNextPage,
     existsPrevPage,
@@ -79,18 +79,24 @@ export const viewProducts = async (req, res) => {
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
   const product = await productsRepository.getProductLeanBy({_id:pid});
-  res.render("../views/product", {
+  res.render("product", {
     productId: pid,
     product,
   });
 };
 export const viewCartById = async (req, res) => {
-  const { cid } = req.params;
-  const cartData = await cartsRepository.getCartPopulate(cid);
-  res.render("../views/cart", {
-    cartId: cid,
+  const id  = req.params.cid;
+  const cartData = await cartsRepository.getCartById(id);
+  let purchaseAvailable = false;
+  if(cartData.products.length>0){
+    purchaseAvailable = true
+  }
+  res.render("cart", {
+    cartId: id,
     cart: cartData.products,
+    purchaseAvailable:purchaseAvailable,
   });
+  
 };
 
 export const reestablecerContrasenia = (req, res) => {
