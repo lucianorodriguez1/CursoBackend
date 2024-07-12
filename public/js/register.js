@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const registerForm = document.getElementById("registerForm");
-  
+    const errorMessage = document.getElementById("error-message");
+
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
   
@@ -24,14 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const data = await response.json();
   
         if (response.ok) {
-          window.location.href = "/";
-        } else {
-          alert(data.message);
+            window.location.href = "/";
+          } else {
+            throw new Error(data.message || "email duplicado");
+          }
+        } catch (error) {
+          errorMessage.textContent = error.message;
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Hubo un problema al registrarse. Por favor, inténtalo de nuevo más tarde.");
-      }
     });
   });
   

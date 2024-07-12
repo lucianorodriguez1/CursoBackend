@@ -12,6 +12,25 @@ export const viewHome = (req, res) => {
     });
   }
 };
+export const viewRegister = (req, res) => {
+  res.render("register", {});
+};
+export const viewLogin = (req, res) => {
+  res.render("login", {});
+};
+
+export const viewProfile = (req, res) => {
+  if (!req.user) {
+    return;
+  }
+  const userData = req.user;
+  res.render("profile", {
+    userFirstName: userData.data.first_name,
+    userLastName: userData.data.last_name,
+    userAge: userData.data.age,
+    userEmail: userData.data.email,
+  });
+};
 export const viewProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
 
@@ -65,25 +84,6 @@ export const viewCartById = async (req, res) => {
   res.render("../views/cart", {
     cartId: cid,
     cart: cartData.products,
-  });
-};
-export const viewRegister = (req, res) => {
-  res.render("register", {});
-};
-export const viewLogin = (req, res) => {
-  res.render("login", {});
-};
-
-export const viewProfile = (req, res) => {
-  if (!req.user) {
-    return;
-  }
-  const userData = req.user;
-  res.render("profile", {
-    userFirstName: userData.data.first_name,
-    userLastName: userData.data.last_name,
-    userAge: userData.data.age,
-    userEmail: userData.data.email,
   });
 };
 
