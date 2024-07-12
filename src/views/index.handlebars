@@ -1,15 +1,15 @@
 <h1>HOME</h1>
 
 <div>
-    <button onclick="window.location.href = '/profile';">
-        Profile
-    </button>
-    <button onclick="window.location.href = '/login';">
-        Login
-    </button>
-    <button onclick="window.location.href = '/mandarEmail';">
-        Olvide mi contrasenia
-    </button>
+  <button onclick="window.location.href = '/profile';">
+    Profile
+  </button>
+  {{#if notUser}}
+   <button onclick="window.location.href = '/login';">
+    Login
+  </button>
+  {{/if}}
+  <button onclick="window.location.href = '/mandarEmail';">
+    Olvide mi contrasenia
+  </button>
 </div>
-
- 

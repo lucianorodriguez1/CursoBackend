@@ -1,15 +1,22 @@
 import { productsRepository, cartsRepository } from "../repositories/index.js";
 
 export const viewHome = (req, res) => {
-  res.render("index", {
-    isLogin: req.user,
-  });
+  let user = req.user?.data || null;
+  if (user) {
+    res.render("index", {
+      notUser: false
+    });
+  } else {
+    res.render("index", {
+      notUser: true
+    });
+  }
 };
 export const viewProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
 
   let usernameUser;
-  let admin;
+  let admin; 
   if (req.session.admin) {
     admin = true;
   }
