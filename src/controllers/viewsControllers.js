@@ -106,3 +106,6 @@ export const reestablecerContrasenia = (req, res) => {
 export const mandarEmail = (req, res) => {
   res.render("mandarEmail", {});
 };
+export const notAvailable = (req, res) => {
+  res.render("not-available", {});
+};
