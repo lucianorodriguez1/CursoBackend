@@ -27,3 +27,5 @@ cartButton.addEventListener("click", async () => {
     alert("Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde.");
   }
 });
+
+

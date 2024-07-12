@@ -79,9 +79,12 @@ export const viewProducts = async (req, res) => {
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
   const product = await productsRepository.getProductLeanBy({_id:pid});
+  let user = req.user?.data || null;
+  
   res.render("product", {
     productId: pid,
     product,
+    user
   });
 };
 export const viewCartById = async (req, res) => {
