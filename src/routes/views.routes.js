@@ -5,7 +5,7 @@ import { passportCallOptional, passportCallView } from '../middlewares/passportM
 const viewsRouter = Router();
 
 viewsRouter.get("/",passportCallOptional('jwt'),viewHome);
-viewsRouter.get("/products", viewProducts);
+viewsRouter.get("/products", passportCallOptional('jwt'),viewProducts);
 viewsRouter.get("/products/:pid", viewProductById);
 viewsRouter.get("/carts/:cid", viewCartById);
 viewsRouter.get("/register",viewRegister);

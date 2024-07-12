@@ -4,11 +4,11 @@ export const viewHome = (req, res) => {
   let user = req.user?.data || null;
   if (user) {
     res.render("index", {
-      notUser: false
+      notUser: false,
     });
   } else {
     res.render("index", {
-      notUser: true
+      notUser: true,
     });
   }
 };
@@ -31,18 +31,23 @@ export const viewProfile = (req, res) => {
     userEmail: userData.data.email,
   });
 };
+
 export const viewProducts = async (req, res) => {
   let { limit, page, sort, query } = req.query;
 
   let usernameUser;
-  let admin; 
-  if (req.session.admin) {
-    admin = true;
-  }
-  if (req.session.user) {
-    usernameUser = req.session.user.first_name;
+  let admin;
+
+  const user = req.user?.data || null;
+  if (user) {
+    if (user.role == "admin") {
+      admin = true;
+    }
+    if (user.name) {
+      usernameUser = req.session.user.first_name;
+    }
   } else {
-    usernameUser = "anonimo";
+    usernameUser = "";
   }
   const response = await productsRepository.getProducts(
     limit,
@@ -50,6 +55,7 @@ export const viewProducts = async (req, res) => {
     sort,
     query
   );
+  const dataMongoose = response.data;
   const existsNextPage = response.hasNextPage;
   const existsPrevPage = response.hasPrevPage;
   const nextLink = `http://localhost:8080/products?page=${
@@ -58,7 +64,6 @@ export const viewProducts = async (req, res) => {
   const prevLink = `http://localhost:8080/products?page=${
     response.page - 1
   }&limit=2`;
-  const dataMongoose = response.payload;
   const products = dataMongoose.map((doc) => doc.toObject());
   res.render("../views/products", {
     products,
@@ -70,6 +75,7 @@ export const viewProducts = async (req, res) => {
     admin,
   });
 };
+
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
   const product = await productsRepository.getElementByIdLean(pid);
