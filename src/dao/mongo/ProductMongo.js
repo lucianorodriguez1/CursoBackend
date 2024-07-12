@@ -47,6 +47,9 @@ export default class Product {
   async getBy(params) {
     return await productModel.findOne(params);
   }
+  async getLeanBy(params) {
+    return await productModel.findOne(params).lean();
+  }
   async updateBy(params, data) {
     return await productModel.findOneAndUpdate(
       params,

@@ -17,6 +17,10 @@ export default class ProductRepository {
     let result = await this.dao.getBy(params);
     return result;
   }
+  async getProductLeanBy(params) {
+    let result = await this.dao.getLeanBy(params);
+    return result;
+  }
   async updateProductBy(params, data) {
     let result = await this.dao.updateBy(params, data);
     return result;

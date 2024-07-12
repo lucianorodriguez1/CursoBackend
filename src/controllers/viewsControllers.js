@@ -78,7 +78,7 @@ export const viewProducts = async (req, res) => {
 
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
-  const product = await productsRepository.getElementByIdLean(pid);
+  const product = await productsRepository.getProductLeanBy({_id:pid});
   res.render("../views/product", {
     productId: pid,
     product,
