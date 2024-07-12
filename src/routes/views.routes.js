@@ -15,5 +15,13 @@ viewsRouter.get("/reestablecerContrasenia",reestablecerContrasenia);
 viewsRouter.get("/mandarEmail",mandarEmail);
 viewsRouter.get("/not-available",notAvailable);
 
+// Ruta para obtener el carrito
+viewsRouter.get("/api/cart", passportCallOptional('jwt'), (req, res) => {
+    if (!req.user) {
+      res.json({ error: true });
+    } else {
+      res.json({ error: false, cartId: req.user.data.cartId });
+    }
+  });
 
 export default viewsRouter;

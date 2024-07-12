@@ -1,28 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const cartButton = document.getElementById('cartView');
-    console.log("entre")
-    cartButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      let cartId = "tu_cart_id_aqui";
-      fetch(`/carts/${cartId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("No estás autenticado o hubo un problema con la solicitud.");
-        }
-        return response.text();
-      })
-      .then((html) => {
-        document.body.innerHTML = html;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        window.location.href = "/not-available";
-      });
+let cartButton = document.getElementById("cartView");
+
+cartButton.addEventListener("click", async () => {
+  try {
+    const response = await fetch("/api/cart", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
-  });
-  
+
+    if (!response.ok) {
+      throw new Error("Error al obtener el carrito");
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      // Manejar el caso de que el usuario no esté autenticado
+      window.location.href = "/not-available";
+    } else {
+      // Redirigir al usuario al carrito
+      window.location.href = `/carts/${data.cartId}`;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde.");
+  }
+});
