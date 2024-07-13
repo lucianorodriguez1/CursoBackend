@@ -73,6 +73,7 @@ export async function deleteInactives(req, res) {
   response(res, 200, data);
 }
 
+/*
 export const uploadDocuments = async(req,res) =>{
   const usuarioId = req.params.uid
   const files = req.files || null;
@@ -82,7 +83,7 @@ export const uploadDocuments = async(req,res) =>{
   const result = await userService.uploadDocuments(usuarioId,files);
   response(res, 200, result);
 }
-
+*/
 export const uploadProfilePhoto = async(req,res) =>{
   const usuarioId = req.params.uid
   const photo = req.file || null;

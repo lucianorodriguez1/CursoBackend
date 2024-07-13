@@ -20,7 +20,7 @@ userRouter.post('/:uid/documents', uploader.fields([
     { name: 'proofOfResidence', maxCount: 1 },
     { name: 'accountStatement', maxCount: 1 }
   ]), users.uploadDocuments);
+  */
 userRouter.post('/:uid/profiles', uploader.single('profile'), users.uploadProfilePhoto)
-*/
 
 export default userRouter;

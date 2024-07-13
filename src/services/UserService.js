@@ -12,10 +12,12 @@ import { removeEmptyObjectFields } from "../utils/removeEmptyObjectFields.js";
 class UserService {
   constructor() {}
 
-  async getUsers(role,email) {
+  async getUsers(role, email) {
     const users = await usersRepository.getUsers();
     const result = await Promise.all(
-      users.map(async (user) => UserDTO.getUserResponseForRole(user, role,email))
+      users.map(async (user) =>
+        UserDTO.getUserResponseForRole(user, role, email)
+      )
     );
     return result;
   }
@@ -45,7 +47,7 @@ class UserService {
         message: "Error get user",
         code: ErrorCodes.INVALID_ID,
       });
-    const userDto = await UserDTO.getUserResponseForRole(result, role,email);
+    const userDto = await UserDTO.getUserResponseForRole(result, role, email);
     return userDto;
   }
 
@@ -67,7 +69,7 @@ class UserService {
   }
 
   async deleteUserById(id) {
-    const user = await usersRepository.getUserBy({_id:id});
+    const user = await usersRepository.getUserBy({ _id: id });
     if (!user)
       CustomError.createError({
         name: "user no encontrado",
@@ -158,7 +160,10 @@ class UserService {
       });
     }
     const passwordHash = createHash(password);
-    await usersRepository.updateUserBy({_id:user._id}, { password: passwordHash });
+    await usersRepository.updateUserBy(
+      { _id: user._id },
+      { password: passwordHash }
+    );
     return "Se cambio la contraseña con exito";
   }
   /*
@@ -212,22 +217,22 @@ class UserService {
     await this.updateUserById(uid, updateData);
     return "upload documents";
   }
-
+  
+  */
   async uploadProfilePhoto(uid, photo) {
-    if (!photo) {
-      return "No hay foto de perfil.";
+    const user = await usersRepository.getUserBy({_id:uid});
+    if(!user){
+      return 'User not found'
     }
-
     const updateData = {
       profilePhoto: {
         name: photo.originalname,
         reference: photo.path,
       },
     };
-    await this.updateUserById(uid, updateData);
-    return "create documents";
+    await usersRepository.updateUserBy({_id:uid}, updateData);
+    return "profile photo was uploaded";
   }
-  */
 }
 
 const userService = new UserService();

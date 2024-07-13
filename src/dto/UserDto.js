@@ -11,6 +11,7 @@ export default class UserDTO {
       name: `${user.first_name} ${user.last_name}`,
       role: user.role,
       email: user.email,
+      profilePhoto: user.profilePhoto.reference,
     };
   };
 
@@ -29,6 +30,7 @@ export default class UserDTO {
           name: `${user.first_name} ${user.last_name}`,
           age: user.age,
           email: user.email,
+          profilePhoto: user.profilePhoto.reference,
           role: user.role,
           cart: cart,
           last_connection: formatDate(user.last_connection),
@@ -47,6 +49,7 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
+          profilePhoto: user.profilePhoto.reference,
           last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
           role: user.role,
@@ -55,6 +58,7 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
+          profilePhoto: user.profilePhoto.reference,
           last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
         };
@@ -62,6 +66,7 @@ export default class UserDTO {
         return {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
+          profilePhoto: user.profilePhoto.reference,
           role: user.role,
         };
     }
@@ -76,6 +81,10 @@ export default class UserDTO {
       id: user._id,
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
+      profilePhoto:
+        user.profilePhoto.name != null
+          ? user.profilePhoto.reference
+          : "Sin foto de perfil",
       role: user.role,
       cart: cart,
       documents:
