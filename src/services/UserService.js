@@ -166,18 +166,23 @@ class UserService {
     );
     return "Se cambio la contraseña con exito";
   }
-  /*
 
-  async createDocuments(uid, files, idCurrent) {
-    if (uid != idCurrent) {
-      CustomError.createError({
-        name: "no tienes permiso para crear documentos.",
-        cause: "se intento dubir documentos a una cuenta que no le pertenece",
-        message: "No coincide el id de user y current",
-        code: ErrorCodes.INVALID_ID,
-      });
+  async uploadProfilePhoto(uid, photo) {
+    const user = await usersRepository.getUserBy({ _id: uid });
+    if (!user) {
+      return "User not found";
     }
+    const updateData = {
+      profilePhoto: {
+        name: photo.originalname,
+        reference: photo.path,
+      },
+    };
+    await usersRepository.updateUserBy({ _id: uid }, updateData);
+    return "profile photo was uploaded";
+  }
 
+  async uploadDocuments(uid, files) {
     if (!files) {
       return "No hay archivos.";
     }
@@ -214,24 +219,8 @@ class UserService {
       },
     };
 
-    await this.updateUserById(uid, updateData);
-    return "upload documents";
-  }
-  
-  */
-  async uploadProfilePhoto(uid, photo) {
-    const user = await usersRepository.getUserBy({_id:uid});
-    if(!user){
-      return 'User not found'
-    }
-    const updateData = {
-      profilePhoto: {
-        name: photo.originalname,
-        reference: photo.path,
-      },
-    };
     await usersRepository.updateUserBy({_id:uid}, updateData);
-    return "profile photo was uploaded";
+    return "upload documents";
   }
 }
 
