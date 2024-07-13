@@ -16,10 +16,8 @@ cartButton.addEventListener("click", async () => {
     const data = await response.json();
 
     if (data.error) {
-      // Manejar el caso de que el usuario no esté autenticado
-      window.location.href = "/not-available";
+      window.location.href = "/login";
     } else {
-      // Redirigir al usuario al carrito
       window.location.href = `/carts/${data.cartId}`;
     }
   } catch (error) {
