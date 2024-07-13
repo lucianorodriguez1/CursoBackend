@@ -27,7 +27,7 @@ class PurchaseService {
     if(cart.products.length == 0){
       return 'No hay productos en el carrito'
     }
-    let totalPrice;
+    let totalPrice = 0;
     let prodsNoProcesados = [];
     let isTicket = false;
     let prodsProcesados = [];
@@ -48,7 +48,7 @@ class PurchaseService {
       }
 
       if (updatedProduct) {
-        totalPrice = product.price * quantity;
+        totalPrice += product.price * quantity;
         isTicket = true;
         prodsProcesados.push(productId);
         await cartService.deleteProduct(cid, productId,cCurrent);
