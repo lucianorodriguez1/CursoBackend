@@ -115,16 +115,35 @@ class UserService {
     return "se actualizo el user";
   }
 
-  async changePremium(id) {
-    const user = await this.getUserById(id);
-    if (
-      !user.documents.identification ||
-      !user.documents.proofOfResidence ||
-      !user.documents.accountStatement
-    )
-      await usersRepository.updateUserBy({ _id: id }, { role: "premium" });
+  async changePremium(uid) {
+    const user = await usersRepository.getUserBy({ _id: uid });
+    if (!user)
+      CustomError.createError({
+        name: "user no encontrado",
+        cause: "invalid id de cart",
+        message: "Error get user in changePremium",
+        code: ErrorCodes.INVALID_ID,
+      });
+      
+    const requiredDocuments = [
+      "identification",
+      "proofOfResidence",
+      "accountStatement",
+    ];
+    const userDocumentTypes = user.documents.map((doc) => doc.name);
+
+    const hasAllDocuments = requiredDocuments.every((doc) =>
+      userDocumentTypes.includes(doc)
+    );
+
+    if (!hasAllDocuments) {
+      return "the necessary documents were not uploaded";
+    }
+
+    await usersRepository.updateUserBy({ _id: uid }, { role: "premium" });
     return "se actualizo el rol del user a premium";
   }
+
   async sendEmailToResetPassword(email) {
     await userService.getUserByEmail(email);
     const token = generatePasswordResetToken({ email: email });
@@ -219,7 +238,7 @@ class UserService {
       },
     };
 
-    await usersRepository.updateUserBy({_id:uid}, updateData);
+    await usersRepository.updateUserBy({ _id: uid }, updateData);
     return "upload documents";
   }
 }

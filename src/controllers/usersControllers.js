@@ -52,7 +52,7 @@ export const updateUser = async (req, res) => {
 
 export const changePremium = async (req,res) => {
   const id = req.params.uid;
-  const result = await userService.changePremium(id,role);
+  const result = await userService.changePremium(id);
   response(res,200,result);
 }
 
