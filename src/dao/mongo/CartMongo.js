@@ -67,7 +67,7 @@ export default class Cart {
       { _id: cid, "products._id": pid },
       { $set: { "products.$.quantity": quantity } }
     );
-    return result;
+    return update;
   }
   async deleteCart(cid){
     return await cartModel.findByIdAndDelete(cid);
