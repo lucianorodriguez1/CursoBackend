@@ -122,7 +122,6 @@ describe("Testing E-commerce", async function () {
           "email": "supertest@gmail.com",
           "password": "supertest"
         })
-        .set("Cookie", cookie)
       expect(statusCode).to.equal(200);
       expect(ok).to.be.true;
       expect(body.data).to.equal("Register correct");
@@ -141,12 +140,11 @@ describe("Testing E-commerce", async function () {
         .set("Cookie", cookie)
       expect(statusCode).to.equal(200);
       expect(ok).to.be.true;
-      expect(body.data).to.have.property("name","luciano rodriguez");
+      expect(body.data).to.have.property("email","admin@gmail.com");
     });
   });
 
   // describe("Test de carts", function () {
   //   this.timeout(5000);
-
   // });
 });
