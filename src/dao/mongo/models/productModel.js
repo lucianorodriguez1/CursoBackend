@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
-      default:true,
+      default: true,
       required: true,
     },
     category: {
@@ -38,19 +38,24 @@ const productSchema = new mongoose.Schema(
       index: true,
     },
     thumbnails: {
-      type: Array,
+      type: [
+        {
+          name: {
+            type: String,
+            required:true
+          },
+          reference: {
+            type: String,
+            required:true
+          },
+        },
+      ],
       default: [],
     },
     owner: {
       type: String,
       default: "admin",
     },
-    productImages: [
-      {
-        name: String,
-        reference: String,
-      },
-    ],
   },
   {
     timestamps: true,

@@ -21,6 +21,7 @@ class CartService {
     return result;
   }
 
+  //verificar las dos casos de errores.
   async getCartById(id, role, userCartId) {
     if (id != userCartId && role != 'admin') {
       CustomError.createError({
@@ -42,6 +43,7 @@ class CartService {
     return result;
   }
 
+  //verificar los tres casos de errores.
   async addProductFromCart(cid, pid, email, userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -74,6 +76,7 @@ class CartService {
     }
   }
 
+  //verificar las dos casos de errores.
   async deleteProductsCart(cid, userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -95,6 +98,7 @@ class CartService {
     await cartsRepository.deleteProductsCart(cid);
     return "Se eliminaron todos los productos del carrito";
   }
+  //verificar un caso de error.
   async getProductInCart(cartId, productId) {
     const result = await cartModel.findOne(
       {
@@ -114,6 +118,7 @@ class CartService {
     return result;
   }
 
+  //verificar 2 casos de error.
   async deleteProduct(cid, pid,userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -137,6 +142,7 @@ class CartService {
     return "Se elimino el producto del carrito";
   }
 
+   //verificar 2 casos de error.
   async updateProductsCart(cid, products,userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -158,7 +164,7 @@ class CartService {
     await cartsRepository.updateProductsCart(cid, products);
     return "Se actualizo el carrito";
   }
-
+ //verificar 2 casos de error.
   async updateProduct(cid, pid, quantity,userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -181,8 +187,6 @@ class CartService {
     await cartsRepository.updateProduct(cid, pid, quantity);
     return "Se actualizo el producto del carrito";
   }
-
-  //validatCartPermissions()
 }
 
 const cartService = new CartService();

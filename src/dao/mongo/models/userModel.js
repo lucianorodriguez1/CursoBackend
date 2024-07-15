@@ -45,16 +45,12 @@ const userSchema = new mongoose.Schema(
       name: {
         type: String,
         default: "Sin foto de perfil",
-
       },
       reference: {
         type: String,
         default: "Sin foto de perfil",
-
       },
-
     },
-
     documents: {
       type: [
         {
@@ -74,10 +70,6 @@ const userSchema = new mongoose.Schema(
     last_connection: {
       type: Date,
       default: null,
-    },
-    isOnline: {
-      type: Boolean,
-      default: false,
     },
   },
   {
