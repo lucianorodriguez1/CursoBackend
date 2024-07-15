@@ -9,7 +9,7 @@ const getDestinationFolder = (file) => {
   switch (fieldname) {
     case "profile":
       return path.join(__dirname, "/public/img/profiles");
-    case "product":
+    case "products":
       return path.join(__dirname, "/public/img/products");
     case "document":
     case "identification":

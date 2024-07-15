@@ -12,6 +12,6 @@ productRouter.post('/', passportCall('jwt'),authorization('admin','premium'), va
 productRouter.get('/:pid', products.getProductById);
 productRouter.put('/:pid',  passportCall('jwt'),authorization('admin','premium'),products.updateProductById);
 productRouter.delete('/:pid',  passportCall('jwt'),authorization('admin','premium'), products.deleteProductById);
-productRouter.post('/:pid/products', uploader.array('productImages', 5), products.uploadProductImages);
+productRouter.post('/:pid/images', uploader.array('products', 5), products.uploadProductImages);
 
 export default productRouter;
