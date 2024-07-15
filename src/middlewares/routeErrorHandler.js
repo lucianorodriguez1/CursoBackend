@@ -1,6 +1,5 @@
-// middlewares/notFound.js
-import { ErrorCodes } from "../services/errors/enums.js";
-import customError from "../services/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
+import customError from "../utils/errors/CustomError.js";
 
 export default (req, res, next) => {
   customError.createError({

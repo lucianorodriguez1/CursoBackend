@@ -1,6 +1,6 @@
 import passport from "passport";
-import CustomError from "../services/errors/CustomError.js";
-import { ErrorCodes } from "../services/errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 
 
 export const passportCall = (strategy) => {

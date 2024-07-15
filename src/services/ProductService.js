@@ -1,6 +1,6 @@
 import { cartsRepository, productsRepository } from "../repositories/index.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 import ProductDTO from "../dto/ProductDto.js";
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";

@@ -1,5 +1,5 @@
-import CustomError from "../services/errors/CustomError.js";
-import {ErrorCodes} from "../services/errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import {ErrorCodes} from "../utils/errors/enums.js";
 
 export function authorization(...allowedRoles){
   return async(req,res,next)=>{

@@ -1,6 +1,6 @@
 import { decodedToken, decodeTokenWithoutVerify } from "../utils/jwt.js";
 import userService from "../services/UserService.js";
-import {ErrorCodes} from "../services/errors/enums.js";
+import {ErrorCodes} from "../utils/errors/enums.js";
 
 const updateUserOnTokenExpiration = async (token) => {
   const decoded = decodeTokenWithoutVerify(token);

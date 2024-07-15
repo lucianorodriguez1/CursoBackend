@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { products } from '../../controllers/index.js';
 import { authorization } from '../../middlewares/authMiddleware.js';
 import { passportCall, passportCallOptional } from '../../middlewares/passportMiddleware.js';
-import {validateCreate} from '../../validator/product.js'
+import {validateCreate} from '../../utils/validator/product.js'
 import { uploader } from '../../utils/multer.js';
 
 const productRouter = Router();

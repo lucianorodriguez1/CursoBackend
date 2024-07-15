@@ -1,6 +1,6 @@
 import { cartsRepository } from "../repositories/index.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 import productsService from "./ProductService.js";
 import CartDTO from "../dto/CartDto.js";
 import cartModel from "../dao/mongo/models/cartModel.js";
@@ -181,6 +181,8 @@ class CartService {
     await cartsRepository.updateProduct(cid, pid, quantity);
     return "Se actualizo el producto del carrito";
   }
+
+  //validatCartPermissions()
 }
 
 const cartService = new CartService();

@@ -11,7 +11,7 @@ cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization('user','
 cartRouter.delete("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.deleteProductFromCart);
 cartRouter.put("/:cid",passportCall('jwt'),authorization('user','premium'),carts.updateCartById);
 cartRouter.put("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.updateProductCart);
-
+cartRouter.post('/:cid', passportCall('jwt'),authorization('user','premium'),carts.createPurchase);
 
 export default cartRouter;
 
