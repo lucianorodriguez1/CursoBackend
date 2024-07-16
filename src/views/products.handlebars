@@ -12,18 +12,15 @@
         onclick="window.location.href = '/products/{{this._id}}';"
       >
         {{#if this.thumbnails.length}}
-          <h3>Images:</h3>
-          <div>
-            {{#each this.thumbnails}}
-              <div>
-                <img
-                  src="{{this.reference}}"
-                  alt="{{this.name}}"
-                  style="width:100px; height:auto;"
-                />
-              </div>
-            {{/each}}
-          </div>
+          {{#with (lookup this.thumbnails 0)}}
+            <div>
+              <img
+                src="{{this.reference}}"
+                alt="{{this.name}}"
+                style="width:100px; height:auto;"
+              />
+            </div>
+          {{/with}}
         {{else}}
           <p>No images available</p>
         {{/if}}
