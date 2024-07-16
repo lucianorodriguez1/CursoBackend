@@ -29,8 +29,6 @@ export const viewProfile = (req, res) => {
   {
     sinFoto = true;
   }
-  console.log(userData.data.profilePhoto)
-  console.log(sinFoto)
   res.render("profile", {
     userFirstName: userData.data.first_name,
     userLastName: userData.data.last_name,

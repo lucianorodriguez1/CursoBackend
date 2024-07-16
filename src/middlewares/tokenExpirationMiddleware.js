@@ -14,7 +14,6 @@ const updateUserOnTokenExpiration = async (token) => {
       isOnline: false,
     },user.role,user.email);
   }
-  console.log("expire dentro de la primer funcion")
 };
 
 const tokenExpirationMiddleware = async (req, res, next) => {
@@ -27,7 +26,6 @@ const tokenExpirationMiddleware = async (req, res, next) => {
     next();
   } catch (err) {
     if (err.code === ErrorCodes.TOKEN_EXPIRED) {
-      console.log("expire dentro del catch")
       await updateUserOnTokenExpiration(token);
       res.clearCookie("coderCookieToken");
     }

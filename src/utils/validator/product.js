@@ -36,7 +36,7 @@ export const validateCreate = [
     .not()
     .isEmpty()
     .withMessage("Category cannot be empty"),
-  check("thumbnail").exists().withMessage("Thumbnail is required"),
+  check("thumbnails").exists().withMessage("Thumbnails is required"),
   (req, res, next) => {
     validateResult(req, res, next);
   },
