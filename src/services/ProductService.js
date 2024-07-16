@@ -156,7 +156,7 @@ class ProductService {
 
     const imageReferences = images.map((image) => ({
       name: image.originalname,
-      reference: image.path,
+      reference: `/img/products/${image.filename}`, 
     }));
 
     const updateData = {
