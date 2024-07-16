@@ -81,10 +81,7 @@ export default class UserDTO {
       id: user._id,
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
-      profilePhoto:
-        user.profilePhoto.name != null
-          ? user.profilePhoto.reference
-          : "Sin foto de perfil",
+      profilePhoto: user.profilePhoto.reference || user.profilePhoto[0].reference,
       role: user.role,
       cart: cart,
       documents:

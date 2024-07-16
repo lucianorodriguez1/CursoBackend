@@ -194,7 +194,7 @@ class UserService {
     const updateData = {
       profilePhoto: {
         name: photo.originalname,
-        reference: photo.path,
+        reference:`/img/profiles/${photo.filename}`,
       },
     };
     await usersRepository.updateUserBy({ _id: uid }, updateData);
