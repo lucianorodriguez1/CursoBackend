@@ -10,6 +10,7 @@ const getDestinationFolder = (file) => {
     case "profile":
       return path.join(__dirname, "/public/img/profiles");
     case "products":
+    case "thumbnails":
       return path.join(__dirname, "/public/img/products");
     case "document":
     case "identification":

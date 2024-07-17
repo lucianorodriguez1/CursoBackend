@@ -25,9 +25,13 @@ export const createProduct = async (req, res) => {
     status,
     stock,
     category,
-    thumbnails,
-  } = req.body.data;
-
+  } = req.body;
+  const imagesReferences = req.files;
+  if(req.files.length==0) return res.status(400).json({error:false,message:"Se necesita cargar imagen/imagenes del producto"})
+  const thumbnails = imagesReferences.map((image) => ({
+      name: image.originalname,
+      reference: `/img/products/${image.filename}`, 
+  }));
   const data = await productService.createProduct(
     {
       title,
