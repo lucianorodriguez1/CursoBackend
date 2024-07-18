@@ -1,10 +1,11 @@
 import { generateAuthToken } from "../utils/jwt.js";
 import { isValidPassword } from "../utils/bcrypt.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 import usersServices from "./UserService.js";
 import UserDTO from "../dto/UserDto.js";
 import { usersRepository } from "../repositories/index.js";
+import config from "../config/config.js";
 
 class SessionService {
   constructor() {}
@@ -78,7 +79,7 @@ class SessionService {
     },req.user.data.role,req.user.data.email);
 
     return {
-      cookie: "coderCookieToken",
+      cookie: config.tokenCookie,
       message: "Logout correct",
     };
   }

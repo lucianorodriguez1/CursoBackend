@@ -3,8 +3,8 @@ import cartService from "./CartService.js";
 import ticketService from "./TicketService.js";
 import userService from "./UserService.js";
 import { cartsRepository } from "../repositories/index.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 
 class PurchaseService {
   constructor() {}

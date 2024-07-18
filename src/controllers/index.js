@@ -4,7 +4,6 @@ import * as sessionsControllers from './sessionsControllers.js';
 import * as cartsControllers from './cartsControllers.js';
 import * as viewsControllers from './viewsControllers.js';
 import * as ticketsControllers from './ticketsControllers.js'
-import * as purchasesControllers from './purchasesControllers.js'
 
 import { catchedAsync } from '../utils/catchedAsync.js';
 
@@ -26,4 +25,3 @@ export const sessions = wrapAsyncFunctions(sessionsControllers);
 export const carts = wrapAsyncFunctions(cartsControllers);
 export const views = wrapAsyncFunctions(viewsControllers);
 export const tickets = wrapAsyncFunctions(ticketsControllers);
-export const purchases = wrapAsyncFunctions(purchasesControllers);

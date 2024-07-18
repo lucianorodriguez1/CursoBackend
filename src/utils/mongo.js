@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config/config.js';
-import CustomError from '../services/errors/CustomError.js';
-import {ErrorCodes } from '../services/errors/enums.js';
+import CustomError from './errors/CustomError.js';
+import {ErrorCodes } from './errors/enums.js';
 
 
 export async function connnectDB() {

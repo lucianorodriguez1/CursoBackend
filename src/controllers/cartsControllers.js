@@ -1,4 +1,5 @@
 import cartService from "../services/CartService.js";
+import purchaseService from "../services/PurchaseService.js";
 import { response } from "../utils/response.js";
 
 export const getCarts = async (req, res) => {
@@ -52,3 +53,10 @@ export const updateProductCart = async (req, res) => {
   const data = await cartService.updateProduct(cid, pid, quantity,userCartId);
   response(res, 200, data);
 };
+
+export const createPurchase = async(req,res) => {
+  const cartId = req.params.cid
+  const cartCurrent = req.user?.data?.cartId || null;
+  const result = await purchaseService.createPurchase(cartId,cartCurrent);
+  response(res, 200, result);
+}

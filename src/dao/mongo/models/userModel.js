@@ -45,16 +45,12 @@ const userSchema = new mongoose.Schema(
       name: {
         type: String,
         default: "Sin foto de perfil",
-
       },
       reference: {
         type: String,
         default: "Sin foto de perfil",
-
       },
-
     },
-
     documents: {
       type: [
         {

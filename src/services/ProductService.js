@@ -1,6 +1,6 @@
 import { cartsRepository, productsRepository } from "../repositories/index.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 import ProductDTO from "../dto/ProductDto.js";
 import config from "../config/config.js";
 import { transport } from "../utils/nodemailer.js";
@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 class ProductService {
   constructor() {}
 
-  async getProducts(limit, page, sort, query, role,email) {
+  async getProducts(limit, page, sort, query, role, email) {
     let result = await productsRepository.getProducts(limit, page, sort, query);
     const products = result.data.map((prod) =>
       ProductDTO.getProductResponseForRole(prod, role, email)
@@ -44,7 +44,7 @@ class ProductService {
     return productDto;
   }
 
-  async getProductById(id, role,email) {
+  async getProductById(id, role, email) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       CustomError.createError({
         name: "error de casteo de id",
@@ -61,12 +61,16 @@ class ProductService {
         message: "Error get product",
         code: ErrorCodes.INVALID_ID,
       });
-    const productDto = ProductDTO.getProductResponseForRole(result, role,email);
+    const productDto = ProductDTO.getProductResponseForRole(
+      result,
+      role,
+      email
+    );
     return productDto;
   }
 
   async deleteProductById(id, email, role) {
-    const product = await productsRepository.getProductBy({_id:id});
+    const product = await productsRepository.getProductBy({ _id: id });
     await cartsRepository.removeDeletedProductsFromcart(id);
     if (role == "premium" && email == product.owner) {
       await productsRepository.deleteProductBy({ _id: id });
@@ -145,30 +149,27 @@ class ProductService {
     return "Se actualizo el producto por la compra";
   }
 
-  //PRUEBA//
-  /* 
   async uploadProductImages(pid, images) {
     if (!images || images.length === 0) {
       return "No se subieron imágenes de producto.";
     }
-  
-    const imageReferences = images.map(image => ({
+
+    const imageReferences = images.map((image) => ({
       name: image.originalname,
-      reference: image.path,
+      reference: `/img/products/${image.filename}`, 
     }));
-  
+
     const updateData = {
       $push: {
-        productImages: {
+        thumbnails: {
           $each: imageReferences,
         },
       },
     };
-  
-    await this.updateProductById(pid, updateData);
+
+    await productsRepository.updateProductBy({_id:pid}, updateData);
     return `Se subieron ${images.length} imágenes de producto.`;
   }
-  */
 }
 
 const productService = new ProductService();

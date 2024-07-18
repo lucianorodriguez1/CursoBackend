@@ -6,8 +6,7 @@ const formatDate = (date) => {
 
 export default class ProductDTO {
   constructor() {}
-  static getProductResponseForRole = (product, role,email) => {
-
+  static getProductResponseForRole = (product, role, email) => {
     if (email == product.owner) {
       role = "authorized";
     }
@@ -24,6 +23,7 @@ export default class ProductDTO {
           stock: product.stock,
           category: product.category,
           owner: product.owner,
+          thumbnails: product.thumbnails,
           created_data: formatDate(product.createdAt),
           update_data: formatDate(product.updatedAt),
         };
@@ -36,6 +36,7 @@ export default class ProductDTO {
           stock: product.stock,
           category: product.category,
           owner: product.owner,
+          thumbnails: product.thumbnails,
           created_data: formatDate(product.createdAt),
         };
     }

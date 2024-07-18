@@ -12,7 +12,7 @@ const ExtractJWT = jwt.ExtractJwt;
 const cookieExtractor = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies["coderCookieToken"];
+    token = req.cookies[config.tokenCookie];
   }
   return token;
 };

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
-import CustomError from "../services/errors/CustomError.js";
-import {ErrorCodes} from "../services/errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import {ErrorCodes} from "../utils/errors/enums.js";
 
 export const generatePasswordResetToken = (data) => {
   const token = jwt.sign( {data},config.tokenKey, { expiresIn: "5m" });

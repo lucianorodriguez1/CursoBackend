@@ -1,8 +1,8 @@
 import { ticketRepository } from "../repositories/index.js";
 import { v4 as uuidv4 } from "uuid";
 import TicketDTO from "../dto/TicketDto.js";
-import CustomError from "./errors/CustomError.js";
-import { ErrorCodes } from "./errors/enums.js";
+import CustomError from "../utils/errors/CustomError.js";
+import { ErrorCodes } from "../utils/errors/enums.js";
 
 class TicketService {
   constructor() {

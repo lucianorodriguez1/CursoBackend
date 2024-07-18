@@ -24,11 +24,18 @@ export const viewProfile = (req, res) => {
     return;
   }
   const userData = req.user;
+  let sinFoto = false;
+  if(userData.data.profilePhoto.name == 'Sin foto de perfil')
+  {
+    sinFoto = true;
+  }
   res.render("profile", {
     userFirstName: userData.data.first_name,
     userLastName: userData.data.last_name,
     userAge: userData.data.age,
     userEmail: userData.data.email,
+    userProfilePhoto: userData.data.profilePhoto.reference,
+    sinFoto: sinFoto,
   });
 };
 
