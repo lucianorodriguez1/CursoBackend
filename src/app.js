@@ -7,6 +7,7 @@ import passport from "passport";
 import path from "path";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
+import cors from 'cors';
 
 import config from "./config/config.js";
 import initializatePassport from "./utils/passport.js";
@@ -20,6 +21,15 @@ import tokenExpirationMiddleware from "./middlewares/tokenExpirationMiddleware.j
 const app = express();
 const __dirname = path.resolve();
 const PORT = config.port;
+
+const corsOptions = {
+  origin: 'https://cursobackend-production-680d.up.railway.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  credentials: true 
+};
+
+app.use(cors(corsOptions));
 
 app.listen(PORT, () => {
   console.log(`listening to the server on ${config.AppUrl}:${PORT}`);
