@@ -1,10 +1,11 @@
+import config from "../config/config.js";
 import sessionService from "../services/SessionService.js";
 import { response } from "../utils/response.js";
 
 export async function login(req, res) {
   const { email, password } = req.body;
   const result = await sessionService.login(email, password);
-  res.cookie("coderCookieToken", result.token, {
+  res.cookie(config.tokenCookie, result.token, {
     maxAgre: 60 * 60 * 1000,
     httpOnly: true,
   });
@@ -20,7 +21,7 @@ export async function register(req, res) {
     email,
     password,
   });
-  res.cookie("coderCookieToken", result.token, {
+  res.cookie(config.tokenCookie, result.token, {
     maxAgre: 60 * 60 * 1000,
     httpOnly: true,
   });

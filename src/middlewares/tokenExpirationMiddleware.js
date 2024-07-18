@@ -1,6 +1,7 @@
 import { decodedToken, decodeTokenWithoutVerify } from "../utils/jwt.js";
 import userService from "../services/UserService.js";
 import {ErrorCodes} from "../utils/errors/enums.js";
+import config from "../config/config.js";
 
 const updateUserOnTokenExpiration = async (token) => {
   const decoded = decodeTokenWithoutVerify(token);
@@ -17,7 +18,7 @@ const updateUserOnTokenExpiration = async (token) => {
 };
 
 const tokenExpirationMiddleware = async (req, res, next) => {
-  const token = req.cookies["coderCookieToken"];
+  const token = req.cookies[config.tokenCookie];
   if (!token) {
     return next(); 
   }

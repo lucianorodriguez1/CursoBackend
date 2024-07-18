@@ -12,5 +12,6 @@ export default{
     environment: process.env.ENVIRONMENT,
     passwordGmail:process.env.PASSWORD_APP_GMAIL,
     correoGmail: process.env.CORREO_GMAIL,
-    AppUrl: process.env.APP_URL
+    AppUrl: process.env.APP_URL,
+    tokenCookie:process.env.TOKEN_COOKIE
 }
