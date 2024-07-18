@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const email = loginForm.email.value;
     const password = loginForm.password.value;
-    let urlEndpoint = "https://tu-backend.up.railway.app/api/sessions/login";
+    let urlEndpoint = "https://cursobackend-production-680d.up.railway.app/api/sessions/login";
 
     try {
       const response = await fetch(urlEndpoint, {

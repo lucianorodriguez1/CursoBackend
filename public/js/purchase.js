@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         
-        const response = await fetch("https://tu-backend.up.railway.app/api/cart", {
+        const response = await fetch("https://cursobackend-production-680d.up.railway.app/api/cart", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error("Error al obtener el carrito");
         }
         const data = await response.json();
-        const url = `https://tu-backend.up.railway.app/api/purchases/${data.cartId}`;
+        const url = `https://cursobackend-production-680d.up.railway.app/api/purchases/${data.cartId}`;
         const responsePurch = await fetch(
           url,
           {

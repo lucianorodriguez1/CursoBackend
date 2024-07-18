@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         email: registerForm.email.value,
         password: registerForm.password.value,
       };
-      let urlEndpoint = "https://tu-backend.up.railway.app/api/sessions/register";
+      let urlEndpoint = "https://cursobackend-production-680d.up.railway.app/api/sessions/register";
       try {
         const response = await fetch(urlEndpoint, {
           method: "POST",
