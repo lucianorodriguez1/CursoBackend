@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const email = loginForm.email.value;
     const password = loginForm.password.value;
+    let urlEndpoint = "https://tu-backend.up.railway.app/api/sessions/login";
 
     try {
-      const response = await fetch("http://localhost:8080/api/sessions/login", {
+      const response = await fetch(urlEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

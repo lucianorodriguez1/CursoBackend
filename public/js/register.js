@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
         email: registerForm.email.value,
         password: registerForm.password.value,
       };
-  
+      let urlEndpoint = "https://tu-backend.up.railway.app/api/sessions/register";
       try {
-        const response = await fetch("http://localhost:8080/api/sessions/register", {
+        const response = await fetch(urlEndpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

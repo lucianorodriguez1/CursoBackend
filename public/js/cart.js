@@ -2,7 +2,7 @@ let cartButton = document.getElementById("cartView");
 
 cartButton.addEventListener("click", async () => {
   try {
-    const response = await fetch("/api/cart", {
+    const response = await fetch("https://tu-backend.up.railway.app/api/cart", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

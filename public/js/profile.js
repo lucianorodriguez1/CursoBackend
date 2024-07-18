@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   buttonLogout.addEventListener("click", (e) => {
     e.preventDefault();
-    let urlEndpoint = "http://localhost:8080/api/sessions/logout";
+    let urlEndpoint = "https://tu-backend.up.railway.app/api/sessions/logout";
 
     fetch(urlEndpoint, { method: "GET" })
       .then((response) => {
