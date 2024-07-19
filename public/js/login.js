@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response.ok) {
         window.location.href = "/";
       } else {
-        throw new Error(data.message || "credenciales incorrectas");
+        throw new Error("credenciales incorrectas");
       }
     } catch (error) {
       console.log(error);
