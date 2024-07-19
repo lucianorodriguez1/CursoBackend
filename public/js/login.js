@@ -7,9 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const email = loginForm.email.value;
     const password = loginForm.password.value;
-    let urlEndpoint = `/api/sessions/login`;
     try {
-      const response = await fetch(urlEndpoint, {
+      const response = await fetch("https://cursobackend-production-680d.up.railway.app/api/sessions/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
