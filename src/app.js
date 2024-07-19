@@ -25,13 +25,7 @@ const PORT = config.port;
 const allowedOrigins = config.environment === 'production' ? ['https://cursobackend-production-680d.up.railway.app'] : ['http://localhost:8080'];
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: "https://cursobackend-production-680d.up.railway.app",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   credentials: true 
