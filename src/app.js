@@ -22,10 +22,10 @@ const app = express();
 const __dirname = path.resolve();
 const PORT = config.port;
 
-const allowedOrigins = config.environment === 'production' ? ['https://cursobackend-production-680d.up.railway.app'] : ['http://localhost:8080'];
-
+const allowedOrigins = config.environment == 'production' ? 'https://cursobackend-production-680d.up.railway.app' : 'http://localhost:8080';
+console.log(allowedOrigins)
 const corsOptions = {
-  origin: "https://cursobackend-production-680d.up.railway.app",
+  origin: allowedOrigins,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   credentials: true 
