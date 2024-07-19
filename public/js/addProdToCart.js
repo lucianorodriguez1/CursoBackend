@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const productId = addToCartBtn.getAttribute("data-product-id");
       try {
 
-        const response = await fetch("https://cursobackend-production-680d.up.railway.app/api/cart", {
+        const response = await fetch("/api/cart", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "/not-available";
         } else {
           const cartId = data.cartId;
-          const urlEndpoint = `https://cursobackend-production-680d.up.railway.app/api/carts/${cartId}/product/${productId}`;
+          const urlEndpoint = `/api/carts/${cartId}/product/${productId}`;
 
 
           const responseAdd = await fetch(urlEndpoint, {
