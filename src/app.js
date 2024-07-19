@@ -87,3 +87,4 @@ app.use("/", viewsRouter);
 app.use(routeErrorHandler);
 app.use(errorHandler);
 
+//validar los datos del registro.
