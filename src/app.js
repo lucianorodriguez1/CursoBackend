@@ -23,6 +23,7 @@ const __dirname = path.resolve();
 const PORT = config.port;
 
 const allowedOrigins = config.environment == 'production' ? 'https://cursobackend-production-680d.up.railway.app' : 'http://localhost:8080';
+console.log(config.environment)
 console.log(allowedOrigins)
 const corsOptions = {
   origin: allowedOrigins,
