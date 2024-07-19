@@ -1,6 +1,18 @@
 import { ErrorCodes } from "../utils/errors/enums.js";
 
 export default (error, req, res, next) => {
+  if (!error) {
+    req.logger.error("Error middleware llamado sin error");
+    return res.status(500).json({
+      error: true,
+      message: "Error inesperado sin información adicional",
+    });
+  }
+
+  req.logger.error(`Mensaje de error:
+    ${error.message || "Mensaje no disponible"}\n\n
+    Stack Trace: ${error.stack || "No disponible"}`);
+
   switch (error.code) {
     case ErrorCodes.INVALID_TYPES_ERROR:
     case ErrorCodes.DUPLICATE_EMAIL:
@@ -37,9 +49,6 @@ export default (error, req, res, next) => {
       res.status(500).json({ error: true, error: error.name });
       break;
     default:
-      req.logger.error(`Mensaje de error:
-        ${error.message}\n\n
-        Stack Trace: ${error.stack}`);
       res.status(500).json({
         error: true,
         mssage: "Unhaled error",

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
-  //const errorMessage = document.getElementById("error-message");
+  const errorMessage = document.getElementById("error-message");
 
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
