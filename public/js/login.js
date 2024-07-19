@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const email = loginForm.email.value;
     const password = loginForm.password.value;
+    console.log(email)
+    console.log(password)
     try {
       const response = await fetch("/api/sessions/login", {
         method: "POST",
@@ -15,15 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log(response)
+      console.log(response);
       const data = await response.json();
-console.log(data)
+      console.log(data);
       if (response.ok) {
         window.location.href = "/";
       } else {
         throw new Error(data.message || "credenciales incorrectas");
       }
     } catch (error) {
+      console.log(error);
       errorMessage.textContent = error.message;
     }
   });
