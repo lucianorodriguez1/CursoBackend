@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify({ email, password }),
       });
+      const data = await response.json();
       if (response.ok) {
         window.location.href = "/";
       } else {
-        throw new Error("credenciales incorrectas");
+        throw new Error(data.message || "credenciales incorrectas");
       }
     } catch (error) {
       console.log(error);
