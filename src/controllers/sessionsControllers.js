@@ -5,7 +5,7 @@ import { response } from "../utils/response.js";
 export async function login(req, res) {
   const { email, password } = req.body;
   const result = await sessionService.login(email, password);
-  console.log(result)
+  console.log(result) //prueba
   res.cookie(config.tokenCookie, result.token, {
     maxAgre: 60 * 60 * 1000,
     httpOnly: true,
