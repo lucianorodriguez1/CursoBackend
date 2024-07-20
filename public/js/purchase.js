@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         
-        const response = await fetch("api/cart", {
+        const response = await fetch("/api/cart", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error("Error al obtener el carrito");
         }
         const data = await response.json();
-        const url = `/api/purchases/${data.cartId}`;
+        const url = `/api/carts/purchase/${data.cartId}`;
         const responsePurch = await fetch(
           url,
           {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         const dataPurch = await responsePurch.json();
-
+        console.log(dataPurch)
         if (responsePurch.ok) {
           alert("Se realizo la compra");
           location.reload();
