@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     addToCartBtn.addEventListener("click", async () => {
       const productId = addToCartBtn.getAttribute("data-product-id");
       try {
-
         const response = await fetch("/api/cart", {
           method: "GET",
           headers: {
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           const cartId = data.cartId;
           const urlEndpoint = `/api/carts/${cartId}/product/${productId}`;
-
 
           const responseAdd = await fetch(urlEndpoint, {
             method: "POST",
@@ -47,5 +45,5 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
     });
-  } 
+  }
 });

@@ -64,7 +64,7 @@ export default class Cart {
 
   async update(cid, pid, quantity) {
     const update = await cartModel.updateOne(
-      { _id: cid, "products._id": pid },
+      { _id: cid, "products.prodId": pid },
       { $set: { "products.$.quantity": quantity } }
     );
     return update;

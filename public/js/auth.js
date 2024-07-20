@@ -20,9 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           authLink.textContent = 'Login';
           authLink.href = '/login';
         }
-      } else {
-        console.error('Error verifying authentication status:', response.status);
-      }
+      } 
     } catch (error) {
       console.error('Error verifying authentication status:', error);
     }

@@ -184,8 +184,8 @@ class CartService {
       });
     }
     await this.getProductInCart(cid, pid);
-    await cartsRepository.updateProduct(cid, pid, quantity);
-    return "Se actualizo el producto del carrito";
+    const upd = await cartsRepository.updateProduct(cid, pid, quantity);
+    return upd;
   }
 }
 
