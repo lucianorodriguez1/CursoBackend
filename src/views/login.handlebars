@@ -1,10 +1,6 @@
 <p id="error-message" style="color: red;"></p>
-<form
-  style="max-width: 300px; margin: 0 auto;"
-  method="POST" 
-  id="loginForm"
->
-  <h2 style="text-align: center;">Login</h2>
+<form style="max-width: 300px; margin: 0 auto;" method="POST" id="loginForm">
+  <h2 style="text-align: center;">Inicio de sesion</h2>
   <label for="email">Email:</label>
   <input
     type="email"
@@ -24,16 +20,22 @@
   <button type="submit">
     Iniciar sesion
   </button>
- 
+
 </form>
 <div style="max-width: 300px; margin: 0 auto;">
-  <button onclick="window.location.href = '/api/sessions/github';">Entrar con GitHub</button>
-</div >
- 
+  <button
+    onclick="window.location.href = '/mandarEmail';"
+    style="max-width: 300px; margin: 10 auto;"
+  >
+    Olvide mi contrasenia
+  </button>
+  <button onclick="window.location.href = '/api/sessions/github';">Entrar con
+    GitHub</button>
+</div>
 
 <div style="max-width: 300px; margin: 0 auto;">
   <p>No tienes cuenta?</p>
   <button onclick="window.location.href = '/register';">Registrarse</button>
 </div>
 
-<script  src="/js/login.js"></script>
+<script src="/js/login.js"></script>
