@@ -7,8 +7,8 @@
     <h2>{{this.prodId.title}}</h2>
     <p>Description: {{this.prodId.description}}</p>
     <p>Price: ${{this.prodId.price}}</p>
-    <p>Stock: {{this.prodId.stock}}</p>
-    <p>Quantity: {{this.quantity}}</p>
+    <p id="stockProd" data-stock="{{this.prodId.stock}}">Stock: {{this.prodId.stock}}</p>
+    <p id="quantProd" data-quant="{{this.quantity}}">Quantity: {{this.quantity}}</p>
     <div>
       <button
         id="increaseQuanBtn"

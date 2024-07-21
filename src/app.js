@@ -83,3 +83,4 @@ app.use(errorHandler);
 
 //validar los datos del registro.
 //validar los datos del login
+//arreglar el error de current al entra al sitio web

@@ -30,18 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         const dataPurch = await responsePurch.json();
-        console.log(dataPurch)
-        if (responsePurch.ok) {
+        if (responsePurch.ok && dataPurch.data.productosProcesados.length > 0) {
           alert("Se realizo la compra");
           location.reload();
         } else {
-          throw new Error(dataPurch.message || "error en la compra");
+          throw new Error("No se pudo procesar la compra");
         }
       } catch (error) {
-        console.error("Error:", error);
-        alert(
-          "Hubo un problema al hacer la compra. Por favor, inténtalo de nuevo más tarde."
-        );
+        alert("No se pudo procesar la compra")
       }
     });
   }
