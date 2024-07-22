@@ -1,7 +1,7 @@
 import { check } from "express-validator";
-import { validateResult } from "../validateHelper.js";
+import { validateResult } from "./validateHelper.js";
 
-export const validateCreate = [
+export const validateCreateProduct = [
   check("title")
     .exists()
     .withMessage("Title is required")

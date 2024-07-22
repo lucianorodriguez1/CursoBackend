@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
   const errorMessage = document.getElementById("error-message");
 
+  const errorTranslations = {
+    "Email cannot be empty": "El email no puede estar vacío",
+    "Password cannot be empty": "La contraseña no puede estar vacía",
+  };
+
+  function translateError(error) {
+    return errorTranslations[error] || error;
+  }
+
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -19,10 +28,18 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response.ok) {
         window.location.href = "/";
       } else {
-        throw new Error(data.message || "credenciales incorrectas");
+        let errorMsg = data.message || "Credenciales incorrectas";
+        if (data.errors) {
+      
+          if (Array.isArray(data.errors)) {
+            errorMsg = data.errors.map(translateError).join(", ");
+          } else {
+            errorMsg = translateError(data.errors);
+          }
+        }
+        throw new Error(errorMsg);
       }
     } catch (error) {
-      console.log(error);
       errorMessage.textContent = error.message;
     }
   });
