@@ -119,3 +119,7 @@ export const mandarEmail = (req, res) => {
 export const notAvailable = (req, res) => {
   res.render("not-available", {});
 };
+
+export const createProduct = (req, res) => {
+  res.render("createProduct", {});
+};
