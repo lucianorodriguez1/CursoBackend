@@ -28,19 +28,15 @@ cartButton.addEventListener("click", async () => {
   }
 });
 
-
-let increaseQuanBtn = document.getElementById("increaseQuanBtn");
-let decreaseQuanBtn = document.getElementById("decreaseQuanBtn");
-let deleteProdToCart = document.getElementById("deleteProdToCart");
-let stockProd = document.getElementById("stockProd");
-let quantProd = document.getElementById("quantProd");
-
-
-if (increaseQuanBtn) {
-  increaseQuanBtn.addEventListener("click", async () => {
-    const productId = increaseQuanBtn.getAttribute("data-product-id");
-    let quantity = parseInt(increaseQuanBtn.getAttribute("data-quantity"), 10);
-    const stock = parseInt(stockProd.getAttribute("data-stock"), 10);
+document.querySelectorAll(".increaseQuanBtn").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const productId = button.getAttribute("data-product-id");
+    let quantity = parseInt(button.getAttribute("data-quantity"), 10);
+    const productDiv = button.closest(".product");
+    const stock = parseInt(
+      productDiv.querySelector(".stockProd").getAttribute("data-stock"),
+      10
+    );
     const quantityUpdate = quantity + 1;
 
     if (quantity < stock) {
@@ -54,7 +50,6 @@ if (increaseQuanBtn) {
         if (!cartResponse.ok) {
           throw new Error("Error al obtener el carrito");
         }
-
         const data = await cartResponse.json();
         if (!data.error) {
           const cartId = data.cartId;
@@ -67,13 +62,18 @@ if (increaseQuanBtn) {
             body: JSON.stringify({ quantity: quantityUpdate }),
           });
           if (responseInc.ok) {
-            increaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
+            button.setAttribute("data-quantity", quantityUpdate);
+            const quantProd = productDiv.querySelector(".quantProd");
             quantProd.textContent = `Quantity: ${quantityUpdate}`;
             quantProd.setAttribute("data-quant", quantityUpdate);
 
             if (quantityUpdate === stock) {
-              increaseQuanBtn.disabled = true;
+              button.disabled = true;
             }
+            const decreaseQuanBtn =
+              productDiv.querySelector(".decreaseQuanBtn");
+            decreaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
+            decreaseQuanBtn.disabled = false;
           } else {
             console.log(responseInc);
             throw new Error("Error al actualizar la cantidad del producto");
@@ -87,15 +87,15 @@ if (increaseQuanBtn) {
       }
     }
   });
-}
+});
 
-if (decreaseQuanBtn) {
-  decreaseQuanBtn.addEventListener("click", async () => {
-    const productId = decreaseQuanBtn.getAttribute("data-product-id");
-    let quantity = parseInt(decreaseQuanBtn.getAttribute("data-quantity"), 10);
-
+document.querySelectorAll(".decreaseQuanBtn").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const productId = button.getAttribute("data-product-id");
+    let quantity = parseInt(button.getAttribute("data-quantity"), 10);
     if (quantity > 1) {
       const quantityUpdate = quantity - 1;
+      const productDiv = button.closest(".product");
       try {
         const cartResponse = await fetch("/api/cart", {
           method: "GET",
@@ -119,13 +119,17 @@ if (decreaseQuanBtn) {
             body: JSON.stringify({ quantity: quantityUpdate }),
           });
           if (responseDec.ok) {
-            decreaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
+            button.setAttribute("data-quantity", quantityUpdate);
+            const quantProd = productDiv.querySelector(".quantProd");
             quantProd.textContent = `Quantity: ${quantityUpdate}`;
             quantProd.setAttribute("data-quant", quantityUpdate);
-
-            if (increaseQuanBtn.disabled) {
-              increaseQuanBtn.disabled = false;
+            if (quantityUpdate === 1) {
+              button.disabled = true;
             }
+            const increaseQuanBtn =
+              productDiv.querySelector(".increaseQuanBtn");
+            increaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
+            increaseQuanBtn.disabled = false;
           } else {
             console.log(responseDec);
             throw new Error("Error al actualizar la cantidad del producto");
@@ -139,11 +143,12 @@ if (decreaseQuanBtn) {
       }
     }
   });
-}
+});
 
-if (deleteProdToCart) {
-  deleteProdToCart.addEventListener("click", async () => {
-    const productId = deleteProdToCart.getAttribute("data-product-id");
+document.querySelectorAll(".deleteProdToCart").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const productId = button.getAttribute("data-product-id");
+    const productDiv = button.closest(".product");
     try {
       const cartResponse = await fetch("/api/cart", {
         method: "GET",
@@ -166,7 +171,7 @@ if (deleteProdToCart) {
           },
         });
         if (responseDel.ok) {
-          deleteProdToCart.closest("div").remove();
+          productDiv.remove();
         } else {
           console.log(responseDel);
           throw new Error("Error al eliminar el producto del carrito");
@@ -179,4 +184,21 @@ if (deleteProdToCart) {
       );
     }
   });
-}
+});
+
+
+
+document.querySelectorAll(".product").forEach((productDiv) => {
+  const increaseButton = productDiv.querySelector(".increaseQuanBtn");
+  const decreaseButton = productDiv.querySelector(".decreaseQuanBtn");
+  const quantity = parseInt(increaseButton.getAttribute("data-quantity"), 10);
+  const stock = parseInt(productDiv.querySelector(".stockProd").getAttribute("data-stock"), 10);
+
+  if (quantity >= stock) {
+    increaseButton.disabled = true;
+  }
+
+  if (quantity <= 1) {
+    decreaseButton.disabled = true;
+  }
+});
