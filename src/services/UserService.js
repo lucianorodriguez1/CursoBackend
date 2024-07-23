@@ -124,7 +124,7 @@ class UserService {
         message: "Error get user in changePremium",
         code: ErrorCodes.INVALID_ID,
       });
-      
+
     const requiredDocuments = [
       "identification",
       "proofOfResidence",
@@ -132,12 +132,14 @@ class UserService {
     ];
     const userDocumentTypes = user.documents.map((doc) => doc.name);
 
-    const hasAllDocuments = requiredDocuments.every((doc) =>
-      userDocumentTypes.includes(doc)
+    const missingDocuments = requiredDocuments.filter(
+      (doc) => !userDocumentTypes.includes(doc)
     );
 
-    if (!hasAllDocuments) {
-      return "the necessary documents were not uploaded";
+    if (missingDocuments.length > 0) {
+      return `The following necessary documents are missing: ${missingDocuments.join(
+        ", "
+      )}`;
     }
 
     await usersRepository.updateUserBy({ _id: uid }, { role: "premium" });
@@ -194,7 +196,7 @@ class UserService {
     const updateData = {
       profilePhoto: {
         name: photo.originalname,
-        reference:`/img/profiles/${photo.filename}`,
+        reference: `/img/profiles/${photo.filename}`,
       },
     };
     await usersRepository.updateUserBy({ _id: uid }, updateData);
@@ -202,12 +204,19 @@ class UserService {
   }
 
   async uploadDocuments(uid, files) {
+    const user = await usersRepository.getUserBy({ _id: uid });
+    if (!user) {
+      return "User not found";
+    }
     if (!files) {
       return "No hay archivos.";
     }
+    const existingDocuments = user.documents || [];
 
-    const documentsToAdd = [];
-
+    const documentMap = existingDocuments.reduce((map, doc) => {
+      map[doc.name] = doc;
+      return map;
+    }, {});
     const fileFields = [
       "identification",
       "proofOfResidence",
@@ -217,28 +226,37 @@ class UserService {
     fileFields.forEach((field) => {
       if (files[field]) {
         files[field].forEach((file) => {
-          documentsToAdd.push({
-            name: field,
-            originalname: file.originalname,
-            reference: file.path,
-          });
+          if (documentMap[field]) {
+            documentMap[field] = {
+              name: field,
+              originalname: file.originalname,
+              reference: file.path,
+            };
+          } else {
+            documentMap[field] = {
+              name: field,
+              originalname: file.originalname,
+              reference: file.path,
+            };
+          }
         });
       }
     });
 
-    if (documentsToAdd.length === 0) {
-      return "No hay archivos válidos.";
+    const updatedDocuments = Object.values(documentMap);
+
+    if (updatedDocuments.length > 0) {
+      const updateData = {
+        $set: {
+          documents: updatedDocuments,
+        },
+      };
+
+      await usersRepository.updateUserBy({ _id: uid }, updateData);
+    } else {
+      return "No valid files.";
     }
 
-    const updateData = {
-      $push: {
-        documents: {
-          $each: documentsToAdd,
-        },
-      },
-    };
-
-    await usersRepository.updateUserBy({ _id: uid }, updateData);
     return "upload documents";
   }
 }

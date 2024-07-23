@@ -5,7 +5,6 @@ const __dirname = path.resolve();
 
 const getDestinationFolder = (file) => {
   const fieldname = file.fieldname;
-
   switch (fieldname) {
     case "profile":
       return path.join(__dirname, "/public/img/profiles");
