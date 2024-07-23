@@ -3,9 +3,9 @@ import customError from "../utils/errors/CustomError.js";
 
 export default (req, res, next) => {
   customError.createError({
-    name: "ruta no encontrada",
-    cause:"se introdujo mal la ruta",
-    message: "La ruta introducida no existe",
+    name: "Route not found",
+    cause:"the route was entered incorrectly ruta",
+    message: "route not exists",
     code: ErrorCodes.ROUTING_ERROR
   });
 };

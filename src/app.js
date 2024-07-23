@@ -1,8 +1,6 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
-import session from "express-session";
-import MongoStore from "connect-mongo";
 import passport from "passport";
 import path from "path";
 import swaggerJsDoc from "swagger-jsdoc";
@@ -55,21 +53,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./public")));
 
 app.use(addLogger);
+
 app.use(cookieParser());
-app.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: config.mongoUrl,
-      ttl: 1500,
-    }),
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 initializatePassport();
 app.use(passport.initialize());
-app.use(passport.session());
 app.use(tokenExpirationMiddleware)
 
 app.use(routes);
@@ -80,7 +67,3 @@ app.use("/", viewsRouter);
 
 app.use(routeErrorHandler);
 app.use(errorHandler);
-
-//validar los datos del registro.
-//validar los datos del login
-//arreglar el error de current al entra al sitio web
