@@ -17,8 +17,9 @@ export const validateCreateProduct = [
   check("code")
     .exists()
     .withMessage("Code is required")
-    .isNumeric()
-    .withMessage("Code must be a number"),
+    .not()
+    .isEmpty()
+    .withMessage("Code cannot be empty"),
   check("price")
     .exists()
     .withMessage("Price is required")
