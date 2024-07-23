@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       },
       credentials: "include",
     });
-    console.log("hola")
     if (response.ok) {
       const data = await response.json();
 

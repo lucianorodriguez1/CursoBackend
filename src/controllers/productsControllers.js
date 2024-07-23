@@ -22,7 +22,6 @@ export const createProduct = async (req, res) => {
     description,
     code,
     price,
-    status,
     stock,
     category,
   } = req.body;
@@ -38,7 +37,6 @@ export const createProduct = async (req, res) => {
       description,
       code,
       price,
-      status,
       stock,
       category,
       thumbnails,

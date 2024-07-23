@@ -6,16 +6,31 @@
     <link rel="shortcut icon" href="/img/favic.png" type="image/x-icon" />
   </head>
   <body>
-    <nav>
+    <nav
+      style="display: flex; justify-content: space-between; align-items: center; background-color: #f8f8f8; padding: 10px;"
+    >
       <button id="cartView">Cart</button>
-      <a href="/">Home</a>
-      <a href="/products">Productos</a>
-      <a id="authLink"></a>
-      <a
-        id="createProductLink"
-        href="/createProduct"
-        style="display: none;"
-      >Crear Producto</a>
+      <ul
+        style="list-style-type: none; margin: 0; padding: 0; display: flex; gap: 10px;"
+      >
+        <li style="display: inline;"><a
+            href="/"
+            style="text-decoration: none; padding: 10px; color: #333;"
+          >Home</a></li>
+        <li style="display: inline;"><a
+            href="/products"
+            style="text-decoration: none; padding: 10px; color: #333;"
+          >Productos</a></li>
+        <li style="display: inline;"><a
+            id="authLink"
+            style="text-decoration: none; padding: 10px; color: #333;"
+          ></a></li>
+        <li style="display: inline;"><a
+            id="createProductLink"
+            href="/createProduct"
+            style="text-decoration: none; padding: 10px; color: #333; display: none;"
+          >Crear Producto</a></li>
+      </ul>
     </nav>
     {{{body}}}
   </body>

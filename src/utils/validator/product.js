@@ -24,7 +24,6 @@ export const validateCreateProduct = [
     .withMessage("Price is required")
     .isNumeric()
     .withMessage("Price must be a number"),
-  check("status").exists().withMessage("Status is required"),
   check("stock")
     .exists()
     .withMessage("Stock is required")
