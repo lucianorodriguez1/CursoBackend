@@ -31,8 +31,7 @@ export const passportCallView = (strategy) => {
       if (err) return next(err);
       if (!user) {
         try {
-         res.render("not-available")
-          
+         return res.render("not-available")
         } catch (error) {
           return next(error);
         }

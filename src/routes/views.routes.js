@@ -14,7 +14,7 @@ viewsRouter.get("/carts/:cid", passportCallView('jwt'),viewCartById);
 viewsRouter.get("/reestablecerContrasenia",reestablecerContrasenia);
 viewsRouter.get("/mandarEmail",mandarEmail);
 viewsRouter.get("/not-available",notAvailable);
-viewsRouter.get("/createProduct",createProduct);
+viewsRouter.get("/createProduct",passportCallView('jwt'),createProduct);
 
 // Ruta para obtener el carrito
 viewsRouter.get("/api/cart", passportCallOptional('jwt'), (req, res) => {
