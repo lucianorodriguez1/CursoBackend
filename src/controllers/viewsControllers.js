@@ -123,3 +123,7 @@ export const notAvailable = (req, res) => {
 export const createProduct = (req, res) => {
   res.render("createProduct", {});
 };
+
+export const changeRole = (req,res) =>{
+  res.render("changeRole",{});
+}

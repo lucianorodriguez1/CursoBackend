@@ -1,6 +1,7 @@
 import {Router} from 'express';
-import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail,notAvailable,createProduct} from '../controllers/viewsControllers.js';
+import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail,notAvailable,createProduct, changeRole} from '../controllers/viewsControllers.js';
 import { passportCallOptional, passportCallView } from '../middlewares/passportMiddleware.js';
+import { authorizationViewCreateProduct } from '../middlewares/authMiddleware.js';
 
 const viewsRouter = Router();
 
@@ -14,7 +15,8 @@ viewsRouter.get("/carts/:cid", passportCallView('jwt'),viewCartById);
 viewsRouter.get("/reestablecerContrasenia",reestablecerContrasenia);
 viewsRouter.get("/mandarEmail",mandarEmail);
 viewsRouter.get("/not-available",notAvailable);
-viewsRouter.get("/createProduct",passportCallView('jwt'),createProduct);
+viewsRouter.get("/createProduct",passportCallView('jwt'),authorizationViewCreateProduct('admin','premium'),createProduct);
+viewsRouter.get("/changeRole",changeRole);
 
 // Ruta para obtener el carrito
 viewsRouter.get("/api/cart", passportCallOptional('jwt'), (req, res) => {
