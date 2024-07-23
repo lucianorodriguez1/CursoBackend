@@ -1,10 +1,7 @@
 import passport from "passport";
-import userModel from "../dao/mongo/models/userModel.js";
-import User from "../dao/mongo/UserMongo.js";
 import jwt from "passport-jwt";
 import config from "../config/config.js";
 
-const userService = new User();
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
 
