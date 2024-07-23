@@ -3,18 +3,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-commerce CH</title>
-    <link rel="shortcut icon" href="/img/favic.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favic.png" type="image/x-icon" />
   </head>
   <body>
     <nav>
       <button id="cartView">Cart</button>
       <a href="/">Home</a>
       <a href="/products">Productos</a>
-      <a id="authLink" ></a>
-      <a href="/createProduct">Crear Producto</a>
+      <a id="authLink"></a>
+      <a
+        id="createProductLink"
+        href="/createProduct"
+        style="display: none;"
+      >Crear Producto</a>
     </nav>
     {{{body}}}
   </body>
   <script src="/js/cart.js"></script>
- <script src="/js/auth.js"></script>
+  <script src="/js/auth.js"></script>
 </html>

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const authLink = document.getElementById("authLink");
+  const createProductLink = document.getElementById("createProductLink");
   try {
     const response = await fetch("/api/sessions/current", {
       method: "GET",
@@ -8,21 +9,25 @@ document.addEventListener("DOMContentLoaded", async function () {
       },
       credentials: "include",
     });
-
+    console.log("hola")
     if (response.ok) {
       const data = await response.json();
 
       if (data) {
         authLink.textContent = "Profile";
         authLink.href = "/profile";
+        createProductLink.style.display = "block";
       }
     } else if (response.status == 401) {
       authLink.textContent = "Login";
       authLink.href = "/login";
-    }else{
+      createProductLink.style.display = "none";
+    } else {
       console.error(`Error ${response.status}: ${response.statusText}`);
+      createProductLink.style.display = "none";
     }
   } catch (error) {
     console.error("Error verifying authentication status:", error);
+    createProductLink.style.display = "none";
   }
 });
