@@ -11,16 +11,23 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         body: formData,
       });
-      const data = await response.json();
+
       if (response.ok) {
-        alert("Se creo el producto");
+        errorMessage.textContent = "";
+        alert("Producto creado correctamente");
         location.reload();
       } else {
-        console.log(data);
-        throw new Error("error al subir el producto");
+        const data = await response.json();
+
+        if (data.errors && Array.isArray(data.errors)) {
+          const messages = data.errors.join(", ");
+          errorMessage.textContent = messages;
+        } else {
+          errorMessage.textContent = "Error al subir el producto";
+        }
       }
     } catch (error) {
-      errorMessage.textContent = error.message;
+      errorMessage.textContent = "Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo más tarde.";
     }
   });
 });
