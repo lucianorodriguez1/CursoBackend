@@ -16,9 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const data = await response.json();
-
         if (data.error) {
-          // Manejar el caso de que el usuario no esté autenticado
           window.location.href = "/not-available";
         } else {
           const cartId = data.cartId;

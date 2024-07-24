@@ -25,8 +25,7 @@ export const viewProfile = (req, res) => {
   }
   const userData = req.user;
   let sinFoto = false;
-  if(userData.data.profilePhoto.name == 'Sin foto de perfil')
-  {
+  if (userData.data.profilePhoto.name == "Sin foto de perfil") {
     sinFoto = true;
   }
   res.render("profile", {
@@ -36,6 +35,7 @@ export const viewProfile = (req, res) => {
     userEmail: userData.data.email,
     userProfilePhoto: userData.data.profilePhoto.reference,
     sinFoto: sinFoto,
+    userRole: userData.data.role,
   });
 };
 
@@ -85,28 +85,29 @@ export const viewProducts = async (req, res) => {
 
 export const viewProductById = async (req, res) => {
   const { pid } = req.params;
-  const product = await productsRepository.getProductLeanBy({_id:pid});
+  const product = await productsRepository.getProductLeanBy({ _id: pid });
   let user = req.user?.data || null;
+  let isAdmin = user.role == "admin";
+  let authorized = user && !isAdmin;
   
   res.render("product", {
     productId: pid,
     product,
-    user
+    authorized,
   });
 };
 export const viewCartById = async (req, res) => {
-  const id  = req.params.cid;
+  const id = req.params.cid;
   const cartData = await cartsRepository.getCartById(id);
   let purchaseAvailable = false;
-  if(cartData.products.length>0){
-    purchaseAvailable = true
+  if (cartData.products.length > 0) {
+    purchaseAvailable = true;
   }
   res.render("cart", {
     cartId: id,
     cart: cartData.products,
-    purchaseAvailable:purchaseAvailable,
+    purchaseAvailable: purchaseAvailable,
   });
-  
 };
 
 export const reestablecerContrasenia = (req, res) => {
@@ -124,6 +125,6 @@ export const createProduct = (req, res) => {
   res.render("createProduct", {});
 };
 
-export const changeRole = (req,res) =>{
-  res.render("changeRole",{});
-}
+export const changeRole = (req, res) => {
+  res.render("changeRole", {});
+};

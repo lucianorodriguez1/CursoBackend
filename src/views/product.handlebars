@@ -3,7 +3,11 @@
   <div>
     {{#each product.thumbnails}}
       <div>
-        <img src="{{this.reference}}" alt="{{this.name}}" style="width:100px; height:auto;">
+        <img
+          src="{{this.reference}}"
+          alt="{{this.name}}"
+          style="width:100px; height:auto;"
+        />
       </div>
     {{/each}}
   </div>
@@ -16,7 +20,7 @@
 <p>Category: {{product.category}}</p>
 <p>Owner: {{product.owner}}</p>
 
-{{#if user}}
+{{#if authorized}}
   <button
     id="addToCartBtn"
     data-product-id="{{product._id}}"

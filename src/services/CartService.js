@@ -21,7 +21,6 @@ class CartService {
     return result;
   }
 
-  //verificar las dos casos de errores.
   async getCartById(id, role, userCartId) {
     if (id != userCartId && role != 'admin') {
       CustomError.createError({
@@ -118,7 +117,6 @@ class CartService {
     return result;
   }
 
-  //verificar 2 casos de error.
   async deleteProduct(cid, pid,userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
@@ -142,7 +140,6 @@ class CartService {
     return "Se elimino el producto del carrito";
   }
 
-   //verificar 2 casos de error.
   async updateProductsCart(cid, products,userCartId) {
     if (cid != userCartId) {
       CustomError.createError({
