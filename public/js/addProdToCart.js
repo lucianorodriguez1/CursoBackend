@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({}),
           });
 
-          if (!responseAdd.ok) {
-            throw new Error("Error al agregar el producto al carrito");
-          }
+          const dataAdd = await responseAdd.json();
 
+          if (!responseAdd.ok) {
+            throw new Error(dataAdd.name || "Error al agregar el producto");
+          }
           alert("Producto agregado al carrito correctamente");
         }
       } catch (error) {
-        console.error("Error:", error);
         alert(
-          "Hubo un problema al agregar el producto al carrito. Por favor, inténtalo de nuevo más tarde."
+          error
         );
       }
     });

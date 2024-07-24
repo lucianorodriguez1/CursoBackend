@@ -64,7 +64,7 @@ class CartService {
     const product = await productsService.getProductById(pid);
     if (product.owner == email) {
       CustomError.createError({
-        name: "no se puede agregar su propio prod al carrito",
+        name: "no se puede agregar su propio producto al carrito",
         cause: "invalid add product cart",
         message: "Error add product in cart",
         code: ErrorCodes.NOT_AVAILABLE_ADDPRODUCTCART,
