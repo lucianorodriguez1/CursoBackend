@@ -1,4 +1,3 @@
-import cartService from "../services/CartService.js";
 import moment from "moment";
 
 const formatDate = (date) => {
@@ -17,10 +16,8 @@ export default class UserDTO {
 
   static getUserResponseForRole = async (user, role, email) => {
     if (user.email == email) role = "authorized";
-    const cart = await cartService.getCartById(
+    const cart = await cartRepository.getCartById(
       user.cartId,
-      user.role,
-      user.cartId
     );
     switch (role) {
       case "admin":

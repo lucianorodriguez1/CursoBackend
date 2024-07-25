@@ -1,27 +1,21 @@
-import CustomError from "../utils/errors/CustomError.js";
-import {ErrorCodes} from "../utils/errors/enums.js";
-
 export function authorization(...allowedRoles){
   return async(req,res,next)=>{
     if (!req.user) {
       try {
-        CustomError.createError({
-          name: "Unauthenticated",
-          cause: "no existe req.user",
-          message: "Error authorization middleware",
-          code: ErrorCodes.AUTHENTICATION_ERROR
-        });
+        res.status(401).json({
+          success:false,
+          message:'You are unauthenticated'
+        })
       } catch (error) {
         return next(error); 
       }
     }
     if (!allowedRoles.includes(req.user.data.role)) {
       try {
-        CustomError.createError({
-          name: "Unauthorized",
-          cause: "no hay permisos",
-          message: "Error authorization middleware",
-          code: ErrorCodes.AUTHORIZATION_ERROR,
+        res.status(403).json({
+          success:false,
+          message:'You are unauthorized'
+      
         });
       } catch (error) {
         return next(error); 
@@ -31,6 +25,11 @@ export function authorization(...allowedRoles){
   }
 }
 
+
+
+/**
+ * PASSPORT AUTH BY ¡¡ VIEW !!
+ */
 export function authorizationViewCreateProduct(...allowedRoles){
   return async(req,res,next)=>{
     if (!req.user) {

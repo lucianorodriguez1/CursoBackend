@@ -43,7 +43,7 @@ const swaggerOptions = {
       description: "API para el ecommerce",
     },
   },
-  apis: [`${path.join(__dirname)}/src/docs/**/*.yaml`],
+  apis: [`${path.join(__dirname)}/docs/**/*.yaml`],
 };
 const specs = swaggerJsDoc(swaggerOptions);
 app.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
