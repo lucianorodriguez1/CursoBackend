@@ -1,4 +1,5 @@
 import moment from "moment";
+import { cartsRepository } from "../../repositories/index.js";
 
 const formatDate = (date) => {
   return moment(date).format("DD/MM/YYYY HH:mm:ss");
@@ -16,9 +17,7 @@ export default class UserDTO {
 
   static getUserResponseForRole = async (user, role, email) => {
     if (user.email == email) role = "authorized";
-    const cart = await cartRepository.getCartById(
-      user.cartId,
-    );
+    const cart = await cartsRepository.getCartById(user.cartId);
     switch (role) {
       case "admin":
       case "authorized":
@@ -44,6 +43,7 @@ export default class UserDTO {
         };
       case "premium":
         return {
+          id: user._id,
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
           profilePhoto: user.profilePhoto.reference,
@@ -53,6 +53,7 @@ export default class UserDTO {
         };
       case "user":
         return {
+          id: user._id,
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
           profilePhoto: user.profilePhoto.reference,
@@ -61,6 +62,7 @@ export default class UserDTO {
         };
       default:
         return {
+          id: user._id,
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
           profilePhoto: user.profilePhoto.reference,
@@ -68,17 +70,15 @@ export default class UserDTO {
         };
     }
   };
+  
   static getUserResponseForCurrent = async (user) => {
-    const cart = await cartService.getCartById(
-      user.cartId,
-      user.role,
-      user.cartId
-    );
+    const cart = await cartsRepository.getCartById(user.cartId);
     return {
       id: user._id,
       name: `${user.first_name} ${user.last_name}`,
       email: user.email,
-      profilePhoto: user.profilePhoto.reference || user.profilePhoto[0].reference,
+      profilePhoto:
+        user.profilePhoto.reference || user.profilePhoto[0].reference,
       role: user.role,
       cart: cart,
       documents:

@@ -1,5 +1,5 @@
 import { cartsRepository, productsRepository } from "../repositories/index.js";
-import CartDTO from "../dto/CartDto.js";
+import CartDTO from "../dao/dto/CartDto.js";
 
 import purchaseService from "../services/PurchaseService.js";
 

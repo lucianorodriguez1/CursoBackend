@@ -7,7 +7,7 @@ export const passportCall = (strategy) => {
       if (err) return next(err);
       if (!user) {
         try {
-          res.status(401).json({
+          return res.status(401).json({
             success:false,
             message:'You are unauthenticated'
           })

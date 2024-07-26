@@ -1,8 +1,8 @@
 import config from "../config/config.js";
 import { generateAuthToken } from "../utils/jwt.js";
-import { isValidPassword } from "../utils/bcrypt.js";
-import UserDTO from "../dto/UserDto.js";
-import { usersRepository } from "../repositories/index.js";
+import { createHash, isValidPassword } from "../utils/bcrypt.js";
+import UserDTO from "../dao/dto/UserDto.js";
+import { cartsRepository, usersRepository } from "../repositories/index.js";
 
 export async function login(req, res) {
   const { email, password } = req.body;
@@ -21,7 +21,7 @@ export async function login(req, res) {
 
   //IF CREDENTIALS VALIDS
 
-  await usersRepository.updateUserBy(user._id, {
+  await usersRepository.updateUserBy({_id:user._id}, {
     isOnline: true,
   });
 
@@ -41,22 +41,35 @@ export async function register(req, res) {
   // Verify if exists user with email by body
   let user = await usersRepository.getUserBy({ email: email });
   if (user) {
-    res.status(404).json({ succes: false, message: "User with email exists" });
+    return res.status(404).json({ succes: false, message: "User with email exists" });
   }
+  /**
+   * IF USER NOT EXISTSS
+   *
+   *
+   */
+  // Hash password
+  const passwordHash = createHash(password);
 
-  await usersRepository.createUser({
-    first_name,
-    last_name,
-    age,
-    email,
-    password,
-  });
+  // Create cart for User
+  const cartObject = await cartsRepository.createCart();
+  const cartId = cartObject[0]._id;
 
-  user = await usersServices.getUserByEmail(email);
+  const newUser = {
+    first_name: first_name,
+    last_name: last_name,
+    age: age,
+    email: email,
+    password: passwordHash,
+    cartId: cartId,
+  };
 
+  //Create User
+  await usersRepository.createUser(newUser);
+  user = await usersRepository.getUserBy({email:email});
   await usersRepository.updateUserBy({ _id: user._id }, { isOnline: true });
-  const token = generateAuthToken(user);
 
+  const token = generateAuthToken(user);
   res.cookie(config.tokenCookie, token, {
     maxAgre: 60 * 60 * 1000,
     httpOnly: true,
@@ -65,7 +78,8 @@ export async function register(req, res) {
 }
 
 export async function logout(req, res) {
-  const user = await usersServices.getUserByEmail(email);
+  const email = req.user.data.email;
+  const user = await usersRepository.getUserBy({email:email});
   const fecha = new Date().toISOString();
 
   await usersRepository.updateUserBy(
@@ -77,12 +91,11 @@ export async function logout(req, res) {
   res.status(200).json({ success: true, message: "Logout correct" });
 }
 
+// --- RESPONSE USER'S DATA
 export async function current(req, res) {
-  const result = UserDTO.getUserResponseForCurrent(req.user.data);
-
+  const result = await UserDTO.getUserResponseForCurrent(req.user.data);
   res.status(200).json({ success: true, data: result });
 }
-
 
 // Delete users with 2 or more days of inactivity
 export async function deleteInactives(req, res) {
@@ -94,20 +107,16 @@ export async function deleteInactives(req, res) {
   });
 
   if (result.deletedCount > 0) {
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: result,
-        message: `Usuarios eliminados: ${result.deletedCount}`,
-      });
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: `Usuarios eliminados: ${result.deletedCount}`,
+    });
   } else {
-    res
-      .status(404)
-      .json({
-        success: false,
-        data: result,
-        message: "no inactive users found to delete",
-      });
+    res.status(404).json({
+      success: false,
+      data: result,
+      message: "no inactive users found to delete",
+    });
   }
 }

@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 
 
-export const generatePasswordResetToken = (data) => {
-  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "5m" });
+export const generateTokenResetPassoword = (data) => {
+  const token = jwt.sign({data},config.tokenKey, { expiresIn: "5m" });
   return token;
 };
 

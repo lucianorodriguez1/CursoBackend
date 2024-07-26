@@ -2,7 +2,7 @@ export function authorization(...allowedRoles){
   return async(req,res,next)=>{
     if (!req.user) {
       try {
-        res.status(401).json({
+        return res.status(401).json({
           success:false,
           message:'You are unauthenticated'
         })
@@ -12,7 +12,7 @@ export function authorization(...allowedRoles){
     }
     if (!allowedRoles.includes(req.user.data.role)) {
       try {
-        res.status(403).json({
+        return res.status(403).json({
           success:false,
           message:'You are unauthorized'
       

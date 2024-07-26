@@ -1,6 +1,6 @@
 import { ticketRepository } from "../repositories/index.js";
 import { v4 as uuidv4 } from "uuid";
-import TicketDTO from "../dto/TicketDto.js";
+import TicketDTO from "../dao/dto/TicketDto.js";
 
 
 export const getTickets = async (req, res) => {

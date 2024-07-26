@@ -7,11 +7,11 @@ import { uploader } from '../../utils/multer.js';
 
 const productRouter = Router();
 
-productRouter.get('/', passportCallOptional('jwt'),products.getProducts);
 productRouter.post('/', passportCall('jwt'),authorization('admin','premium'), uploader.array('thumbnails', 5),validateCreateProduct,products.createProduct);
+productRouter.get('/', passportCallOptional('jwt'),products.getProducts);
 productRouter.get('/:pid', passportCallOptional('jwt'),products.getProductById);
 productRouter.put('/:pid',  passportCall('jwt'),authorization('admin','premium'),products.updateProductById);
 productRouter.delete('/:pid',  passportCall('jwt'),authorization('admin','premium'), products.deleteProductById);
-productRouter.post('/:pid/images', uploader.array('products', 5), products.uploadProductImages);
+productRouter.post('/:pid/images',  passportCall('jwt'), authorization('premium','admin'),uploader.array('thumbnails', 5), products.uploadProductImages);
 
 export default productRouter;

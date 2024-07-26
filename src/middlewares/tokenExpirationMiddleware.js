@@ -9,14 +9,12 @@ const updateUserOnTokenExpiration = async (token) => {
   const user = await usersRepository.getUserBy({ email: email });
   if (user) {
     const fecha = new Date().toISOString();
-    await user.updateUserById(
-      user._id,
+    await usersRepository.updateUserBy(
+      { _id: user._id },
       {
         last_connection: fecha,
         isOnline: false,
-      },
-      user.role,
-      user.email
+      }
     );
   }
 };
