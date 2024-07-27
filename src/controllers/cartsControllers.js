@@ -1,22 +1,17 @@
 import { cartsRepository, productsRepository } from "../repositories/index.js";
 import CartDTO from "../dao/dto/CartDto.js";
-
 import purchaseService from "../services/PurchaseService.js";
 
 
-
 export const getCarts = async (req, res) => {
-  const role = req.user.data.role;
   let carts = await cartsRepository.getCarts();
   const result = carts.map((cart) =>
-    CartDTO.getCartResponseForRole(cart, role)
+    CartDTO.getCartResponseForRole(cart, 'admin')
   );
   res
     .status(200)
     .json({ succes: true, data: result, message: "You have all the carts" });
 };
-
-
 
 
 // You must have permission to see the cart!!!
@@ -47,12 +42,18 @@ export const getCartById = async (req, res) => {
 
 
 
-
 export const addProductFromCart = async (req, res) => {
-
   const idCart = req.params.cid;
   const idProduct = req.params.pid;
   const email = req.user.data.email;
+  const userCartId = req.user.data.cartId;
+
+  if (idCart != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
 
   const cart = await cartsRepository.getCartById(idCart);
 
@@ -63,7 +64,7 @@ export const addProductFromCart = async (req, res) => {
     });
   }
 
-  const product = await productsRepository.getProductBy({_id:pid});
+  const product = await productsRepository.getProductBy({_id:idProduct});
 
   if (!product) {
     res.status(404).json({
@@ -72,15 +73,15 @@ export const addProductFromCart = async (req, res) => {
     });
   }
 
-  // NO ADD PRODUCT IN CART
-  if (product.owner == email) {
+  // Check if the product belongs to the user. If not, you can add it.
+  if (product.owner === email) {
     res.status(404).json({
       succes: false,
       message: "You cannot add your own products to your cart",
     });
   }
 
-  //SUCCESS
+  // SUCCESS
   const result = await cartsRepository.addProductFromCart(cid, pid);
   res.status(200).json({ success: true, data: result });
 };
@@ -90,6 +91,14 @@ export const deleteAllProductsFromCartById = async (req, res) => {
 
   const cid = req.params.cid;
   const cart = await cartsRepository.getCartById(cid);
+  const userCartId = req.user.data.cartId;
+
+  if (cid != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
 
   if (!cart) {
     res.status(404).json({
@@ -100,11 +109,7 @@ export const deleteAllProductsFromCartById = async (req, res) => {
 
   const result = await cartsRepository.deleteProductsCart(cid);
   res.status(200).json({ success: true, data: result });
-
-
 };
-
-
 
 
 
@@ -112,6 +117,12 @@ export const deleteProductFromCart = async (req, res) => {
   const { cid, pid } = req.params;
   const userCartId = req.user.data.cartId;
 
+  if (cid != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
   const cart = await cartsRepository.getCartById(cid);
 
   if (!cart) {
@@ -134,21 +145,22 @@ export const deleteProductFromCart = async (req, res) => {
   const result = await cartsRepository.deleteProduct(cid, pid);
   res.status(200).json({success:true,data:result});
 
-
 };
-
-
-
-
-
 
 
 
 export const updateCartById = async (req, res) => {
   const { products } = req.body;
-
-
   const { cid } = req.params;
+  const userCartId = req.user.data.cartId;
+
+  if (cid != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
+
   const cart = await cartsRepository.getCartById(cid);
 
   if (!cart) {
@@ -167,7 +179,14 @@ export const updateCartById = async (req, res) => {
 export const updateProductCart = async (req, res) => {
   const { cid, pid } = req.params;
   const { quantity } = req.body;
+  const userCartId = req.user.data.cartId;
 
+  if (cid != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
 
   const cart = await cartsRepository.getCartById(cid);
 
@@ -185,11 +204,32 @@ export const updateProductCart = async (req, res) => {
 };
 
 
-
-
 export const createPurchase = async (req, res) => {
   const cartId = req.params.cid;
-  const cartCurrent = req.user.data.cartId;
-  const result = await purchaseService.createPurchase(cartId, cartCurrent);
+  const userCartId = req.user.data.cartId;
+
+  if (cartId != userCartId) {
+    res.status(403).json({
+      succes: false,
+      message: "You do not have permission to view the cart",
+    });
+  }
+
+  const cart = await cartsRepository.getCartById(cartId);
+
+  if (!cart) {
+    res.status(404).json({
+      succes: false,
+      message: "Cart not found",
+    });
+  }
+
+  if (cart.products.length == 0) {
+    res.status(404).json({
+      succes: false,
+      message: "There are not products in the cart",
+    });
+  }
+  const result = await purchaseService.createPurchase(cartId);
   res.status(200).json({success:true,data:result});
 };

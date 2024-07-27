@@ -8,19 +8,9 @@ import {
 class PurchaseService {
   constructor() {}
 
-  async createPurchase(cid, cCurrent) {
-    if (cid != cCurrent) {
-      return "Not Authorized";
-    }
-
+  async createPurchase(cid) {
     const cart = await cartsRepository.getCartById(cid);
-    if (!cart) {
-      return "Cart not found";
-    }
-
-    if (cart.products.length == 0) {
-      return "No hay productos en el carrito";
-    }
+    
 
     let totalPrice = 0;
     let prodsNoProcesados = [];
@@ -48,7 +38,7 @@ class PurchaseService {
         totalPrice += product.price * quantity;
         isTicket = true;
         prodsProcesados.push(productId);
-        await cartsRepository.deleteProduct(cid, productId, cCurrent);
+        await cartsRepository.deleteProduct(cid, productId);
       }
     }
     const user = await usersRepository.getUserBy({ cartId: cid });
