@@ -12,19 +12,19 @@ cartRouter.get("/",passportCall('jwt'),authorization('admin'),carts.getCarts);
 cartRouter.get("/:cid", passportCall('jwt'),authorization('user','premium','admin'),carts.getCartById);
 
 // Product operations in cart
-cartRouter.post("/:cid/product/:pid", passportCall('jwt'),authorization('user','premium'),carts.addProductFromCart);
+cartRouter.post("/:cid/product/:pid", passportCall('jwt'),carts.addProductFromCart);
 
-cartRouter.delete("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.deleteProductFromCart);
+cartRouter.delete("/:cid/product/:pid",passportCall('jwt'),carts.deleteProductFromCart);
 
-cartRouter.put("/:cid/product/:pid",passportCall('jwt'),authorization('user','premium'),carts.updateProductCart);
+cartRouter.put("/:cid/product/:pid",passportCall('jwt'),carts.updateProductCart);
 
 // UPDATE ONLY CART
-cartRouter.put("/:cid",passportCall('jwt'),authorization('user','premium'),carts.updateCartById);
+cartRouter.put("/:cid",passportCall('jwt'),carts.updateCartById);
 
-cartRouter.delete("/:cid",passportCall('jwt'),authorization('user','premium'),carts.deleteAllProductsFromCartById);
+cartRouter.delete("/:cid",passportCall('jwt'),carts.deleteAllProductsFromCartById);
 
 // The purchasing process is carried out
-cartRouter.post('/purchase/:cid', passportCall('jwt'),authorization('user','premium'),carts.createPurchase);
+cartRouter.post('/purchase/:cid', passportCall('jwt'),carts.createPurchase);
 
 export default cartRouter;
 
