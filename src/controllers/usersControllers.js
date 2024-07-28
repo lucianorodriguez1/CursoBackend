@@ -44,7 +44,10 @@ export const deleteUser = async (req, res) => {
   await cartsRepository.deleteCartById(user.cartId);
 
   const userDeleted = await usersRepository.deleteUserBy({ _id: id });
-
+  const userDeletedDto = await UserDTO.getUserResponseForRole(
+    userDeleted,
+    "admin"
+  );
   // Send notification email to deleted user
   try {
     await transport.sendMail({
@@ -59,7 +62,7 @@ export const deleteUser = async (req, res) => {
     });
     res.status(200).json({
       success: true,
-      data: userDeleted,
+      data: userDeletedDto,
       message: "User deleted and notification email sent",
     });
   } catch (error) {
@@ -67,14 +70,14 @@ export const deleteUser = async (req, res) => {
     if (error.response && error.response.includes("550")) {
       return res.status(200).json({
         success: true,
-        data: userDeleted,
+        data: userDeletedDto,
         message:
           "User deleted but notification email failed: Email address does not exist",
       });
     }
     res.status(200).json({
       success: true,
-      data: userDeleted,
+      data: userDeletedDto,
       message: "User deleted but notification email failed",
     });
   }
@@ -142,10 +145,13 @@ export const changePremium = async (req, res) => {
   if (missingDocuments.length > 0) {
     const message = `The following necessary documents are missing: ${missingDocuments.join(
       ", "
-    ) }`;
+    )}`;
     return res.status(200).json({ success: false, data: message });
   }
-  const result = await usersRepository.updateUserBy({ _id: id }, {role:"premium"});
+  const result = await usersRepository.updateUserBy(
+    { _id: id },
+    { role: "premium" }
+  );
   const userDto = await UserDTO.getUserResponseForRole(result, role, email);
   res.status(200).json({ success: true, data: userDto });
 };
@@ -155,14 +161,15 @@ export const uploadProfilePhoto = async (req, res) => {
   const photo = req.file;
 
   //  Verify User and photo if exists
-  if (!photo) {
-    return res.status(400).send({ message: "No photo were uploaded." });
-  }
 
   const user = await usersRepository.getUserBy({ _id: userId });
 
   if (!user) {
-    res.status(404).json({ succes: false, message: "User not found" });
+    return res.status(404).json({ succes: false, message: "User not found" });
+  }
+
+  if (!photo) {
+    return res.status(400).send({ message: "No photo were uploaded." });
   }
 
   const updateData = {
@@ -172,10 +179,11 @@ export const uploadProfilePhoto = async (req, res) => {
     },
   };
 
-  const result = await usersRepository.updateUserBy({ _id: uid }, updateData);
+  const result = await usersRepository.updateUserBy({ _id: userId}, updateData);
+  const userDto = await UserDTO.getUserResponseForRole(result, null, user.email);
   res.status(200).json({
     success: true,
-    data: result,
+    data: userDto,
     message: "profile photo was uploaded",
   });
 };

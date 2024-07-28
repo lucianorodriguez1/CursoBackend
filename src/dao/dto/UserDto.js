@@ -51,6 +51,7 @@ export default class UserDTO {
           last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
           role: user.role,
+          created_data: formatDate(user.createdAt),
         };
       case "user":
         return {
@@ -60,6 +61,7 @@ export default class UserDTO {
           profilePhoto: user.profilePhoto.reference,
           last_connection: formatDate(user.last_connection),
           isOnline: user.isOnline,
+          created_data: formatDate(user.createdAt),
         };
       default:
         return {
@@ -68,10 +70,11 @@ export default class UserDTO {
           email: user.email,
           profilePhoto: user.profilePhoto.reference,
           role: user.role,
+          created_data: formatDate(user.createdAt),
         };
     }
   };
-  
+
   static getUserResponseForCurrent = async (user) => {
     const cart = await cartsRepository.getCartById(user.cartId);
     return {
@@ -81,7 +84,9 @@ export default class UserDTO {
       profilePhoto:
         user.profilePhoto.reference || user.profilePhoto[0].reference,
       role: user.role,
-      cart: CartDTO.getCartResponseForRole(cart,user.role),
+      last_connection: formatDate(user.last_connection),
+      isOnline: user.isOnline,
+      cart: CartDTO.getCartResponseForRole(cart, user.role),
       documents:
         user.documents.length > 0
           ? user.documents.map((doc) => ({
@@ -89,6 +94,8 @@ export default class UserDTO {
               reference: doc.reference,
             }))
           : "No hay documentos",
+      created_data: formatDate(user.createdAt),
+      updated_data: formatDate(user.updatedAt),
     };
   };
 }
