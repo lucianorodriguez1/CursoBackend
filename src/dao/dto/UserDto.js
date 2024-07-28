@@ -1,5 +1,6 @@
 import moment from "moment";
 import { cartsRepository } from "../../repositories/index.js";
+import CartDTO from "./CartDto.js";
 
 const formatDate = (date) => {
   return moment(date).format("DD/MM/YYYY HH:mm:ss");
@@ -80,7 +81,7 @@ export default class UserDTO {
       profilePhoto:
         user.profilePhoto.reference || user.profilePhoto[0].reference,
       role: user.role,
-      cart: cart,
+      cart: CartDTO.getCartResponseForRole(cart,user.role),
       documents:
         user.documents.length > 0
           ? user.documents.map((doc) => ({

@@ -125,6 +125,6 @@ export const createProduct = (req, res) => {
   res.render("createProduct", {});
 };
 
-export const changeRole = (req, res) => {
+export const changeRole= (req, res) => {
   res.render("changeRole", {});
 };

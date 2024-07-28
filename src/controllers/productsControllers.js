@@ -86,7 +86,7 @@ export const getProductById = async (req, res) => {
 
   const product = await productsRepository.getProductBy({ _id: id });
   if (!product) {
-    res.status(404).json({ succes: false, message: "Product not found" });
+    return res.status(404).json({ succes: false, message: "Product not found" });
   }
 
   const productDto = ProductDTO.getProductResponseForRole(product, role, email);

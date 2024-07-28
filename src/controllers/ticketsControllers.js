@@ -12,9 +12,9 @@ export const getTicketById = async (req, res) => {
     const id = req.params.tid
     const ticket = await ticketRepository.getTicketById(id);
     if (!ticket) {
-        res.status(404).json({ success: false, message: 'Ticket not found' });
+        return res.status(404).json({ success: false, message: 'Ticket not found' });
     }
-    const ticketDto = TicketDTO.getTicketDto(result);
+    const ticketDto = TicketDTO.getTicketDto(ticket);
     res.status(200).json({ success: true, data: ticketDto });
 }
 
@@ -24,7 +24,7 @@ export const deleteTicketById = async (req, res) => {
     const ticket = await ticketRepository.getTicketById(id);
 
     if (!ticket) {
-        res.status(404).json({ success: false, message: 'Ticket not found' });
+        return res.status(404).json({ success: false, message: 'Ticket not found' });
     }
 
     const result = await ticketRepository.deleteTicketById(id);
