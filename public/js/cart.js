@@ -21,7 +21,6 @@ cartButton.addEventListener("click", async () => {
       window.location.href = `/carts/${data.cartId}`;
     }
   } catch (error) {
-    console.error("Error:", error);
     alert(
       "Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde."
     );
@@ -75,12 +74,10 @@ document.querySelectorAll(".increaseQuanBtn").forEach((button) => {
             decreaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
             decreaseQuanBtn.disabled = false;
           } else {
-            console.log(responseInc);
             throw new Error("Error al actualizar la cantidad del producto");
           }
         }
       } catch (error) {
-        console.error("Error:", error);
         alert(
           "Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde."
         );
@@ -131,12 +128,10 @@ document.querySelectorAll(".decreaseQuanBtn").forEach((button) => {
             increaseQuanBtn.setAttribute("data-quantity", quantityUpdate);
             increaseQuanBtn.disabled = false;
           } else {
-            console.log(responseDec);
             throw new Error("Error al actualizar la cantidad del producto");
           }
         }
       } catch (error) {
-        console.error("Error:", error);
         alert(
           "Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde."
         );
@@ -172,13 +167,12 @@ document.querySelectorAll(".deleteProdToCart").forEach((button) => {
         });
         if (responseDel.ok) {
           productDiv.remove();
+          location.reload();
         } else {
-          console.log(responseDel);
           throw new Error("Error al eliminar el producto del carrito");
         }
       }
     } catch (error) {
-      console.error("Error:", error);
       alert(
         "Hubo un problema al intentar acceder al carrito. Por favor, inténtalo de nuevo más tarde."
       );
@@ -186,13 +180,14 @@ document.querySelectorAll(".deleteProdToCart").forEach((button) => {
   });
 });
 
-
-
 document.querySelectorAll(".product").forEach((productDiv) => {
   const increaseButton = productDiv.querySelector(".increaseQuanBtn");
   const decreaseButton = productDiv.querySelector(".decreaseQuanBtn");
   const quantity = parseInt(increaseButton.getAttribute("data-quantity"), 10);
-  const stock = parseInt(productDiv.querySelector(".stockProd").getAttribute("data-stock"), 10);
+  const stock = parseInt(
+    productDiv.querySelector(".stockProd").getAttribute("data-stock"),
+    10
+  );
 
   if (quantity >= stock) {
     increaseButton.disabled = true;

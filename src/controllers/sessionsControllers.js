@@ -10,11 +10,11 @@ export async function login(req, res) {
   //        ------ Verify credentials ------
   const user = await usersRepository.getUserBy({ email: email });
   if (!user) {
-    res.status(404).json({ succes: false, message: "Credentials invalids" });
+    return res.status(404).json({ succes: false, message: "Credentials invalids" });
   }
 
   if (!isValidPassword(user, password)) {
-    res.status(404).json({ succes: false, message: "Credentials invalids" });
+    return res.status(404).json({ succes: false, message: "Credentials invalids" });
   }
 
   // --------------------------
@@ -26,12 +26,10 @@ export async function login(req, res) {
   });
 
   const token = generateAuthToken(user);
-
   res.cookie(config.tokenCookie, token, {
     maxAgre: 60 * 60 * 1000,
     httpOnly: true,
   });
-
   res.status(200).json({ success: true, message: "Login correct" });
 }
 

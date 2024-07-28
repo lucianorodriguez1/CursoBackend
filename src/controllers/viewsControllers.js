@@ -87,7 +87,10 @@ export const viewProductById = async (req, res) => {
   const { pid } = req.params;
   const product = await productsRepository.getProductLeanBy({ _id: pid });
   let user = req.user?.data || null;
-  let isAdmin = user.role == "admin";
+  let isAdmin;
+  if(user){
+    isAdmin = user.role == "admin"; 
+  }
   let authorized = user && !isAdmin;
   
   res.render("product", {

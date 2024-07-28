@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
         alert("Hubo un problema al cerrar sesión. Por favor, inténtalo de nuevo más tarde.");
       });
   });

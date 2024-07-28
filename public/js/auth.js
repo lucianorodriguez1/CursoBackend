@@ -13,9 +13,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
     if (response.ok) {
       const data = await response.json();
-
       if (data) {
-        authLink.textContent = "Profile";
+        authLink.textContent = "Perfil";
         authLink.href = "/profile";
         createProductLink.style.display = "block";
         if (data.data.role === "admin") {
@@ -29,11 +28,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       authLink.href = "/login";
       createProductLink.style.display = "none";
     } else {
-      console.error(`Error ${response.status}: ${response.statusText}`);
       createProductLink.style.display = "none";
     }
   } catch (error) {
-    console.error("Error verifying authentication status:", error);
     createProductLink.style.display = "none";
   }
 });

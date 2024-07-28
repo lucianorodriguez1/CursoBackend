@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorTranslations = {
     "Email cannot be empty": "El email no puede estar vacío",
     "Password cannot be empty": "La contraseña no puede estar vacía",
+    "Credentials invalids": "Credenciales inválidas" 
   };
 
   function translateError(error) {
@@ -28,14 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response.ok) {
         window.location.href = "/";
       } else {
-        let errorMsg = data.message || "Credenciales incorrectas";
+        let errorMsg;
         if (data.errors) {
-      
           if (Array.isArray(data.errors)) {
             errorMsg = data.errors.map(translateError).join(", ");
           } else {
             errorMsg = translateError(data.errors);
           }
+        }else{
+          errorMsg = translateError(data.message) || "Credenciales incorrectas";
         }
         throw new Error(errorMsg);
       }
