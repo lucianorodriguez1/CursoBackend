@@ -13,9 +13,11 @@ export default class CartDTO {
             ? cart.products.map((prod) =>({
               product:ProductDTO.getProductResponseForRole(prod.prodId, role),
               quantity: prod.quantity,
+              price:prod.price
             })
               )
             : "No hay productos",
+        totalPrice: cart.totalPrice
       };
     }
   };

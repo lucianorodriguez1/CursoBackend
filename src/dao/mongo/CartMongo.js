@@ -1,4 +1,5 @@
 import cartModel from "./models/cartModel.js";
+import productModel from "./models/productModel.js";
 
 export default class Cart {
   constructor() {}
@@ -15,31 +16,55 @@ export default class Cart {
 
   async addProd(cid, pid) {
     const cart = await cartModel.findOne({ _id: cid });
+    const product = await productModel.findById(pid);
+
     let response;
+
     const productExists = cart.products.findIndex(
       (prod) => prod.prodId._id == pid
     );
+
     if (productExists == -1) {
-       response = await cartModel.updateOne(
+      response = await cartModel.updateOne(
         { _id: cid },
-        { $push: { products: { prodId: { _id: pid }, quantity: 1 } } }
+        {
+          $push: {
+            products: {
+              prodId: { _id: pid },
+              quantity: 1,
+              price: product.price,
+            },
+          },
+        }
       );
     } else {
-       response = await cartModel.updateOne(
+      response = await cartModel.updateOne(
         {
           _id: cid,
           "products.prodId": pid,
         },
-        { $inc: { "products.$.quantity": 1 } }
+        {
+          $inc: { "products.$.quantity": 1 },
+          $set: {
+            "products.$.price":
+              product.price *
+              (cart.products.find((p) => p.prodId._id.toString() === pid)
+                .quantity +
+                1),
+          },
+        }
       );
     }
+    // Actualiza el precio total del carrito
+    await this.updateTotalPrice(cid);
+
     return response;
   }
 
   async deleteAll(cid) {
-      const response = await cartModel.updateOne(
+    const response = await cartModel.updateOne(
       { _id: cid },
-      { $set: { products: [] } }
+      { $set: { products: [], totalPrice: 0 } }
     );
     return response;
   }
@@ -51,6 +76,9 @@ export default class Cart {
         $pull: { products: { prodId: pid } },
       }
     );
+
+    await this.updateTotalPrice(cid);
+
     return result;
   }
 
@@ -59,23 +87,43 @@ export default class Cart {
       { _id: cid },
       { $set: { products: products } }
     );
+    await this.updateTotalPrice(cid);
     return result;
   }
 
   async update(cid, pid, quantity) {
     const update = await cartModel.updateOne(
       { _id: cid, "products.prodId": pid },
-      { $set: { "products.$.quantity": quantity } }
+      {
+        $set: {
+          "products.$.quantity": quantity,
+          "products.$.price": product.price * quantity,
+        },
+      }
     );
+    // Actualiza el precio total del carrito
+    await this.updateTotalPrice(cid);
     return update;
   }
-  async deleteCart(cid){
+  async deleteCart(cid) {
     return await cartModel.findByIdAndDelete(cid);
   }
-  async removeDeletedProducts(pid){
+  async removeDeletedProducts(pid) {
     return await cartModel.updateMany(
       { "products.prodId": pid },
       { $pull: { products: { prodId: pid } } }
+    );
+  }
+  async updateTotalPrice(cid) {
+    const cart = await cartModel.findById(cid).lean();
+
+    const totalPrice = cart.products.reduce((total, product) => {
+      return total + product.price; 
+    }, 0);
+
+    await cartModel.updateOne(
+      { _id: cid },
+      { $set: { totalPrice: totalPrice } }
     );
   }
 }
