@@ -92,6 +92,7 @@ export default class Cart {
   }
 
   async update(cid, pid, quantity) {
+    const product = await productModel.findById(pid);
     const update = await cartModel.updateOne(
       { _id: cid, "products.prodId": pid },
       {

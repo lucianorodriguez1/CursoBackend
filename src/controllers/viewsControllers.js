@@ -111,10 +111,12 @@ export const viewCartById = async (req, res) => {
   if (cartData.products.length > 0) {
     purchaseAvailable = true;
   }
+  //console.log(cartData)
   res.render("cart", {
     cartId: id,
     cart: cartData.products,
     purchaseAvailable: purchaseAvailable,
+    totalPrice:cartData.totalPrice
   });
 };
 

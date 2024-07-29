@@ -12,6 +12,7 @@
       {{this.prodId.stock}}</p>
     <p class="quantProd" data-quant="{{this.quantity}}">Quantity:
       {{this.quantity}}</p>
+    <p class="price">Precio: ${{this.price}}</p>
     <div>
       <button
         class="increaseQuanBtn"
@@ -32,6 +33,7 @@
 {{/each}}
 
 {{#if purchaseAvailable}}
+  <p id="totalPrice">Precio Total: ${{totalPrice}}</p>
   <button id="purchaseBtn">Realizar compra</button>
 {{else}}
   <p>No hay productos en el carrito</p>

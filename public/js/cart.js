@@ -65,7 +65,8 @@ document.querySelectorAll(".increaseQuanBtn").forEach((button) => {
             const quantProd = productDiv.querySelector(".quantProd");
             quantProd.textContent = `Quantity: ${quantityUpdate}`;
             quantProd.setAttribute("data-quant", quantityUpdate);
-
+            // loaded page
+            location.reload();
             if (quantityUpdate === stock) {
               button.disabled = true;
             }
@@ -120,6 +121,8 @@ document.querySelectorAll(".decreaseQuanBtn").forEach((button) => {
             const quantProd = productDiv.querySelector(".quantProd");
             quantProd.textContent = `Quantity: ${quantityUpdate}`;
             quantProd.setAttribute("data-quant", quantityUpdate);
+            // loaded page
+            location.reload();
             if (quantityUpdate === 1) {
               button.disabled = true;
             }
