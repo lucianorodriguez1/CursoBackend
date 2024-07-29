@@ -165,6 +165,7 @@ export const updateCartById = async (req, res) => {
     });
   }
 
+  // Check Cart
   const cart = await cartsRepository.getCartById(cid);
 
   if (!cart) {
@@ -181,6 +182,18 @@ export const updateCartById = async (req, res) => {
   const foundProductIds = foundProducts.map((product) =>
     product._id.toString()
   );
+
+  const nonExistentProducts = products.filter(
+    (product) => !foundProductIds.includes(product.prodId)
+  );
+  if (nonExistentProducts.length > 0) {
+    return res.status(400).json({
+      success: false,
+      cause: "Some products do not exist",
+      message: "The update was not performed",
+      nonExistentProducts,
+    });
+  }
 
   // VERIFY THAT THE REQUESTED QUANTITY DOES NOT EXCEED THE STOCK
   const productsWithInsufficientStock = [];
@@ -200,34 +213,10 @@ export const updateCartById = async (req, res) => {
   if (productsWithInsufficientStock.length > 0) {
     return res.status(400).json({
       success: false,
-      message: "Some products have insufficient stock",
+      message: "The update was not performed",
+      cause: "Some products have insufficient stock",
       productsWithInsufficientStock,
     });
-  }
-
-  const existentProducts = products.filter((product) =>
-    foundProductIds.includes(product.prodId)
-  );
-  const nonExistentProducts = products.filter(
-    (product) => !foundProductIds.includes(product.prodId)
-  );
-
-  if (nonExistentProducts.length > 0) {
-    if (existentProducts.length > 0) {
-      await cartsRepository.updateProductsCart(cid, existentProducts);
-      return res.status(207).json({
-        success: true,
-        message: "Some products were updated, but some products do not exist",
-        data: existentProducts,
-        nonExistentProducts,
-      });
-    } else {
-      return res.status(400).json({
-        success: false,
-        message: "None of the products exist",
-        nonExistentProducts,
-      });
-    }
   }
 
   const result = await cartsRepository.updateProductsCart(cid, products);
