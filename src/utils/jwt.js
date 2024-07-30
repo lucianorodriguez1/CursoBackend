@@ -12,6 +12,11 @@ export const generateAuthToken = (data) => {
   return token;
 };
 
+export const generateConfirmationRegisterUserToken = (data) => {
+  const token = jwt.sign( {data},config.tokenKey, { expiresIn: "10m" });
+  return token;
+};
+
 
 export const decodedToken = (token) =>{
   try {

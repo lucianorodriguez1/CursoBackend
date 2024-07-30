@@ -51,7 +51,7 @@ export const deleteUser = async (req, res) => {
   // Send notification email to deleted user
   try {
     await transport.sendMail({
-      from: `lucho rodri <${config.correoGmail}>`,
+      from: `E-commerce Coder <${config.correoGmail}>`,
       to: user.email,
       subject: "Usuario eliminado",
       html: `
@@ -266,7 +266,7 @@ export async function sendEmailToResetPassword(req, res) {
 
   const resetLink = `${config.AppUrl}:${config.port}/reestablecerContrasenia?token=${token}`;
   const result = await transport.sendMail({
-    from: `lucho rodri <${config.correoGmail}>`,
+    from: `E-commerce Coder <${config.correoGmail}>`,
     to: email,
     subject: "Reestablecer contraseña",
     html: `

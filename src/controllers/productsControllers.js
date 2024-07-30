@@ -124,7 +124,7 @@ export const deleteProductById = async (req, res) => {
   if (role == "premium" && email == product.owner) {
     const result = await productsRepository.deleteProductBy({ _id: id });
     await transport.sendMail({
-      from: `lucho rodri <${config.correoGmail}>`,
+      from: `E-commerce Coder <${config.correoGmail}>`,
       to: product.owner,
       subject: "producto eliminado",
       html: `
@@ -153,7 +153,7 @@ export const deleteProductById = async (req, res) => {
     // Verify if owners' product
     if (product.owner != "admin") {
       await transport.sendMail({
-        from: `lucho rodri <${config.correoGmail}>`,
+        from: `E-commerce Coder<${config.correoGmail}>`,
         to: product.owner,
         subject: "producto eliminado",
         html: `

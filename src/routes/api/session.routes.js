@@ -9,6 +9,7 @@ import { validateCreateRegister } from "../../utils/validator/register.js";
 const sessionRouter = Router();
 
 sessionRouter.post("/register", validateCreateRegister,sessions.register);
+sessionRouter.post('/verify-code', sessions.checkCodeRegister);
 sessionRouter.post("/login", validateCreateLogin,sessions.login);
 sessionRouter.get("/logout", passportCall("jwt"),sessions.logout);
 sessionRouter.get("/current", passportCall("jwt"), sessions.current);

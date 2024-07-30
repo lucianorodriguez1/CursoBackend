@@ -4,6 +4,124 @@ import { createHash, isValidPassword } from "../utils/bcrypt.js";
 import UserDTO from "../dao/dto/UserDto.js";
 import { cartsRepository, usersRepository } from "../repositories/index.js";
 import userModel from "../dao/mongo/models/userModel.js";
+import { transport } from "../utils/nodemailer.js";
+import verificationRegisterUserModel from "../dao/mongo/models/verificationRegisterUserModel.js";
+
+async function sendCodeConfirmationRegister(userData) {
+  const verificationCode = Math.floor(
+    100000 + Math.random() * 900000
+  ).toString();
+
+  const passwordHash = createHash(userData.password);
+
+  //create check user in db
+  await verificationRegisterUserModel.create({
+    email: userData.email,
+    code: verificationCode,
+    first_name: userData.first_name,
+    last_name: userData.last_name,
+    age: userData.age,
+    password: passwordHash,
+    createdAt: new Date(),
+  });
+
+  //send email to user
+  const result = await transport.sendMail({
+    from: `E-commerce Coder <${config.correoGmail}>`,
+    to: userData.email,
+    subject: "Confirmacion de email",
+    html: `
+          <div>
+             <p>Para completar el registro debes introducir el siguiente codigo</p>
+             <h2><strong>${verificationCode}</strong></h2>
+          </div>
+          `,
+    attachments: [],
+  });
+  return result;
+}
+
+export async function register(req, res) {
+  const { first_name, last_name, age, email, password } = req.body;
+
+  // Verify if exists user with email by body
+  let user = await usersRepository.getUserBy({ email: email });
+  if (user) {
+    return res
+      .status(404)
+      .json({ succes: false, message: "Email unavailable" });
+  }
+
+  await sendCodeConfirmationRegister({
+    first_name,
+    last_name,
+    age,
+    email,
+    password,
+  });
+
+  res.status(200).json({
+    message: "Enter the code that appears in the email",
+    data: {
+      emailSent: true,
+      intructions:
+        "A verification code has been sent to your email. Please check your inbox and enter the code here to complete your registration. If you don't see the email, check your spam folder or request a new code.",
+    },
+  });
+}
+
+export async function checkCodeRegister(req, res) {
+  const { email, code } = req.body;
+
+  console.log("email: ", email);//prueba
+  console.log("code: ", code);//prueba
+
+  const document = await verificationRegisterUserModel.findOne({
+    email: email,
+  });
+  console.log(document)//prueba
+
+  if (!document) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Verification code not found" });
+  }
+
+  // Comparar el código ingresado con el almacenado
+  if (document.code !== code) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid verification code" });
+  }
+
+  //eliminar el documento de verifiacion
+  await verificationRegisterUserModel.deleteOne({ email: email });
+
+  const cartObject = await cartsRepository.createCart();
+  const cartId = cartObject[0]._id;
+
+  const newUser = {
+    first_name: document.first_name,
+    last_name: document.last_name,
+    age: document.age,
+    email: document.email,
+    password: document.password,
+    cartId: cartId,
+  };
+
+  // Crear el usuario en la base de datos
+  await usersRepository.createUser(newUser);
+  const user = await usersRepository.getUserBy({ email: document.email });
+  await usersRepository.updateUserBy({ _id: user._id }, { isOnline: true });
+
+  const token = generateAuthToken(user);
+  res.cookie(config.tokenCookie, token, {
+    maxAge: 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
+  res.status(200).json({ success: true, message: "Registration complete" });
+}
 
 export async function login(req, res) {
   const { email, password } = req.body;
@@ -39,50 +157,6 @@ export async function login(req, res) {
     httpOnly: true,
   });
   res.status(200).json({ success: true, message: "Login correct" });
-}
-
-export async function register(req, res) {
-  const { first_name, last_name, age, email, password } = req.body;
-
-  // Verify if exists user with email by body
-  let user = await usersRepository.getUserBy({ email: email });
-  if (user) {
-    return res
-      .status(404)
-      .json({ succes: false, message: "User with email exists" });
-  }
-  /**
-   * IF USER NOT EXISTSS
-   *
-   *
-   */
-  // Hash password
-  const passwordHash = createHash(password);
-
-  // Create cart for User
-  const cartObject = await cartsRepository.createCart();
-  const cartId = cartObject[0]._id;
-
-  const newUser = {
-    first_name: first_name,
-    last_name: last_name,
-    age: age,
-    email: email,
-    password: passwordHash,
-    cartId: cartId,
-  };
-
-  //Create User
-  await usersRepository.createUser(newUser);
-  user = await usersRepository.getUserBy({ email: email });
-  await usersRepository.updateUserBy({ _id: user._id }, { isOnline: true });
-
-  const token = generateAuthToken(user);
-  res.cookie(config.tokenCookie, token, {
-    maxAgre: 60 * 60 * 1000,
-    httpOnly: true,
-  });
-  res.status(200).json({ success: true, message: "Register correct" });
 }
 
 export async function logout(req, res) {
@@ -142,7 +216,7 @@ async function seeTheLastConnectionsOfUsers() {
 export async function deleteInactives(req, res) {
   const now = new Date();
   const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
-  const dateDelete = 'two days ago'
+  const dateDelete = "two days ago";
 
   const result = await usersRepository.deleteMany({
     last_connection: { $lt: twoDaysAgo },
@@ -153,7 +227,6 @@ export async function deleteInactives(req, res) {
       success: true,
       data: result,
       message: `Deleted users: ${result.deletedCount}. With last connection more than ${dateDelete}`,
-      
     });
   } else {
     res.status(404).json({
