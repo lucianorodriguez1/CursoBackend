@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, reestablecerContrasenia, mandarEmail,notAvailable,createProduct, changeRole,userRegistrationCode} from '../controllers/viewsControllers.js';
+import { viewHome, viewProducts,viewProductById,viewCartById,viewRegister,viewLogin, viewProfile, resetPassword, sendEmailForgetPassword,notAvailable,createProduct, changeRole,userRegistrationCode} from '../controllers/viewsControllers.js';
 import { passportCallOptional, passportCallView } from '../middlewares/passportMiddleware.js';
 import { authorizationViewCreateProduct } from '../middlewares/authMiddleware.js';
 
@@ -12,8 +12,8 @@ viewsRouter.get("/profile",passportCallView("jwt"),viewProfile);
 viewsRouter.get("/products", passportCallOptional('jwt'),viewProducts);
 viewsRouter.get("/products/:pid", passportCallOptional("jwt"),viewProductById);
 viewsRouter.get("/carts/:cid", passportCallView('jwt'),viewCartById);
-viewsRouter.get("/reestablecerContrasenia",reestablecerContrasenia);
-viewsRouter.get("/mandarEmail",mandarEmail);
+viewsRouter.get("/resetPassword",resetPassword);
+viewsRouter.get("/sendEmailForgetPassword",sendEmailForgetPassword);
 viewsRouter.get("/not-available",notAvailable);
 viewsRouter.get("/createProduct",passportCallView('jwt'),authorizationViewCreateProduct('admin','premium'),createProduct);
 viewsRouter.get("/changeRole",changeRole);

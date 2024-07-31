@@ -254,7 +254,6 @@ export const uploadDocuments = async (req, res) => {
 
 export async function sendEmailToResetPassword(req, res) {
   const { email } = req.body;
-
   const user = await usersRepository.getUserBy({ email: email });
   if (!user) {
     return res.status(404).json({ succes: false, message: "User not found" });
@@ -264,7 +263,7 @@ export async function sendEmailToResetPassword(req, res) {
 
   // Send email !!  ----
 
-  const resetLink = `${config.AppUrl}:${config.port}/reestablecerContrasenia?token=${token}`;
+  const resetLink = `${config.AppUrl}:${config.port}/resetPassword?token=${token}`;
   const result = await transport.sendMail({
     from: `E-commerce Coder <${config.correoGmail}>`,
     to: email,

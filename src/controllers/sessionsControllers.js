@@ -12,6 +12,14 @@ async function sendCodeConfirmationRegister(userData) {
     100000 + Math.random() * 900000
   ).toString();
 
+  const checkVerifyIfExists = await verificationRegisterUserModel.findOne({
+    email: userData.email,
+  });
+
+  if (checkVerifyIfExists) {
+    await verificationRegisterUserModel.deleteOne({ email: userData.email });
+  }
+
   const passwordHash = createHash(userData.password);
 
   //create check user in db
@@ -71,11 +79,10 @@ export async function register(req, res) {
 }
 
 export async function checkCodeRegister(req, res) {
-  const {  code } = req.body;
-
+  const { code } = req.body;
 
   const document = await verificationRegisterUserModel.findOne({
-    code:code,
+    code: code,
   });
 
   if (!document) {

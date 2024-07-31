@@ -120,12 +120,12 @@ export const viewCartById = async (req, res) => {
   });
 };
 
-export const reestablecerContrasenia = (req, res) => {
-  res.render("reestablecerContrasenia", {});
+export const resetPassword = (req, res) => {
+  res.render("resetPassword", {});
 };
 
-export const mandarEmail = (req, res) => {
-  res.render("mandarEmail", {});
+export const sendEmailForgetPassword = (req, res) => {
+  res.render("sendEmailForgetPassword", {});
 };
 export const notAvailable = (req, res) => {
   res.render("not-available", {});

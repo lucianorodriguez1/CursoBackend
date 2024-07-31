@@ -22,7 +22,7 @@ document.getElementById('verification-form').addEventListener('submit', async fu
             messageElement.style.color = 'green';
             setTimeout(() => {
                 window.location.href = "/";
-            }, 3000); // 3000 milisegundos = 3 segundos
+            }, 3000); 
         } else {
             messageElement.textContent = data.message;
             messageElement.style.color = 'red';

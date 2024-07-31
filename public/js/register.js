@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const data = await response.json();
+      console.log(data)
       if (response.ok) {
         window.location.href = "/userRegistrationCode";
       } else {
