@@ -71,15 +71,12 @@ export async function register(req, res) {
 }
 
 export async function checkCodeRegister(req, res) {
-  const { email, code } = req.body;
+  const {  code } = req.body;
 
-  console.log("email: ", email);//prueba
-  console.log("code: ", code);//prueba
 
   const document = await verificationRegisterUserModel.findOne({
-    email: email,
+    code:code,
   });
-  console.log(document)//prueba
 
   if (!document) {
     return res
@@ -95,7 +92,7 @@ export async function checkCodeRegister(req, res) {
   }
 
   //eliminar el documento de verifiacion
-  await verificationRegisterUserModel.deleteOne({ email: email });
+  await verificationRegisterUserModel.deleteOne({ code: code });
 
   const cartObject = await cartsRepository.createCart();
   const cartId = cartObject[0]._id;

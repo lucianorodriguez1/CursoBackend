@@ -138,3 +138,7 @@ export const createProduct = (req, res) => {
 export const changeRole = (req, res) => {
   res.render("changeRole", {});
 };
+
+export const userRegistrationCode = (req,res)=>{
+  res.render("userRegistrationCode", {});
+}

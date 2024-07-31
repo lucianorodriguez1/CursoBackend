@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const data = await response.json();
       if (response.ok) {
-        window.location.href = "/";
+        window.location.href = "/userRegistrationCode";
       } else {
         let errorMsg;
         if (data.errors) {

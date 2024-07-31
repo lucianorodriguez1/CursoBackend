@@ -51,10 +51,7 @@ Instrucciones para instalar y configurar el proyecto localmente.
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/nombre-del-proyecto.git
-
-# Navegar al directorio del proyecto
-cd nombre-del-proyecto
+git clone https://github.com/lucianorodriguez1/CursoBackend.git
 
 # Instalar las dependencias
 npm install
