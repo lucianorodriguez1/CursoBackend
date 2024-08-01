@@ -46,7 +46,7 @@ export const viewProducts = async (req, res) => {
   const appUrl =
     environment === "development"
       ? `${config.AppUrl}:${config.port}`
-      : `${config.AppUrl}`;
+      : ``;
 
   let { limit = 10, page = 1, sort, query } = req.query;
 
