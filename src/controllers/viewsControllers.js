@@ -49,6 +49,8 @@ export const viewProducts = async (req, res) => {
       : ``;
 
   let { limit = 10, page = 1, sort, query } = req.query;
+  page = parseInt(page);
+  console.log("Type page variable: ",typeof page);
 
   let usernameUser;
   let admin;
