@@ -193,15 +193,23 @@ export const uploadDocuments = async (req, res) => {
   const files = req.files;
   const email = req.user.data.email;
   const role = req.user.data.role;
+  const idUserCurrent = req.user.data._id; 
+
+  if (idUserCurrent != userId) {
+    return res.status(403).json({
+      succes: false,
+      message: "You do not have permission to upload couments",
+    });
+  }
 
   if (!files || Object.keys(files).length === 0) {
     return res.status(400).send({ message: "No files were uploaded." });
   }
-
+  
   const user = await usersRepository.getUserBy({ _id: userId });
 
   if (!user) {
-    res.status(404).json({ succes: false, message: "User not found" });
+    return res.status(404).json({ succes: false, message: "User not found" });
   }
 
   const existingDocuments = user.documents || [];

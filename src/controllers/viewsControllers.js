@@ -50,7 +50,6 @@ export const viewProducts = async (req, res) => {
 
   let { limit = 10, page = 1, sort, query } = req.query;
   page = parseInt(page);
-  console.log("Type page variable: ",typeof page);
 
   let usernameUser;
   let admin;
@@ -116,7 +115,6 @@ export const viewCartById = async (req, res) => {
   if (cartData.products.length > 0) {
     purchaseAvailable = true;
   }
-  //console.log(cartData)
   res.render("cart", {
     cartId: id,
     cart: cartData.products,
