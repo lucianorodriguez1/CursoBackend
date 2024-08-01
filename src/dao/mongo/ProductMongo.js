@@ -7,7 +7,10 @@ export default class Product {
   constructor() {}
 
   async get(limit, page, sort, query) {
-    const appUrl = environment === 'development'? `${config.AppUrl}:${config.port}`:`${config.AppUrl}`
+    const appUrl =
+      environment === "development"
+        ? `${config.AppUrl}:${config.port}`
+        : `${config.AppUrl}`;
 
     limit = !limit ? 10 : parseInt(limit);
     page = !page ? 1 : parseInt(page);
@@ -26,14 +29,10 @@ export default class Product {
 
     const paginate = await productModel.paginate(query, options);
     const prevPageLink = paginate.hasPrevPage
-      ? `${appUrl}/api/products?limit=${limit}&page=${
-          page - 1
-        }&sort=${sort}`
+      ? `${appUrl}/api/products?limit=${limit}&page=${page - 1}&sort=${sort}`
       : null;
     const nextPageLink = paginate.hasNextPage
-      ? `${appUrl}/api/products?limit=${limit}&page=${
-          page + 1
-        }&sort=${sort}`
+      ? `${appUrl}/api/products?limit=${limit}&page=${page + 1}&sort=${sort}`
       : null;
     const response = {
       data: paginate.docs,

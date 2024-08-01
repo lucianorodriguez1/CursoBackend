@@ -1,3 +1,4 @@
+import config from "../config/config.js";
 import { productsRepository, cartsRepository } from "../repositories/index.js";
 
 export const viewHome = (req, res) => {
@@ -39,7 +40,14 @@ export const viewProfile = (req, res) => {
   });
 };
 
+const environment = config.environment;
+
 export const viewProducts = async (req, res) => {
+  const appUrl =
+    environment === "development"
+      ? `${config.AppUrl}:${config.port}`
+      : `${config.AppUrl}`;
+
   let { limit = 10, page = 1, sort, query } = req.query;
 
   let usernameUser;
@@ -57,24 +65,19 @@ export const viewProducts = async (req, res) => {
     query
   );
 
-  const {
-    data,
-    hasNextPage,
-    hasPrevPage,
-  } = response;
+  const { data, hasNextPage, hasPrevPage } = response;
 
   const products = data.map((doc) => doc.toObject());
 
-  
   const nextPageLink = hasNextPage
-    ? `http://localhost:8080/products?limit=${limit}&page=${
-          page + 1
-        }&sort=${sort}` 
+    ? `${appUrl}/products?limit=${limit}&page=${
+        page + 1
+      }&sort=${sort}`
     : null;
   const prevPageLink = hasPrevPage
-    ? `http://localhost:8080/products?limit=${limit}&page=${
-          page - 1
-        }&sort=${sort}` 
+    ? `${appUrl}/products?limit=${limit}&page=${
+        page - 1
+      }&sort=${sort}`
     : null;
 
   res.render("products", {
@@ -116,7 +119,7 @@ export const viewCartById = async (req, res) => {
     cartId: id,
     cart: cartData.products,
     purchaseAvailable: purchaseAvailable,
-    totalPrice:cartData.totalPrice
+    totalPrice: cartData.totalPrice,
   });
 };
 
@@ -139,6 +142,6 @@ export const changeRole = (req, res) => {
   res.render("changeRole", {});
 };
 
-export const userRegistrationCode = (req,res)=>{
+export const userRegistrationCode = (req, res) => {
   res.render("userRegistrationCode", {});
-}
+};
