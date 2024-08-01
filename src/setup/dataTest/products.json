@@ -1,0 +1,106 @@
+[
+    {
+        "title": "Smartphone X10",
+        "description": "Smartphone con pantalla de 6.5 pulgadas y cámara de 48 MP.",
+        "price": 780,
+        "stock": 25,
+        "category": "Electronics",
+        "code": "SPX10"
+    },
+    {
+        "title": "Laptop ProBook 15",
+        "description": "Laptop de 15.6 pulgadas con procesador i7 y 16GB de RAM.",
+        "price": 1199.99,
+        "stock": 10,
+        "category": "Electronics",
+        "code": "LPB15"
+    },
+    {
+        "title": "Auriculares Bluetooth",
+        "description": "Auriculares inalámbricos con cancelación de ruido.",
+        "price": 149.99,
+        "stock": 50,
+        "category": "Accessories",
+        "code": "AB2023"
+    },
+    {
+        "title": "Cámara DSLR Alpha",
+        "description": "Cámara DSLR con lente de 18-55 mm y 24.2 MP.",
+        "price": 699.99,
+        "stock": 15,
+        "category": "Electronics",
+        "code": "DSA-455"
+    },
+    {
+        "title": "Reloj Deportivo GPS",
+        "description": "Reloj inteligente con GPS integrado y monitor de ritmo cardíaco.",
+        "price": 199.99,
+        "stock": 30,
+        "category": "Accessories",
+        "code": "RD-GPS01"
+    },
+    {
+        "title": "Tablet Galaxy Tab S7",
+        "description": "Tablet de 11 pulgadas con procesador Snapdragon y 128GB de almacenamiento.",
+        "price": 649.99,
+        "stock": 20,
+        "category": "Electronics",
+        "code": "TGT-S7"
+    },
+    {
+        "title": "Teclado Mecánico RGB",
+        "description": "Teclado mecánico con retroiluminación RGB y switches Cherry MX.",
+        "price": 129.99,
+        "stock": 40,
+        "category": "Accessories",
+        "code": "TMRGB"
+    },
+    {
+        "title": "Monitor UltraWide 34\"",
+        "description": "Monitor curvo de 34 pulgadas con resolución 3440x1440.",
+        "price": 499.99,
+        "stock": 12,
+        "category": "Electronics",
+        "code": "MUW34"
+    },
+    {
+        "title": "Altavoces Bluetooth",
+        "description": "Altavoces inalámbricos con sonido estéreo y batería de larga duración.",
+        "price": 89.99,
+        "stock": 60,
+        "category": "Accessories",
+        "code": "AB-SD2024"
+    },
+    {
+        "title": "Cámara de Seguridad WiFi",
+        "description": "Cámara de seguridad con conexión WiFi y visión nocturna.",
+        "price": 89.99,
+        "stock": 35,
+        "category": "Home",
+        "code": "CSW-2023"
+    },
+    {
+        "title": "Impresora Multifuncional",
+        "description": "Impresora láser con funciones de copia, escaneo y fax.",
+        "price": 299.99,
+        "stock": 18,
+        "category": "Electronics",
+        "code": "IMPFX300"
+    },
+    {
+        "title": "Silla Gaming Ergónomica",
+        "description": "Silla de juego con soporte lumbar y reposabrazos ajustables.",
+        "price": 229.99,
+        "stock": 22,
+        "category": "Furniture",
+        "code": "SGE-2024"
+    },
+    {
+        "title": "Soporte para Monitor",
+        "description": "Soporte ajustable para monitor con altura regulable y base estable.",
+        "price": 59.99,
+        "stock": 45,
+        "category": "Accessories",
+        "code": "SM-2024"
+    }
+]

@@ -16,10 +16,8 @@ document.getElementById('verification-form').addEventListener('submit', async fu
         });
 
         const data = await response.json();
-        
         if (response.ok) {
-            messageElement.textContent = data.message;
-            messageElement.style.color = 'green';
+            messageElement.innerHTML = `<span style="color: green;"><br>Registro completo. Por favor, espere...</span>`;
             setTimeout(() => {
                 window.location.href = "/";
             }, 3000); 
