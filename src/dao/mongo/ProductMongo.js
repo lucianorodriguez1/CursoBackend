@@ -1,9 +1,14 @@
+import config from "../../config/config.js";
 import productModel from "./models/productModel.js";
+
+const environment = config.environment;
 
 export default class Product {
   constructor() {}
 
   async get(limit, page, sort, query) {
+    const appUrl = environment === 'development'? `${config.AppUrl}:${config.port}`:`${config.AppUrl}`
+
     limit = !limit ? 10 : parseInt(limit);
     page = !page ? 1 : parseInt(page);
     query = !query ? {} : { title: query };
@@ -20,18 +25,16 @@ export default class Product {
     }
 
     const paginate = await productModel.paginate(query, options);
-    
     const prevPageLink = paginate.hasPrevPage
-      ? `http://localhost:8080/api/products?limit=${limit}&page=${
+      ? `${appUrl}/api/products?limit=${limit}&page=${
           page - 1
         }&sort=${sort}`
       : null;
     const nextPageLink = paginate.hasNextPage
-      ? `http://localhost:8080/api/products?limit=${limit}&page=${
+      ? `${appUrl}/api/products?limit=${limit}&page=${
           page + 1
         }&sort=${sort}`
       : null;
-
     const response = {
       data: paginate.docs,
       totalDocs: paginate.totalDocs,

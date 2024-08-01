@@ -18,7 +18,7 @@ emailForm.addEventListener("submit", async (e) => {
       alert("Se envio un correo al email ingresado. Verificalo.");
       location.reload();
     } else {
-      alert("Ocurrio un error inesperado");
+      alert("No se pudo mandar el correo.");
       location.reload();
     }
   } catch (error) {

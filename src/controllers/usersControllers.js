@@ -252,7 +252,11 @@ export const uploadDocuments = async (req, res) => {
   }
 };
 
+const environment = config.environment;
+
 export async function sendEmailToResetPassword(req, res) {
+  const appUrl = environment === 'development'? `${config.AppUrl}:${config.port}`:`${config.AppUrl}`
+
   const { email } = req.body;
   const user = await usersRepository.getUserBy({ email: email });
   if (!user) {
@@ -263,7 +267,7 @@ export async function sendEmailToResetPassword(req, res) {
 
   // Send email !!  ----
 
-  const resetLink = `${config.AppUrl}:${config.port}/resetPassword?token=${token}`;
+  const resetLink = `${appUrl}/resetPassword?token=${token}`;
   const result = await transport.sendMail({
     from: `E-commerce Coder <${config.correoGmail}>`,
     to: email,

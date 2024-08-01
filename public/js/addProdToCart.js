@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Mapa de traducción para los mensajes de error
+  const errorMessages = {
+    'You cannot add your own products to your cart': 'No puedes agregar tus propios productos a tu carrito',
+  };
+
+
   let addToCartBtn = document.getElementById("addToCartBtn");
   if (addToCartBtn) {
     addToCartBtn.addEventListener("click", async () => {
@@ -31,10 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           const dataAdd = await responseAdd.json();
-
           if (!responseAdd.ok) {
-            throw new Error(dataAdd.name || "Error al agregar el producto");
-          }
+            const errorMessage = dataAdd.message || "Error al agregar el producto";
+            // Traduce el mensaje de error
+            const translatedMessage = errorMessages[errorMessage] || errorMessage;
+            throw new Error(translatedMessage);          }
           alert("Producto agregado al carrito correctamente");
         }
       } catch (error) {
